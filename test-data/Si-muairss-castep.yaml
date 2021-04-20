@@ -1,0 +1,13 @@
+poisson_r: 0.8
+name: si
+charged: true
+geom_steps: 300
+vdw_scale: 0.25
+calculator: castep
+geom_force_tol: 0.05
+out_folder: si-muon-airss-out
+
+uep_gw_factor: 4.0
+uep_chden: si.den_fmt
+clustering_method: hier
+clustering_hier_t: 0.2

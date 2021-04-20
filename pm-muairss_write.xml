@@ -1,0 +1,44 @@
+<tool id="pm-muairss_write" name="Generate muon structures (pm-muairss)" version="0.1.0" python_template_version="3.5">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        cp $structure input.$structure.ext &&
+        cp $params params.yaml &&
+        pm-muairss -t w input.cell params.yaml &&
+        zip -r $out_folder $out_folder && find $out_folder > tree.txt
+    ]]></command>
+    <inputs>
+        <param type="data" name="structure" format="cell" />
+        <param type="data" name="params" format="yaml" />
+        <param type="text" name="out_folder"/>
+    </inputs>
+    <outputs>
+        <data name="out_zip" format="zip" from_work_dir="$out_folder"/>
+        <data name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="params" value="Si-muairss-castep.yaml" ftype="txt"/>
+            <param name="out_folder" value="si-muon-airss-out"/>
+            <!--<output name="out_zip" file="si-muon-airss-out.zip" ftype="zip" compare="contains"/>-->
+            <output name="file_tree" file="tree.txt" ftype="txt"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: pm-muairss [-h] [-t {r,w}] structures parameter_file
+        pm-muairss: error: the following arguments are required: structures, parameter_file
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{github,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
+}</citation>
+    </citations>
+</tool>
