@@ -1,4 +1,4 @@
-<tool id="pm-muairss-write" name="Generate muon structures (pm-muairss)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_muairss_write" name="Generate muon structures (pm-muairss)" version="0.1.0" python_template_version="3.5">
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
