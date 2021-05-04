@@ -2,6 +2,7 @@
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
+        pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite ) &&
         cp $structure input.cell &&
         cp $params params.yaml &&
         pm-muairss -t w input.cell params.yaml &&
