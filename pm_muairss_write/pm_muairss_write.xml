@@ -2,7 +2,7 @@
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite ) &&
+        pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         cp $structure input.cell &&
         cp $params params.yaml &&
         pm-muairss -t w input.cell params.yaml &&
@@ -24,20 +24,20 @@
             <param name="params" value="Si-muairss-castep.yaml" ftype="txt"/>
             <param name="out_folder" value="si-muon-airss-out"/>
             <output name="out_zip" file="si-muon-airss-out.zip" ftype="zip" compare="sim_size" delta_frac="0.1"/>
-            <output name="file_tree" file="tree.txt" ftype="txt"/>
+            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="350"/>
         </test>
     </tests>
     <help><![CDATA[
         usage: pm-muairss [-h] [-t {r,w}] structures parameter_file
-        pm-muairss: error: the following arguments are required: structures, parameter_file
 
+        Given an input structure, generates a set of structures with a muon added in a random location.
     ]]></help>
     <citations>
         <citation type="bibtex">
 @misc{github,
-  author = {LastTODO, FirstTODO},
-  year = {TODO},
-  title = {},
+  author = {Muon Spectroscopy Computational Project},
+  year = {2021},
+  title = {pymuon-suite},
   publisher = {GitHub},
   journal = {GitHub repository},
   url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
