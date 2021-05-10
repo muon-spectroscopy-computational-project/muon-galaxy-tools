@@ -6,20 +6,20 @@ These tools are developed using [Planemo](https://github.com/galaxyproject/plane
 
 Create a virtualenv and install Planemo:
 ```bash
-virtualenv .venv
-. .venv/bin/activate
-pip install planemo
+$ virtualenv .venv
+$ . .venv/bin/activate
+$ pip install planemo
 ```
 
 Clone this repository, then go into the `muon-galaxy-tools` folder.
 
 To run the tools:
 ```bash
-planemo serve
+$ planemo serve
 ```
 To test the tools:
 ```bash
-planemo test
+$ planemo test
 ```
 
 ## Contributing
