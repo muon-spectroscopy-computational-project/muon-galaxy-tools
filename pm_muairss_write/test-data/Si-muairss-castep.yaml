@@ -1,4 +1,4 @@
-poisson_r: 0.8
+poisson_r: 1.18
 name: si
 charged: true
 geom_steps: 300
