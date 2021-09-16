@@ -6,17 +6,16 @@
         cp $structure input.cell &&
         cp $params params.yaml &&
         pm-muairss -t w input.cell params.yaml &&
-        out_folder="`python ${__tool_directory__}/../get_out_folder.py`" &&
-        zip -r out_zip.zip \$out_folder &&
-        find \$out_folder > tree.txt
+        zip -r out_zip.zip $out_folder &&
+        find $out_folder > tree.txt
     ]]></command>
     <inputs>
         <param type="data" name="structure" format="cell" />
         <param type="data" name="params" format="yaml" />
-        
+        <param type="text" name="out_folder"/>
     </inputs>
     <outputs>
-        <data label="muonated" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="$out_folder" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>
         <data label="file tree for testing" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true"/>
     </outputs>
     <tests>
