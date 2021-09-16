@@ -7,7 +7,7 @@
         cp $params params.yaml &&
         pm-muairss -t w input.cell params.yaml &&
         out_folder="`python ${__tool_directory__}/../get_out_folder.py`" &&
-        zip -r out_zip.zip \$out_folder &&
+        zip -r out_zip.zip \$out_folder params.yaml &&
         find \$out_folder > tree.txt
     ]]></command>
     <inputs>

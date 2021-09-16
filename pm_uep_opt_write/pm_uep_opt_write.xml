@@ -9,14 +9,12 @@
         out_folder="`python ${__tool_directory__}/../get_out_folder.py`" &&
         python ${__tool_directory__}/torelative.py \$out_folder &&
         bash ${__tool_directory__}/run.sh \$out_folder &&
-        zip -r out_zip.zip \$out_folder *_clusters* &&
+        zip -r out_zip.zip \$out_folder *_clusters* param.yaml &&
         find \$out_folder > tree.txt
     ]]></command>
     <inputs>
         <param type="data" name="folder" format="zip" />
         <param type="data" name="fmt" format="den_fmt" />
-        <param type="data" name="structure" format="cell" />
-        <param type="data" name="param" format="data" />
         <param type="data" name="castep" format="castep" />
     </inputs>
     <outputs>
@@ -25,14 +23,9 @@
     </outputs>
     <tests>
         <test>
-            <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="folder" value="Si-in.zip" ftype='zip'/>
-            <param name="params" value="Si-muairss-castep.yaml" ftype="txt"/>
-            <param name="out_folder" value="Si-out"/>
             <param name="fmt" value="Si.den_fmt" ftype="txt"/>
             <param name="castep" value="Si.castep" ftype="txt"/>
-            <output name="out_cluster" file="$out_folder/*clusters.txt" ftype="txt" compare="sim_size" delta_frac="0.1"/>
-            <output name="out_cluster_dat" file="$out_folder/*clusters.dat" ftype="dat" compare="sim_size" delta_frac="0.1"/>
             <output name="out_zip" file="out_zip.zip" ftype="zip" compare="sim_size" delta_frac="0.1"/>
             <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="350"/>
         </test>
