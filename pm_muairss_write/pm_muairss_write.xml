@@ -22,7 +22,7 @@
         <test>
             <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="params" value="Si-muairss-castep.yaml" ftype="txt"/>
-            <output name="out_zip" file="muonated.zip" ftype="zip" compare="sim_size" delta_frac="0.3"/>
+            <output name="out_zip" file="muonated.zip" ftype="zip" compare="sim_size" delta_frac="0.5"/>
             <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="350"/>
         </test>
     </tests>
