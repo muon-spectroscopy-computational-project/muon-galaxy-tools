@@ -15,14 +15,14 @@
     <outputs>
         <data label="cluster-out" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>
         <data label="clusters" name="out_cluster" format="txt" from_work_dir="$out_folder/*clusters.txt"/>
-        <data label="clusters_dat" name="out_cluster_dat" format="dat" from_work_dir="$out_folder/*clusters.dat"/>
+        <data label="clusters_dat" name="out_cluster_dat" format="txt" from_work_dir="$out_folder/*clusters.dat"/>
     </outputs>
     <tests>
         <test>
             <param name="folder" value="uep-out.zip" ftype='zip'/>
             <output name="out_zip" file="cluster-out.zip" ftype="zip" compare="sim_size" delta_frac="0.1"/>
             <output name="out_cluster" file="clusters.txt" ftype="txt" compare="sim_size" delta_frac="0.01"/>
-            <output name="out_cluster_dat" file="clusters_dat.dat" ftype="dat" compare="sim_size" delta_frac="0.001"/>
+            <output name="out_cluster_dat" file="clusters_dat.dat" ftype="txt" compare="sim_size" delta_frac="0.001"/>
         </test>
     </tests>
     <help><![CDATA[
