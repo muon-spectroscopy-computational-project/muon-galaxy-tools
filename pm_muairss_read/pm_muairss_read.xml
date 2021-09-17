@@ -4,33 +4,25 @@
     <command detect_errors="exit_code"><![CDATA[
         pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $folder &&
-        cp $structure structure.cell &&
-        cp $param param_read.yaml &&
-        out_folder="`python ${__tool_directory__}/../get_out_folder.py`" &&
-        pm-muairss -t r structure.cell param_read.yaml && 
-        zip -r out_zip.zip \$out_folder *_clusters* param.yaml &&
+        out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
+        pm-muairss -t r input.cell params.yaml && 
+        zip -r out_zip.zip \$out_folder *_clusters* param.yaml input.cell &&
         find \$out_folder > tree.txt
     ]]></command>
     <inputs>
         <param type="data" name="folder" format="zip" />
-        <param type="data" name="structure" format="cell" />
-        <param type="data" name="param" format="data" />
     </inputs>
     <outputs>
         <data label="cluster-out" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>
         <data label="clusters" name="out_cluster" format="txt" from_work_dir="$out_folder/*clusters.txt"/>
         <data label="clusters_dat" name="out_cluster_dat" format="dat" from_work_dir="$out_folder/*clusters.dat"/>
-        <data label="file tree for testing" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true"/>
     </outputs>
     <tests>
         <test>
-            <param name="structure" value="Si.cell" ftype="txt"/>
-            <param name="folder" value="Si-in.zip" ftype='zip'/>
-            <param name="params" value="Si-muairss-castep.yaml" ftype="txt"/>
-            <output name="out_zip" file="out_zip.zip" ftype="zip" compare="sim_size" delta_frac="0.1"/>
-            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="350"/>
-            <output name="out_cluster" file="$out_folder/*clusters.txt" ftype="zip" compare="sim_size" delta_frac="0.1"/>
-            <output name="out_cluster_dat" file="$out_folder/*clusters.dat" ftype="zip" compare="sim_size" delta_frac="0.1"/>
+            <param name="folder" value="uep-out.zip" ftype='zip'/>
+            <output name="out_zip" file="cluster-out.zip" ftype="zip" compare="sim_size" delta_frac="0.1"/>
+            <output name="out_cluster" file="clusters.txt" ftype="txt" compare="sim_size" delta_frac="0.01"/>
+            <output name="out_cluster_dat" file="clusters_dat.dat" ftype="dat" compare="sim_size" delta_frac="0.001"/>
         </test>
     </tests>
     <help><![CDATA[

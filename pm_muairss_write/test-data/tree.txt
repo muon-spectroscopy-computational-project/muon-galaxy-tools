@@ -36,10 +36,4 @@ si-muon-airss-out/castep/si_11/si_11.param
 si-muon-airss-out/castep/si_12
 si-muon-airss-out/castep/si_12/si_12.cell
 si-muon-airss-out/castep/si_12/si_12.param
-si-muon-airss-out/castep/si_13
-si-muon-airss-out/castep/si_13/si_13.cell
-si-muon-airss-out/castep/si_13/si_13.param
-si-muon-airss-out/castep/si_14
-si-muon-airss-out/castep/si_14/si_14.cell
-si-muon-airss-out/castep/si_14/si_14.param
 si-muon-airss-out/castep/.collection
