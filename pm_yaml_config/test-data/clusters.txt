@@ -1,0 +1,73 @@
+
+****************************
+|                          |
+|       PYMUON-SUITE       |
+|  MuAirss Clusters report |
+|                          |
+****************************
+
+Name: si
+Date: 2021-09-16 15:16:14.755024
+Structure file(s): input.cell
+Parameter file: params.yaml
+
+Clustering method: Hierarchical
+    t = 0.2
+
+
+*******************
+
+Clusters for si:
+CALCULATOR: uep
+	2 clusters found
+
+
+	-----------
+	Cluster 1
+	-----------
+	Structures: 40
+
+	Energy (eV):
+	Minimum		Average		StDev
+	-8.49		-8.49		0.00
+
+	Minimum energy structure: si_28
+
+
+	Structure list:
+	si_1	si_3	si_4	si_5	
+	si_6	si_7	si_9	si_10	
+	si_11	si_12	si_13	si_14	
+	si_15	si_16	si_17	si_18	
+	si_19	si_20	si_21	si_22	
+	si_24	si_25	si_27	si_28	
+	si_29	si_30	si_31	si_32	
+	si_33	si_34	si_35	si_36	
+	si_37	si_38	si_39	si_40	
+	si_41	si_42	si_43	si_44	
+
+	-----------
+	Cluster 2
+	-----------
+	Structures: 4
+
+	Energy (eV):
+	Minimum		Average		StDev
+	-8.43		-8.43		0.00
+
+	Minimum energy structure: si_8
+
+
+	Structure list:
+	si_2	si_8	si_23	si_26	
+
+	----------
+
+	Similarity (ranked):
+	1 <--> 2 (distance = 0.200)
+
+--------------------------
+
+
+==========================
+

@@ -1,0 +1,52 @@
+<tool id="pm_yaml_config" name="Creates yaml for pm_muairs" version="0.1.0" python_template_version="3.5">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        printf "poisson_r: $poisson_r \nname: $struct_name \ncharged: $charged \ngeom_steps: $geom_steps \nvdw_scale: $vdw_scale \ncalculator: $calculator \nuep_gw_factor: $uep_gw_factor \nuep_chden: $uep_chden \ngeom_force_tol: $geom_force_tol \nclustering_method: $clustering_method \nclustering_hier_t: $clustering_hier_t \nout_folder: $out_folder \n">outputx.yaml &&
+        ln -s outputx.yaml output.yaml
+    ]]></command>
+    <inputs>
+        <param type="float" name="poisson_r" value="0.8" label="poisson_r"/>
+        <param type="text" name="struct_name" />
+        <param type="select" name="charged" value="true">
+            <option value="true">true</option>
+            <option value="false">false</option>
+        </param>
+        <param type="integer" name="geom_steps" value="300" label="geom_steps"/>
+        <param type="float" name="vdw_scale" value="0.25" label="vdw_scale"/>
+        <param type="select" name="calculator" value="uep">
+            <option value="uep">uep</option>
+            <option value="castep">castep</option>
+        </param>
+        <param type="float" name="geom_force_tol" value="0.05" label="geom_force_tol"/>
+        <param type="text" name="out_folder" />
+        <param type="float" name="uep_gw_factor" value="4.0" label="uep_gw_factor"/>
+        <param type="text" name="uep_chden" />
+        <param type="text" name="clustering_method" />
+        <param type="float" name="clustering_hier_t" value="0.2" label="clustering_hier_t"/>
+    </inputs>
+    <outputs>
+        <data label="configuration" name="out_yaml" format="txt" from_work_dir="output.yaml"/>
+    </outputs>
+    <tests>
+        <test>
+            
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: pm-muairss [-h] [-t {r,w}] structures parameter_file
+
+        Given an input structure, generates a set of structures with a muon added in a random location.
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{github,
+  author = {Muon Spectroscopy Computational Project},
+  year = {2021},
+  title = {pymuon-suite},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
+}</citation>
+    </citations>
+</tool>
