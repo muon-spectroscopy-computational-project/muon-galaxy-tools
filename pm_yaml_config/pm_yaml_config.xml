@@ -16,49 +16,49 @@
         ln -s outputx.yaml output.yaml
     ]]></command>
     <inputs>
-        <param type="float" name="poisson_r" value="0.8" label="poisson_r"/>
-        <param type="text" name="struct_name" />
-        <param type="select" name="charged" value="true">
+        <param type="float" name="poisson_r" value="0.8" label="poisson radius" help=" Poisson sphere radius to use for random generation. No two starting muon positions will be closer than this distance. Smaller values make for bigger structure sets."/>
+        <param type="text" name="struct_name" label="name" help="name to call the folder for containing each structure. This name will be postfixed with a unique number, e.g. struct_001."/>
+        <param type="select" name="charged" label="charged muon" value="true" help="if True, the muon will be considered charged instead of a muonium with an accompanying electron. Must be True for UEP calculations.">
             <option value="true">true</option>
             <option value="false">false</option>
         </param>
-        <param type="integer" name="geom_steps" value="300" label="geom_steps"/>
-        <param type="float" name="vdw_scale" value="0.25" label="vdw_scale"/>
-        <param type="text" name="out_folder" />
-        <param type="float" name="geom_force_tol" value="0.05" label="geom_force_tol"/>
+        <param type="integer" name="geom_steps" value="300" label="geometry optimization steps" help="maximum number of geometry optimisation steps."/>
+        <param type="float" name="vdw_scale" value="0.25" label="Van der Waal scale" help="Van der Waals scaling factor to use when generating muon sites to avoid existing atoms. Smaller values will allow muons to get closer to the other ions."/>
+        <param type="text" name="out_folder" label="output folder name" help="name to call the output folder used to store the input files that the script generates."/>
+        <param type="float" name="geom_force_tol" value="0.05" label="geometry optimization tolerance" help="tolerance on geometry optimisation in units of eV/AA."/>
         <conditional name="calculator_cond">
-            <param type="select" name="calculator" value="uep">
+            <param type="select" name="calculator" value="uep" help="calculator to generate structure files for. Must be a single word or a comma seperated list of values. Currently supported calculators are CASTEP, DFTB+ and UEP. Can also pass all as an option to generate files for all calculators.">
                 <option value="uep">uep</option>
                 <option value="castep">castep</option>
                 <option value="dftb">dftb</option>
                 <option value="all">all</option>
             </param>
             <when value="uep">
-                <param type="float" name="uep_gw_factor" value="4.0" label="uep_gw_factor"/>
-                <param type="text" name="uep_chden" />
+                <param type="float" name="uep_gw_factor" value="4.0" label="gaussian witdh factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
+                <param type="text" name="uep_chden" label="path to .den_fmt and castep files" help="path to the .den_fmt file containing the electronic density for an Unperturbed Electrostatic Potential optimisation. The corresponding .castep file must be in the same folder and with the same seedname."/>
             </when>
             <when value="castep">
-                <param type="text" name="castep_command" />
-                <param type="text" name="castep_param" />
-                <param type="text" name="mu_symbol" />
+                <param type="text" name="castep_command" label="castep command" help="command to use to run CASTEP."/>
+                <param type="text" name="castep_param" label="PARAM path" help="file path to the CASTEP parameter file."/>
+                <param type="text" name="mu_symbol" label="mu symbol" help="the symbol to use for the muon when writing out the castep custom species." />
             </when>
             <when value="dftb">
-                <param type="text" name="dftb_set" />
-                <param type="text" name="dftb_optionals" />
-                <param type="select" name="dftb_pbc" value="true">
+                <param type="text" name="dftb_set" label="dftb set" help="the parameter set to use for DFTB+. Currently supported are 3ob-3-1 and pbc-0-3. For more information see (the DFTB site)[http://www.dftb.org/parameters/]."/>
+                <param type="text" name="dftb_optionals" label="dftb optionals" help="additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
+                <param type="select" name="dftb_pbc" value="true" label="dftp pbc" help="whether to turn on periodic boundary conditions in DFTB+.">
                     <option value="true">true</option>
                     <option value="false">false</option>
                 </param>
             </when>
             <when value="all">
-                <param type="float" name="uep_gw_factor" value="4.0" label="uep_gw_factor"/>
-                <param type="text" name="uep_chden" />
-                <param type="text" name="castep_command" />
-                <param type="text" name="castep_param" />
-                <param type="text" name="mu_symbol" />
-                <param type="text" name="dftb_set" />
-                <param type="text" name="dftb_optionals" />
-                <param type="select" name="dftb_pbc" value="true">
+                <param type="float" name="uep_gw_factor" value="4.0" label="gaussian witdh factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
+                <param type="text" name="uep_chden" label="path to .den_fmt and castep files" help="path to the .den_fmt file containing the electronic density for an Unperturbed Electrostatic Potential optimisation. The corresponding .castep file must be in the same folder and with the same seedname."/>
+                <param type="text" name="castep_command" label="castep command" help="command to use to run CASTEP."/>
+                <param type="text" name="castep_param" label="PARAM path" help="file path to the CASTEP parameter file."/>
+                <param type="text" name="mu_symbol" label="mu symbol" help="the symbol to use for the muon when writing out the castep custom species." />
+                <param type="text" name="dftb_set" label="dftb set" help="the parameter set to use for DFTB+. Currently supported are 3ob-3-1 and pbc-0-3. For more information see (the DFTB site)[http://www.dftb.org/parameters/]."/>
+                <param type="text" name="dftb_optionals" label="dftb optionals" help="additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
+                <param type="select" name="dftb_pbc" value="true" label="dftp pbc" help="whether to turn on periodic boundary conditions in DFTB+.">
                     <option value="true">true</option>
                     <option value="false">false</option>
                 </param>
@@ -66,9 +66,9 @@
         </conditional>
         <param type="text" name="clustering_method" />
         <param type="float" name="clustering_hier_t" value="0.2" label="clustering_hier_t"/>
-        <param type="integer" name="supercell" value="30" label="supercell" multiple="true"/>
-        <param type="integer" name="k_points_grid" value="30" label="k_points_grid" multiple="true" min="3" max="3"/>
-        <param type="integer" name="max_scc_steps" value="200" label="max_scc_steps"/>
+        <param type="integer" name="supercell" value="30" label="supercell" multiple="true" help="supercell size and shape to use. This can either be a single int, a list of three integers or a 3x3 matrix of integers. For a single number a diagonal matrix will be generated with the integer repeated on the diagonals. For a list of three numbers a diagonal matrix will be generated where the digonal elements are set to the list. A matrix will be used directly as is. Default is a 3x3 indentity matrix."/>
+        <param type="integer" name="k_points_grid" value="30" label="k-points grid" multiple="true" min="3" max="3" help="list of three integer k-points. Default is [1,1,1]."/>
+        <param type="integer" name="max_scc_steps" value="200" label="max scc steps" help="if applicable, max number of SCC steps to perform before giving up. Default is 200 which is also the default for DFTB+."/>
     </inputs>
     <outputs>
         <data label="configuration" name="out_yaml" format="txt" from_work_dir="output.yaml"/>
