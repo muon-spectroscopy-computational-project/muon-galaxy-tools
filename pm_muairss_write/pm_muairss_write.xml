@@ -3,8 +3,8 @@
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
-        cp $structure input.cell &&
-        cp $params params.yaml &&
+        ln -s $structure input.cell &&
+        ln -s $params params.yaml &&
         pm-muairss -t w input.cell params.yaml &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         zip -r out_zip1.zip \$out_folder params.yaml input.cell &&
