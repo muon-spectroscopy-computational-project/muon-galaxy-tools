@@ -1,0 +1,97 @@
+<tool id="pm_yaml_config" name="Creates yaml for pm_muairs" version="0.1.0" python_template_version="3.5">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        printf "poisson_r: $poisson_r \nname: $struct_name \ncharged: $charged \ngeom_steps: $geom_steps \nvdw_scale: $vdw_scale \ncalculator: $calculator_cond.calculator \ngeom_force_tol: $geom_force_tol \nclustering_method: $clustering_method \nclustering_hier_t: $clustering_hier_t \nout_folder: $out_folder \n">outputx.yaml &&
+        echo $calculator_cond.calculator &&
+        #if str($calculator_cond.calculator)=="uep":
+            printf "uep_gw_factor: $calculator_cond.uep_gw_factor \nuep_chden: $calculator_cond.uep_chden \n">>outputx.yaml &&
+        #else if str($calculator_cond.calculator)=="castep": 
+            printf "castep_command: $calculator_cond.castep_command \ncastep_param: $calculator_cond.castep_param \nmu_symbol: $calculator_cond.mu_symbol \n">>outputx.yaml &&
+        #else if str($calculator_cond.calculator)=="dftb": 
+            printf "dftb_set: $calculator_cond.dftb_set \ndftb_optionals: $calculator_cond.dftb_optionals \ndftb_pbc: $calculator_cond.dftb_pbc \n">>outputx.yaml &&
+        #else if str($calculator_cond.calculator)=="all": 
+            printf "uep_gw_factor: $calculator_cond.uep_gw_factor \nuep_chden: $calculator_cond.uep_chden \ncastep_command: $calculator_cond.castep_command \ncastep_param: $calculator_cond.castep_param \nmu_symbol: $calculator_cond.mu_symbol \ndftb_set: $calculator_cond.dftb_set \ndftb_optionals: $calculator_cond.dftb_optionals \ndftb_pbc: $calculator_cond.dftb_pbc \n">>outputx.yaml &&
+        #end if 
+        ln -s outputx.yaml output.yaml
+    ]]></command>
+    <inputs>
+        <param type="float" name="poisson_r" value="0.8" label="poisson_r"/>
+        <param type="text" name="struct_name" />
+        <param type="select" name="charged" value="true">
+            <option value="true">true</option>
+            <option value="false">false</option>
+        </param>
+        <param type="integer" name="geom_steps" value="300" label="geom_steps"/>
+        <param type="float" name="vdw_scale" value="0.25" label="vdw_scale"/>
+        <param type="text" name="out_folder" />
+        <param type="float" name="geom_force_tol" value="0.05" label="geom_force_tol"/>
+        <conditional name="calculator_cond">
+            <param type="select" name="calculator" value="uep">
+                <option value="uep">uep</option>
+                <option value="castep">castep</option>
+                <option value="dftb">dftb</option>
+                <option value="all">all</option>
+            </param>
+            <when value="uep">
+                <param type="float" name="uep_gw_factor" value="4.0" label="uep_gw_factor"/>
+                <param type="text" name="uep_chden" />
+            </when>
+            <when value="castep">
+                <param type="text" name="castep_command" />
+                <param type="text" name="castep_param" />
+                <param type="text" name="mu_symbol" />
+            </when>
+            <when value="dftb">
+                <param type="text" name="dftb_set" />
+                <param type="text" name="dftb_optionals" />
+                <param type="select" name="dftb_pbc" value="true">
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                </param>
+            </when>
+            <when value="all">
+                <param type="float" name="uep_gw_factor" value="4.0" label="uep_gw_factor"/>
+                <param type="text" name="uep_chden" />
+                <param type="text" name="castep_command" />
+                <param type="text" name="castep_param" />
+                <param type="text" name="mu_symbol" />
+                <param type="text" name="dftb_set" />
+                <param type="text" name="dftb_optionals" />
+                <param type="select" name="dftb_pbc" value="true">
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                </param>
+            </when>
+        </conditional>
+        <param type="text" name="clustering_method" />
+        <param type="float" name="clustering_hier_t" value="0.2" label="clustering_hier_t"/>
+        <param type="integer" name="supercell" value="30" label="supercell" multiple="true"/>
+        <param type="integer" name="k_points_grid" value="30" label="k_points_grid" multiple="true" min="3" max="3"/>
+        <param type="integer" name="max_scc_steps" value="200" label="max_scc_steps"/>
+    </inputs>
+    <outputs>
+        <data label="configuration" name="out_yaml" format="txt" from_work_dir="output.yaml"/>
+    </outputs>
+    <tests>
+        <test>
+            
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: pm-muairss [-h] [-t {r,w}] structures parameter_file
+
+        Given an input structure, generates a set of structures with a muon added in a random location.
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{github,
+  author = {Muon Spectroscopy Computational Project},
+  year = {2021},
+  title = {pymuon-suite},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
+}</citation>
+    </citations>
+</tool>
