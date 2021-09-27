@@ -32,7 +32,6 @@ nosetests.xml
 *.jar
 *.rar
 *.tar
-*.zip
 *.bz
 *.bz2
 .hg
