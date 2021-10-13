@@ -4,8 +4,8 @@
     <command detect_errors="exit_code"><![CDATA[
         pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $folder &&
-        cp $fmt Si.den_fmt &&
-        cp $castep Si.castep &&
+        cp $fmt $fmt.name &&
+        cp $castep $castep.name &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         python ${__tool_directory__}/torelative.py \$out_folder &&
         bash ${__tool_directory__}/run.sh \$out_folder &&
