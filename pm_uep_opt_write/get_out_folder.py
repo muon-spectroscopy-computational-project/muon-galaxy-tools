@@ -20,8 +20,8 @@ try:
     with open('params.yaml') as f:
         data = yaml.safe_load(f)
 except FileNotFoundError:
-    sys.stdout.write('default')
+    sys.stdout.write('muon-airss-out')
 try:
     sys.stdout.write(data['out_folder'])
 except KeyError:
-    sys.stdout.write('default')
+    sys.stdout.write('muon-airss-out')
