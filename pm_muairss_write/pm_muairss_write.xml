@@ -42,6 +42,12 @@
             <output name="out_zip" file="muonated.zip" ftype="zip" compare="sim_size" delta_frac="0.5"/>
             <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="350"/>
         </test>
+        <test>
+            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="params" value="Si-muairss-castep-2.yaml" ftype="txt"/>
+            <output name="out_zip" file="muonated.zip" ftype="zip" compare="sim_size" delta_frac="0.5"/>
+            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="350"/>
+        </test>
     </tests>
     <help><![CDATA[
         usage: pm-muairss [-h] [-t {r,w}] structures parameter_file
