@@ -31,9 +31,9 @@
         </test>
     </tests>
     <help><![CDATA[
-        usage: pm-muairss [-h] [-t {r,w}] structures parameter_file
+        usage: pm-uep-opt [-h] [-t {r,w}] structures parameter_file
 
-        Given an input structure, generates a set of structures with a muon added in a random location.
+        Given some input muonated structures, generates applies UEP optimization to refine them.
     ]]></help>
     <citations>
         <citation type="bibtex">
