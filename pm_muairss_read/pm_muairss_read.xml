@@ -1,4 +1,4 @@
-<tool id="pm_uep_opt_read" name="Cluster outputs (pm-muairs_read)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_muairss_read" name="Cluster outputs (pm-muairs_read)" version="0.1.0" python_template_version="3.5">
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
@@ -26,9 +26,9 @@
         </test>
     </tests>
     <help><![CDATA[
-        usage: pm-muairss [-h] [-t {r,w}] structures parameter_file
+        usage: pm-muairss [-h] -t r structures parameter_file
 
-        Given an input structure, generates a set of structures with a muon added in a random location.
+        Given a set of input structures, clusters the structures based on similarity.
     ]]></help>
     <citations>
         <citation type="bibtex">
