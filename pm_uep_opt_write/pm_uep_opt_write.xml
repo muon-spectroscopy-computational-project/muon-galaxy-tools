@@ -26,7 +26,6 @@
             <param name="folder" value="muonated.zip" ftype='zip'/>
             <param name="fmt" value="Si.den_fmt" ftype="txt"/>
             <param name="castep" value="Si.castep" ftype="txt"/>
-            <output name="out_zip" file="uep-out.zip" ftype="zip" compare="sim_size" delta_frac="0.1"/>
             <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="1"/>
         </test>
     </tests>
