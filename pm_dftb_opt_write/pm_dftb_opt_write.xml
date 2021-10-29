@@ -1,6 +1,6 @@
 <tool id="pm_dftb_opt_write" name="Generate dftb+ outputs (dftb+)" version="0.1.0" python_template_version="3.5">
     <requirements>
-        <requirement type="package">dftb+</requirement>
+        <requirement type="package">dftbplus</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         unzip $folder &&
@@ -19,8 +19,6 @@
     <tests>
         <test>
             <param name="folder" value="muonated.zip" ftype='zip'/>
-            <param name="fmt" value="Si.den_fmt" ftype="txt"/>
-            <param name="castep" value="Si.castep" ftype="txt"/>
             <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="1"/>
         </test>
     </tests>
