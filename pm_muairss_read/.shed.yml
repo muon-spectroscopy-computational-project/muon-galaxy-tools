@@ -1,10 +1,10 @@
 categories:
 - Computational chemistry
 - Molecular Dynamics
-description: Generate uep clusters (pm-uep-opt)
+description: Cluster optimised structures (pm-muairss-read)
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
 long_description: |
-  Given an input set of muonated structures , performs uep optimization and clustering
+  Given an input set of optimised muonated structures (UEP, CASTEP or DFTB+), performs clustering
 name: pm_muairss_read
 owner: Jo-stfc
-remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_muairss_write
+remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_muairss_read
