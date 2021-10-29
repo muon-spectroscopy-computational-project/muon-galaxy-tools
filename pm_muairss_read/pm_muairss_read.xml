@@ -23,11 +23,16 @@
             <output name="out_cluster" file="clusters.txt" ftype="txt" compare="sim_size" delta_frac="0.01"/>
             <output name="out_cluster_dat" file="clusters_dat.dat" ftype="txt" compare="sim_size" delta_frac="0.001"/>
         </test>
+        <test>
+            <param name="optimised" value="dftb-out.zip" ftype='zip'/>
+            <output name="out_cluster" file="clustout-dftb.txt" ftype="txt" compare="sim_size" delta_frac="0.01"/>
+            <output name="out_cluster_dat" file="clustout-dftb.dat" ftype="txt" compare="sim_size" delta_frac="0.001"/>
+        </test>
     </tests>
     <help><![CDATA[
         usage: pm-muairss [-h] -t r structures parameter_file
 
-        Given a set of input structures, clusters the structures based on similarity.
+        Given a set of optimised input structures, clusters the structures based on similarity.
     ]]></help>
     <citations>
         <citation type="bibtex">
