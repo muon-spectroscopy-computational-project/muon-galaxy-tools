@@ -8,8 +8,8 @@
             printf "uep_gw_factor: $calculator_cond.uep_gw_factor \nuep_chden: $calculator_cond.uep_chden \n">>outputx.yaml &&
         #else if str($calculator_cond.calculator)=="castep": 
             printf "castep_command: $calculator_cond.castep_command \ncastep_param: $calculator_cond.castep_param \nmu_symbol: $calculator_cond.mu_symbol \n">>outputx.yaml &&
-        #else if str($calculator_cond.calculator)=="dftb": 
-            printf "dftb_set: $calculator_cond.dftb_set \ndftb_optionals: $calculator_cond.dftb_optionals \ndftb_pbc: $calculator_cond.dftb_pbc \n">>outputx.yaml &&
+        #else if str($calculator_cond.calculator)=="dftb+": 
+            printf "dftb_set: $calculator_cond.dftb_set \ndftb_pbc: $calculator_cond.dftb_pbc \n">>outputx.yaml &&
         #else if str($calculator_cond.calculator)=="all": 
             printf "uep_gw_factor: $calculator_cond.uep_gw_factor \nuep_chden: $calculator_cond.uep_chden \ncastep_command: $calculator_cond.castep_command \ncastep_param: $calculator_cond.castep_param \nmu_symbol: $calculator_cond.mu_symbol \ndftb_set: $calculator_cond.dftb_set \ndftb_optionals: $calculator_cond.dftb_optionals \ndftb_pbc: $calculator_cond.dftb_pbc \n">>outputx.yaml &&
         #end if 
@@ -30,7 +30,7 @@
             <param type="select" name="calculator" value="uep" help="calculator to generate structure files for. Must be a single word or a comma seperated list of values. Currently supported calculators are CASTEP, DFTB+ and UEP. Can also pass all as an option to generate files for all calculators.">
                 <option value="uep">uep</option>
                 <option value="castep">castep</option>
-                <option value="dftb">dftb</option>
+                <option value="dftb+">dftb</option>
                 <option value="all">all</option>
             </param>
             <when value="uep">
@@ -42,11 +42,14 @@
                 <param type="text" name="castep_param" optional="true" label="PARAM path" help="file path to the CASTEP parameter file."/>
                 <param type="text" name="mu_symbol" optional="true" label="mu symbol" help="the symbol to use for the muon when writing out the castep custom species." />
             </when>
-            <when value="dftb">
-                <param type="text" name="dftb_set" optional="true" label="dftb set" help="the parameter set to use for DFTB+. Currently supported are 3ob-3-1 and pbc-0-3. For more information see (the DFTB site)[http://www.dftb.org/parameters/]."/>
+            <when value="dftb+">
+                <param type="select" name="dftb_set" optional="true" value="3ob-3-1" label="dftb set" help="the parameter set to use for DFTB+. Currently supported are: 3ob-3-1 and pbc-0-3. see ">
+                    <option value="3ob-3-1" selected="true">3ob-3-1</option>
+                    <option value="pbc-0-3">pbc-0-3</option>
+                </param>
                 <param type="text" name="dftb_optionals" optional="true" label="dftb optionals" help="additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
                 <param type="select" name="dftb_pbc" optional="true" value="true" label="dftp pbc" help="whether to turn on periodic boundary conditions in DFTB+.">
-                    <option value="true">true</option>
+                    <option value="true" selected="true">true</option>
                     <option value="false">false</option>
                 </param>
             </when>
@@ -79,9 +82,18 @@
         </test>
     </tests>
     <help><![CDATA[
-        usage: pm-muairss [-h] [-t {r,w}] structures parameter_file
+        Creates a yaml configuration file from input parameters.
 
-        Given an input structure, generates a set of structures with a muon added in a random location.
+      **DFTB+ parameter sets:**
+
+    +------------+-------------------------------------+-----------------------------------+
+    | set        |                elements             |       context                     |
+    +============+=====================================+===================================+
+    |  3ob-3-1   | Br-C-Ca-Cl-F-H-I-K-Mg-N-Na-O-P-S-Zn | DFTB3 files for bio and organic   |
+    |            |                                     | molecules                         |
+    +------------+-------------------------------------+-----------------------------------+
+    |  pbc-0-3   | Si - F - O - N - C - H / Fe         | SCC files for solids and surfaces |
+    +------------+-------------------------------------+-----------------------------------+  
     ]]></help>
     <citations>
         <citation type="bibtex">
