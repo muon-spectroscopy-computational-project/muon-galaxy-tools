@@ -1,0 +1,64 @@
+<tool id="pm_dftb_opt_write" name="Generate dftb+ outputs (dftb+)" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package">dftb+</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        unzip $folder &&
+        out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
+        bash ${__tool_directory__}/run.sh \$out_folder ${__tool_directory__} &&
+        zip -r out_zip.zip \$out_folder params.yaml input.cell &&
+        find \$out_folder > tree.txt
+    ]]></command>
+    <inputs>
+        <param type="data" name="folder" format="zip" />
+    </inputs>
+    <outputs>
+        <data label="dftb-out-$folder.name" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="file tree for testing" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="folder" value="muonated.zip" ftype='zip'/>
+            <param name="fmt" value="Si.den_fmt" ftype="txt"/>
+            <param name="castep" value="Si.castep" ftype="txt"/>
+            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="1"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: dftb+
+        Given some input muonated structures, generates applies DFTB+ optimization to refine them.
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{github,
+  author = {Muon Spectroscopy Computational Project},
+  year = {2021},
+  title = {pymuon-suite},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
+}</citation>
+       <citation type="bibtex">
+        @article{doi:10.1063/1.5143190,
+            author = {Hourahine,B.  and Aradi,B.  and Blum,V.  and Bonafé,F.  and Buccheri,A.  and Camacho,C.  and Cevallos,C.  and Deshaye,M. Y.  and Dumitrică,T.  and Dominguez,A.  and Ehlert,S.  and Elstner,M.  and van der Heide,T.  and Hermann,J.  and Irle,S.  and Kranz,J. J.  and Köhler,C.  and Kowalczyk,T.  and Kubař,T.  and Lee,I. S.  and Lutsker,V.  and Maurer,R. J.  and Min,S. K.  and Mitchell,I.  and Negre,C.  and Niehaus,T. A.  and Niklasson,A. M. N.  and Page,A. J.  and Pecchia,A.  and Penazzi,G.  and Persson,M. P.  and Řezáč,J.  and Sánchez,C. G.  and Sternberg,M.  and Stöhr,M.  and Stuckenberg,F.  and Tkatchenko,A.  and Yu,V. W.-z.  and Frauenheim,T. },
+            title = {DFTB+, a software package for efficient approximate density functional theory based atomistic simulations},
+            journal = {The Journal of Chemical Physics},
+            volume = {152},
+            number = {12},
+            pages = {124101},
+            year = {2020},
+            doi = {10.1063/1.5143190},
+            
+            URL = { 
+                    https://doi.org/10.1063/1.5143190
+                
+            },
+            eprint = { 
+                    https://doi.org/10.1063/1.5143190
+                
+            }
+            
+            }
+       </citation>
+    </citations>
+</tool>
