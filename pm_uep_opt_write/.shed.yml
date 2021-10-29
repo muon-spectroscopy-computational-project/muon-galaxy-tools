@@ -1,10 +1,10 @@
 categories:
 - Computational chemistry
 - Molecular Dynamics
-description: Generate muon structures (pm-muairss)
+description: Optimise muonated structures (pm-uep-opt)
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
 long_description: |
-  Given an input structure, generates a set of structures with a muon added in a random location.
-name: pm_muairss_write
-owner: elichad
-remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_muairss_write
+  Given input muonated structures, optimise them with uep.
+name: pm_uep_opt_write
+owner: muon-spectroscopy-computational-project
+remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_uep_opt_write
