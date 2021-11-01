@@ -7,5 +7,5 @@ try:
     with open('params.yaml') as f:
         data = yaml.safe_load(f)
     sys.stdout.write(data['out_folder'])
-except KeyError or FileNotFoundError:
+except KeyError:
     sys.stdout.write('muon-airss-out')
