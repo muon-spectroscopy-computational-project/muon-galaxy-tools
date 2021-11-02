@@ -7,7 +7,7 @@
         cp $charge_density $charge_density.name &&
         cp $castep_log $castep_log.name &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
-        python ${__tool_directory__}/torelative.py \$out_folder &&
+        find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_path: .*#chden_path: .\/#g" &&
         bash ${__tool_directory__}/run.sh \$out_folder &&
         zip -r out_zip.zip \$out_folder params.yaml input.cell &&
         find \$out_folder > tree.txt

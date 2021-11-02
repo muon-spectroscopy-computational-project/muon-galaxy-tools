@@ -1,1 +1,1 @@
-for x in $1/*/*/*.yaml ;do pm-uep-opt $x && echo $PWD;done #pm-uep-opt 
+for x in $1/*/*/*.yaml ;do pm-uep-opt $x;done #pm-uep-opt 
