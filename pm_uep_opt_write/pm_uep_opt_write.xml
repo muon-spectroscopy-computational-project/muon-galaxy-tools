@@ -1,5 +1,6 @@
 <tool id="pm_uep_opt_write" name="Generate uep outputs (pm-uep-opt)" version="0.1.0" python_template_version="3.5">
     <requirements>
+        <requirement type="package">pymuon-suite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
