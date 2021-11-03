@@ -5,7 +5,9 @@
     <command detect_errors="exit_code"><![CDATA[
         pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $optimised &&
-        out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
+        if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
+        && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi 
+        && out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         pm-muairss -t r input.cell params.yaml && 
         zip -r out_zip.zip \$out_folder *_clusters* param.yaml input.cell &&
         find \$out_folder > tree.txt
