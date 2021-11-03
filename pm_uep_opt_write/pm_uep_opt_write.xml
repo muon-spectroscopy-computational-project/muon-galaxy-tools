@@ -5,7 +5,9 @@
     <command detect_errors="exit_code"><![CDATA[
         pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $folder &&
-        cp $charge_density $charge_density.name &&
+        if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
+        && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi 
+        && cp $charge_density $charge_density.name &&
         cp $castep_log $castep_log.name &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_path: .*#chden_path: .\/#g" &&
@@ -29,6 +31,13 @@
             <param name="castep_log" value="Si.castep" ftype="txt"/>
             <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="1"/>
         </test>
+        <test>
+            <param name="folder" value="muonated-default-folder.zip" ftype='zip'/>
+            <param name="charge_density" value="Si.den_fmt" ftype="txt"/>
+            <param name="castep_log" value="Si.castep" ftype="txt"/>
+            <output name="file_tree" file="tree-default-folder.txt" ftype="txt" compare="sim_size" delta="1"/>
+        </test>
+        
     </tests>
     <help><![CDATA[
         usage: pm-uep-opt [-h] [-t {r,w}] structures parameter_file
