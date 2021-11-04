@@ -1,223 +1,48 @@
-Si-out
-Si-out/uep
-Si-out/uep/si_1
-Si-out/uep/si_1/si_1.yaml
-Si-out/uep/si_1/si_1.uep
-Si-out/uep/si_1/si_1.uep.pkl
-Si-out/uep/si_1/si_1.xyz
-Si-out/uep/si_2
-Si-out/uep/si_2/si_2.yaml
-Si-out/uep/si_2/si_2.uep
-Si-out/uep/si_2/si_2.uep.pkl
-Si-out/uep/si_2/si_2.xyz
-Si-out/uep/si_3
-Si-out/uep/si_3/si_3.yaml
-Si-out/uep/si_3/si_3.uep
-Si-out/uep/si_3/si_3.uep.pkl
-Si-out/uep/si_3/si_3.xyz
-Si-out/uep/si_4
-Si-out/uep/si_4/si_4.yaml
-Si-out/uep/si_4/si_4.uep
-Si-out/uep/si_4/si_4.uep.pkl
-Si-out/uep/si_4/si_4.xyz
-Si-out/uep/si_5
-Si-out/uep/si_5/si_5.yaml
-Si-out/uep/si_5/si_5.uep
-Si-out/uep/si_5/si_5.uep.pkl
-Si-out/uep/si_5/si_5.xyz
-Si-out/uep/si_6
-Si-out/uep/si_6/si_6.yaml
-Si-out/uep/si_6/si_6.uep
-Si-out/uep/si_6/si_6.uep.pkl
-Si-out/uep/si_6/si_6.xyz
-Si-out/uep/si_7
-Si-out/uep/si_7/si_7.yaml
-Si-out/uep/si_7/si_7.uep
-Si-out/uep/si_7/si_7.uep.pkl
-Si-out/uep/si_7/si_7.xyz
-Si-out/uep/si_8
-Si-out/uep/si_8/si_8.yaml
-Si-out/uep/si_8/si_8.uep
-Si-out/uep/si_8/si_8.uep.pkl
-Si-out/uep/si_8/si_8.xyz
-Si-out/uep/si_9
-Si-out/uep/si_9/si_9.yaml
-Si-out/uep/si_9/si_9.uep
-Si-out/uep/si_9/si_9.uep.pkl
-Si-out/uep/si_9/si_9.xyz
-Si-out/uep/si_10
-Si-out/uep/si_10/si_10.yaml
-Si-out/uep/si_10/si_10.uep
-Si-out/uep/si_10/si_10.uep.pkl
-Si-out/uep/si_10/si_10.xyz
-Si-out/uep/si_11
-Si-out/uep/si_11/si_11.yaml
-Si-out/uep/si_11/si_11.uep
-Si-out/uep/si_11/si_11.uep.pkl
-Si-out/uep/si_11/si_11.xyz
-Si-out/uep/si_12
-Si-out/uep/si_12/si_12.yaml
-Si-out/uep/si_12/si_12.uep
-Si-out/uep/si_12/si_12.uep.pkl
-Si-out/uep/si_12/si_12.xyz
-Si-out/uep/si_13
-Si-out/uep/si_13/si_13.yaml
-Si-out/uep/si_13/si_13.uep
-Si-out/uep/si_13/si_13.uep.pkl
-Si-out/uep/si_13/si_13.xyz
-Si-out/uep/si_14
-Si-out/uep/si_14/si_14.yaml
-Si-out/uep/si_14/si_14.uep
-Si-out/uep/si_14/si_14.uep.pkl
-Si-out/uep/si_14/si_14.xyz
-Si-out/uep/si_15
-Si-out/uep/si_15/si_15.yaml
-Si-out/uep/si_15/si_15.uep
-Si-out/uep/si_15/si_15.uep.pkl
-Si-out/uep/si_15/si_15.xyz
-Si-out/uep/si_16
-Si-out/uep/si_16/si_16.yaml
-Si-out/uep/si_16/si_16.uep
-Si-out/uep/si_16/si_16.uep.pkl
-Si-out/uep/si_16/si_16.xyz
-Si-out/uep/si_17
-Si-out/uep/si_17/si_17.yaml
-Si-out/uep/si_17/si_17.uep
-Si-out/uep/si_17/si_17.uep.pkl
-Si-out/uep/si_17/si_17.xyz
-Si-out/uep/si_18
-Si-out/uep/si_18/si_18.yaml
-Si-out/uep/si_18/si_18.uep
-Si-out/uep/si_18/si_18.uep.pkl
-Si-out/uep/si_18/si_18.xyz
-Si-out/uep/si_19
-Si-out/uep/si_19/si_19.yaml
-Si-out/uep/si_19/si_19.uep
-Si-out/uep/si_19/si_19.uep.pkl
-Si-out/uep/si_19/si_19.xyz
-Si-out/uep/si_20
-Si-out/uep/si_20/si_20.yaml
-Si-out/uep/si_20/si_20.uep
-Si-out/uep/si_20/si_20.uep.pkl
-Si-out/uep/si_20/si_20.xyz
-Si-out/uep/si_21
-Si-out/uep/si_21/si_21.yaml
-Si-out/uep/si_21/si_21.uep
-Si-out/uep/si_21/si_21.uep.pkl
-Si-out/uep/si_21/si_21.xyz
-Si-out/uep/si_22
-Si-out/uep/si_22/si_22.yaml
-Si-out/uep/si_22/si_22.uep
-Si-out/uep/si_22/si_22.uep.pkl
-Si-out/uep/si_22/si_22.xyz
-Si-out/uep/si_23
-Si-out/uep/si_23/si_23.yaml
-Si-out/uep/si_23/si_23.uep
-Si-out/uep/si_23/si_23.uep.pkl
-Si-out/uep/si_23/si_23.xyz
-Si-out/uep/si_24
-Si-out/uep/si_24/si_24.yaml
-Si-out/uep/si_24/si_24.uep
-Si-out/uep/si_24/si_24.uep.pkl
-Si-out/uep/si_24/si_24.xyz
-Si-out/uep/si_25
-Si-out/uep/si_25/si_25.yaml
-Si-out/uep/si_25/si_25.uep
-Si-out/uep/si_25/si_25.uep.pkl
-Si-out/uep/si_25/si_25.xyz
-Si-out/uep/si_26
-Si-out/uep/si_26/si_26.yaml
-Si-out/uep/si_26/si_26.uep
-Si-out/uep/si_26/si_26.uep.pkl
-Si-out/uep/si_26/si_26.xyz
-Si-out/uep/si_27
-Si-out/uep/si_27/si_27.yaml
-Si-out/uep/si_27/si_27.uep
-Si-out/uep/si_27/si_27.uep.pkl
-Si-out/uep/si_27/si_27.xyz
-Si-out/uep/si_28
-Si-out/uep/si_28/si_28.yaml
-Si-out/uep/si_28/si_28.uep
-Si-out/uep/si_28/si_28.uep.pkl
-Si-out/uep/si_28/si_28.xyz
-Si-out/uep/si_29
-Si-out/uep/si_29/si_29.yaml
-Si-out/uep/si_29/si_29.uep
-Si-out/uep/si_29/si_29.uep.pkl
-Si-out/uep/si_29/si_29.xyz
-Si-out/uep/si_30
-Si-out/uep/si_30/si_30.yaml
-Si-out/uep/si_30/si_30.uep
-Si-out/uep/si_30/si_30.uep.pkl
-Si-out/uep/si_30/si_30.xyz
-Si-out/uep/si_31
-Si-out/uep/si_31/si_31.yaml
-Si-out/uep/si_31/si_31.uep
-Si-out/uep/si_31/si_31.uep.pkl
-Si-out/uep/si_31/si_31.xyz
-Si-out/uep/si_32
-Si-out/uep/si_32/si_32.yaml
-Si-out/uep/si_32/si_32.uep
-Si-out/uep/si_32/si_32.uep.pkl
-Si-out/uep/si_32/si_32.xyz
-Si-out/uep/si_33
-Si-out/uep/si_33/si_33.yaml
-Si-out/uep/si_33/si_33.uep
-Si-out/uep/si_33/si_33.uep.pkl
-Si-out/uep/si_33/si_33.xyz
-Si-out/uep/si_34
-Si-out/uep/si_34/si_34.yaml
-Si-out/uep/si_34/si_34.uep
-Si-out/uep/si_34/si_34.uep.pkl
-Si-out/uep/si_34/si_34.xyz
-Si-out/uep/si_35
-Si-out/uep/si_35/si_35.yaml
-Si-out/uep/si_35/si_35.uep
-Si-out/uep/si_35/si_35.uep.pkl
-Si-out/uep/si_35/si_35.xyz
-Si-out/uep/si_36
-Si-out/uep/si_36/si_36.yaml
-Si-out/uep/si_36/si_36.uep
-Si-out/uep/si_36/si_36.uep.pkl
-Si-out/uep/si_36/si_36.xyz
-Si-out/uep/si_37
-Si-out/uep/si_37/si_37.yaml
-Si-out/uep/si_37/si_37.uep
-Si-out/uep/si_37/si_37.uep.pkl
-Si-out/uep/si_37/si_37.xyz
-Si-out/uep/si_38
-Si-out/uep/si_38/si_38.yaml
-Si-out/uep/si_38/si_38.uep
-Si-out/uep/si_38/si_38.uep.pkl
-Si-out/uep/si_38/si_38.xyz
-Si-out/uep/si_39
-Si-out/uep/si_39/si_39.yaml
-Si-out/uep/si_39/si_39.uep
-Si-out/uep/si_39/si_39.uep.pkl
-Si-out/uep/si_39/si_39.xyz
-Si-out/uep/si_40
-Si-out/uep/si_40/si_40.yaml
-Si-out/uep/si_40/si_40.uep
-Si-out/uep/si_40/si_40.uep.pkl
-Si-out/uep/si_40/si_40.xyz
-Si-out/uep/si_41
-Si-out/uep/si_41/si_41.yaml
-Si-out/uep/si_41/si_41.uep
-Si-out/uep/si_41/si_41.uep.pkl
-Si-out/uep/si_41/si_41.xyz
-Si-out/uep/si_42
-Si-out/uep/si_42/si_42.yaml
-Si-out/uep/si_42/si_42.uep
-Si-out/uep/si_42/si_42.uep.pkl
-Si-out/uep/si_42/si_42.xyz
-Si-out/uep/si_43
-Si-out/uep/si_43/si_43.yaml
-Si-out/uep/si_43/si_43.uep
-Si-out/uep/si_43/si_43.uep.pkl
-Si-out/uep/si_43/si_43.xyz
-Si-out/uep/si_44
-Si-out/uep/si_44/si_44.yaml
-Si-out/uep/si_44/si_44.uep
-Si-out/uep/si_44/si_44.uep.pkl
-Si-out/uep/si_44/si_44.xyz
-Si-out/uep/.collection
+Archive:  mgx.zip
+   creating: Si-out/
+   creating: Si-out/uep/
+   creating: Si-out/uep/Si_1/
+  inflating: Si-out/uep/Si_1/Si_1.yaml  
+ extracting: Si-out/uep/Si_1/Si_1.uep  
+   creating: Si-out/uep/Si_2/
+  inflating: Si-out/uep/Si_2/Si_2.yaml  
+ extracting: Si-out/uep/Si_2/Si_2.uep  
+   creating: Si-out/uep/Si_3/
+  inflating: Si-out/uep/Si_3/Si_3.yaml  
+ extracting: Si-out/uep/Si_3/Si_3.uep  
+   creating: Si-out/uep/Si_4/
+  inflating: Si-out/uep/Si_4/Si_4.yaml  
+ extracting: Si-out/uep/Si_4/Si_4.uep  
+   creating: Si-out/uep/Si_5/
+  inflating: Si-out/uep/Si_5/Si_5.yaml  
+ extracting: Si-out/uep/Si_5/Si_5.uep  
+   creating: Si-out/uep/Si_6/
+  inflating: Si-out/uep/Si_6/Si_6.yaml  
+ extracting: Si-out/uep/Si_6/Si_6.uep  
+   creating: Si-out/uep/Si_7/
+  inflating: Si-out/uep/Si_7/Si_7.yaml  
+ extracting: Si-out/uep/Si_7/Si_7.uep  
+   creating: Si-out/uep/Si_8/
+  inflating: Si-out/uep/Si_8/Si_8.yaml  
+ extracting: Si-out/uep/Si_8/Si_8.uep  
+   creating: Si-out/uep/Si_9/
+  inflating: Si-out/uep/Si_9/Si_9.yaml  
+ extracting: Si-out/uep/Si_9/Si_9.uep  
+   creating: Si-out/uep/Si_10/
+  inflating: Si-out/uep/Si_10/Si_10.yaml  
+ extracting: Si-out/uep/Si_10/Si_10.uep  
+   creating: Si-out/uep/Si_11/
+  inflating: Si-out/uep/Si_11/Si_11.yaml  
+ extracting: Si-out/uep/Si_11/Si_11.uep  
+   creating: Si-out/uep/Si_12/
+  inflating: Si-out/uep/Si_12/Si_12.yaml  
+ extracting: Si-out/uep/Si_12/Si_12.uep  
+   creating: Si-out/uep/Si_13/
+  inflating: Si-out/uep/Si_13/Si_13.yaml  
+ extracting: Si-out/uep/Si_13/Si_13.uep  
+   creating: Si-out/uep/Si_14/
+  inflating: Si-out/uep/Si_14/Si_14.yaml  
+ extracting: Si-out/uep/Si_14/Si_14.uep  
+  inflating: Si-out/uep/.collection  
+  inflating: params.yaml             
+  inflating: input.cell              
