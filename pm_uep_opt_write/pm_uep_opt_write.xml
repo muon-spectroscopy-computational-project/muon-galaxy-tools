@@ -29,13 +29,13 @@
             <param name="folder" value="muonated.zip" ftype='zip'/>
             <param name="charge_density" value="Si.den_fmt" ftype="txt"/>
             <param name="castep_log" value="Si.castep" ftype="txt"/>
-            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="1"/>
+            <output name="file_tree" file="tree.txt" ftype="txt" delta="10"/>
         </test>
         <test>
             <param name="folder" value="muonated-default-folder.zip" ftype='zip'/>
             <param name="charge_density" value="Si.den_fmt" ftype="txt"/>
             <param name="castep_log" value="Si.castep" ftype="txt"/>
-            <output name="file_tree" file="tree-default-folder.txt" ftype="txt" compare="sim_size" delta="1"/>
+            <output name="file_tree" file="tree-default-folder.txt" ftype="txt" delta="10"/>
         </test>
         
     </tests>
