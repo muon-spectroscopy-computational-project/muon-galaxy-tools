@@ -9,7 +9,9 @@
         #if str($iscastep.iscastep_sel)=="true":
             ln -s $castep_param $castep_param.name &&
         #end if
-        sed -i "s#^castep_param: .*#castep_param: .\/$castep_param.name#g" params.yaml &&
+        #if str($iscastep.iscastep_sel)=="true":
+            sed -i "s#^castep_param: .*#castep_param: .\/$castep_param.name#g" params.yaml &&
+        #end if
         pm-muairss -t w input.cell params.yaml &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         #if str($iscastep.iscastep_sel)=="true":
