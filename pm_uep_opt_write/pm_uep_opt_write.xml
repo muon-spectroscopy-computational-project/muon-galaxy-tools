@@ -42,7 +42,7 @@
     <help><![CDATA[
         usage: pm-uep-opt [-h] [-t {r,w}] structures parameter_file
 
-        Given some input muonated structures, applies UEP optimization to refine them.
+        Given some input muonated structures, generates applies UEP optimization to refine them.
     ]]></help>
     <citations>
         <citation type="bibtex">
