@@ -47,7 +47,7 @@
         <test>
             <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="testing" value="true"/>
-            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.txt" ftype="txt"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="txt"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" compare="sim_size" delta="350"/>
         </test>
         <test>
