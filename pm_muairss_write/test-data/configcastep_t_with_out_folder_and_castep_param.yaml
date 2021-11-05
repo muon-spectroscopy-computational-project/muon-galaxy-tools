@@ -1,0 +1,13 @@
+poisson_r: 0.8 
+name: Si 
+charged: true 
+geom_steps: 300 
+vdw_scale: 0.25 
+calculator: castep 
+geom_force_tol: 0.05 
+clustering_method: hier 
+clustering_hier_t: 0.2 
+out_folder: Si-out 
+castep_command: castep.serial 
+castep_param: test 
+mu_symbol: H:mu 
