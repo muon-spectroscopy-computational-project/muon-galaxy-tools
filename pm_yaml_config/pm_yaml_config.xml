@@ -47,7 +47,7 @@
                     <option value="3ob-3-1" selected="true">3ob-3-1</option>
                     <option value="pbc-0-3">pbc-0-3</option>
                 </param>
-                <param type="text" name="dftb_optionals" optional="true" label="dftb optionals" help="additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
+                <param type="text" name="dftb_optionals" value="[]" optional="true" label="dftb optionals" help="additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
                 <param type="select" name="dftb_pbc" optional="true" value="true" label="dftp pbc" help="whether to turn on periodic boundary conditions in DFTB+.">
                     <option value="true" selected="true">true</option>
                     <option value="false">false</option>
@@ -60,7 +60,7 @@
                 <param type="text" name="castep_param" optional="true" label="PARAM path" help="file path to the CASTEP parameter file."/>
                 <param type="text" name="mu_symbol" optional="true" label="mu symbol" help="the symbol to use for the muon when writing out the castep custom species." />
                 <param type="text" name="dftb_set" optional="true" label="dftb set" help="the parameter set to use for DFTB+. Currently supported are 3ob-3-1 and pbc-0-3. For more information see (the DFTB site)[http://www.dftb.org/parameters/]."/>
-                <param type="text" name="dftb_optionals" optional="true" label="dftb optionals" help="additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
+                <param type="text" name="dftb_optionals" value="[]" optional="true" label="dftb optionals" help="additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
                 <param type="select" name="dftb_pbc" value="true" optional="true" label="dftp pbc" help="whether to turn on periodic boundary conditions in DFTB+.">
                     <option value="true">true</option>
                     <option value="false">false</option>
