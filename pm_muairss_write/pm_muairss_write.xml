@@ -8,11 +8,9 @@
         ln -s $params params.yaml &&
         #if str($iscastep.iscastep_sel)=="true":
             ln -s $castep_param $castep_param.name &&
+            sed -i '/^castep_param: /{h;s/:.*/: $castep_param.name/};\${x;/^$/{s//castep_param: $castep_param.name/;H};x}' params.yaml
         #end if
-        #if str($iscastep.iscastep_sel)=="true":
-            sed -i "s#^castep_param: .*#castep_param: .\/$castep_param.name#g" params.yaml &&
-        #end if
-        pm-muairss -t w input.cell params.yaml &&
+        && pm-muairss -t w input.cell params.yaml &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         #if str($iscastep.iscastep_sel)=="true":
             zip -r out_zip.zip \$out_folder params.yaml input.cell $castep_param.name &&
