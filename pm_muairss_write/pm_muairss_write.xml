@@ -1,30 +1,96 @@
 <tool id="pm_muairss_write" name="Generate muon structures (pm-muairss)" version="0.1.0" python_template_version="3.5">
     <requirements>
+        <requirement type="package">pymuon-suite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
-        cp $structure input.cell &&
-        cp $params params.yaml &&
+        ln -s $structure input.cell &&
+        ln -s $params params.yaml &&
+        #if str($iscastep.iscastep_sel)=="true":
+            ln -s $castep_param $castep_param.name &&
+            sed -i '/^castep_param: /{h;s/:.*/: $castep_param.name/};\${x;/^$/{s//castep_param: $castep_param.name/;H};x}' params.yaml &&
+        #end if
         pm-muairss -t w input.cell params.yaml &&
-        zip -r out_zip.zip $out_folder &&
-        find $out_folder > tree.txt
+        out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
+        #if str($iscastep.iscastep_sel)=="true":
+            zip -r out_zip.zip \$out_folder params.yaml input.cell $castep_param.name &&
+        #else if str($iscastep.iscastep_sel)=="false":
+            zip -r out_zip.zip \$out_folder params.yaml input.cell &&
+        #end if
+        #if $testing=="true" and str($iscastep.iscastep_sel)=="true":
+            grep -o "castep_param" params.yaml | wc -l > tree.txt &&
+        #else if $testing=="true" and str($iscastep.iscastep_sel)=="false":
+            grep -o "name" params.yaml | wc -l > tree.txt &&
+        #end if
+        find \$out_folder >> tree.txt
+        
     ]]></command>
     <inputs>
         <param type="data" name="structure" format="cell" />
-        <param type="data" name="params" format="yaml" />
-        <param type="text" name="out_folder"/>
+        <param type="hidden" name="testing" value="false"/>
+        <param type="data" name="params" format="txt" />
+    <conditional name="iscastep">
+        <param type="boolean" value="false" name="iscastep_sel" label="Is the calculator castep?">
+            <option value="false">no</option>
+            <option value="true">yes</option>
+        </param>   
+        <when value="true">
+            <param type="data" name="castep_param" format="txt" />
+        </when>
+    </conditional>
     </inputs>
     <outputs>
-        <data label="$out_folder" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="muonated $structure.name using $params.name" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>
         <data label="file tree for testing" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true"/>
     </outputs>
     <tests>
         <test>
             <param name="structure" value="Si.cell" ftype="txt"/>
-            <param name="params" value="Si-muairss-castep.yaml" ftype="txt"/>
-            <param name="out_folder" value="si-muon-airss-out"/>
-            <output name="out_zip" file="si-muon-airss-out.zip" ftype="zip" compare="sim_size" delta_frac="0.1"/>
-            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="350"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="txt"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" compare="sim_size" delta="350">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test>
+            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_no_outfolder_and_castep_param.yaml" ftype="txt"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" compare="sim_size" delta="350">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test>
+            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configdftb_t.yaml" ftype="txt"/>
+            <output name="file_tree" file="tree_dftb.txt" ftype="txt" compare="sim_size" delta="350">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test>
+            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configuep_t.yaml" ftype="txt"/>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
         </test>
     </tests>
     <help><![CDATA[
