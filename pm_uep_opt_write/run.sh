@@ -1,1 +1,12 @@
-for x in $1/*/*/*.yaml ;do pm-uep-opt $x;done #pm-uep-opt 
+ex=0
+for x in $1/*/*/*.yaml 
+    do 
+    output=$(pm-uep-opt $x)
+    if echo "$output" | grep -iq 'Error' 
+    then 
+        echo "pm-uep-opt failed: $output" 
+        exit 2  
+    else 
+        echo "pm-uep-opt successful: $output" 
+    fi
+    done #pm-uep-opt 
