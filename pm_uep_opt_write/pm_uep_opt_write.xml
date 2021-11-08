@@ -37,6 +37,13 @@
             <param name="castep_log" value="Si.castep" ftype="txt"/>
             <output name="file_tree" file="tree-default-folder.txt" ftype="txt" delta="10"/>
         </test>
+        <test>
+            <param name="folder" value="muonated-default-folder.zip" ftype='zip'/>
+            <param name="castep_log" value="Si.castep" ftype="txt"/>
+            <assert_stderr>
+                <has_text text="Error"/>
+            </assert_stderr>    
+        </test>
         
     </tests>
     <help><![CDATA[
