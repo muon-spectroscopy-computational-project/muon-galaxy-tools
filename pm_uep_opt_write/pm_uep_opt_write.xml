@@ -7,8 +7,8 @@
         unzip $folder &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
         && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi 
-        && cp $charge_density $charge_density.name &&
-        cp $castep_log $castep_log.name &&
+        && ln -s $charge_density $charge_density.name &&
+        ln -s $castep_log $castep_log.name &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_path: .*#chden_path: .\/#g" &&
         bash ${__tool_directory__}/run.sh \$out_folder &&
