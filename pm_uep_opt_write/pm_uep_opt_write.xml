@@ -8,17 +8,20 @@
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
         && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi 
         && ln -s $charge_density $charge_density.name &&
-        ln -s $castep_log $castep_log.name &&
+        x="$charge_density.name" &&
+        ln -s $castep_log "\${x%%.*}.castep" &&
+        echo "\$x" &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_path: .*#chden_path: .\/#g" &&
+        find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_seed: .*#chden_seed: \${x%%.*}#g" &&
         bash ${__tool_directory__}/run.sh \$out_folder &&
         zip -r out_zip.zip \$out_folder params.yaml input.cell &&
         find \$out_folder > tree.txt
     ]]></command>
     <inputs>
         <param type="data" name="folder" format="zip" />
-        <param type="data" name="charge_density" format="den_fmt" />
-        <param type="data" name="castep_log" format="castep" />
+        <param type="data" name="charge_density" label="charge density file (.den_fmt)" format="txt" />
+        <param type="data" name="castep_log" label="castep log (.castep)" format="txt" />
     </inputs>
     <outputs>
         <data label="UEP output for $folder.name" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>

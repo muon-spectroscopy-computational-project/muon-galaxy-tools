@@ -1,48 +1,76 @@
-Archive:  mgx.zip
+Archive:  out_zip.zip
    creating: Si-out/
    creating: Si-out/uep/
    creating: Si-out/uep/Si_1/
   inflating: Si-out/uep/Si_1/Si_1.yaml  
- extracting: Si-out/uep/Si_1/Si_1.uep  
+  inflating: Si-out/uep/Si_1/Si_1.uep  
+  inflating: Si-out/uep/Si_1/Si_1.uep.pkl  
+  inflating: Si-out/uep/Si_1/Si_1.xyz  
    creating: Si-out/uep/Si_2/
   inflating: Si-out/uep/Si_2/Si_2.yaml  
- extracting: Si-out/uep/Si_2/Si_2.uep  
+  inflating: Si-out/uep/Si_2/Si_2.uep  
+  inflating: Si-out/uep/Si_2/Si_2.uep.pkl  
+  inflating: Si-out/uep/Si_2/Si_2.xyz  
    creating: Si-out/uep/Si_3/
   inflating: Si-out/uep/Si_3/Si_3.yaml  
- extracting: Si-out/uep/Si_3/Si_3.uep  
+  inflating: Si-out/uep/Si_3/Si_3.uep  
+  inflating: Si-out/uep/Si_3/Si_3.uep.pkl  
+  inflating: Si-out/uep/Si_3/Si_3.xyz  
    creating: Si-out/uep/Si_4/
   inflating: Si-out/uep/Si_4/Si_4.yaml  
- extracting: Si-out/uep/Si_4/Si_4.uep  
+  inflating: Si-out/uep/Si_4/Si_4.uep  
+  inflating: Si-out/uep/Si_4/Si_4.uep.pkl  
+  inflating: Si-out/uep/Si_4/Si_4.xyz  
    creating: Si-out/uep/Si_5/
   inflating: Si-out/uep/Si_5/Si_5.yaml  
- extracting: Si-out/uep/Si_5/Si_5.uep  
+  inflating: Si-out/uep/Si_5/Si_5.uep  
+  inflating: Si-out/uep/Si_5/Si_5.uep.pkl  
+  inflating: Si-out/uep/Si_5/Si_5.xyz  
    creating: Si-out/uep/Si_6/
   inflating: Si-out/uep/Si_6/Si_6.yaml  
- extracting: Si-out/uep/Si_6/Si_6.uep  
+  inflating: Si-out/uep/Si_6/Si_6.uep  
+  inflating: Si-out/uep/Si_6/Si_6.uep.pkl  
+  inflating: Si-out/uep/Si_6/Si_6.xyz  
    creating: Si-out/uep/Si_7/
   inflating: Si-out/uep/Si_7/Si_7.yaml  
- extracting: Si-out/uep/Si_7/Si_7.uep  
+  inflating: Si-out/uep/Si_7/Si_7.uep  
+  inflating: Si-out/uep/Si_7/Si_7.uep.pkl  
+  inflating: Si-out/uep/Si_7/Si_7.xyz  
    creating: Si-out/uep/Si_8/
   inflating: Si-out/uep/Si_8/Si_8.yaml  
- extracting: Si-out/uep/Si_8/Si_8.uep  
+  inflating: Si-out/uep/Si_8/Si_8.uep  
+  inflating: Si-out/uep/Si_8/Si_8.uep.pkl  
+  inflating: Si-out/uep/Si_8/Si_8.xyz  
    creating: Si-out/uep/Si_9/
   inflating: Si-out/uep/Si_9/Si_9.yaml  
- extracting: Si-out/uep/Si_9/Si_9.uep  
+  inflating: Si-out/uep/Si_9/Si_9.uep  
+  inflating: Si-out/uep/Si_9/Si_9.uep.pkl  
+  inflating: Si-out/uep/Si_9/Si_9.xyz  
    creating: Si-out/uep/Si_10/
   inflating: Si-out/uep/Si_10/Si_10.yaml  
- extracting: Si-out/uep/Si_10/Si_10.uep  
+  inflating: Si-out/uep/Si_10/Si_10.uep  
+  inflating: Si-out/uep/Si_10/Si_10.uep.pkl  
+  inflating: Si-out/uep/Si_10/Si_10.xyz  
    creating: Si-out/uep/Si_11/
   inflating: Si-out/uep/Si_11/Si_11.yaml  
- extracting: Si-out/uep/Si_11/Si_11.uep  
+  inflating: Si-out/uep/Si_11/Si_11.uep  
+  inflating: Si-out/uep/Si_11/Si_11.uep.pkl  
+  inflating: Si-out/uep/Si_11/Si_11.xyz  
    creating: Si-out/uep/Si_12/
   inflating: Si-out/uep/Si_12/Si_12.yaml  
- extracting: Si-out/uep/Si_12/Si_12.uep  
+  inflating: Si-out/uep/Si_12/Si_12.uep  
+  inflating: Si-out/uep/Si_12/Si_12.uep.pkl  
+  inflating: Si-out/uep/Si_12/Si_12.xyz  
    creating: Si-out/uep/Si_13/
   inflating: Si-out/uep/Si_13/Si_13.yaml  
- extracting: Si-out/uep/Si_13/Si_13.uep  
+  inflating: Si-out/uep/Si_13/Si_13.uep  
+  inflating: Si-out/uep/Si_13/Si_13.uep.pkl  
+  inflating: Si-out/uep/Si_13/Si_13.xyz  
    creating: Si-out/uep/Si_14/
   inflating: Si-out/uep/Si_14/Si_14.yaml  
- extracting: Si-out/uep/Si_14/Si_14.uep  
+  inflating: Si-out/uep/Si_14/Si_14.uep  
+  inflating: Si-out/uep/Si_14/Si_14.uep.pkl  
+  inflating: Si-out/uep/Si_14/Si_14.xyz  
   inflating: Si-out/uep/.collection  
   inflating: params.yaml             
   inflating: input.cell              

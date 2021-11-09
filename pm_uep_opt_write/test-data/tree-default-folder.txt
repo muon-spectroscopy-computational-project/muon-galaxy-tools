@@ -1,92 +1,226 @@
-Archive:  muonated-default-folder.zip
+Archive:  out_zip.zip
+   creating: muon-airss-out/
+   creating: muon-airss-out/uep/
+   creating: muon-airss-out/uep/Si_1/
   inflating: muon-airss-out/uep/Si_1/Si_1.yaml  
- extracting: muon-airss-out/uep/Si_1/Si_1.uep  
+  inflating: muon-airss-out/uep/Si_1/Si_1.uep  
+  inflating: muon-airss-out/uep/Si_1/Si_1.uep.pkl  
+  inflating: muon-airss-out/uep/Si_1/Si_1.xyz  
+   creating: muon-airss-out/uep/Si_2/
   inflating: muon-airss-out/uep/Si_2/Si_2.yaml  
- extracting: muon-airss-out/uep/Si_2/Si_2.uep  
+  inflating: muon-airss-out/uep/Si_2/Si_2.uep  
+  inflating: muon-airss-out/uep/Si_2/Si_2.uep.pkl  
+  inflating: muon-airss-out/uep/Si_2/Si_2.xyz  
+   creating: muon-airss-out/uep/Si_3/
   inflating: muon-airss-out/uep/Si_3/Si_3.yaml  
- extracting: muon-airss-out/uep/Si_3/Si_3.uep  
+  inflating: muon-airss-out/uep/Si_3/Si_3.uep  
+  inflating: muon-airss-out/uep/Si_3/Si_3.uep.pkl  
+  inflating: muon-airss-out/uep/Si_3/Si_3.xyz  
+   creating: muon-airss-out/uep/Si_4/
   inflating: muon-airss-out/uep/Si_4/Si_4.yaml  
- extracting: muon-airss-out/uep/Si_4/Si_4.uep  
+  inflating: muon-airss-out/uep/Si_4/Si_4.uep  
+  inflating: muon-airss-out/uep/Si_4/Si_4.uep.pkl  
+  inflating: muon-airss-out/uep/Si_4/Si_4.xyz  
+   creating: muon-airss-out/uep/Si_5/
   inflating: muon-airss-out/uep/Si_5/Si_5.yaml  
- extracting: muon-airss-out/uep/Si_5/Si_5.uep  
+  inflating: muon-airss-out/uep/Si_5/Si_5.uep  
+  inflating: muon-airss-out/uep/Si_5/Si_5.uep.pkl  
+  inflating: muon-airss-out/uep/Si_5/Si_5.xyz  
+   creating: muon-airss-out/uep/Si_6/
   inflating: muon-airss-out/uep/Si_6/Si_6.yaml  
- extracting: muon-airss-out/uep/Si_6/Si_6.uep  
+  inflating: muon-airss-out/uep/Si_6/Si_6.uep  
+  inflating: muon-airss-out/uep/Si_6/Si_6.uep.pkl  
+  inflating: muon-airss-out/uep/Si_6/Si_6.xyz  
+   creating: muon-airss-out/uep/Si_7/
   inflating: muon-airss-out/uep/Si_7/Si_7.yaml  
- extracting: muon-airss-out/uep/Si_7/Si_7.uep  
+  inflating: muon-airss-out/uep/Si_7/Si_7.uep  
+  inflating: muon-airss-out/uep/Si_7/Si_7.uep.pkl  
+  inflating: muon-airss-out/uep/Si_7/Si_7.xyz  
+   creating: muon-airss-out/uep/Si_8/
   inflating: muon-airss-out/uep/Si_8/Si_8.yaml  
- extracting: muon-airss-out/uep/Si_8/Si_8.uep  
+  inflating: muon-airss-out/uep/Si_8/Si_8.uep  
+  inflating: muon-airss-out/uep/Si_8/Si_8.uep.pkl  
+  inflating: muon-airss-out/uep/Si_8/Si_8.xyz  
+   creating: muon-airss-out/uep/Si_9/
   inflating: muon-airss-out/uep/Si_9/Si_9.yaml  
- extracting: muon-airss-out/uep/Si_9/Si_9.uep  
+  inflating: muon-airss-out/uep/Si_9/Si_9.uep  
+  inflating: muon-airss-out/uep/Si_9/Si_9.uep.pkl  
+  inflating: muon-airss-out/uep/Si_9/Si_9.xyz  
+   creating: muon-airss-out/uep/Si_10/
   inflating: muon-airss-out/uep/Si_10/Si_10.yaml  
- extracting: muon-airss-out/uep/Si_10/Si_10.uep  
+  inflating: muon-airss-out/uep/Si_10/Si_10.uep  
+  inflating: muon-airss-out/uep/Si_10/Si_10.uep.pkl  
+  inflating: muon-airss-out/uep/Si_10/Si_10.xyz  
+   creating: muon-airss-out/uep/Si_11/
   inflating: muon-airss-out/uep/Si_11/Si_11.yaml  
- extracting: muon-airss-out/uep/Si_11/Si_11.uep  
+  inflating: muon-airss-out/uep/Si_11/Si_11.uep  
+  inflating: muon-airss-out/uep/Si_11/Si_11.uep.pkl  
+  inflating: muon-airss-out/uep/Si_11/Si_11.xyz  
+   creating: muon-airss-out/uep/Si_12/
   inflating: muon-airss-out/uep/Si_12/Si_12.yaml  
- extracting: muon-airss-out/uep/Si_12/Si_12.uep  
+  inflating: muon-airss-out/uep/Si_12/Si_12.uep  
+  inflating: muon-airss-out/uep/Si_12/Si_12.uep.pkl  
+  inflating: muon-airss-out/uep/Si_12/Si_12.xyz  
+   creating: muon-airss-out/uep/Si_13/
   inflating: muon-airss-out/uep/Si_13/Si_13.yaml  
- extracting: muon-airss-out/uep/Si_13/Si_13.uep  
+  inflating: muon-airss-out/uep/Si_13/Si_13.uep  
+  inflating: muon-airss-out/uep/Si_13/Si_13.uep.pkl  
+  inflating: muon-airss-out/uep/Si_13/Si_13.xyz  
+   creating: muon-airss-out/uep/Si_14/
   inflating: muon-airss-out/uep/Si_14/Si_14.yaml  
- extracting: muon-airss-out/uep/Si_14/Si_14.uep  
+  inflating: muon-airss-out/uep/Si_14/Si_14.uep  
+  inflating: muon-airss-out/uep/Si_14/Si_14.uep.pkl  
+  inflating: muon-airss-out/uep/Si_14/Si_14.xyz  
+   creating: muon-airss-out/uep/Si_15/
   inflating: muon-airss-out/uep/Si_15/Si_15.yaml  
- extracting: muon-airss-out/uep/Si_15/Si_15.uep  
+  inflating: muon-airss-out/uep/Si_15/Si_15.uep  
+  inflating: muon-airss-out/uep/Si_15/Si_15.uep.pkl  
+  inflating: muon-airss-out/uep/Si_15/Si_15.xyz  
+   creating: muon-airss-out/uep/Si_16/
   inflating: muon-airss-out/uep/Si_16/Si_16.yaml  
- extracting: muon-airss-out/uep/Si_16/Si_16.uep  
+  inflating: muon-airss-out/uep/Si_16/Si_16.uep  
+  inflating: muon-airss-out/uep/Si_16/Si_16.uep.pkl  
+  inflating: muon-airss-out/uep/Si_16/Si_16.xyz  
+   creating: muon-airss-out/uep/Si_17/
   inflating: muon-airss-out/uep/Si_17/Si_17.yaml  
- extracting: muon-airss-out/uep/Si_17/Si_17.uep  
+  inflating: muon-airss-out/uep/Si_17/Si_17.uep  
+  inflating: muon-airss-out/uep/Si_17/Si_17.uep.pkl  
+  inflating: muon-airss-out/uep/Si_17/Si_17.xyz  
+   creating: muon-airss-out/uep/Si_18/
   inflating: muon-airss-out/uep/Si_18/Si_18.yaml  
- extracting: muon-airss-out/uep/Si_18/Si_18.uep  
+  inflating: muon-airss-out/uep/Si_18/Si_18.uep  
+  inflating: muon-airss-out/uep/Si_18/Si_18.uep.pkl  
+  inflating: muon-airss-out/uep/Si_18/Si_18.xyz  
+   creating: muon-airss-out/uep/Si_19/
   inflating: muon-airss-out/uep/Si_19/Si_19.yaml  
- extracting: muon-airss-out/uep/Si_19/Si_19.uep  
+  inflating: muon-airss-out/uep/Si_19/Si_19.uep  
+  inflating: muon-airss-out/uep/Si_19/Si_19.uep.pkl  
+  inflating: muon-airss-out/uep/Si_19/Si_19.xyz  
+   creating: muon-airss-out/uep/Si_20/
   inflating: muon-airss-out/uep/Si_20/Si_20.yaml  
- extracting: muon-airss-out/uep/Si_20/Si_20.uep  
+  inflating: muon-airss-out/uep/Si_20/Si_20.uep  
+  inflating: muon-airss-out/uep/Si_20/Si_20.uep.pkl  
+  inflating: muon-airss-out/uep/Si_20/Si_20.xyz  
+   creating: muon-airss-out/uep/Si_21/
   inflating: muon-airss-out/uep/Si_21/Si_21.yaml  
- extracting: muon-airss-out/uep/Si_21/Si_21.uep  
+  inflating: muon-airss-out/uep/Si_21/Si_21.uep  
+  inflating: muon-airss-out/uep/Si_21/Si_21.uep.pkl  
+  inflating: muon-airss-out/uep/Si_21/Si_21.xyz  
+   creating: muon-airss-out/uep/Si_22/
   inflating: muon-airss-out/uep/Si_22/Si_22.yaml  
- extracting: muon-airss-out/uep/Si_22/Si_22.uep  
+  inflating: muon-airss-out/uep/Si_22/Si_22.uep  
+  inflating: muon-airss-out/uep/Si_22/Si_22.uep.pkl  
+  inflating: muon-airss-out/uep/Si_22/Si_22.xyz  
+   creating: muon-airss-out/uep/Si_23/
   inflating: muon-airss-out/uep/Si_23/Si_23.yaml  
- extracting: muon-airss-out/uep/Si_23/Si_23.uep  
+  inflating: muon-airss-out/uep/Si_23/Si_23.uep  
+  inflating: muon-airss-out/uep/Si_23/Si_23.uep.pkl  
+  inflating: muon-airss-out/uep/Si_23/Si_23.xyz  
+   creating: muon-airss-out/uep/Si_24/
   inflating: muon-airss-out/uep/Si_24/Si_24.yaml  
- extracting: muon-airss-out/uep/Si_24/Si_24.uep  
+  inflating: muon-airss-out/uep/Si_24/Si_24.uep  
+  inflating: muon-airss-out/uep/Si_24/Si_24.uep.pkl  
+  inflating: muon-airss-out/uep/Si_24/Si_24.xyz  
+   creating: muon-airss-out/uep/Si_25/
   inflating: muon-airss-out/uep/Si_25/Si_25.yaml  
- extracting: muon-airss-out/uep/Si_25/Si_25.uep  
+  inflating: muon-airss-out/uep/Si_25/Si_25.uep  
+  inflating: muon-airss-out/uep/Si_25/Si_25.uep.pkl  
+  inflating: muon-airss-out/uep/Si_25/Si_25.xyz  
+   creating: muon-airss-out/uep/Si_26/
   inflating: muon-airss-out/uep/Si_26/Si_26.yaml  
- extracting: muon-airss-out/uep/Si_26/Si_26.uep  
+  inflating: muon-airss-out/uep/Si_26/Si_26.uep  
+  inflating: muon-airss-out/uep/Si_26/Si_26.uep.pkl  
+  inflating: muon-airss-out/uep/Si_26/Si_26.xyz  
+   creating: muon-airss-out/uep/Si_27/
   inflating: muon-airss-out/uep/Si_27/Si_27.yaml  
- extracting: muon-airss-out/uep/Si_27/Si_27.uep  
+  inflating: muon-airss-out/uep/Si_27/Si_27.uep  
+  inflating: muon-airss-out/uep/Si_27/Si_27.uep.pkl  
+  inflating: muon-airss-out/uep/Si_27/Si_27.xyz  
+   creating: muon-airss-out/uep/Si_28/
   inflating: muon-airss-out/uep/Si_28/Si_28.yaml  
- extracting: muon-airss-out/uep/Si_28/Si_28.uep  
+  inflating: muon-airss-out/uep/Si_28/Si_28.uep  
+  inflating: muon-airss-out/uep/Si_28/Si_28.uep.pkl  
+  inflating: muon-airss-out/uep/Si_28/Si_28.xyz  
+   creating: muon-airss-out/uep/Si_29/
   inflating: muon-airss-out/uep/Si_29/Si_29.yaml  
- extracting: muon-airss-out/uep/Si_29/Si_29.uep  
+  inflating: muon-airss-out/uep/Si_29/Si_29.uep  
+  inflating: muon-airss-out/uep/Si_29/Si_29.uep.pkl  
+  inflating: muon-airss-out/uep/Si_29/Si_29.xyz  
+   creating: muon-airss-out/uep/Si_30/
   inflating: muon-airss-out/uep/Si_30/Si_30.yaml  
- extracting: muon-airss-out/uep/Si_30/Si_30.uep  
+  inflating: muon-airss-out/uep/Si_30/Si_30.uep  
+  inflating: muon-airss-out/uep/Si_30/Si_30.uep.pkl  
+  inflating: muon-airss-out/uep/Si_30/Si_30.xyz  
+   creating: muon-airss-out/uep/Si_31/
   inflating: muon-airss-out/uep/Si_31/Si_31.yaml  
- extracting: muon-airss-out/uep/Si_31/Si_31.uep  
+  inflating: muon-airss-out/uep/Si_31/Si_31.uep  
+  inflating: muon-airss-out/uep/Si_31/Si_31.uep.pkl  
+  inflating: muon-airss-out/uep/Si_31/Si_31.xyz  
+   creating: muon-airss-out/uep/Si_32/
   inflating: muon-airss-out/uep/Si_32/Si_32.yaml  
- extracting: muon-airss-out/uep/Si_32/Si_32.uep  
+  inflating: muon-airss-out/uep/Si_32/Si_32.uep  
+  inflating: muon-airss-out/uep/Si_32/Si_32.uep.pkl  
+  inflating: muon-airss-out/uep/Si_32/Si_32.xyz  
+   creating: muon-airss-out/uep/Si_33/
   inflating: muon-airss-out/uep/Si_33/Si_33.yaml  
- extracting: muon-airss-out/uep/Si_33/Si_33.uep  
+  inflating: muon-airss-out/uep/Si_33/Si_33.uep  
+  inflating: muon-airss-out/uep/Si_33/Si_33.uep.pkl  
+  inflating: muon-airss-out/uep/Si_33/Si_33.xyz  
+   creating: muon-airss-out/uep/Si_34/
   inflating: muon-airss-out/uep/Si_34/Si_34.yaml  
- extracting: muon-airss-out/uep/Si_34/Si_34.uep  
+  inflating: muon-airss-out/uep/Si_34/Si_34.uep  
+  inflating: muon-airss-out/uep/Si_34/Si_34.uep.pkl  
+  inflating: muon-airss-out/uep/Si_34/Si_34.xyz  
+   creating: muon-airss-out/uep/Si_35/
   inflating: muon-airss-out/uep/Si_35/Si_35.yaml  
- extracting: muon-airss-out/uep/Si_35/Si_35.uep  
+  inflating: muon-airss-out/uep/Si_35/Si_35.uep  
+  inflating: muon-airss-out/uep/Si_35/Si_35.uep.pkl  
+  inflating: muon-airss-out/uep/Si_35/Si_35.xyz  
+   creating: muon-airss-out/uep/Si_36/
   inflating: muon-airss-out/uep/Si_36/Si_36.yaml  
- extracting: muon-airss-out/uep/Si_36/Si_36.uep  
+  inflating: muon-airss-out/uep/Si_36/Si_36.uep  
+  inflating: muon-airss-out/uep/Si_36/Si_36.uep.pkl  
+  inflating: muon-airss-out/uep/Si_36/Si_36.xyz  
+   creating: muon-airss-out/uep/Si_37/
   inflating: muon-airss-out/uep/Si_37/Si_37.yaml  
- extracting: muon-airss-out/uep/Si_37/Si_37.uep  
+  inflating: muon-airss-out/uep/Si_37/Si_37.uep  
+  inflating: muon-airss-out/uep/Si_37/Si_37.uep.pkl  
+  inflating: muon-airss-out/uep/Si_37/Si_37.xyz  
+   creating: muon-airss-out/uep/Si_38/
   inflating: muon-airss-out/uep/Si_38/Si_38.yaml  
- extracting: muon-airss-out/uep/Si_38/Si_38.uep  
+  inflating: muon-airss-out/uep/Si_38/Si_38.uep  
+  inflating: muon-airss-out/uep/Si_38/Si_38.uep.pkl  
+  inflating: muon-airss-out/uep/Si_38/Si_38.xyz  
+   creating: muon-airss-out/uep/Si_39/
   inflating: muon-airss-out/uep/Si_39/Si_39.yaml  
- extracting: muon-airss-out/uep/Si_39/Si_39.uep  
+  inflating: muon-airss-out/uep/Si_39/Si_39.uep  
+  inflating: muon-airss-out/uep/Si_39/Si_39.uep.pkl  
+  inflating: muon-airss-out/uep/Si_39/Si_39.xyz  
+   creating: muon-airss-out/uep/Si_40/
   inflating: muon-airss-out/uep/Si_40/Si_40.yaml  
- extracting: muon-airss-out/uep/Si_40/Si_40.uep  
+  inflating: muon-airss-out/uep/Si_40/Si_40.uep  
+  inflating: muon-airss-out/uep/Si_40/Si_40.uep.pkl  
+  inflating: muon-airss-out/uep/Si_40/Si_40.xyz  
+   creating: muon-airss-out/uep/Si_41/
   inflating: muon-airss-out/uep/Si_41/Si_41.yaml  
- extracting: muon-airss-out/uep/Si_41/Si_41.uep  
+  inflating: muon-airss-out/uep/Si_41/Si_41.uep  
+  inflating: muon-airss-out/uep/Si_41/Si_41.uep.pkl  
+  inflating: muon-airss-out/uep/Si_41/Si_41.xyz  
+   creating: muon-airss-out/uep/Si_42/
   inflating: muon-airss-out/uep/Si_42/Si_42.yaml  
- extracting: muon-airss-out/uep/Si_42/Si_42.uep  
+  inflating: muon-airss-out/uep/Si_42/Si_42.uep  
+  inflating: muon-airss-out/uep/Si_42/Si_42.uep.pkl  
+  inflating: muon-airss-out/uep/Si_42/Si_42.xyz  
+   creating: muon-airss-out/uep/Si_43/
   inflating: muon-airss-out/uep/Si_43/Si_43.yaml  
- extracting: muon-airss-out/uep/Si_43/Si_43.uep  
+  inflating: muon-airss-out/uep/Si_43/Si_43.uep  
+  inflating: muon-airss-out/uep/Si_43/Si_43.uep.pkl  
+  inflating: muon-airss-out/uep/Si_43/Si_43.xyz  
+   creating: muon-airss-out/uep/Si_44/
   inflating: muon-airss-out/uep/Si_44/Si_44.yaml  
- extracting: muon-airss-out/uep/Si_44/Si_44.uep  
+  inflating: muon-airss-out/uep/Si_44/Si_44.uep  
+  inflating: muon-airss-out/uep/Si_44/Si_44.uep.pkl  
+  inflating: muon-airss-out/uep/Si_44/Si_44.xyz  
   inflating: muon-airss-out/uep/.collection  
   inflating: params.yaml             
   inflating: input.cell              
