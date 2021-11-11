@@ -43,7 +43,7 @@
         <test>
             <param name="folder" value="muonated-default-folder.zip" ftype='zip'/>
             <param name="castep_log" value="Si.castep" ftype="txt"/>
-            <param name="charge_density" value="Si.castep" ftype="txt"/>
+            <param name="charge_density" value="Sifail.den_fmt" ftype="txt"/>
             <assert_stderr>
                 <has_text text="Error"/>
             </assert_stderr>    
