@@ -9,6 +9,7 @@
         && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi 
         && ln -s $charge_density $charge_density.name &&
         x="$charge_density.name" &&
+        echo "calculated seed name \$x" &&
         ln -s $castep_log "\${x%%.*}.castep" &&
         echo "\$x" &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
