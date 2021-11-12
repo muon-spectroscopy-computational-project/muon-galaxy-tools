@@ -1,4 +1,3 @@
-ex=0
 for x in $1/*/*/*.yaml 
     do 
     output=$(pm-uep-opt $x)
