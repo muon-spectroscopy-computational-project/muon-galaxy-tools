@@ -24,7 +24,7 @@
         </param>
         <param type="integer" name="geom_steps" value="300" label="geometry optimization steps" help="maximum number of geometry optimisation steps."/>
         <param type="float" name="vdw_scale" value="0.25" label="Van der Waal scale" help="Van der Waals scaling factor to use when generating muon sites to avoid existing atoms. Smaller values will allow muons to get closer to the other ions."/>
-        <param type="text" name="out_folder" label="output folder name" help="name to call the output folder used to store the input files that the script generates."/>
+        <param type="text" name="out_folder" value="muon-airss-out" label="output folder name" help="name to call the output folder used to store the input files that the script generates."/>
         <param type="float" name="geom_force_tol" value="0.05" label="geometry optimization tolerance" help="tolerance on geometry optimisation in units of eV/Armstrong."/>
         <conditional name="calculator_cond">
             <param type="select" name="calculator" value="uep" help="calculator to generate structure files for. Must be a single word or a comma seperated list of values. Currently supported calculators are CASTEP, DFTB+ and UEP. Can also pass all as an option to generate files for all calculators.">
