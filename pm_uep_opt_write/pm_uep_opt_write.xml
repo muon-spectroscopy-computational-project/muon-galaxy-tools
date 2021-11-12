@@ -11,7 +11,6 @@
         x="$charge_density.name" &&
         echo "calculated seed name \$x" &&
         ln -s $castep_log "\${x%%.*}.castep" &&
-        echo "\$x" &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_path: .*#chden_path: .\/#g" &&
         find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_seed: .*#chden_seed: \${x%%.*}#g" &&
