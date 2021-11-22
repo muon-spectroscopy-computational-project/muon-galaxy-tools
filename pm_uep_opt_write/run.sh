@@ -1,4 +1,9 @@
+#! /bin/bash
+
+set -o errexit
+
 for x in $1/*/*/*.yaml 
     do 
         pm-uep-opt $x &&
-    done || exit  #pm-uep-opt 
+    done || exit 1 
+    #pm-uep-opt 
