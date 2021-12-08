@@ -20,8 +20,8 @@
     <tests>
         <test>
             <param name="optimised" value="uep-out.zip" ftype='zip'/>
-            <output name="out_cluster" file="clusters.txt" ftype="txt" compare="sim_size" delta="20"/>
-            <output name="out_cluster_dat" file="clusters_dat.dat" ftype="txt" compare="sim_size" delta="20"/>
+            <output name="out_cluster" file="clustout-uep.txt" ftype="txt" compare="sim_size" delta="20"/>
+            <output name="out_cluster_dat" file="clustout-uep.dat" ftype="txt" compare="sim_size" delta="20"/>
         </test>
         <test>
             <param name="optimised" value="dftb-out.zip" ftype='zip'/>
