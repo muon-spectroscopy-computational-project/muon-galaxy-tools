@@ -1,0 +1,10 @@
+categories:
+- Computational chemistry
+- Molecular Dynamics
+description: Generate input file for pymuon suite
+homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
+long_description: |
+  form tool to generate yaml parameter input file to be used by pymuon suite muairss
+name: pm_yaml_config
+owner: muon-spectroscopy-computational-project
+remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_muairss_write

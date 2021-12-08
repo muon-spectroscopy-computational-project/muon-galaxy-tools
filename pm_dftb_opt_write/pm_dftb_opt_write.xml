@@ -1,0 +1,114 @@
+<tool id="pm_dftb_opt_write" name="Generate dftb+ outputs (dftb+)" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package">dftbplus</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
+        unzip $folder &&
+        if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
+        && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi &&
+        out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
+        bash ${__tool_directory__}/run.sh \$out_folder ${__tool_directory__} &&
+        if grep -q 'pbc-0-3' params.yaml; then cp ${__tool_directory__}/README-pbc \$out_folder README; else if grep -q '3ob-3-1' params.yaml; then cp ${__tool_directory__}/README-3ob \$out_folder README; fi &&
+        zip -r out_zip.zip \$out_folder params.yaml input.cell &&
+        find \$out_folder > tree.txt
+    ]]></command>
+    <inputs>
+        <param type="data" name="folder" format="zip" />
+    </inputs>
+    <outputs>
+        <data label="dftb-out-$folder.name" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="file tree for testing" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="folder" value="muonated.zip" ftype='zip'/>
+            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="1"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: dftb+
+        Given some input muonated structures, generates applies DFTB+ optimization to refine them.
+        
+        **LICENSE**
+
+        All data is licensed under the Creative Commons Attribution-ShareAlike 4.0
+        International License. The full text of the license can be found at:
+
+        https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+        For specific data sets remember to cite the following papers, by element :
+
+|        **3-ob-1**
+
+
++--------------+----------------------------------------------+-----------------------------------+
+| [JCTC2013]   | J. Chem. Theory Comput., 2013, 9, 338-354.   | (O, N, C, H)                      |
++--------------+----------------------------------------------+-----------------------------------+
+| [JCTC2014]   | J. Chem. Theory Comput., 2014, 10, 1518-1537.| (P,S-*)                           |
++--------------+----------------------------------------------+-----------------------------------+
+| [JCTC2015-1] | J. Phys. Chem. B, 2015, 119, 1062-1082.      | (Mg,Zn-*)                         |
++--------------+----------------------------------------------+-----------------------------------+
+| [JCTC2015-2] | J. Chem. Theory Comput., 2015, 11, 332-342.  | (Na,F,K,Ca,Cl,Br,I-*)             |
++--------------+----------------------------------------------+-----------------------------------+  
+
+|
+|    **pbc-0-3**
+
++------------+------------------------------------------------------------------------------------------+---------+
+|   [SiC]    | E. Rauls, R. Gutierrez, J. Elsner, and Th. Frauenheim, Sol. State Comm. 111, 459 (1999)  | (Si-C)  |
++------------+------------------------------------------------------------------------------------------+---------+
+|   [SiO]    | C. Koehler, Z. Hajnal, P. Deak, Th. Frauenheim, S. Suhai, Phys. Rev. B 64, 085333 (2001) |  (Si-O) |
++------------+------------------------------------------------------------------------------------------+---------+
+| [Silicon]  | A. Sieck, Th. Frauenheim, and K. A. Jackson, phys. stat. sol. (b) 240, 537 (2003).       |  (Si)   |
++------------+------------------------------------------------------------------------------------------+---------+
+| [Fluorine] | C. Koehler and Th. Frauenheim, Surf. Sci. 600, 453 (2006).                               |   (F)   |
++------------+------------------------------------------------------------------------------------------+---------+
+|   [Iron]   | C. Koehler, G. Seifert and Th. Frauenheim, Chem. Phys. 309, 23 (2005).                   |   (Fe)  |
++------------+------------------------------------------------------------------------------------------+---------+
+|   [SiSi]   | A. Sieck, PhD. Thesis, University of Paderborn, 2000.                                    | (Si-Si) |
++------------+------------------------------------------------------------------------------------------+---------+
+
+|
+| The full sets and all other data can be found at the following URLs:
+
++----------+------------------------------------------------------------+
+|  3-ob-1  |   https://www.dftb.org/parameters/download/3ob/3ob-3-1-cc/ |
++----------+------------------------------------------------------------+
+| pbc-0-3  |  https://www.dftb.org/parameters/download/pbc/pbc-0-3-cc/  |
++----------+------------------------------------------------------------+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{github,
+  author = {Muon Spectroscopy Computational Project},
+  year = {2021},
+  title = {pymuon-suite},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
+}</citation>
+       <citation type="bibtex">
+        @article{doi:10.1063/1.5143190,
+            author = {Hourahine,B.  and Aradi,B.  and Blum,V.  and Bonafé,F.  and Buccheri,A.  and Camacho,C.  and Cevallos,C.  and Deshaye,M. Y.  and Dumitrică,T.  and Dominguez,A.  and Ehlert,S.  and Elstner,M.  and van der Heide,T.  and Hermann,J.  and Irle,S.  and Kranz,J. J.  and Köhler,C.  and Kowalczyk,T.  and Kubař,T.  and Lee,I. S.  and Lutsker,V.  and Maurer,R. J.  and Min,S. K.  and Mitchell,I.  and Negre,C.  and Niehaus,T. A.  and Niklasson,A. M. N.  and Page,A. J.  and Pecchia,A.  and Penazzi,G.  and Persson,M. P.  and Řezáč,J.  and Sánchez,C. G.  and Sternberg,M.  and Stöhr,M.  and Stuckenberg,F.  and Tkatchenko,A.  and Yu,V. W.-z.  and Frauenheim,T. },
+            title = {DFTB+, a software package for efficient approximate density functional theory based atomistic simulations},
+            journal = {The Journal of Chemical Physics},
+            volume = {152},
+            number = {12},
+            pages = {124101},
+            year = {2020},
+            doi = {10.1063/1.5143190},
+            
+            URL = { 
+                    https://doi.org/10.1063/1.5143190
+                
+            },
+            eprint = { 
+                    https://doi.org/10.1063/1.5143190
+                
+            }
+            
+            }
+       </citation>
+    </citations>
+</tool>
