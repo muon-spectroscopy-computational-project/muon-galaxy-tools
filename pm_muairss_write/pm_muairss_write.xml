@@ -3,7 +3,7 @@
         <requirement type="package">pymuon-suite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
+        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         ln -s $structure input.cell &&
         ln -s $params params.yaml &&
         #if str($iscastep.iscastep_sel)=="true":
