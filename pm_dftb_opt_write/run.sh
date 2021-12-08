@@ -1,1 +1,0 @@
-for x in $1/*/* ; do (cd $x && dftb+) ;done 
