@@ -1,35 +1,32 @@
-<tool id="pm_muairss_read" name="Cluster outputs (pm-muairs_read)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_muairss_read" name="Cluster outputs (pm-muairss read)" version="0.1.0" python_template_version="3.5">
     <requirements>
         <requirement type="package">pymuon-suite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
+        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $optimised &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
         && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi 
         && out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
-        pm-muairss -t r input.cell params.yaml && 
-        zip -r out_zip.zip \$out_folder *_clusters* param.yaml input.cell &&
-        find \$out_folder > tree.txt
+        pm-muairss -t r input.cell params.yaml 
     ]]></command>
     <inputs>
         <param type="data" name="optimised" format="zip" />
     </inputs>
     <outputs>
-        <data label="cluster-folders-$optimised.name" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>
-        <data label="clusters-output-$optimised.name" name="out_cluster" format="txt" from_work_dir="$out_folder/*clusters.txt"/>
-        <data label="clusters-dat-$optimised.name" name="out_cluster_dat" format="txt" from_work_dir="$out_folder/*clusters.dat"/>
+        <data label="Cluster report for $optimised.name" name="out_cluster" format="txt" from_work_dir="$out_folder/*clusters.txt"/>
+        <data label="Cluster data for $optimised.name" name="out_cluster_dat" format="txt" from_work_dir="$out_folder/*clusters.dat"/>
     </outputs>
     <tests>
         <test>
             <param name="optimised" value="uep-out.zip" ftype='zip'/>
-            <output name="out_cluster" file="clusters.txt" ftype="txt" compare="sim_size" delta_frac="0.01"/>
-            <output name="out_cluster_dat" file="clusters_dat.dat" ftype="txt" compare="sim_size" delta_frac="0.001"/>
+            <output name="out_cluster" file="clusters.txt" ftype="txt" compare="sim_size" delta="20"/>
+            <output name="out_cluster_dat" file="clusters_dat.dat" ftype="txt" compare="sim_size" delta="20"/>
         </test>
         <test>
             <param name="optimised" value="dftb-out.zip" ftype='zip'/>
-            <output name="out_cluster" file="clustout-dftb.txt" ftype="txt" compare="sim_size" delta_frac="0.01"/>
-            <output name="out_cluster_dat" file="clustout-dftb.dat" ftype="txt" compare="sim_size" delta_frac="0.001"/>
+            <output name="out_cluster" file="clustout-dftb.txt" ftype="txt" compare="sim_size" delta="20"/>
+            <output name="out_cluster_dat" file="clustout-dftb.dat" ftype="txt" compare="sim_size" delta="20"/>
         </test>
     </tests>
     <help><![CDATA[
