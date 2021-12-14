@@ -1,9 +1,10 @@
 <tool id="pm_dftb_opt_write" name="Generate dftb+ outputs (dftb+)" version="0.1.0" python_template_version="3.5">
     <requirements>
         <requirement type="package">dftbplus</requirement>
+        <requirement type="package">pymuonsuite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
+        pip show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $folder &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
         && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi &&
