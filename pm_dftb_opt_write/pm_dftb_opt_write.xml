@@ -3,13 +3,13 @@
         <requirement type="package">dftbplus</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip show pymuon-suite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
+        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $folder &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
         && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         bash ${__tool_directory__}/run.sh \$out_folder ${__tool_directory__} &&
-        if grep -q 'pbc-0-3' params.yaml; then cp ${__tool_directory__}/README-pbc \$out_folder README; elif grep -q '3ob-3-1' params.yaml; then cp ${__tool_directory__}/README-3ob \$out_folder README; fi &&
+        if grep -q 'pbc-0-3' params.yaml; then cp ${__tool_directory__}/README-pbc \$out_folder README; elif grep -q '3ob-3-1' params.yaml; then cp ${__tool_directory__}/README-3ob \$out_folder README; fi; 
         zip -r out_zip.zip \$out_folder params.yaml input.cell &&
         find \$out_folder > tree.txt
     ]]></command>

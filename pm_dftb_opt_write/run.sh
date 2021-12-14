@@ -1,1 +1,1 @@
-for x in $1/*/* ; do (cd $x && dftb+) ;done 
+for x in $1/*/* ; do (echo $x && cd $x && dftb+) ;done 
