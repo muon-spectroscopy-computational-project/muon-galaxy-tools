@@ -132,6 +132,11 @@
             <param name="max_scc_steps" value="200"/>
             <output name="out_yaml" file="config.yaml" ftype="txt" />
         </test>
+        <test expect_failure="true">
+            <assert_stderr>
+                <has_text text="structure name is empty"/>
+            </assert_stderr>    
+        </test>
     </tests>
     <help><![CDATA[
         Creates a yaml configuration file from input parameters.
