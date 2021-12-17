@@ -45,7 +45,7 @@
     </outputs>
     <tests>
         <test>
-            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <conditional name="iscastep">
@@ -59,7 +59,7 @@
             </output>
         </test>
         <test>
-            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <conditional name="iscastep">
@@ -73,7 +73,7 @@
             </output>
         </test>
         <test>
-            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_no_outfolder_and_castep_param.yaml" ftype="yaml"/>
             <conditional name="iscastep">
@@ -87,7 +87,7 @@
             </output>
         </test>
         <test>
-            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="testing" value="true"/>
             <param name="params" value="configdftb_t.yaml" ftype="yaml"/>
             <output name="file_tree" file="tree_dftb.txt" ftype="txt" compare="sim_size" delta="350">
@@ -97,7 +97,7 @@
             </output>
         </test>
         <test>
-            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="testing" value="true"/>
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
             <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
