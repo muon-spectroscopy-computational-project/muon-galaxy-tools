@@ -1,9 +1,8 @@
 <tool id="pm_muairss_write" name="Generate muon structures (pm-muairss)" version="0.1.0" python_template_version="3.5">
     <requirements>
-        <requirement type="package">pymuon-suite</requirement>
+        <requirement type="package">pymuonsuite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         ln -s $structure input.cell &&
         ln -s $params params.yaml &&
         #if str($iscastep.iscastep_sel)=="true":
@@ -23,7 +22,7 @@
             grep -o "name" params.yaml | wc -l > tree.txt &&
         #end if
         find \$out_folder >> tree.txt
-        
+
     ]]></command>
     <inputs>
         <param type="data" name="structure" format="cell" />
@@ -33,7 +32,7 @@
         <param type="boolean" value="false" name="iscastep_sel" label="Is the calculator castep?">
             <option value="false">no</option>
             <option value="true">yes</option>
-        </param>   
+        </param>
         <when value="true">
             <param type="data" name="castep_param" format="txt" />
         </when>

@@ -1,14 +1,13 @@
 <tool id="pm_muairss_read" name="Cluster outputs (pm-muairss read)" version="0.1.0" python_template_version="3.5">
     <requirements>
-        <requirement type="package">pymuon-suite</requirement>
+        <requirement type="package">pymuonsuite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $optimised &&
-        if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
-        && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi 
+        if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi
+        && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi
         && out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
-        pm-muairss -t r input.cell params.yaml 
+        pm-muairss -t r input.cell params.yaml
     ]]></command>
     <inputs>
         <param type="data" name="optimised" format="zip" />

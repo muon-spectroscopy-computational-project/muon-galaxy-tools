@@ -1,12 +1,11 @@
 <tool id="pm_uep_opt_write" name="Generate uep outputs (pm-uep-opt)" version="0.1.0" python_template_version="3.5">
     <requirements>
-        <requirement type="package">pymuon-suite</requirement>
+        <requirement type="package">pymuonsuite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $folder &&
-        if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
-        && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi 
+        if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi
+        && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi
         && ln -s $charge_density $charge_density.name &&
         x="$charge_density.name" &&
         echo "calculated seed name \$x" &&
@@ -46,9 +45,9 @@
             <param name="charge_density" value="Sifail.den_fmt" ftype="txt"/>
             <assert_stderr>
                 <has_text text="Error:  FMT file has no header"/>
-            </assert_stderr>    
+            </assert_stderr>
         </test>
-        
+
     </tests>
     <help><![CDATA[
         usage: pm-uep-opt [-h] [-t {r,w}] structures parameter_file
