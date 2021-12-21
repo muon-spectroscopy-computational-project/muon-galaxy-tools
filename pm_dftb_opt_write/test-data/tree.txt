@@ -154,3 +154,4 @@ Si-out/pbc-0-3/Si-H.skf
 Si-out/pbc-0-3/Si-N.skf
 Si-out/pbc-0-3/Si-O.skf
 Si-out/pbc-0-3/Si-Si.skf
+Si-out/README

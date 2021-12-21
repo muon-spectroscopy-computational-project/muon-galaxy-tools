@@ -24,7 +24,7 @@
     <tests>
         <test>
             <param name="folder" value="muonated.zip" ftype='zip'/>
-            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta="1"/>
+            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size" delta_frac="0.001"/>
         </test>
     </tests>
     <help><![CDATA[
