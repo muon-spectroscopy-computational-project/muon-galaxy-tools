@@ -1,6 +1,7 @@
 <tool id="pm_uep_opt_write" name="Generate uep outputs (pm-uep-opt)" version="0.1.0" python_template_version="3.5">
     <requirements>
         <requirement type="package">pymuonsuite</requirement>
+        <requirement type="package">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         unzip $folder &&
