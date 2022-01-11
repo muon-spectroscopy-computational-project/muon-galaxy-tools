@@ -1,4 +1,3 @@
-1
 Si-out
 Si-out/castep
 Si-out/castep/Si_1
@@ -136,16 +135,4 @@ Si-out/castep/Si_44/Si_44.param
 Si-out/castep/Si_45
 Si-out/castep/Si_45/Si_45.cell
 Si-out/castep/Si_45/Si_45.param
-Si-out/castep/Si_46
-Si-out/castep/Si_46/Si_46.cell
-Si-out/castep/Si_46/Si_46.param
-Si-out/castep/Si_47
-Si-out/castep/Si_47/Si_47.cell
-Si-out/castep/Si_47/Si_47.param
-Si-out/castep/Si_48
-Si-out/castep/Si_48/Si_48.cell
-Si-out/castep/Si_48/Si_48.param
-Si-out/castep/Si_49
-Si-out/castep/Si_49/Si_49.cell
-Si-out/castep/Si_49/Si_49.param
 Si-out/castep/.collection
