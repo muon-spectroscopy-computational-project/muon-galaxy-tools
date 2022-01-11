@@ -143,7 +143,7 @@
         </test>
         <test expect_failure="true">
             <assert_stderr>
-                <has_text text="structure name is empty"/>
+                <has_text text="cannot find 'struct_name'"/>
             </assert_stderr>    
         </test>
     </tests>
