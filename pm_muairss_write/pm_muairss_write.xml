@@ -28,14 +28,14 @@
     <inputs>
         <param type="data" name="structure" format="cell" />
         <param type="hidden" name="testing" value="false"/>
-        <param type="data" name="params" format="txt" />
+        <param type="data" name="params" format="yaml" />
     <conditional name="iscastep">
         <param type="boolean" value="false" name="iscastep_sel" label="Is the calculator castep?">
             <option value="false">no</option>
             <option value="true">yes</option>
         </param>
         <when value="true">
-            <param type="data" name="castep_param" format="txt" />
+            <param type="data" name="castep_param" format="txt,yaml" />
         </when>
     </conditional>
     </inputs>
@@ -47,10 +47,10 @@
         <test>
             <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="testing" value="true"/>
-            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="txt"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <conditional name="iscastep">
                 <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param"/>
+                <param name="castep_param" value="Si.param" ftype="txt"/>
             </conditional>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" compare="sim_size" delta="350">
                 <assert_contents>
@@ -61,7 +61,21 @@
         <test>
             <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="testing" value="true"/>
-            <param name="params" value="configcastep_t_no_outfolder_and_castep_param.yaml" ftype="txt"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param" ftype="yaml"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" compare="sim_size" delta="350">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test>
+            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_no_outfolder_and_castep_param.yaml" ftype="yaml"/>
             <conditional name="iscastep">
                 <param name="iscastep_sel" value="true"/>
                 <param name="castep_param" value="Si.param"/>
@@ -75,7 +89,7 @@
         <test>
             <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="testing" value="true"/>
-            <param name="params" value="configdftb_t.yaml" ftype="txt"/>
+            <param name="params" value="configdftb_t.yaml" ftype="yaml"/>
             <output name="file_tree" file="tree_dftb.txt" ftype="txt" compare="sim_size" delta="350">
                 <assert_contents>
                     <has_line_matching expression="^1$"/>
@@ -85,7 +99,7 @@
         <test>
             <param name="structure" value="Si.cell" ftype="txt"/>
             <param name="testing" value="true"/>
-            <param name="params" value="configuep_t.yaml" ftype="txt"/>
+            <param name="params" value="configuep_t.yaml" ftype="yaml"/>
             <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
                 <assert_contents>
                     <has_line_matching expression="^1$"/>
