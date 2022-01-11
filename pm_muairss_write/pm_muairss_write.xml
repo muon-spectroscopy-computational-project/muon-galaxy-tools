@@ -66,7 +66,7 @@
                 <param name="iscastep_sel" value="true"/>
                 <param name="castep_param" value="Si.param"/>
             </conditional>
-            <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" compare="sim_size" delta="350">
+            <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" compare="sim_size" delta="700">
                 <assert_contents>
                     <has_line_matching expression="^1$"/>
                 </assert_contents>
