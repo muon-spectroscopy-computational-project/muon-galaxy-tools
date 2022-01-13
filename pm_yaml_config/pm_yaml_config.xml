@@ -151,6 +151,7 @@
             <output name="out_yaml" file="config.yaml" ftype="txt" compare="sim_size" delta="1"/>
         </test>
         <test expect_failure="true">
+            <section name="general_params"></section>
             <assert_stderr>
                 <has_text text="cannot find 'struct_name'"/>
             </assert_stderr>    
