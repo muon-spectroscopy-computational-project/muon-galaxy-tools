@@ -123,7 +123,7 @@
     </outputs>
     <tests>
         <test>
-            <section name="general_params" expanded="true" title="General Parameters">
+            <section name="general_params">
             <param name="poisson_r" value="0.8"/>
             <param name="struct_name" value="Si"/>
             <param name="charged" value="true"/>
@@ -132,14 +132,14 @@
             <param name="out_folder" value="Si-out"/>
             <param name="geom_force_tol" value="0.05"/>
             </section>
-            <section name="calculator_params" expanded="true" title="Calculator parameters">
+            <section name="calculator_params">
             <conditional name="calculator_cond">
                 <param name="calculator" value="uep"/>
                 <param name="uep_gw_factor" value="0.4"/>
                 <param name="uep_chden" value="Si.den_fmt"/>
             </conditional>
             </section>
-            <section name="clustering_params" expanded="true" title="Clustering Parameters">
+            <section name="clustering_params">
             <conditional name="clustering">
                 <param name="clustering_method" value="hier"/>
                 <param name="clustering_hier_t" value="0.2"/>
