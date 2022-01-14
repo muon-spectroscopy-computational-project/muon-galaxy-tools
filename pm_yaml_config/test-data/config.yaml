@@ -5,11 +5,11 @@ geom_steps: 300
 vdw_scale: 0.25 
 calculator: uep 
 geom_force_tol: 0.05 
-out_folder: muon-airss-out 
+out_folder: Si-out 
 supercell: 30 
 k_points_grid: [1,1,1] 
 max_scc_steps: 200 
-uep_gw_factor: 4.0 
+uep_gw_factor: 0.4 
 uep_chden: Si.den_fmt 
 clustering_method: hier 
 clustering_hier_t: 0.2 

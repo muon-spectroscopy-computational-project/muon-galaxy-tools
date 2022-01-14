@@ -148,7 +148,7 @@
             <param name="k_points_grid" value="[1,1,1]"/>
             <param name="max_scc_steps" value="200"/>
             </section>
-            <output name="out_yaml" file="config.yaml" ftype="yaml"/>
+            <output name="out_yaml" file="config.yaml" ftype="yaml" delta="30"/>
         </test>
         <test expect_failure="true">
             <section name="general_params"></section>
