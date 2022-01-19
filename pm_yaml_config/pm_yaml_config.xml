@@ -11,7 +11,7 @@
         ([[ ! -z "$calculator_params.calculator_cond.calculator" ]] && printf "calculator: $calculator_params.calculator_cond.calculator \n">>outputx.yaml || ( >&2 echo "calculator unselected" && exit 2)) &&
         ([[ ! -z "$general_params.geom_force_tol" ]] && printf "geom_force_tol: $general_params.geom_force_tol \n">>outputx.yaml || ( >&2 echo "geom_force_tol empty" && exit 2)) &&
         ([[ ! -z "$general_params.out_folder" ]] && printf "out_folder: $general_params.out_folder \n">>outputx.yaml || printf "out_folder: muon-airss-out \n">>outputx.yaml) &&
-        ([[ ! -z "$clustering_params.supercell" ]] && printf "supercell: $clustering_params.supercell \n">>outputx.yaml || ( >&2 echo "supercell empty" && exit 2)) &&
+        ([[ ! -z "$clustering_params.supercell" ]] && (printf "supercell: $clustering_params.supercell \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>outputx.yaml || ( >&2 echo "supercell empty" && exit 2)) &&
         ([[ ! -z "$clustering_params.k_points_grid" ]] && (printf "k_points_grid: $clustering_params.k_points_grid \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || ( >&2 echo "k_points_grid empty" && exit 2)) &&
         ([[ ! -z "$clustering_params.max_scc_steps" ]] && printf "max_scc_steps: $clustering_params.max_scc_steps \n">>outputx.yaml || ( >&2 echo "max_scc_steps empty" && exit 2)) &&
         #if str($calculator_params.calculator_cond.calculator)=="uep":
