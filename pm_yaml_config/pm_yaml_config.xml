@@ -160,7 +160,7 @@
         </test>
     </tests>
     <help><![CDATA[
-        Creates a yaml configuration file from input parameters.
+        Creates a YAML configuration file from input parameters.
 
       **DFTB+ parameter sets:**
 
