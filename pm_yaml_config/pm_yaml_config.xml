@@ -72,7 +72,7 @@
                 <param type="text" argument="mu_symbol" name="mu_symbol" optional="true" label="Muon symbol" value="H:mu" help="The symbol to use for the muon when writing out the CASTEP custom species." />
             </when>
             <when value="dftb+">
-                <param type="select" argument="dftb_set" name="dftb_set" optional="true" value="3ob-3-1" label="DFTB parameter set" help="The parameter set to use for DFTB+. Currently supported are: 3ob-3-1 and pbc-0-3. see help section at the bottom of the page for details.">
+                <param type="select" argument="dftb_set" name="dftb_set" optional="true" value="3ob-3-1" label="DFTB parameter set" help="The parameter set to use for DFTB+. Currently supported are: 3ob-3-1 and pbc-0-3. See help section at the bottom of the page for details.">
                     <option value="3ob-3-1" selected="true">3ob-3-1</option>
                     <option value="pbc-0-3">pbc-0-3</option>
                 </param>
