@@ -2,7 +2,7 @@ poisson_r: 0.8
 name: Si 
 charged: true 
 geom_steps: 300 
-vdw_scale: 0.25 
+vdw_scale: 0.5 
 calculator: uep 
 geom_force_tol: 0.05 
 out_folder: Si-out 
