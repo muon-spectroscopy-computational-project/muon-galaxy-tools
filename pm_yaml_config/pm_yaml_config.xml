@@ -51,7 +51,7 @@
         </param>
         <param type="integer" argument="geom_steps" name="geom_steps" value="" label="Geometry optimization steps" help="Maximum number of geometry optimisation steps."/>
         <param type="float" argument="vdw_scale" name="vdw_scale" value="0.5" label="Van der Waals scale" help="Van der Waals scaling factor to use when generating muon sites to avoid existing atoms. Smaller values will allow muons to get closer to the other ions."/>
-        <param type="text" argument="out_folder" optional="true" name="out_folder" value="muon-airss-out" label="Output folder name" help="name to call the output folder used to store the files that the script generates."/>
+        <param type="text" argument="out_folder" optional="true" name="out_folder" value="muon-airss-out" label="Output folder name" help="Name to call the output folder used to store the files that the script generates."/>
         <param type="float" argument="geom_force_tol" name="geom_force_tol" value="" label="Geometry optimization tolerance" help="Tolerance on geometry optimisation in units of eV/Å."/>
         </section>
         <section name="calculator_params" expanded="true" title="Calculator parameters">
