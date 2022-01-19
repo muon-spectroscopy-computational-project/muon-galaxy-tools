@@ -83,18 +83,18 @@
                 </param>
             </when>
             <when value="all">
-                <param type="float" argument="uep_gw_factor" name="uep_gw_factor" value="5.0" optional="true" label="UEP: Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
-                <param type="text" argument="uep_chden" name="uep_chden" optional="true" label="UEP: Path to .den_fmt and .castep files" help="Path to the .den_fmt file containing the electronic density for an Unperturbed Electrostatic Potential optimisation. The corresponding .CASTEP file must be in the same folder and with the same seedname. Only required for use outside Muon Galaxy."/>
-                <param type="text" argument="castep_command" name="castep_command" optional="true" label="CASTEP: CASTEP command" help="Command to use to run CASTEP."/>
-                <param type="text" argument="castep_param" name="castep_param" optional="true" label="CASTEP: PARAM path" help="File path to the CASTEP parameter file."/>
-                <param type="text" argument="mu_symbol" name="mu_symbol" value="H:mu" optional="true" label="CASTEP: Muon symbol" help="The symbol to use for the muon when writing out the CASTEP custom species." />
-                <param type="select" argument="dftb_set" name="dftb_set" optional="true" value="3ob-3-1" label="DFTB+: DFTB set" help="The parameter set to use for DFTB+. Currently supported are: 3ob-3-1 and pbc-0-3. see ">
+                <param type="float" argument="uep_gw_factor" name="uep_gw_factor" optional="true" value="5.0" label="Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
+                <param type="text" argument="uep_chden" name="uep_chden" optional="true" label="Path to .den_fmt and CASTEP files" help="Name of the .den_fmt file containing the electronic density for an Unperturbed Electrostatic Potential optimisation. The corresponding .castep file must be with the same seedname. Only required for use outside Muon Galaxy"/>
+                <param type="text" argument="castep_command" name="castep_command" optional="true" value="castep.serial" label="CASTEP command" help="Command to use to run CASTEP."/>
+                <param type="text" argument="castep_param" name="castep_param" optional="true" label="PARAM path" help="File path to the CASTEP parameter file."/>
+                <param type="text" argument="mu_symbol" name="mu_symbol" optional="true" label="Muon symbol" value="H:mu" help="The symbol to use for the muon when writing out the CASTEP custom species." />
+                <param type="select" argument="dftb_set" name="dftb_set" optional="true" value="3ob-3-1" label="DFTB parameter set" help="The parameter set to use for DFTB+. Currently supported are: 3ob-3-1 and pbc-0-3. See help section at the bottom of the page for details.">
                     <option value="3ob-3-1" selected="true">3ob-3-1</option>
                     <option value="pbc-0-3">pbc-0-3</option>
                 </param>
-                <param type="text" argument="dftb_optionals" name="dftb_optionals" value="[]" optional="true" label="DFTB+: DFTB optionals" help="Additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
-                <param type="select" argument="dftb_pbc" name="dftb_pbc" value="true" optional="true" label="DFTB+: Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+.">
-                    <option value="true">true</option>
+                <param type="text" argument="dftb_optionals" name="dftb_optionals" value="[]" optional="true" label="DFTB optional files" help="Additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
+                <param type="select" argument="dftb_pbc" name="dftb_pbc" optional="true" value="true" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+.">
+                    <option value="true" selected="true">true</option>
                     <option value="false">false</option>
                 </param>
             </when>
