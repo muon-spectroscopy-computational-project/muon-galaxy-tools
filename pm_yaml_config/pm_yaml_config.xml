@@ -63,7 +63,7 @@
                 <option value="all">all</option>
             </param>
             <when value="uep">
-                <param type="float" argument="uep_gw_factor" name="uep_gw_factor" optional="true" value="5.0" label="Gaussian witdh factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
+                <param type="float" argument="uep_gw_factor" name="uep_gw_factor" optional="true" value="5.0" label="Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
                 <param type="text" argument="uep_chden" name="uep_chden" optional="true" label="Path to .den_fmt and CASTEP files" help="Name of the .den_fmt file containing the electronic density for an Unperturbed Electrostatic Potential optimisation. The corresponding .castep file must be with the same seedname. Only required for use outside Muon Galaxy"/>
             </when>
             <when value="castep">
@@ -83,7 +83,7 @@
                 </param>
             </when>
             <when value="all">
-                <param type="float" argument="uep_gw_factor" name="uep_gw_factor" value="5.0" optional="true" label="UEP: Gaussian witdh factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
+                <param type="float" argument="uep_gw_factor" name="uep_gw_factor" value="5.0" optional="true" label="UEP: Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
                 <param type="text" argument="uep_chden" name="uep_chden" optional="true" label="UEP: Path to .den_fmt and .castep files" help="Path to the .den_fmt file containing the electronic density for an Unperturbed Electrostatic Potential optimisation. The corresponding .CASTEP file must be in the same folder and with the same seedname. Only required for use outside Muon Galaxy."/>
                 <param type="text" argument="castep_command" name="castep_command" optional="true" label="CASTEP: CASTEP command" help="Command to use to run CASTEP."/>
                 <param type="text" argument="castep_param" name="castep_param" optional="true" label="CASTEP: PARAM path" help="File path to the CASTEP parameter file."/>
@@ -107,10 +107,10 @@
                 <option value="kmeans">k-means</option>
             </param>
             <when value="hier">
-                <param type="float" argument="clustering_hier_t" name="clustering_hier_t" value="0.3" optional="true" label="Hierarchical clustering t"/>
+                <param type="float" argument="clustering_hier_t" name="clustering_hier_t" value="0.3" optional="true" label="t parameter for hierarchical clustering"/>
             </when>
             <when value="kmeans">
-                <param type="integer" argument="clustering_kmeans_k" name="clustering_kmeans_k" value="4" optional="true" label="K-means clustering k"/>
+                <param type="integer" argument="clustering_kmeans_k" name="clustering_kmeans_k" value="4" optional="true" label="Number of clusters for k-means clustering"/>
             </when>
         </conditional>
         <param type="integer" argument="supercell" name="supercell" value="1" label="Supercell" multiple="true" help="Supercell size and shape to use. This can either be a single int, a list of three integers or a 3x3 matrix of integers. For a single number a diagonal matrix will be generated with the integer repeated on the diagonals. For a list of three numbers a diagonal matrix will be generated where the diagonal elements are set to the list. A matrix will be used directly as is. Default is a 3x3 identity matrix."/>
