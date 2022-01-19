@@ -87,7 +87,7 @@
                 <param type="text" argument="uep_chden" name="uep_chden" optional="true" label="UEP: Path to .den_fmt and CASTEP files" help="Path to the .den_fmt file containing the electronic density for an Unperturbed Electrostatic Potential optimisation. The corresponding .CASTEP file must be in the same folder and with the same seedname. Only required for use outside Muon Galaxy"/>
                 <param type="text" argument="castep_command" name="castep_command" optional="true" label="CASTEP: CASTEP command" help="Command to use to run CASTEP."/>
                 <param type="text" argument="castep_param" name="castep_param" optional="true" label="CASTEP: PARAM path" help="File path to the CASTEP parameter file."/>
-                <param type="text" argument="mu_symbol" name="mu_symbol" optional="true" label="CASTEP: Mu symbol" help="The symbol to use for the muon when writing out the CASTEP custom species." />
+                <param type="text" argument="mu_symbol" name="mu_symbol" optional="true" label="CASTEP: Muon symbol" help="The symbol to use for the muon when writing out the CASTEP custom species." />
                 <param type="select" argument="dftb_set" name="dftb_set" optional="true" value="3ob-3-1" label="DFTB+: DFTB set" help="The parameter set to use for DFTB+. Currently supported are: 3ob-3-1 and pbc-0-3. see ">
                     <option value="3ob-3-1" selected="true">3ob-3-1</option>
                     <option value="pbc-0-3">pbc-0-3</option>
