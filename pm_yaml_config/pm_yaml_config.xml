@@ -56,7 +56,7 @@
         </section>
         <section name="calculator_params" expanded="true" title="Calculator parameters">
         <conditional name="calculator_cond">
-            <param type="select" display="radio" label="Optimization calculator" argument="calculator" name="calculator" value="uep" help="Calculator to generate structure files for. Must be a single word or a comma seperated list of values. Currently supported calculators are CASTEP, DFTB+ and UEP. Can also pass all as an option to generate files for all calculators.">
+            <param type="select" display="radio" label="Optimization calculator" argument="calculator" name="calculator" value="uep" help="Calculator to generate structure files for. Must be a single word or a comma seperated list of values. Currently supported calculators are CASTEP, DFTB+ and UEP. Can also select 'all' to generate files for all calculators.">
                 <option value="uep">UEP</option>
                 <option value="castep">CASTEP</option>
                 <option value="dftb+">DFTB+</option>
