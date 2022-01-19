@@ -1,4 +1,4 @@
-<tool id="pm_yaml_config" name="Creates yaml for pm-muairs" version="0.1.0" python_template_version="3.5">
+<tool id="pm_yaml_config" name="Creates yaml for pm-muairss" version="0.1.0" python_template_version="3.5">
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
