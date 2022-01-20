@@ -124,12 +124,39 @@
     <tests>
         <test>
             <section name="general_params">
+            <param name="poisson_r" value="0.8"/>
+            <param name="struct_name" value="Si"/>
+            <param name="charged" value="true"/>
+            <param name="geom_steps" value="300"/>
+            <param name="vwd_scale" value="0.25"/>
+            <param name="out_folder" value="Si-out"/>
+            <param name="geom_force_tol" value="0.05"/>
             </section>
             <section name="calculator_params">
+            <conditional name="calculator_cond">
+                <param name="calculator" value="uep"/>
+                <param name="uep_gw_factor" value="0.4"/>
+                <param name="uep_chden" value="Si.den_fmt"/>
+            </conditional>
             </section>
             <section name="clustering_params">
+            <conditional name="clustering">
+                <param name="clustering_method" value="hier"/>
+                <param name="clustering_hier_t" value="0.2"/>
+            </conditional>
+            <param name="supercell" value="1" />
+            <param name="k_points_grid" value="[1,1,1]"/>
+            <param name="max_scc_steps" value="200"/>
             </section>
             <output name="out_yaml" file="config.yaml" ftype="yaml" delta="100"/>
+        </test>
+        <test expect_failure="true">
+            <section name="general_params"></section>
+            <section name="calculator_params"></section>
+            <section name="clustering_params"></section>
+            <assert_stderr>
+                <has_text text="structure name is empty"/>
+            </assert_stderr>    
         </test>
     </tests>
     <help><![CDATA[
