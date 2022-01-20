@@ -109,7 +109,7 @@
         </test>
     </tests>
     <help><![CDATA[
-        Given an input structure, this tool generates a set of duplicate structures, each with a single muon added in a random location.
+        Given an input structure, this tool generates a set of duplicate structures, each with a single muon added in a random location. These are known as "muonated" structures.
 
         The YAML file controls many factors of the structure generation. We recommend using the '`YAML config generator`_' tool to create the file, but you can also write and upload it yourself following the `pm-muairss documentation`_.
 
@@ -118,7 +118,7 @@
         Command-line usage: pm-muairss -t w structure_file parameter_file
 
         .. _pm-muairss documentation: https://github.com/muon-spectroscopy-computational-project/pymuon-suite/blob/master/docs/muairss-gen-docs.md
-        .. _YAML config generator: http://localhost:9090/tool_runner?tool_id=pm_uep_opt_write
+        .. _YAML config generator: http://localhost:9090/tool_runner?tool_id=pm_yaml_config
         .. _Generate UEP outputs: http://localhost:9090/tool_runner?tool_id=pm_uep_opt_write
     ]]></help>
     <citations>
