@@ -150,14 +150,14 @@
             </section>
             <output name="out_yaml" file="config.yaml" ftype="yaml" delta="100"/>
         </test>
-                <test>
+        <test>
             <section name="general_params">
             <param name="poisson_r" value="0.8"/>
             <param name="struct_name" value="struct"/>
             <param name="charged" value="true"/>
             <param name="geom_steps" value="30"/>
             <param name="vwd_scale" value="0.5"/>
-            <param name="out_folder" value="Si-out"/>
+            <param name="out_folder" value="muon-airss-out"/>
             <param name="geom_force_tol" value="0.05"/>
             </section>
             <section name="calculator_params">
