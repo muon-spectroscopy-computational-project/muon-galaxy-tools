@@ -17,7 +17,7 @@
     <tests>
         <test>
             <param name="structure" value="Si.cell" ftype="txt"/>
-            <output name="file_tree" file="test_out.txt" ftype="txt" delta="10">
+            <output name="symmetry_file" file="test_out.txt" ftype="txt" delta="10">
             </output>
         </test>
     </tests>
