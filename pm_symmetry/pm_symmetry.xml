@@ -17,7 +17,7 @@
     <tests>
         <test>
             <param name="structure" value="Si.cell" ftype="txt"/>
-            <output name="out_sym" file="test_out.txt" ftype="txt"  compare="sim_size" delta="350">
+            <output name="out_sym" file="test_out.txt" ftype="txt"  compare="sim_size" delta="500">
             </output>
         </test>
     </tests>
