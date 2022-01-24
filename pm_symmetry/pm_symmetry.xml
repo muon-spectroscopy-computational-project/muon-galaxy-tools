@@ -1,6 +1,6 @@
 <tool id="pm_symmetry" name="Generate Wyckoff points symmetry report (pm-symmetry)" version="0.1.0" python_template_version="3.5">
     <requirements>
-        <requirement type="package">pymuon-suite</requirement>
+        <requirement type="package">pymuonsuite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
