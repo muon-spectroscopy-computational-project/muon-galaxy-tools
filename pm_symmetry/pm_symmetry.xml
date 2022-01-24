@@ -1,0 +1,43 @@
+<tool id="pm_symmetry" name="Generate Wyckoff points symmetry report (pm-symmetry)" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package">pymuon-suite</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
+        ln -s $structure input.cell &&
+        pm-symmetry input.cell > out.txt 
+    ]]></command>
+    <inputs>
+        <param type="data" name="structure" format="cell" />
+        <param type="hidden" name="testing" value="false"/>
+    </inputs>
+    <outputs>
+        <data label="symmetry of $structure.name" name="out_sym" format="txt" from_work_dir="out.txt"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="structure" value="Si.cell" ftype="txt"/>
+            <output name="file_tree" file="test_out.txt" ftype="txt" delta="10">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: pm-symmetry structure
+
+        Given an input structure, generates a Wyckoff points symmetry report for that structure.
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{github,
+  author = {Muon Spectroscopy Computational Project},
+  year = {2021},
+  title = {pymuon-suite},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
+}</citation>
+    </citations>
+</tool>
