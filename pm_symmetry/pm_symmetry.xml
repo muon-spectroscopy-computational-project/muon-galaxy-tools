@@ -18,9 +18,6 @@
         <test>
             <param name="structure" value="Si.cell" ftype="txt"/>
             <output name="file_tree" file="test_out.txt" ftype="txt" delta="10">
-                <assert_contents>
-                    <has_line_matching expression="^1$"/>
-                </assert_contents>
             </output>
         </test>
     </tests>
