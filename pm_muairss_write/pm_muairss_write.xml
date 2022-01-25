@@ -1,4 +1,4 @@
-<tool id="pm_muairss_write" name="Generate muon structures (pm-muairss)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_muairss_write" name="Generate muonated structures (pm-muairss)" version="0.1.0" python_template_version="3.5">
     <requirements>
         <requirement type="package">pymuonsuite</requirement>
         <requirement type="package">zip</requirement>
@@ -26,22 +26,23 @@
 
     ]]></command>
     <inputs>
-        <param type="data" name="structure" format="cell" />
-        <param type="hidden" name="testing" value="false"/>
-        <param type="data" name="params" format="yaml" />
+        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to add muons to. The original file will be preserved. Accepted file types: cell."/>
+        <param type="data" name="params" label="YAML parameter file" format="yaml" help="YAML parameters for this and subsequent tools. You can create this file using the [YAML config generator] tool."/>
+        <param type="hidden" name="testing" label="Test mode" value="false"/>
     <conditional name="iscastep">
-        <param type="boolean" value="false" name="iscastep_sel" label="Is the calculator castep?">
+        <param type="boolean" value="false" name="iscastep_sel" label="Does your configuration use the CASTEP calculator?" help="Select 'Yes' if the 'calculator' parameter is set to 'castep' in your chosen YAML file (not case sensitive).">
             <option value="false">no</option>
             <option value="true">yes</option>
         </param>
         <when value="true">
-            <param type="data" name="castep_param" format="txt,yaml" />
+            <param type="data" name="castep_param" label="CASTEP parameter file" format="txt,yaml" help="CASTEP parameters (.param file) for the optimisation stage. These parameters will be copied for each muonated structure." />
         </when>
+        <when value="false"/>
     </conditional>
     </inputs>
     <outputs>
-        <data label="muonated $structure.name using $params.name" name="out_zip" format="zip" from_work_dir="out_zip.zip"/>
-        <data label="file tree for testing" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true"/>
+        <data label="Muonated $structure.name using $params.name" name="muonated_structures" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="File tree (testing only)" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true"/>
     </outputs>
     <tests>
         <test>
@@ -108,19 +109,91 @@
         </test>
     </tests>
     <help><![CDATA[
-        usage: pm-muairss [-h] [-t {r,w}] structures parameter_file
+        Given an input structure, this tool generates a set of duplicate structures, each with a single muon added in a random location. These are known as "muonated" structures.
 
-        Given an input structure, generates a set of structures with a muon added in a random location.
+        The YAML file controls many factors of the structure generation. We recommend using the '`YAML config generator`_' tool to create the file, but you can also write and upload it yourself following the `pm-muairss documentation`_.
+
+        The resulting structures will be returned as a zip folder. This zip folder can be used as input for the '`Generate UEP outputs`_' tool, or downloaded for use outside Galaxy.
+
+        Command-line usage: pm-muairss -t w structure_file parameter_file
+
+        .. _pm-muairss documentation: https://github.com/muon-spectroscopy-computational-project/pymuon-suite/blob/master/docs/muairss-gen-docs.md
+        .. _YAML config generator: /tool_runner?tool_id=pm_yaml_config
+        .. _Generate UEP outputs: /tool_runner?tool_id=pm_uep_opt_write
     ]]></help>
     <citations>
         <citation type="bibtex">
-@misc{github,
-  author = {Muon Spectroscopy Computational Project},
-  year = {2021},
-  title = {pymuon-suite},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
-}</citation>
+            @misc{github,
+                author = {{Muon Spectroscopy Computational Project}},
+                year = {2021},
+                title = {pymuon-suite 0.2.0},
+                publisher = {GitHub},
+                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/}
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{airss,
+                author = {Liborio, L. and Sturniolo, S. and Jochym, D.},
+                title = {Computational prediction of muon stopping sites using ab initio random structure searching (AIRSS)},
+                journal = {The Journal of Chemical Physics},
+                volume = {148},
+                pages = {134114},
+                year = {2018},
+                doi={10.1063/1.5024450},
+                URL={
+                    https://doi.org/10.1063/1.5024450
+                },
+                eprint={
+                    https://doi.org/10.1063/1.5024450
+                }
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{doi:10.1063/1.5085197,
+                author = {Sturniolo,Simone  and Liborio,Leandro  and Jackson,Samuel },
+                title = {Comparison between density functional theory and density functional tight binding approaches for finding the muon stopping site in organic molecular crystals},
+                journal = {The Journal of Chemical Physics},
+                volume = {150},
+                number = {15},
+                pages = {154301},
+                year = {2019},
+                doi = {10.1063/1.5085197},
+                URL = {
+                        https://doi.org/10.1063/1.5085197
+                },
+                eprint = {
+                        https://doi.org/10.1063/1.5085197
+                }
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{doi:10.1063/5.0012381,
+                author = {Sturniolo,Simone  and Liborio,Leandro },
+                title = {Computational prediction of muon stopping sites: A novel take on the unperturbed electrostatic potential method},
+                journal = {The Journal of Chemical Physics},
+                volume = {153},
+                number = {4},
+                pages = {044111},
+                year = {2020},
+                doi = {10.1063/5.0012381},
+                URL = {
+                        https://doi.org/10.1063/5.0012381
+                },
+                eprint = {
+                        https://doi.org/10.1063/5.0012381
+                },
+                abstract = { Finding the stopping site of the muon in a muon-spin relaxation experiment is one of the main problems of muon spectroscopy, and computational techniques that make use of quantum chemistry simulations can be of great help when looking for this stopping site. The most thorough approach would require the use of simulations, such as Density Functional Theory (DFT), to test and optimize multiple possible sites, accounting for the effect that the added muon has on its surroundings. However, this can be computationally expensive and sometimes unnecessary. Hence, in this work, we present a software implementation of the Unperturbed Electrostatic Potential (UEP) Method: an approach used for finding the muon stopping site in crystalline materials. The UEP method requires only one DFT calculation, necessary to compute the electronic density. This, in turn, is used to calculate the minima of the crystalline material’s electrostatic potential and the estimates of the muon stopping site, relying on the approximation that the muon’s presence does not significantly affect its surroundings. One of the main UEP’s assumptions is that the muon stopping site will be one of the crystalline material’s electrostatic potential minima. In this regard, we also propose some symmetry-based considerations about the properties of this crystalline material’s electrostatic potential, in particular, which sites are more likely to be its minima and why the unperturbed approximation may be sufficiently robust for them. We introduce the Python software package pymuon-suite and the various utilities it provides to facilitate these calculations, and finally, we demonstrate the effectiveness of the method with some chosen example systems. }
+            }
+        </citation>
+        <citation type="bibtex">
+            @article {castep,
+                author = {Clark, S. J. and Segall, M. D. and Pickard, C. J. and Hasnip, P. J. and Probert, M. I. J. and Refson, K. and Payne, M. C.},
+                title = {First principles methods using CASTEP},
+                journal = {Zeitschrift fuer Kristallographie},
+                volume = {220},
+                pages = {567},
+                year = {2005}
+            }
+        </citation>
     </citations>
 </tool>
