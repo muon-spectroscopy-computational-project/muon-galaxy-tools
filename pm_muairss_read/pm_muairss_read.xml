@@ -34,7 +34,7 @@
         If you used the 'Run UEP optimisation' tool for optimisation, the output from that tool can be used as the input to this one.
         If you are bringing files from elsewhere, make sure they fit the expected zip folder structure:
 
-        .. code-block:: RST
+        .. code-block::
 
             optimised-structures.zip/
             ├─ muon-airss-out/
