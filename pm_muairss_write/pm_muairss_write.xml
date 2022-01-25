@@ -118,8 +118,8 @@
         Command-line usage: pm-muairss -t w structure_file parameter_file
 
         .. _pm-muairss documentation: https://github.com/muon-spectroscopy-computational-project/pymuon-suite/blob/master/docs/muairss-gen-docs.md
-        .. _YAML config generator: http://localhost:9090/tool_runner?tool_id=pm_yaml_config
-        .. _Generate UEP outputs: http://localhost:9090/tool_runner?tool_id=pm_uep_opt_write
+        .. _YAML config generator: /tool_runner?tool_id=pm_yaml_config
+        .. _Generate UEP outputs: /tool_runner?tool_id=pm_uep_opt_write
     ]]></help>
     <citations>
         <citation type="bibtex">

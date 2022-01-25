@@ -58,7 +58,7 @@
 
         Command-line usage: pm-uep-opt [-h] [-t {r,w}] structures parameter_file
 
-        .. _Generate muonated structures: http://localhost:9090/tool_runner?tool_id=pm_muairss_write
+        .. _Generate muonated structures: /tool_runner?tool_id=pm_muairss_write
     ]]></help>
     <citations>
         <citation type="bibtex">
