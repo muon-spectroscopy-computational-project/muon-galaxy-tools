@@ -8,6 +8,7 @@ geom_force_tol: 0.05
 out_folder: muon-airss-out 
 supercell: 1 
 k_points_grid: [1,1,1] 
+max_scc_steps: 200 
 uep_gw_factor: 5.0 
 clustering_method: hier 
 clustering_hier_t: 0.3 
