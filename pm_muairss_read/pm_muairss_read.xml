@@ -49,7 +49,7 @@
             ├─ params.yaml
 
         This folder represents a run with the output folder name ``muon-airss-out``, the structure name ``struct``, and the UEP calculator.
-        If you use different parameters, these names should match your own settings.
+        If you use different parameters, these names should match your own settings. (dftb+ and castep are used as folder names for the respective calculators)
 
         The zip folder itself has been named ``optimised-structures.zip`` in this example, but it doesn't matter what you call it.
 
