@@ -51,7 +51,7 @@
 
     </tests>
     <help><![CDATA[
-        Given a set of input muonated structures (structures containing a muon), generates applies UEP optimisation to refine them.
+        Given a set of input muonated structures (structures containing a muon), applies UEP optimisation to refine them.
 
         This tool requires CASTEP inputs for the UEP method, meaning your initial DFT simulation must have been done with CASTEP.
         The structure you used as input to the '`Generate muonated structures`_' tool or pm-muairss beforehand should come from the same simulation run.
