@@ -30,7 +30,7 @@
     </tests>
     <help><![CDATA[
         usage: dftb+
-        Given some input muonated structures, generates applies DFTB+ optimization to refine them.
+        Given some input muonated structures (structures containing a muon), applies DFTB+ optimization to refine them.
         
         **LICENSE**
 
