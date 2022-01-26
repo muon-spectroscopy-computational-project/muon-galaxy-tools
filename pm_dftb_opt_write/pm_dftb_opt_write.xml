@@ -1,4 +1,4 @@
-<tool id="pm_dftb_opt_write" name="Generate dftb+ outputs (dftb+)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_dftb_opt_write" name="Generate DFTB+ outputs (dftb+)" version="0.1.0" python_template_version="3.5">
     <requirements>
         <requirement type="package">dftbplus</requirement>
         <requirement type="package">pymuonsuite</requirement>
