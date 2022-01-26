@@ -1,0 +1,138 @@
+<tool id="pm_muairss_read" name="Run clustering for optimised structures (pm-muairss read)" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package">pymuonsuite</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        unzip $optimisation_results &&
+        if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi
+        && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi
+        && out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
+        pm-muairss -t r input.cell params.yaml
+    ]]></command>
+    <inputs>
+        <param type="data" name="optimisation_results" label="optimised muonated structures (.zip)" format="zip" help="A zip folder containing a set of optimised muonated structures, the original structure, and a YAML parameter file. See below for the expected folder structure." />
+    </inputs>
+    <outputs>
+        <data label="Cluster report for $optimisation_results.name" name="cluster_report" format="txt" from_work_dir="$out_folder/*clusters.txt"/>
+        <data label="Cluster data for $optimisation_results.name" name="cluster_data" format="txt" from_work_dir="$out_folder/*clusters.dat"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="optimisation_results" value="uep-out.zip" ftype='zip'/>
+            <output name="cluster_report" file="clustout-uep.txt" ftype="txt" compare="sim_size" delta="20"/>
+            <output name="cluster_data" file="clustout-uep.dat" ftype="txt" compare="sim_size" delta="20"/>
+        </test>
+        <test>
+            <param name="optimisation_results" value="dftb-out.zip" ftype='zip'/>
+            <output name="cluster_report" file="clustout-dftb.txt" ftype="txt" compare="sim_size" delta="20"/>
+            <output name="cluster_data" file="clustout-dftb.dat" ftype="txt" compare="sim_size" delta="20"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        Given a set of optimised muonated structures, clusters the structures based on similarity.
+
+        If you used the 'Run UEP optimisation' tool for optimisation, the output from that tool can be used as the input to this one.
+        If you are bringing files from elsewhere, make sure they fit the expected zip folder structure:
+
+        .. code-block::
+
+            optimised-structures.zip/
+            ├─ muon-airss-out/
+            │  ├─ uep/
+            │  │  ├─ struct_1/
+            │  │  │  ├─ <files for optimised struct_1 go here>
+            │  │  ├─ struct_2/
+            │  │  │  ├─ <files for optimised struct_2 go here>
+            │  │  ├─ struct_N/
+            │  │  │  ├─ <files for optimised struct_N go here>
+            ├─ input.cell
+            ├─ params.yaml
+
+        This folder represents a run with the output folder name ``muon-airss-out``, the structure name ``struct``, and the UEP calculator.
+        If you use different parameters, these names should match your own settings. (``dftb+`` and ``castep`` are used as folder names for the respective calculators)
+
+        The zip folder itself has been named ``optimised-structures.zip`` in this example, but it doesn't matter what you call it.
+
+        The files ``input.cell`` and ``params.yaml`` must have those exact names. ``input.cell`` should be your original structure file,
+        and ``params.yaml`` is the YAML parameter file used to configure the clustering (as well as any prior muonation and optimisation).
+        You should have created this YAML file using the 'Create YAML for pm-muairss' tool or written it yourself, then passed it into the
+        'Generate muon structures' tool or pm-muairss.
+
+        Command-line usage: pm-muairss [-h] -t r structures parameter_file
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+            @misc{github,
+                author = {{Muon Spectroscopy Computational Project}},
+                year = {2021},
+                title = {pymuon-suite 0.2.0},
+                publisher = {GitHub},
+                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/}
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{airss,
+                author = {Liborio, L. and Sturniolo, S. and Jochym, D.},
+                title = {Computational prediction of muon stopping sites using ab initio random structure searching (AIRSS)},
+                journal = {The Journal of Chemical Physics},
+                volume = {148},
+                pages = {134114},
+                year = {2018},
+                doi={10.1063/1.5024450},
+                URL={
+                    https://doi.org/10.1063/1.5024450
+                },
+                eprint={
+                    https://doi.org/10.1063/1.5024450
+                }
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{doi:10.1063/1.5085197,
+                author = {Sturniolo,Simone  and Liborio,Leandro  and Jackson,Samuel },
+                title = {Comparison between density functional theory and density functional tight binding approaches for finding the muon stopping site in organic molecular crystals},
+                journal = {The Journal of Chemical Physics},
+                volume = {150},
+                number = {15},
+                pages = {154301},
+                year = {2019},
+                doi = {10.1063/1.5085197},
+                URL = {
+                        https://doi.org/10.1063/1.5085197
+                },
+                eprint = {
+                        https://doi.org/10.1063/1.5085197
+                }
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{doi:10.1063/5.0012381,
+                author = {Sturniolo,Simone  and Liborio,Leandro },
+                title = {Computational prediction of muon stopping sites: A novel take on the unperturbed electrostatic potential method},
+                journal = {The Journal of Chemical Physics},
+                volume = {153},
+                number = {4},
+                pages = {044111},
+                year = {2020},
+                doi = {10.1063/5.0012381},
+                URL = {
+                        https://doi.org/10.1063/5.0012381
+                },
+                eprint = {
+                        https://doi.org/10.1063/5.0012381
+                },
+                abstract = { Finding the stopping site of the muon in a muon-spin relaxation experiment is one of the main problems of muon spectroscopy, and computational techniques that make use of quantum chemistry simulations can be of great help when looking for this stopping site. The most thorough approach would require the use of simulations, such as Density Functional Theory (DFT), to test and optimise multiple possible sites, accounting for the effect that the added muon has on its surroundings. However, this can be computationally expensive and sometimes unnecessary. Hence, in this work, we present a software implementation of the Unperturbed Electrostatic Potential (UEP) Method: an approach used for finding the muon stopping site in crystalline materials. The UEP method requires only one DFT calculation, necessary to compute the electronic density. This, in turn, is used to calculate the minima of the crystalline material’s electrostatic potential and the estimates of the muon stopping site, relying on the approximation that the muon’s presence does not significantly affect its surroundings. One of the main UEP’s assumptions is that the muon stopping site will be one of the crystalline material’s electrostatic potential minima. In this regard, we also propose some symmetry-based considerations about the properties of this crystalline material’s electrostatic potential, in particular, which sites are more likely to be its minima and why the unperturbed approximation may be sufficiently robust for them. We introduce the Python software package pymuon-suite and the various utilities it provides to facilitate these calculations, and finally, we demonstrate the effectiveness of the method with some chosen example systems. }
+            }
+        </citation>
+        <citation type="bibtex">
+            @article {castep,
+                author = {Clark, S. J. and Segall, M. D. and Pickard, C. J. and Hasnip, P. J. and Probert, M. I. J. and Refson, K. and Payne, M. C.},
+                title = {First principles methods using CASTEP},
+                journal = {Zeitschrift fuer Kristallographie},
+                volume = {220},
+                pages = {567},
+                year = {2005}
+            }
+        </citation>
+    </citations>
+</tool>
