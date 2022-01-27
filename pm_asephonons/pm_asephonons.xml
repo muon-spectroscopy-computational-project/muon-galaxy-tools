@@ -1,0 +1,64 @@
+<tool id="pm_asephonons" name="Generate phonons using ASE (pm-asephonons)" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package">pymuonsuite</requirement>
+        <requirement type="package">dftbplus</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
+        touch pho_params.yaml &&
+        ([[ ! -z "$name" ]] && printf "name: $name \n">>pho_params.yaml || ( >&2 echo "name empty" && exit 2)) &&
+        ([[ ! -z "$phonon_kpoint_grid" ]] && ( printf "phonon_kpoint_grid: $phonon_kpoint_grid \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "phonon_kpoint_grid empty" && exit 2)) &&
+        ([[ ! -z "$kpoint_grid" ]] && ( printf "kpoint_grid: $kpoint_grid \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "kpoint_grid empty" && exit 2)) &&
+        ([[ ! -z "$force_tol" ]] && printf "force_tol: $force_tol \n">>pho_params.yaml || ( >&2 echo "force_tol empty" && exit 2)) &&
+        ([[ ! -z "$dftb_set" ]] && printf "dftb_set: $dftb_set \n">>pho_params.yaml || ( >&2 echo "dftb_set empty" && exit 2)) &&
+        ([[ ! -z "$pbc" ]] && printf "pbc: $pbc \n">>pho_params.yaml || ( >&2 echo "pbc empty" && exit 2)) &&
+        ([[ ! -z "$force_clean" ]] && printf "force_clean: $force_clean \n">>pho_params.yaml || ( >&2 echo "force_clean empty" && exit 2)) &&
+        ln -s $structure input.cell &&
+        cat pho_params.yaml &&
+        pm-asephonons input.cell pho_params.yaml &&
+        cat asephonons.out && 
+        ln -s "${name}_phonons.txt" phonon_report.txt &&
+        zip -r out_zip.zip $name "${name}_phonons.txt" asephonons.out band.out pho_params.yaml
+    ]]></command>
+    <inputs>
+        <param type="data" name="structure" format="cell" />
+        <param type="text" name="name" value="struct"/>
+        <param type="text" name="phonon_kpoint_grid" value="[1, 1, 1]" />
+        <param type="text" name="kpoint_grid" value="[1, 1, 1]" />
+        <param type="float" name="force_tol" value="0.01" />
+        <param type="select" name="dftb_set" value="3ob-3-1">
+            <option value="3ob-3-1">3ob-3-1</option>
+            <option value="pbc-0-3">pbc-0-3</option>
+        </param>
+        <param type="boolean" name="pbc" value="true" />
+        <param type="boolean" name="force_clean" value="false"/>
+    </inputs>
+    <outputs>
+        <data label="phonons outputs of $structure.name" name="out_phon" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="phonon report" name="rep_phon" format="txt" from_work_dir="phonon_report.txt" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="name" value="Si"/>
+            <param name="dftb_set" value="pbc-0-3"/>
+            <output name="rep_phon" file="test_out.txt" ftype="txt" compare="sim_size" delta="300"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: pm-symmetry structure
+
+        Given an input structure, generates a Wyckoff points symmetry report for that structure.
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{github,
+  author = {Muon Spectroscopy Computational Project},
+  year = {2021},
+  title = {pymuon-suite},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
+}</citation>
+    </citations>
+</tool>
