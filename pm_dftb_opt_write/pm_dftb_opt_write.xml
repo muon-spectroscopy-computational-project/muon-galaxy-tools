@@ -83,7 +83,7 @@
     <citations>
         <citation type="bibtex">
 @misc{github,
-  author = {Muon Spectroscopy Computational Project},
+  author = {{Muon Spectroscopy Computational Project}},
   year = {2021},
   title = {pymuon-suite 0.2.0},
   publisher = {GitHub},
