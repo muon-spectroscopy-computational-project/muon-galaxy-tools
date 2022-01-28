@@ -85,7 +85,7 @@
 @misc{github,
   author = {Muon Spectroscopy Computational Project},
   year = {2021},
-  title = {pymuon-suite},
+  title = {pymuon-suite 0.2.0},
   publisher = {GitHub},
   journal = {GitHub repository},
   url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
