@@ -38,7 +38,7 @@ jobs:
       id: get-galaxy-sha
       run: echo "::set-output name=galaxy-head-sha::$(git ls-remote https://github.com/${{ env.GALAXY_FORK }}/galaxy refs/heads/${{ env.GALAXY_BRANCH }} | cut -f1)"
     - name: Install zip
-      run: apt install zip    
+      run: sudo apt install zip    
     - uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
