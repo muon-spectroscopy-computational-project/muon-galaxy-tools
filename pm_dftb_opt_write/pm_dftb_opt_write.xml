@@ -41,8 +41,6 @@
 
         https://creativecommons.org/licenses/by-sa/4.0/legalcode
 
-**CITING DATA SETS**
-
         For specific data sets remember to cite the following papers, by element :
 
 |        **3-ob-1**
@@ -87,10 +85,11 @@
     <citations>
         <citation type="bibtex">
 @misc{github,
-  author = {{Muon Spectroscopy Computational Project}},
+  author = {Muon Spectroscopy Computational Project},
   year = {2021},
-  title = {pymuon-suite 0.2.0},
+  title = {pymuon-suite},
   publisher = {GitHub},
+  journal = {GitHub repository},
   url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
 }</citation>
        <citation type="bibtex">
