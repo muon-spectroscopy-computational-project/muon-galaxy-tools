@@ -50,15 +50,45 @@
 
         Given an input structure, generates a Wyckoff points symmetry report for that structure.
     ]]></help>
-    <citations>
+       <citations>
         <citation type="bibtex">
-@misc{github,
-  author = {Muon Spectroscopy Computational Project},
-  year = {2021},
-  title = {pymuon-suite},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
-}</citation>
+            @misc{github,
+                author = {{Muon Spectroscopy Computational Project}},
+                year = {2021},
+                title = {pymuon-suite 0.2.0},
+                publisher = {GitHub},
+                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/}
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{doi:10.1063/1.5085197,
+                author = {Sturniolo,Simone  and Liborio,Leandro  and Jackson,Samuel },
+                title = {Comparison between density functional theory and density functional tight binding approaches for finding the muon stopping site in organic molecular crystals},
+                journal = {The Journal of Chemical Physics},
+                volume = {150},
+                number = {15},
+                pages = {154301},
+                year = {2019},
+                doi = {10.1063/1.5085197},
+                URL = {
+                        https://doi.org/10.1063/1.5085197
+                },
+                eprint = {
+                        https://doi.org/10.1063/1.5085197
+                }
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{larsen2017atomic,
+                title={The atomic simulation environment—a Python library for working with atoms},
+                author={Larsen, Ask Hjorth and Mortensen, Jens J{\o}rgen and Blomqvist, Jakob and Castelli, Ivano E and Christensen, Rune and Du{\l}ak, Marcin and Friis, Jesper and Groves, Michael N and Hammer, Bj{\o}rk and Hargus, Cory and others},
+                journal={Journal of Physics: Condensed Matter},
+                volume={29},
+                number={27},
+                pages={273002},
+                year={2017},
+                publisher={IOP Publishing}
+            }
+        </citation>
     </citations>
 </tool>
