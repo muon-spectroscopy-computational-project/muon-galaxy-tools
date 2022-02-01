@@ -1,7 +1,7 @@
 categories:
 - Computational chemistry
 - Molecular Dynamics
-description: casculate structure symmetries (pm-symmetry)
+description: Calculate structure symmetries (pm-symmetry)
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
 long_description: |
   Given an input structure, generates a Wyckoff points symmetry report.
