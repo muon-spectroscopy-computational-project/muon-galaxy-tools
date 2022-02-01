@@ -3,7 +3,6 @@
         <requirement type="package">pymuonsuite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         ln -s $structure input.cell &&
         pm-symmetry input.cell > out.txt 
     ]]></command>
