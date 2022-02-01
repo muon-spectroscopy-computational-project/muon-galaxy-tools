@@ -2,6 +2,7 @@
     <requirements>
         <requirement type="package">dftbplus</requirement>
         <requirement type="package">pymuonsuite</requirement>
+        <requirement type="package">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         pip show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
