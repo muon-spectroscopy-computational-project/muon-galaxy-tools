@@ -7,7 +7,7 @@
         pm-symmetry $structure.name > out.txt 
     ]]></command>
     <inputs>
-        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to add muons to. The original file will be preserved. Accepted file types: cell."/>
+        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to calculate symmetries of. Accepted file types: cell."/>
     </inputs>
     <outputs>
         <data label="symmetry of $structure.name" name="symmetry_report" format="txt" from_work_dir="out.txt"/>
