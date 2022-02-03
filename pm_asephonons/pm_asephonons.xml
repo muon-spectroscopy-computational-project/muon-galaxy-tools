@@ -2,6 +2,7 @@
     <requirements>
         <requirement type="package">pymuonsuite</requirement>
         <requirement type="package">dftbplus</requirement>
+        <requirement type="package">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         pip3 show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
@@ -21,17 +22,17 @@
         zip -r out_zip.zip $name "${name}_phonons.txt" asephonons.out band.out pho_params.yaml
     ]]></command>
     <inputs>
-        <param type="data" name="structure" format="cell" />
-        <param type="text" name="name" value="struct"/>
-        <param type="text" name="phonon_kpoint_grid" value="[1, 1, 1]" />
-        <param type="text" name="kpoint_grid" value="[1, 1, 1]" />
-        <param type="float" name="force_tol" value="0.01" />
-        <param type="select" name="dftb_set" value="3ob-3-1">
+        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to add muons to. The original file will be preserved. Accepted file types: cell." />
+        <param type="text" name="name" label="Structure name" help="Name of the structure." value="struct"/>
+        <param type="text" name="phonon_kpoint_grid" label="Phonon k-points" value="[1, 1, 1]" />
+        <param type="text" name="kpoint_grid" label="K-points used for DFTB+ calculation" value="[1, 1, 1]" />
+        <param type="float" name="force_tol" label="Force tolerance for optimisation" value="0.01" />
+        <param type="select" name="dftb_set" label="DFTB set to use" value="3ob-3-1">
             <option value="3ob-3-1">3ob-3-1</option>
             <option value="pbc-0-3">pbc-0-3</option>
         </param>
-        <param type="boolean" name="pbc" value="true" />
-        <param type="boolean" name="force_clean" value="false"/>
+        <param type="boolean" name="pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." value="true" />
+        <param type="boolean" name="force_clean" label="Force clean existing phonon files of the same name" help="Leave as false for Galaxy only use" value="false"/>
     </inputs>
     <outputs>
         <data label="phonons outputs of $structure.name" name="out_phon" format="zip" from_work_dir="out_zip.zip"/>
