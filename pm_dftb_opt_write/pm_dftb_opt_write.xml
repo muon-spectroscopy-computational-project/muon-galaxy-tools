@@ -28,7 +28,7 @@
     <tests>
         <test>
             <param name="muonated_structures" value="muonated-dftb.zip" ftype='zip'/>
-            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size"  delta="100"/>
+            <output name="file_tree" file="tree.txt" ftype="txt" compare="sim_size"  delta="450"/>
         </test>
     </tests>
     <help><![CDATA[
