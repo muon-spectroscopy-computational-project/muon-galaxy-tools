@@ -35,7 +35,7 @@
     </inputs>
     <outputs>
         <data label="phonons outputs of $structure.name" name="phonon_outputs" format="zip" from_work_dir="out_zip.zip"/>
-        <data label="phonon report" name="phonon_report" format="txt" from_work_dir="phonon_report.txt" />
+        <data label="phonon report for $structure.name" name="phonon_report" format="txt" from_work_dir="phonon_report.txt" />
     </outputs>
     <tests>
         <test>
