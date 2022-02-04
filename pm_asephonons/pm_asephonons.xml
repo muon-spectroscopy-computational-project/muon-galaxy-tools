@@ -1,4 +1,4 @@
-<tool id="pm_asephonons" name="Generate phonons using ASE (pm-asephonons)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_asephonons" name="Generate phonons using ASE and DFTB+ (pm-asephonons)" version="0.1.0" python_template_version="3.5">
     <requirements>
         <requirement type="package">pymuonsuite</requirement>
         <requirement type="package">dftbplus</requirement>
