@@ -13,9 +13,9 @@
         ([[ ! -z "$dftb_set" ]] && printf "dftb_set: $dftb_set \n">>pho_params.yaml || ( >&2 echo "dftb_set empty" && exit 2)) &&
         ([[ ! -z "$pbc" ]] && printf "pbc: $pbc \n">>pho_params.yaml || ( >&2 echo "pbc empty" && exit 2)) &&
         ([[ ! -z "$force_clean" ]] && printf "force_clean: $force_clean \n">>pho_params.yaml || ( >&2 echo "force_clean empty" && exit 2)) &&
-        ln -s $structure input.cell &&
+        ln -s $structure $structure.name &&
         cat pho_params.yaml &&
-        pm-asephonons input.cell pho_params.yaml &&
+        pm-asephonons $structure.name pho_params.yaml &&
         cat asephonons.out && 
         ln -s "${name}_phonons.txt" phonon_report.txt &&
         zip -r out_zip.zip $name "${name}_phonons.txt" asephonons.out band.out pho_params.yaml
@@ -46,9 +46,10 @@
         </test>
     </tests>
     <help><![CDATA[
-        usage: pm-symmetry structure
+        usage: pm-asephonons structure params
 
-        Given an input structure, generates a Wyckoff points symmetry report for that structure.
+        Given an input structure, this tool generates a phonon report for that structure using the parameters provided.
+        
     ]]></help>
        <citations>
         <citation type="bibtex">
