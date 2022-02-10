@@ -12,16 +12,17 @@
         ([[ ! -z "$force_tol" ]] && printf "force_tol: $force_tol \n">>pho_params.yaml || ( >&2 echo "force_tol empty" && exit 2)) &&
         ([[ ! -z "$dftb_set" ]] && printf "dftb_set: $dftb_set \n">>pho_params.yaml || ( >&2 echo "dftb_set empty" && exit 2)) &&
         ([[ ! -z "$pbc" ]] && printf "pbc: $pbc \n">>pho_params.yaml || ( >&2 echo "pbc empty" && exit 2)) &&
-        ([[ ! -z "$force_clean" ]] && printf "force_clean: $force_clean \n">>pho_params.yaml || ( >&2 echo "force_clean empty" && exit 2)) &&
+        printf "force_clean: false \n">>pho_params.yaml &&
         ln -s $structure $structure.name &&
         cat pho_params.yaml &&
         pm-asephonons $structure.name pho_params.yaml &&
+        
         cat asephonons.out && 
         ln -s "${name}_phonons.txt" phonon_report.txt &&
         zip -r out_zip.zip $name "${name}_phonons.txt" asephonons.out band.out pho_params.yaml
     ]]></command>
     <inputs>
-        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to add muons to. The original file will be preserved. Accepted file types: cell." />
+        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to generate the phonon report from. Accepted file types: cell." />
         <param type="text" name="name" label="Structure name" help="Name of the structure." value="struct"/>
         <param type="text" name="phonon_kpoint_grid" label="Phonon k-points" value="[1, 1, 1]" />
         <param type="text" name="kpoint_grid" label="K-points used for DFTB+ calculation" value="[1, 1, 1]" />
@@ -31,7 +32,6 @@
             <option value="pbc-0-3">pbc-0-3</option>
         </param>
         <param type="boolean" name="pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." value="true" />
-        <param type="boolean" name="force_clean" label="Force clean existing phonon files of the same name" help="Leave as false for Galaxy only use" value="false"/>
     </inputs>
     <outputs>
         <data label="phonons outputs of $structure.name" name="phonon_outputs" format="zip" from_work_dir="out_zip.zip"/>
