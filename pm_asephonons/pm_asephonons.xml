@@ -1,0 +1,96 @@
+<tool id="pm_asephonons" name="Generate phonons using ASE and DFTB+ (pm-asephonons)" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package" version="0.2.1">pymuonsuite</requirement>
+        <requirement type="package">dftbplus</requirement>
+        <requirement type="package">zip</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        touch pho_params.yaml &&
+        ([[ ! -z "$name" ]] && printf "name: $name \n">>pho_params.yaml || ( >&2 echo "name empty" && exit 2)) &&
+        ([[ ! -z "$phonon_kpoint_grid" ]] && ( printf "phonon_kpoint_grid: $phonon_kpoint_grid \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "phonon_kpoint_grid empty" && exit 2)) &&
+        ([[ ! -z "$kpoint_grid" ]] && ( printf "kpoint_grid: $kpoint_grid \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "kpoint_grid empty" && exit 2)) &&
+        ([[ ! -z "$force_tol" ]] && printf "force_tol: $force_tol \n">>pho_params.yaml || ( >&2 echo "force_tol empty" && exit 2)) &&
+        ([[ ! -z "$dftb_set" ]] && printf "dftb_set: $dftb_set \n">>pho_params.yaml || ( >&2 echo "dftb_set empty" && exit 2)) &&
+        ([[ ! -z "$pbc" ]] && printf "pbc: $pbc \n">>pho_params.yaml || ( >&2 echo "pbc empty" && exit 2)) &&
+        printf "force_clean: false \n">>pho_params.yaml &&
+        ln -s $structure $structure.name &&
+        cat pho_params.yaml &&
+        pm-asephonons $structure.name pho_params.yaml ; err=\$? &&
+        echo "Asephonons output:" &&
+        cat asephonons.out && 
+        if [ \$err != 0 ] ; then echo "errored" && exit 24 ; fi &&
+        ln -s "${name}_phonons.txt" phonon_report.txt &&
+        zip -r out_zip.zip $name "${name}_phonons.txt" asephonons.out band.out pho_params.yaml
+    ]]></command>
+    <inputs>
+        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to generate the phonon report from. Accepted file types: cell." />
+        <param type="text" name="name" label="Structure name" help="Name of the structure." value="struct"/>
+        <param type="text" name="phonon_kpoint_grid" label="Phonon k-points" value="[1, 1, 1]" />
+        <param type="text" name="kpoint_grid" label="K-points used for DFTB+ calculation" value="[1, 1, 1]" />
+        <param type="float" name="force_tol" label="Force tolerance for optimisation" value="0.01" />
+        <param type="select" name="dftb_set" label="DFTB set to use" value="3ob-3-1">
+            <option value="3ob-3-1">3ob-3-1</option>
+            <option value="pbc-0-3">pbc-0-3</option>
+        </param>
+        <param type="boolean" name="pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." value="true" />
+    </inputs>
+    <outputs>
+        <data label="phonons outputs of $structure.name" name="phonon_outputs" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="phonon report for $structure.name" name="phonon_report" format="txt" from_work_dir="phonon_report.txt" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="name" value="Si"/>
+            <param name="dftb_set" value="pbc-0-3"/>
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="300"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: pm-asephonons structure params
+
+        Given an input structure, this tool generates a phonon report for that structure using the parameters provided.
+        
+    ]]></help>
+       <citations>
+        <citation type="bibtex">
+            @misc{github,
+                author = {{Muon Spectroscopy Computational Project}},
+                year = {2021},
+                title = {pymuon-suite 0.2.0},
+                publisher = {GitHub},
+                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/}
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{doi:10.1063/1.5085197,
+                author = {Sturniolo,Simone  and Liborio,Leandro  and Jackson,Samuel },
+                title = {Comparison between density functional theory and density functional tight binding approaches for finding the muon stopping site in organic molecular crystals},
+                journal = {The Journal of Chemical Physics},
+                volume = {150},
+                number = {15},
+                pages = {154301},
+                year = {2019},
+                doi = {10.1063/1.5085197},
+                URL = {
+                        https://doi.org/10.1063/1.5085197
+                },
+                eprint = {
+                        https://doi.org/10.1063/1.5085197
+                }
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{larsen2017atomic,
+                title={The atomic simulation environment—a Python library for working with atoms},
+                author={Larsen, Ask Hjorth and Mortensen, Jens J{\o}rgen and Blomqvist, Jakob and Castelli, Ivano E and Christensen, Rune and Du{\l}ak, Marcin and Friis, Jesper and Groves, Michael N and Hammer, Bj{\o}rk and Hargus, Cory and others},
+                journal={Journal of Physics: Condensed Matter},
+                volume={29},
+                number={27},
+                pages={273002},
+                year={2017},
+                publisher={IOP Publishing}
+            }
+        </citation>
+    </citations>
+</tool>
