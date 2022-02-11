@@ -1,6 +1,6 @@
 <tool id="pm_asephonons" name="Generate phonons using ASE and DFTB+ (pm-asephonons)" version="0.1.0" python_template_version="3.5">
     <requirements>
-        <requirement type="package">pymuonsuite</requirement>
+        <requirement type="package" version="0.2.1">pymuonsuite</requirement>
         <requirement type="package">dftbplus</requirement>
         <requirement type="package">zip</requirement>
     </requirements>
