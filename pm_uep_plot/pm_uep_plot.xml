@@ -29,7 +29,7 @@
     </inputs>
     <outputs>
         <data label="plot from $charge_density.name" name="out_plot" format="zip" from_work_dir="out.zip"/>
-        <data label="file tree for testing" name="tree" format="txt" from_work_dir="tree.txt" hidden="true" />
+        <data label="file tree for testing" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true" />
     </outputs>
     <tests>
         <test>
