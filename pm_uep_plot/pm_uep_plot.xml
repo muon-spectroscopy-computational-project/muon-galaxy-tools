@@ -36,7 +36,7 @@
             <param name="charge_density" value="Si.den_fmt" ftype="txt"/>
             <param name="castep_log" value="Si.castep" ftype="txt" />
             <param name="line_plots" value="[[1,1,1],[7,6,1],[1,2,3]]" />
-            <output name="file_tree" file="tree_out" ftype="txt" delta="10"/>
+            <output name="file_tree" file="tree.txt" ftype="txt" delta="10"/>
         </test>
     </tests>
     <help><![CDATA[
