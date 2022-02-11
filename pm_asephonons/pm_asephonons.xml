@@ -15,7 +15,7 @@
         printf "force_clean: false \n">>pho_params.yaml &&
         ln -s $structure $structure.name &&
         cat pho_params.yaml &&
-        pm-asephonons input.cell pho_params.yaml ; err=\$? &&
+        pm-asephonons $structure.name pho_params.yaml ; err=\$? &&
         echo "Asephonons output:" &&
         cat asephonons.out && 
         if [ \$err != 0 ] ; then echo "errored" && exit 24 ; fi &&
