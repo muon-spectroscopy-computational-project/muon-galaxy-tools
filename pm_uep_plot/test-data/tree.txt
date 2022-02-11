@@ -4,5 +4,4 @@ Si.line.1.dat
 Si.line.2.dat
 Si.line.3.dat
 Si.yaml
-conda_activate.log
 tree.txt
