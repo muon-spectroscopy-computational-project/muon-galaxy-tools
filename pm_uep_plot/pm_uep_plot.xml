@@ -1,0 +1,82 @@
+<tool id="pm_uep_plot" name="generate plots from charge density" version="0.1.1" python_template_version="3.5">
+    <requirements>
+        <requirement type="package">pymuonsuite</requirement>
+        <requirement type="package">zip</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        ln -s $charge_density $charge_density.name &&
+        x="$charge_density.name" &&
+        echo "calculated seed name \$x" &&
+        ln -s $castep_log "\${x%%.*}.castep" &&
+        touch "\${x%%.*}.yaml" &&
+        printf "chden_path: ./ \n" >>"\${x%%.*}.yaml" &&
+        ([[ ! -z "$chden_seed" ]] && printf "chden_seed: $chden_seed \n">>"\${x%%.*}.yaml" || ( >&2 echo "chden_seed empty")) &&
+        ([[ ! -z "$gw_factor" ]] && printf "gw_factor: $gw_factor \n">>"\${x%%.*}.yaml" || ( >&2 echo "gw_factor empty")) &&
+        ([[ ! -z "$line_plots" ]] && ( printf "line_plots: $line_plots \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>"\${x%%.*}.yaml" || ( >&2 echo "line_plots empty" && exit 2)) &&
+        ([[ ! -z "$plane_plots" ]] && ( printf "plane_plots: $plane_plots \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>"\${x%%.*}.yaml" || ( >&2 echo "plane_plots empty" && exit 2)) &&
+        cat "\${x%%.*}.yaml" &&
+        pm-uep-plot "\${x%%.*}.yaml" &&
+        ls > tree.txt &&
+        zip out.zip * -x "tree.txt"
+    ]]></command>
+    <inputs>
+        <param type="data" name="charge_density" label="Charge density file (.den_fmt)" format="txt" help="The charge density file created by CASTEP during your initial DFT simulation for the structure."/>
+        <param type="data" name="castep_log" label="CASTEP log (.castep)" format="txt" help="The CASTEP log for your initial DFT simulation for the structure."/>
+        <param type="text" name="line_plots" label="Line plot coordinates" value="[]" help="Specifications for paths. Check help section for possible formats."/>
+        <param type="float" name="gw_factor" value="5.0" label="Gaussian witdh factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
+        <param type="text" name="chden_seed" label="charge density seed" value="" help="Seedname for the charge density calculation"/>
+        <param type="text" name="plane_plots" value="[]" label="Plane plot coordinates" help="Specifications for planes. Check help section for possible formats."/>
+    </inputs>
+    <outputs>
+        <data label="plot from $charge_density.name" name="out_plot" format="zip" from_work_dir="out.zip"/>
+        <data label="file tree for testing" name="tree" format="txt" from_work_dir="tree.txt" hidden="true" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="charge_density" value="Si.den_fmt" ftype="txt"/>
+            <param name="castep_log" value="Si.castep" ftype="txt" />
+            <param name="line_plots" value="[[1,1,1],[7,6,1],[1,2,3]]" />
+            <output name="file_tree" file="tree_out" ftype="txt" delta="10"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: pm-uep-plot configuration
+
+        Given an input charge density, castep log and coordinate set, generates the resulting plot.
+
+        |
+        | Line plot accepted formats
+
+        +---------------------------------------------------------------------------+
+        | [[crystallographic direction], [starting point], length,number of points] |
+        +---------------------------------------------------------------------------+
+        | [[starting point], [end point], number of points]                         |
+        +---------------------------------------------------------------------------+
+        |  [starting atom, end atom, number of points]                              |
+        +---------------------------------------------------------------------------+
+
+        |
+        | Plane plot accepted formats
+
+        +----------------------------------------------------------------------------------------+
+        | [[corner 1], [corner 2], [corner 3], points along width, points along height]          |
+        +----------------------------------------------------------------------------------------+
+        | [corner atom 1, corner atom 2, corner atom 3, points along width, points along height] |                       
+        +----------------------------------------------------------------------------------------+
+  
+
+
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{github,
+  author = {Muon Spectroscopy Computational Project},
+  year = {2021},
+  title = {pymuon-suite},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
+}</citation>
+    </citations>
+</tool>

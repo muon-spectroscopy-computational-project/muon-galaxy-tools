@@ -1,0 +1,10 @@
+categories:
+- Computational chemistry
+- Molecular Dynamics
+description: Generate uep plots (pm-uep-plot)
+homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
+long_description: |
+  Given input dft parameters (den_fmt and castep) and plotting coordinates, generate plots.
+name: pm_uep_plot
+owner: muon-spectroscopy-computational-project
+remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_muairss_write
