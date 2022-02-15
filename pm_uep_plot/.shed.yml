@@ -7,4 +7,4 @@ long_description: |
   Given outputs from a CASTEP DFT calculation (.den_fmt and .castep) and plotting coordinates, generate plots of the Unperturbed Electrostatic Potential (UEP).
 name: pm_uep_plot
 owner: muon-spectroscopy-computational-project
-remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_muairss_write
+remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_uep_plot

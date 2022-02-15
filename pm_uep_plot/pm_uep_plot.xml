@@ -10,21 +10,20 @@
         ln -s $castep_log "\${x%%.*}.castep" &&
         touch "\${x%%.*}.yaml" &&
         printf "chden_path: ./ \n" >>"\${x%%.*}.yaml" &&
-        ([[ ! -z "$chden_seed" ]] && printf "chden_seed: $chden_seed \n">>"\${x%%.*}.yaml" || ( >&2 echo "chden_seed empty")) &&
+        printf "chden_seed: \${x%%.*} \n">>"\${x%%.*}.yaml" &&
         ([[ ! -z "$gw_factor" ]] && printf "gw_factor: $gw_factor \n">>"\${x%%.*}.yaml" || ( >&2 echo "gw_factor empty")) &&
         ([[ ! -z "$line_plots" ]] && ( printf "line_plots: $line_plots \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>"\${x%%.*}.yaml" || ( >&2 echo "line_plots empty" && exit 2)) &&
         ([[ ! -z "$plane_plots" ]] && ( printf "plane_plots: $plane_plots \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>"\${x%%.*}.yaml" || ( >&2 echo "plane_plots empty" && exit 2)) &&
         cat "\${x%%.*}.yaml" &&
         pm-uep-plot "\${x%%.*}.yaml" &&
         ls > tree.txt &&
-        zip out.zip * -x "tree.txt"
+        zip out.zip *.dat "\${x%%.*}.castep" "\${x%%.*}.yaml" "\${x%%.*}.den_fmt"
     ]]></command>
     <inputs>
         <param type="data" name="charge_density" label="Charge density file (.den_fmt)" format="txt" help="The charge density file created by CASTEP during your initial DFT simulation for the structure."/>
         <param type="data" name="castep_log" label="CASTEP log (.castep)" format="txt" help="The CASTEP log for your initial DFT simulation for the structure."/>
         <param type="text" name="line_plots" label="Line plot coordinates" value="[]" help="Specifications for paths. Check help section for possible formats."/>
         <param type="float" name="gw_factor" value="5.0" label="Gaussian witdh factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
-        <param type="text" name="chden_seed" label="charge density seed" value="" help="Seedname for the charge density calculation"/>
         <param type="text" name="plane_plots" value="[]" label="Plane plot coordinates" help="Specifications for planes. Check help section for possible formats."/>
     </inputs>
     <outputs>
@@ -42,7 +41,7 @@
     <help><![CDATA[
         usage: pm-uep-plot configuration
 
-        Given an input charge density, castep log and coordinate set, generates the resulting plot.
+        Given outputs from a CASTEP DFT calculation (.den_fmt and .castep) and plotting coordinates, generate plots of the Unperturbed Electrostatic Potential (UEP).
 
         |
         | Line plot accepted formats
@@ -78,5 +77,24 @@
   journal = {GitHub repository},
   url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/},
 }</citation>
+<citation type="bibtex">
+    @article{doi:10.1063/5.0012381,
+        author = {Sturniolo,Simone  and Liborio,Leandro },
+        title = {Computational prediction of muon stopping sites: A novel take on the unperturbed electrostatic potential method},
+        journal = {The Journal of Chemical Physics},
+        volume = {153},
+        number = {4},
+        pages = {044111},
+        year = {2020},
+        doi = {10.1063/5.0012381},
+        URL = {
+                https://doi.org/10.1063/5.0012381
+        },
+        eprint = {
+                https://doi.org/10.1063/5.0012381
+        },
+        abstract = { Finding the stopping site of the muon in a muon-spin relaxation experiment is one of the main problems of muon spectroscopy, and computational techniques that make use of quantum chemistry simulations can be of great help when looking for this stopping site. The most thorough approach would require the use of simulations, such as Density Functional Theory (DFT), to test and optimise multiple possible sites, accounting for the effect that the added muon has on its surroundings. However, this can be computationally expensive and sometimes unnecessary. Hence, in this work, we present a software implementation of the Unperturbed Electrostatic Potential (UEP) Method: an approach used for finding the muon stopping site in crystalline materials. The UEP method requires only one DFT calculation, necessary to compute the electronic density. This, in turn, is used to calculate the minima of the crystalline material’s electrostatic potential and the estimates of the muon stopping site, relying on the approximation that the muon’s presence does not significantly affect its surroundings. One of the main UEP’s assumptions is that the muon stopping site will be one of the crystalline material’s electrostatic potential minima. In this regard, we also propose some symmetry-based considerations about the properties of this crystalline material’s electrostatic potential, in particular, which sites are more likely to be its minima and why the unperturbed approximation may be sufficiently robust for them. We introduce the Python software package pymuon-suite and the various utilities it provides to facilitate these calculations, and finally, we demonstrate the effectiveness of the method with some chosen example systems. }
+    }
+</citation>
     </citations>
 </tool>
