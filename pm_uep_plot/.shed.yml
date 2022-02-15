@@ -1,7 +1,7 @@
 categories:
 - Computational chemistry
 - Molecular Dynamics
-description: Generate uep plots (pm-uep-plot)
+description: Generate UEP plots (pm-uep-plot)
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
 long_description: |
   Given outputs from a CASTEP DFT calculation (.den_fmt and .castep) and plotting coordinates, generate plots of the Unperturbed Electrostatic Potential (UEP).
