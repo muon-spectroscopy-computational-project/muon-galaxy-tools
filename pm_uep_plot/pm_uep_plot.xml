@@ -23,7 +23,7 @@
         <param type="data" name="charge_density" label="Charge density file (.den_fmt)" format="txt" help="The charge density file created by CASTEP during your initial DFT simulation for the structure."/>
         <param type="data" name="castep_log" label="CASTEP log (.castep)" format="txt" help="The CASTEP log for your initial DFT simulation for the structure."/>
         <param type="text" name="line_plots" label="Line plot coordinates" value="[]" help="Specifications for paths. Check help section for possible formats."/>
-        <param type="float" name="gw_factor" value="5.0" label="Gaussian witdh factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
+        <param type="float" name="gw_factor" value="5.0" label="Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
         <param type="text" name="plane_plots" value="[]" label="Plane plot coordinates" help="Specifications for planes. Check help section for possible formats."/>
     </inputs>
     <outputs>
