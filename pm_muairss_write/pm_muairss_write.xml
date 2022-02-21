@@ -4,18 +4,18 @@
         <requirement type="package">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        ln -s $structure input.cell &&
+        ln -s $structure $structure.name &&
         ln -s $params params.yaml &&
         #if str($iscastep.iscastep_sel)=="true":
             ln -s $castep_param $castep_param.name &&
             sed -i '/^castep_param: /{h;s/:.*/: $castep_param.name/};\${x;/^$/{s//castep_param: $castep_param.name/;H};x}' params.yaml &&
         #end if
-        pm-muairss -t w input.cell params.yaml &&
+        pm-muairss -t w $structure.name params.yaml &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         #if str($iscastep.iscastep_sel)=="true":
-            zip -r out_zip.zip \$out_folder params.yaml input.cell $castep_param.name &&
+            zip -r out_zip.zip \$out_folder params.yaml $structure.name $castep_param.name &&
         #else if str($iscastep.iscastep_sel)=="false":
-            zip -r out_zip.zip \$out_folder params.yaml input.cell &&
+            zip -r out_zip.zip \$out_folder params.yaml $structure.name &&
         #end if
         #if $testing=="true" and str($iscastep.iscastep_sel)=="true":
             grep -o "castep_param" params.yaml | wc -l > tree.txt &&
@@ -26,7 +26,7 @@
 
     ]]></command>
     <inputs>
-        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to add muons to. The original file will be preserved. Accepted file types: cell."/>
+        <param type="data" name="structure" label="Structure file" format="cell, cif, xyz" help="The structure to add muons to. The original file will be preserved. Accepted file types: cell, cif, xyz."/>
         <param type="data" name="params" label="YAML parameter file" format="yaml" help="YAML parameters for this and subsequent tools. You can create this file using the [YAML config generator] tool."/>
         <param type="hidden" name="testing" label="Test mode" value="false"/>
     <conditional name="iscastep">
