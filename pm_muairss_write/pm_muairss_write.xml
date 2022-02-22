@@ -107,6 +107,26 @@
                 </assert_contents>
             </output>
         </test>
+        <test>
+            <param name="structure" value="Si.xyz" ftype="txt"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configuep_t.yaml" ftype="yaml"/>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test>
+            <param name="structure" value="Si.cif" ftype="txt"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configuep_t.yaml" ftype="yaml"/>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
+        </test>
     </tests>
     <help><![CDATA[
         Given an input structure, this tool generates a set of duplicate structures, each with a single muon added in a random location. These are known as "muonated" structures.
