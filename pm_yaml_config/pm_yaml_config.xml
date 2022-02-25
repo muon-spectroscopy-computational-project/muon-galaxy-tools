@@ -1,4 +1,4 @@
-<tool id="pm_yaml_config" name="Creates yaml for pm-muairss" version="0.1.0" python_template_version="3.5">
+<tool id="pm_yaml_config" name="Creates yaml for pm-muairss" version="0.1.1" python_template_version="3.5">
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
@@ -54,7 +54,7 @@
         <param type="float" argument="vdw_scale" name="vdw_scale" value="0.5" label="Van der Waals scale" help="Van der Waals scaling factor to use when generating muon sites to avoid existing atoms. Smaller values will allow muons to get closer to the other ions."/>
         <param type="text" argument="out_folder" optional="true" name="out_folder" value="muon-airss-out" label="Output folder name" help="Name to call the output folder used to store the files that the script generates."/>
         <param type="float" argument="geom_force_tol" name="geom_force_tol" value="0.05" label="Geometry optimization tolerance" help="Tolerance on geometry optimisation in units of eV/Å."/>
-        <param type="integer" argument="random_seed" name="random_seed" label="Random Seed" help="Random seed for pymuonsuite."/>
+        <param type="integer" argument="random_seed" name="random_seed" label="Random Seed" optional="true" help="Random seed for pymuonsuite."/>
         </section>
         <section name="calculator_params" expanded="true" title="Calculator parameters">
         <conditional name="calculator_cond">
