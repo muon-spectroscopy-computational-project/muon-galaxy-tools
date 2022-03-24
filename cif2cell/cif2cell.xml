@@ -1,0 +1,38 @@
+<tool id="cif2cell" name="Convert .cif file to .cell (cif2cell)" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package">cif2cell</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        ln -s $cif_structure $cif_structure.name &&
+        cif2cell -f $cif_structure.name -p castep -o out.cell &&
+        sed -i '1,8d' out.cell
+    ]]></command>
+    <inputs>
+        <param type="data" name="cif_structure" label="Structure file to Convert (.cif)" />
+    </inputs>
+    <outputs>
+        <data label="Converted structure file of $cif_structure.name (.cell)" name="out_cell" from_work_dir="out.cell" />
+    </outputs>
+    <help><![CDATA[
+        usage: cif2cell -f file.cif -p castep -o file.cell
+
+        Given an input .cif structure file, convert to equivalent .cell structure file.
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+            @article{cif2cell,
+                author = {Torbjorn Bjorkman}
+                title = {CIF2Cell: Generating geometries for electronic structure programs},
+                journal = {Computer Physics Communications},
+                volume = {182},
+                number = {5},
+                pages = {1183},
+                year = {2011},
+                doi = {10.1016/j.cpc.2011.01.013},
+                URL = {
+                    http://www.sciencedirect.com/science/article/pii/S0010465511000336
+                },
+            }
+        </citation>
+    </citations>
+</tool>
