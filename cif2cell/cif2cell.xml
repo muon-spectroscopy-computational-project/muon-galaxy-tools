@@ -13,6 +13,16 @@
     <outputs>
         <data label="Converted structure file of $cif_structure.name (.cell)" name="out_cell" from_work_dir="out.cell" />
     </outputs>
+    <tests>
+        <test>
+            <param name="cif_structure" value="Si.cif" ftype="txt" />
+            <output name="out_cell" file="Si_out.cell" ftype="data" />
+        </test>
+        <test>
+            <param name="cif_structure" value="diamond.cif" ftype="txt" />
+            <output name="out_cell" file="diamond_out.cell" ftype="data" />
+        </test>
+    </tests>
     <help><![CDATA[
         usage: cif2cell -f file.cif -p castep -o file.cell
 
