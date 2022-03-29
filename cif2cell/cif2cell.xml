@@ -25,6 +25,7 @@
         usage: cif2cell -f file.cif -p castep -o file.cell
 
         Given an input .cif structure file, convert to equivalent .cell structure file.
+        Uses electronic structure program 'castep'
     ]]></help>
     <citations>
         <citation type="bibtex">

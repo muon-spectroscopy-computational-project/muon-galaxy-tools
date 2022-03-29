@@ -3,7 +3,7 @@ categories:
   - Molecular Dynamics
 description: Convert a .cif file to a .cell file
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
-long_description: Convert a .cif file to a .cell file using cif2cell, using electronic structure program 'castep'
+long_description: Convert a .cif file to a .cell file using cif2cell
 name: cif2cell
 owner: muon-spectroscopy-computational-project
 remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/cif2cell
