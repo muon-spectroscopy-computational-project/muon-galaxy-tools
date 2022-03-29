@@ -6,19 +6,19 @@
         sed -i '1,8d' out.cell
     ]]></command>
     <inputs>
-        <param type="data" name="cif_structure" label="Structure file to Convert (.cif)" />
+        <param type="data" name="cif_structure" format="cif" label="Structure file to Convert (.cif)" />
     </inputs>
     <outputs>
-        <data label="Conversion of $cif_structure.name to .cell" name="out_cell" from_work_dir="out.cell" />
+        <data label="Conversion of $cif_structure.name to .cell" name="out_cell" format="cell" from_work_dir="out.cell" />
     </outputs>
     <tests>
         <test>
-            <param name="cif_structure" value="Si.cif" ftype="txt" />
-            <output name="out_cell" file="Si_out.cell" ftype="data" />
+            <param name="cif_structure" value="Si.cif" ftype="cif" />
+            <output name="out_cell" file="Si_out.cell" ftype="cell" />
         </test>
         <test>
-            <param name="cif_structure" value="diamond.cif" ftype="txt" />
-            <output name="out_cell" file="diamond_out.cell" ftype="data" />
+            <param name="cif_structure" value="diamond.cif" ftype="cif" />
+            <output name="out_cell" file="diamond_out.cell" ftype="cell" />
         </test>
     </tests>
     <help><![CDATA[
