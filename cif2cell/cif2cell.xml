@@ -9,7 +9,7 @@
         <param type="data" name="cif_structure" label="Structure file to Convert (.cif)" />
     </inputs>
     <outputs>
-        <data label="Converted structure file of $cif_structure.name (.cell)" name="out_cell" from_work_dir="out.cell" />
+        <data label="Conversion of $cif_structure.name to .cell" name="out_cell" from_work_dir="out.cell" />
     </outputs>
     <tests>
         <test>
