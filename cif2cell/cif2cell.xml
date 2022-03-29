@@ -2,8 +2,7 @@
     <command detect_errors="exit_code"><![CDATA[
         pip install cif2cell==2.0.0a3 &&
         ln -s $cif_structure $cif_structure.name &&
-        cif2cell -f $cif_structure.name -p castep -o out.cell &&
-        sed -i '1,8d' out.cell
+        cif2cell -f $cif_structure.name -p castep -o out.cell
     ]]></command>
     <inputs>
         <param type="data" name="cif_structure" format="cif" label="Structure file to Convert (.cif)" />
@@ -14,11 +13,11 @@
     <tests>
         <test>
             <param name="cif_structure" value="Si.cif" ftype="cif" />
-            <output name="out_cell" file="Si_out.cell" ftype="cell" />
+            <output name="out_cell" file="Si_out.cell" compare="diff" lines_diff="2" ftype="cell" />
         </test>
         <test>
             <param name="cif_structure" value="diamond.cif" ftype="cif" />
-            <output name="out_cell" file="diamond_out.cell" ftype="cell" />
+            <output name="out_cell" file="diamond_out.cell" compare="diff" lines_diff="2" ftype="cell" />
         </test>
     </tests>
     <help><![CDATA[
