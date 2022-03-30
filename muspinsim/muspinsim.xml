@@ -1,0 +1,41 @@
+<tool id="muspinsim" name="Simulate muon experiment spin dynamics (muspinsim)" version="0.1.0" python_template_version="3.5">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        pip install git+https://github.com/muon-spectroscopy-computational-project/muspinsim.git &&
+        out_base=\$(grep -A1 'name' $mu_sim | grep -v 'name' | sed -e 's/^[ \t]*//') &&
+        out_base=\${out_base:-"muspinsim"} &&
+        log_file=\$(echo $mu_sim | cut -d '.' -f1).log &&
+        muspinsim $mu_sim &&
+        mv \$out_base.dat mu_out.dat &&
+        mv \$log_file log_out.log
+    ]]></command>
+    <inputs>
+        <param type="data" name="mu_sim" label="input file containing simulation parameters"/>
+    </inputs>
+    <outputs>
+        <data label=".dat output file for $mu_sim.name" name="mu_out" format="txt" from_work_dir="mu_out.dat" />
+        <data label=".log output file for $mu_sim.name" name="log_out" format="txt" from_work_dir="log_out.log" />
+    </outputs>
+    <help><![CDATA[
+        MuSpinSim is a program designed to carry out spin dynamics calculations
+
+        Tool requires an input (.in) file which describes system and experiment details
+        This is a simple text file containing keywords and values in indented blocks.
+
+        https://muon-spectroscopy-computational-project.github.io/muspinsim/
+
+        Command-line usage: muspinsim muspinsim.in
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+            @misc{github,
+                author = {{Muon Spectroscopy Computational Project}},
+                year = {2021},
+                title = {muspinsim v1.0.2},
+                publisher = {GitHub},
+                url = {https://github.com/muon-spectroscopy-computational-project/muspinsim/}
+            }
+        </citation>
+    </citations>
+</tool>
