@@ -23,6 +23,11 @@
             <output name="mu_out" file="hfine.dat" ftype="txt" compare="diff" lines_diff="2" />
             <output name="log_out" file="hfine.log" ftype="txt" compare="sim_size" delta="100" />
         </test>
+        <test>
+            <param name="mu_sim" value="hfine_powder.in" ftype="txt" />
+            <output name="mu_out" file="hfine_powder.dat" ftype="txt" compare="diff" lines_diff="2" />
+            <output name="log_out" file="hfine_powder.log" ftype="txt" compare="sim_size" delta="100" />
+        </test>
     </tests>
     <help><![CDATA[
         MuSpinSim is a program designed to carry out spin dynamics calculations
