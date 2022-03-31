@@ -3,15 +3,18 @@
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         pip install git+https://github.com/muon-spectroscopy-computational-project/muspinsim.git &&
-        out_base=\$(grep -A1 'name' $mu_sim | grep -v 'name' | sed -e 's/^[ \t]*//') &&
+        out_base=\$(grep -A1 '^name' $mu_sim | grep -v 'name' | sed -e 's/^[ \t]*//') &&
         out_base=\${out_base:-"muspinsim"} &&
         log_file=\$(echo $mu_sim | cut -d '.' -f1).log &&
+        ln -s $mu_exp_in $mu_exp_in.name &&
+        if grep '^fitting_data' $mu_sim; then sed -iE "/^fitting_data/{n;s/([^)]*)/(\"$mu_exp_in.name\")/g}" $mu_sim; fi &&
         muspinsim $mu_sim &&
         mv \$out_base.dat mu_out.dat &&
         mv \$log_file log_out.log
     ]]></command>
     <inputs>
         <param type="data" name="mu_sim" label="input file containing simulation parameters"/>
+        <param type="data" value="" name="mu_exp_in" label="Experiment data to fit (.dat) (Optional)" />
     </inputs>
     <outputs>
         <data label=".dat output file for $mu_sim.name" name="mu_out" format="txt" from_work_dir="mu_out.dat" />
@@ -27,6 +30,12 @@
             <param name="mu_sim" value="hfine_powder.in" ftype="txt" />
             <output name="mu_out" file="hfine_powder.dat" ftype="txt" compare="diff" lines_diff="2" />
             <output name="log_out" file="hfine_powder.log" ftype="txt" compare="sim_size" delta="100" />
+        </test>
+        <test>
+            <param name="mu_sim" value="fitting.in" ftype="txt" />
+            <param name="mu_exp_in" value="fitting_input.dat" ftype="txt" />
+            <output name="mu_out" file="fitting_data.dat" ftype="txt" compare="diff" lines_diff="2" />
+            <output name="log_out" file="fitting.log" ftype="txt" compare="sim_size" delta="100" />
         </test>
     </tests>
     <help><![CDATA[
