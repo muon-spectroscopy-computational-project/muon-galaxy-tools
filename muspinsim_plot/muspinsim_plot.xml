@@ -1,5 +1,6 @@
 <tool id="muspinsim_plot" name="Plot Muspinsim Results" version="0.1.0" python_template_version="3.5">
     <requirements>
+        <requirement type="package" version="3.5.1">matplotlib</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
        python ${__tool_directory__}/generate_plot.py inputs.json
