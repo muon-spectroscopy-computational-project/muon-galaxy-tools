@@ -14,25 +14,26 @@ def main():
         mu_data = np.loadtxt(series['mu_data'], usecols=(0, 1))
         x, y = mu_data.T
         {
-            'line': lambda x, y, label, args:
+            'line': lambda x, y, label, c, args:
                 plt.plot(x, y,
                          label=label,
-                         c=args['colour'],
+                         c=c,
                          ls=args['linestyle'],
                          lw=args['linewidth']
                          ),
-            'points': lambda x, y, label, args:
+            'points': lambda x, y, label, c, args:
                 plt.scatter(x, y,
                             label=label,
-                            c=args['colour'],
+                            c=c,
                             s=args['pointscale'],
                             marker=args['pointstyle'],
                             )
-        }.get(series['series_type']['type'])(x, y, series['mu_label'], series['series_type'])
+        }.get(series['series_type']['type'])(x, y, series['mu_label'], series['colour'], series['series_type'])
 
     plt.xlabel(plot_params['xlab'])
     plt.ylabel(plot_params['ylab'])
     plt.title(plot_params['title'])
+    plt.legend(loc="upper right")
 
     outfile = "outfile.{}".format(plot_params['outfile_type'])
     plt.savefig(outfile, format=plot_params['outfile_type'])

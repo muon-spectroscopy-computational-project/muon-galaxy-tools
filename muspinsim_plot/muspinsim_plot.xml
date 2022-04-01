@@ -18,9 +18,15 @@
         <repeat name="mu_out_series" title="Muspinsim File Series">
             <param type="data" name="mu_data" label="Muspinsim Experiment Data (.dat)" />
             <param type="text" name="mu_label" optional="true" label="Muspin Experiment Label" value="" />
+            <param type="select" name="colour" label="Line/Point Color">
+                <option value="k">Black</option>
+                <option value="r">Red</option>
+                <option value="g">Green</option>
+                <option value="b">Blue</option>
+            </param>
             <conditional name="series_type">
                 <param type="select" name="type" label="Series Type" >
-                    <option value="line" selected="true">Line</option>
+                    <option value="line">Line</option>
                     <option value="points">Points</option>
                 </param>
                 <when value="line">
@@ -29,24 +35,12 @@
                        <option value="dashed">Dashed</option>
                        <option value="dotted">Dotted</option>
                    </param>
-                   <param type="select" name="colour" label="Line colour">
-                       <option value="k">Black</option>
-                       <option value="r">Red</option>
-                       <option value="g">Green</option>
-                       <option value="b">Blue</option>
-                   </param>
                    <param type="float" name="linewidth" label="Line width" value="1.0"/>
                 </when>
                 <when value="points">
                     <param type="select" name="pointstyle" label="Point Type">
                         <option value="s">Square</option>
                         <option value="o">Circle</option>
-                    </param>
-                    <param type="select" name="colour" label="Point Color">
-                        <option value="k">Black</option>
-                        <option value="r">Red</option>
-                        <option value="g">Green</option>
-                        <option value="b">Blue</option>
                     </param>
                     <param type="float" name="pointscale" label="Point Scale" value="1.0"/>
                 </when>
@@ -61,6 +55,46 @@
             <filter>(outfile_type == 'png')</filter>
         </data>
     </outputs>
+    <tests>
+        <test>
+            <param name="title" value="Temperature Example"/>
+            <param name="xlab" value="Time"/>
+            <param name="ylab" value="Asymmetry"/>
+            <param name="outfile_type" value="png"/>
+            <param name="mu_data" value="high_T.dat" ftype="txt"/>
+            <param name="mu_label" value="High T limit"/>
+            <param name="type" value="points"/>
+            <param name="pointstyle" value="s"/>
+            <param name="colour" value="r"/>
+            <param name="pointscale" value="2.0"/>
+            <param name="mu_out_series_1|mu_data" value="low_T.dat" ftype="txt"/>
+            <param name="mu_out_series_1|mu_label" value="T=1 K"/>
+            <param name="mu_out_series_1|type" value="line"/>
+            <param name="mu_out_series_1|linestyle" value="solid"/>
+            <param name="mu_out_series_1|colour" value="k"/>
+            <param name="mu_out_series_1|linewidth" value="1.0"/>
+            <output name="out_file_png" file="temp_example.png" ftype="png" compare="sim_size" />
+        </test>
+        <test>
+            <param name="title" value="Fitting Example"/>
+            <param name="xlab" value="Time"/>
+            <param name="ylab" value="Asymmetry"/>
+            <param name="outftype" value="pdf"/>
+            <param name="mu_out_series_0|mu_data" value="experiment.dat" ftype="txt"/>
+            <param name="mu_out_series_0|mu_label" value="Data"/>
+            <param name="mu_out_series_0|type" value="points"/>
+            <param name="mu_out_series_0|pointstyle" value="c"/>
+            <param name="mu_out_series_0|colour" value="b"/>
+            <param name="mu_out_series_0|pointscale" value="3.0"/>
+            <param name="mu_out_series_1|mu_data" value="fitting.dat" ftype="txt"/>
+            <param name="mu_out_series_1|mu_label" value="Fitting"/>
+            <param name="mu_out_series_1|type" value="line"/>
+            <param name="mu_out_series_1|linestyle" value="s"/>
+            <param name="mu_out_series_1|colour" value="b"/>
+            <param name="mu_out_series_1|linewidth" value="1.0"/>
+            <output name="out_file_pdf" ftype="pdf" file="fitting_example.pdf" compare="sim_size" />
+        </test>
+    </tests>
     <help><![CDATA[
         This tool allows you to plot values generated from muspinsim using Matplotlib
         You can plot them as points or as lines
