@@ -37,6 +37,9 @@ nosetests.xml
 .hg
 *.swp
 
+#pycharm
+.idea/*
+
 # Tool test outputs.
 *tool_test_output*
 *test_report.html
