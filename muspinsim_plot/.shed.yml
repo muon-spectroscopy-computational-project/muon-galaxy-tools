@@ -1,0 +1,10 @@
+categories:
+- Computational Chemistry
+- Molecular Dynamics
+description: Plot Muon Spin Experiments
+homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
+long_description: |
+  Plot output of muon experiments using matplotlib.
+name: muspinsim_plot
+owner: muon-spectroscopy-computational-project
+remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/muspinsim_plot
