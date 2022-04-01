@@ -1,0 +1,70 @@
+<tool id="muspinsim_plot" name="Plot Muspinsim Results" version="0.1.0" python_template_version="3.5">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+       python ${__tool_directory__}/generate_plot.py inputs.json
+    ]]></command>
+    <configfiles>
+        <inputs name="inputs" data_style="paths" filename="inputs.json" />
+    </configfiles>
+    <inputs>
+        <param type="text" name="title" label="Plot Title" value="" />
+        <param type="text" name="xlab" label="Label for x axis" value="" />
+        <param type="text" name="ylab" label="Label for y axis" value="" />
+        <param name="outfile_type" type="select" label="Output File Type" >
+            <option value="pdf">PDF</option>
+            <option value="png">PNG</option>
+        </param>
+        <repeat name="mu_out_series" title="Muspinsim File Series">
+            <param type="data" name="mu_data" label="Muspinsim Experiment Data (.dat)" />
+            <param type="text" name="mu_label" optional="true" label="Muspin Experiment Label" value="" />
+            <conditional name="series_type">
+                <param type="select" name="type" label="Series Type" >
+                    <option value="line" selected="true">Line</option>
+                    <option value="points">Points</option>
+                </param>
+                <when value="line">
+                   <param type="select" name="linestyle" label="Line type">
+                       <option value="solid">Solid</option>
+                       <option value="dashed">Dashed</option>
+                       <option value="dotted">Dotted</option>
+                   </param>
+                   <param type="select" name="colour" label="Line colour">
+                       <option value="k">Black</option>
+                       <option value="r">Red</option>
+                       <option value="g">Green</option>
+                       <option value="b">Blue</option>
+                   </param>
+                   <param type="float" name="linewidth" label="Line width" value="1.0"/>
+                </when>
+                <when value="points">
+                    <param type="select" name="pointstyle" label="Point Type">
+                        <option value="s">Square</option>
+                        <option value="o">Circle</option>
+                    </param>
+                    <param type="select" name="colour" label="Point Color">
+                        <option value="k">Black</option>
+                        <option value="r">Red</option>
+                        <option value="g">Green</option>
+                        <option value="b">Blue</option>
+                    </param>
+                    <param type="float" name="pointscale" label="Point Scale" value="1.0"/>
+                </when>
+            </conditional>
+        </repeat>
+    </inputs>
+    <outputs>
+        <data format="pdf" name="out_file_pdf" from_work_dir="outfile.pdf" >
+            <filter>(outfile_type == 'pdf')</filter>
+        </data>
+        <data format="png" name="out_file_png" from_work_dir="outfile.png">
+            <filter>(outfile_type == 'png')</filter>
+        </data>
+    </outputs>
+    <help><![CDATA[
+        This tool allows you to plot values generated from muspinsim using Matplotlib
+        You can plot them as points or as lines
+
+        You can overlay multiple plots on top of each other by providing more than one data file
+    ]]></help>
+</tool>
