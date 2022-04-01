@@ -14,7 +14,7 @@
     ]]></command>
     <inputs>
         <param type="data" name="mu_sim" label="input file containing simulation parameters"/>
-        <param type="data" value="" name="mu_exp_in" label="Experiment data to fit (.dat) (Optional)" />
+        <param type="data" name="mu_exp_in" optional="true" label="Experiment data to fit (.dat) (Optional)" />
     </inputs>
     <outputs>
         <data label=".dat output file for $mu_sim.name" name="mu_out" format="txt" from_work_dir="mu_out.dat" />
