@@ -1,9 +1,10 @@
 import json
 import sys
-import re
 
 import matplotlib.pyplot as plt
+
 import numpy as np
+
 
 def main():
     input_json_path = sys.argv[1]
@@ -28,7 +29,9 @@ def main():
                             s=args['pointscale'],
                             marker=args['pointstyle'],
                             )
-        }.get(series['series_type']['type'])(x, y, series['mu_label'], series['colour'], series['series_type'])
+        }.get(series['series_type']['type'])(
+            x, y, series['mu_label'], series['colour'], series['series_type']
+        )
 
     plt.xlabel(plot_params['xlab'])
     plt.ylabel(plot_params['ylab'])
@@ -37,6 +40,7 @@ def main():
 
     outfile = "outfile.{}".format(plot_params['outfile_type'])
     plt.savefig(outfile, format=plot_params['outfile_type'])
+
 
 if __name__ == '__main__':
     main()
