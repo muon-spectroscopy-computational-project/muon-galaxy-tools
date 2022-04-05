@@ -23,18 +23,18 @@
     <tests>
         <test>
             <param name="mu_sim" value="hfine.in" ftype="txt" />
-            <output name="mu_out" file="hfine.dat" ftype="txt" compare="diff" lines_diff="2" />
+            <output name="mu_out" file="hfine.dat" ftype="txt" compare="sim_size" lines_diff="20" />
             <output name="log_out" file="hfine.log" ftype="txt" compare="sim_size" delta="100" />
         </test>
         <test>
             <param name="mu_sim" value="hfine_powder.in" ftype="txt" />
-            <output name="mu_out" file="hfine_powder.dat" ftype="txt" compare="diff" lines_diff="2" />
+            <output name="mu_out" file="hfine_powder.dat" ftype="txt" compare="sim_size" delta="20" />
             <output name="log_out" file="hfine_powder.log" ftype="txt" compare="sim_size" delta="100" />
         </test>
         <test>
             <param name="mu_sim" value="fitting.in" ftype="txt" />
             <param name="mu_exp_in" value="fitting_input.dat" ftype="txt" />
-            <output name="mu_out" file="fitting_data.dat" ftype="txt" compare="diff" lines_diff="2" />
+            <output name="mu_out" file="fitting_data.dat" ftype="txt" compare="sim_size" delta="20" />
             <output name="log_out" file="fitting.log" ftype="txt" compare="sim_size" delta="100" />
         </test>
     </tests>
