@@ -4,7 +4,7 @@ categories:
 description: Simulates Muon Spin Experiments
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
 long_description: |
-  Given an input file (.in), models spin dynamics of muon experiment.
+  Given an input file, models spin dynamics of muon experiment.
 name: muspinsim
 owner: muon-spectroscopy-computational-project
 remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/muspinsim
