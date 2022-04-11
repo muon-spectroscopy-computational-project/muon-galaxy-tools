@@ -17,7 +17,7 @@
         <param type="data" name="mu_exp_in" optional="true" label="Experiment data to fit (.dat) (Optional)" />
     </inputs>
     <outputs>
-        <data label=".dat output file for $mu_sim.name" name="mu_out" format="txt" from_work_dir="mu_out.dat" />
+        <data label="muspinsim results for $mu_sim.name" name="mu_out" format="txt" from_work_dir="mu_out.dat" />
         <data label=".log output file for $mu_sim.name" name="log_out" format="txt" from_work_dir="log_out.log" />
     </outputs>
     <tests>
