@@ -3,14 +3,17 @@
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         pip install git+https://github.com/muon-spectroscopy-computational-project/muspinsim.git &&
-        out_base=\$(grep -A1 '^name' $mu_sim | grep -v 'name' | sed -e 's/^[ \t]*//') &&
-        out_base=\${out_base:-"muspinsim"} &&
-        log_file=\$(echo $mu_sim | cut -d '.' -f1).log &&
+        ln -s $mu_sim $mu_sim.name &&
         ln -s $mu_exp_in $mu_exp_in.name &&
-        if grep '^fitting_data' $mu_sim; then sed -iE "/^fitting_data/{n;s/([^)]*)/(\"$mu_exp_in.name\")/g}" $mu_sim; fi &&
-        muspinsim $mu_sim &&
-        mv \$out_base.dat mu_out.dat &&
-        mv \$log_file log_out.log
+        ## grab 'name' field from input file, if it doesn't exist, set name as 'muspinsim'
+        mu_out=\$(grep -A1 '^name' $mu_sim.name | grep -v 'name' | sed -e 's/^[ \t]*//') &&
+        mu_out=\${mu_out:-"muspinsim"}.dat &&
+        log_out=\$(echo $mu_sim.name | cut -d '.' -f1).log &&
+        ## if fitting data required, change filepath in input file to point to symlink
+        if grep '^fitting_data' $mu_sim; then sed -iE "/^fitting_data/{n;s/([^)]*)/(\"$mu_exp_in.name\")/g}" $mu_sim.name; fi &&
+        muspinsim $mu_sim.name &&
+        mv \$mu_out mu_out.dat &&
+        mv \$log_out log_out.log
     ]]></command>
     <inputs>
         <param type="data" name="mu_sim" label="input file containing simulation parameters"/>
