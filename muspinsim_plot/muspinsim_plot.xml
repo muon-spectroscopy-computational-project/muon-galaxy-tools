@@ -12,7 +12,7 @@
         <param type="text" name="title" label="Plot Title" value="" />
         <param type="text" name="xlab" label="Label for x axis" value="" />
         <param type="text" name="ylab" label="Label for y axis" value="" />
-        <param name="outfile_type" type="select" label="Output File Type" >
+        <param name="out_file_type" type="select" label="Output File Type" >
             <option value="pdf">PDF</option>
             <option value="png">PNG</option>
         </param>
@@ -50,10 +50,10 @@
     </inputs>
     <outputs>
         <data format="pdf" name="out_file_pdf" from_work_dir="outfile.pdf" >
-            <filter>(outfile_type == 'pdf')</filter>
+            <filter>(out_file_type == 'pdf')</filter>
         </data>
         <data format="png" name="out_file_png" from_work_dir="outfile.png">
-            <filter>(outfile_type == 'png')</filter>
+            <filter>(out_file_type == 'png')</filter>
         </data>
     </outputs>
     <tests>
@@ -61,7 +61,7 @@
             <param name="title" value="Temperature Example"/>
             <param name="xlab" value="Time"/>
             <param name="ylab" value="Asymmetry"/>
-            <param name="outfile_type" value="png"/>
+            <param name="out_file_type" value="png"/>
             <param name="mu_data" value="high_T.dat" ftype="txt"/>
             <param name="mu_label" value="High T limit"/>
             <param name="type" value="points"/>
@@ -80,7 +80,7 @@
             <param name="title" value="Fitting Example"/>
             <param name="xlab" value="Time"/>
             <param name="ylab" value="Asymmetry"/>
-            <param name="outftype" value="pdf"/>
+            <param name="out_file_type" value="pdf"/>
             <param name="mu_data" value="experiment.dat" ftype="txt"/>
             <param name="mu_label" value="Data"/>
             <param name="type" value="points"/>

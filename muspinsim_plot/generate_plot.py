@@ -38,8 +38,8 @@ def main():
     plt.title(plot_params['title'])
     plt.legend(loc="upper right")
 
-    outfile = "outfile.{}".format(plot_params['outfile_type'])
-    plt.savefig(outfile, format=plot_params['outfile_type'])
+    outfile = "outfile.{}".format(plot_params['out_file_type'])
+    plt.savefig(outfile, format=plot_params['out_file_type'])
 
 
 if __name__ == '__main__':
