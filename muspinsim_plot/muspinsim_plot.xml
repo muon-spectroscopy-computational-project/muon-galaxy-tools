@@ -68,12 +68,12 @@
             <param name="pointstyle" value="s"/>
             <param name="colour" value="r"/>
             <param name="pointscale" value="2.0"/>
-            <param name="mu_out_series_1|mu_data" value="low_T.dat" ftype="txt"/>
-            <param name="mu_out_series_1|mu_label" value="T=1 K"/>
-            <param name="mu_out_series_1|type" value="line"/>
-            <param name="mu_out_series_1|linestyle" value="solid"/>
-            <param name="mu_out_series_1|colour" value="k"/>
-            <param name="mu_out_series_1|linewidth" value="1.0"/>
+            <param name="mu_data" value="low_T.dat" ftype="txt"/>
+            <param name="mu_label" value="T=1 K"/>
+            <param name="type" value="line"/>
+            <param name="linestyle" value="solid"/>
+            <param name="colour" value="k"/>
+            <param name="linewidth" value="1.0"/>
             <output name="out_file_png" file="temp_example.png" ftype="png" compare="sim_size" />
         </test>
         <test>
@@ -81,18 +81,18 @@
             <param name="xlab" value="Time"/>
             <param name="ylab" value="Asymmetry"/>
             <param name="outftype" value="pdf"/>
-            <param name="mu_out_series_0|mu_data" value="experiment.dat" ftype="txt"/>
-            <param name="mu_out_series_0|mu_label" value="Data"/>
-            <param name="mu_out_series_0|type" value="points"/>
-            <param name="mu_out_series_0|pointstyle" value="c"/>
-            <param name="mu_out_series_0|colour" value="b"/>
-            <param name="mu_out_series_0|pointscale" value="3.0"/>
-            <param name="mu_out_series_1|mu_data" value="fitting.dat" ftype="txt"/>
-            <param name="mu_out_series_1|mu_label" value="Fitting"/>
-            <param name="mu_out_series_1|type" value="line"/>
-            <param name="mu_out_series_1|linestyle" value="s"/>
-            <param name="mu_out_series_1|colour" value="b"/>
-            <param name="mu_out_series_1|linewidth" value="1.0"/>
+            <param name="mu_data" value="experiment.dat" ftype="txt"/>
+            <param name="mu_label" value="Data"/>
+            <param name="type" value="points"/>
+            <param name="pointstyle" value="o"/>
+            <param name="pointscale" value="3.0"/>
+            <param name="colour" value="b"/>
+            <param name="mu_data" value="fitting.dat" ftype="txt"/>
+            <param name="mu_label" value="Fitting"/>
+            <param name="type" value="line"/>
+            <param name="linestyle" value="solid"/>
+            <param name="colour" value="b"/>
+            <param name="linewidth" value="1.0"/>
             <output name="out_file_pdf" ftype="pdf" file="fitting_example.pdf" compare="sim_size" />
         </test>
     </tests>
