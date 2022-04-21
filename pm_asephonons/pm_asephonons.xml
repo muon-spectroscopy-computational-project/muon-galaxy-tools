@@ -5,6 +5,7 @@
         <requirement type="package">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
+        structure_name_internal="input_structure.$structure.ext" &&
         touch pho_params.yaml &&
         ([[ ! -z "$name" ]] && printf "name: $name \n">>pho_params.yaml || ( >&2 echo "name empty" && exit 2)) &&
         ([[ ! -z "$phonon_kpoint_grid" ]] && ( printf "phonon_kpoint_grid: $phonon_kpoint_grid \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "phonon_kpoint_grid empty" && exit 2)) &&
@@ -13,11 +14,11 @@
         ([[ ! -z "$dftb_set" ]] && printf "dftb_set: $dftb_set \n">>pho_params.yaml || ( >&2 echo "dftb_set empty" && exit 2)) &&
         ([[ ! -z "$pbc" ]] && printf "pbc: $pbc \n">>pho_params.yaml || ( >&2 echo "pbc empty" && exit 2)) &&
         printf "force_clean: false \n">>pho_params.yaml &&
-        ln -s $structure $structure.name &&
+        ln -s $structure \$structure_name_internal &&
         cat pho_params.yaml &&
-        pm-asephonons $structure.name pho_params.yaml ; err=\$? &&
+        pm-asephonons \$structure_name_internal pho_params.yaml ; err=\$? &&
         echo "Asephonons output:" &&
-        cat asephonons.out && 
+        cat asephonons.out &&
         if [ \$err != 0 ] ; then echo "errored" && exit 24 ; fi &&
         ln -s "${name}_phonons.txt" phonon_report.txt &&
         zip -r out_zip.zip $name "${name}_phonons.txt" asephonons.out band.out pho_params.yaml
@@ -40,7 +41,25 @@
     </outputs>
     <tests>
         <test>
-            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="name" value="Si"/>
+            <param name="dftb_set" value="pbc-0-3"/>
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="300"/>
+        </test>
+        <test>
+            <param name="structure" value="Si.cif" ftype="cif"/>
+            <param name="name" value="Si"/>
+            <param name="dftb_set" value="pbc-0-3"/>
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="300"/>
+        </test>
+        <test>
+            <param name="structure" value="Si.xyz" ftype="xyz"/>
+            <param name="name" value="Si"/>
+            <param name="dftb_set" value="pbc-0-3"/>
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="300"/>
+        </test>
+        <test>
+            <param name="structure" value="Si.extxyz" ftype="extxyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="300"/>
@@ -50,7 +69,7 @@
         usage: pm-asephonons structure params
 
         Given an input structure, this tool generates a phonon report for that structure using the parameters provided.
-        
+
     ]]></help>
        <citations>
         <citation type="bibtex">

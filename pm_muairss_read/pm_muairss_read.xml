@@ -1,13 +1,13 @@
-<tool id="pm_muairss_read" name="Run clustering for optimised structures (pm-muairss read)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_muairss_read" name="Run clustering for optimised structures (pm-muairss read)" version="0.1.1" python_template_version="3.5">
     <requirements>
         <requirement type="package">pymuonsuite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         unzip $optimisation_results &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi
-        && if ( test -f *.cell ) || ( test -f *.cif ) || ( test -f *.xyz ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi
+        && if ( test -f input_structure.* ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi
         && out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
-        ( pm-muairss -t r *.cell params.yaml || pm-muairss -t r *.xyz params.yaml || pm-muairss -t r *.cif params.yaml )
+        pm-muairss -t r input_structure.* params.yaml
     ]]></command>
     <inputs>
         <param type="data" name="optimisation_results" label="optimised muonated structures (.zip)" format="zip" help="A zip folder containing a set of optimised muonated structures, the original structure, and a YAML parameter file. See below for the expected folder structure." />
