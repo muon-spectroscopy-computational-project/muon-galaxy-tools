@@ -17,7 +17,7 @@
     ]]></command>
     <inputs>
         <param type="data" name="mu_sim" label="Configuration file containing simulation parameters"/>
-        <param type="data" name="mu_exp_in" optional="true" label="Experiment data to fit (.dat) (Optional)" />
+        <param type="data" name="mu_exp_in" optional="true" label="Experiment data to fit (.dat) (Optional)" help="Only required if the 'fitting_data' parameter is set in the configuration file above."/>
     </inputs>
     <outputs>
         <data label="muspinsim results for $mu_sim.name" name="mu_out" format="txt" from_work_dir="mu_out.dat" />
