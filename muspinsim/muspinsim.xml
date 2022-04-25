@@ -47,7 +47,7 @@
         Tool requires an input (.in) file which describes system and experiment details
         This is a text file containing keywords and values in indented blocks.
 
-        https://muon-spectroscopy-computational-project.github.io/muspinsim/
+        Full documentation: https://muon-spectroscopy-computational-project.github.io/muspinsim/
 
         Command-line usage: muspinsim muspinsim.in
     ]]></help>
