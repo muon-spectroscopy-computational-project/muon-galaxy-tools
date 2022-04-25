@@ -16,7 +16,7 @@
         mv \$log_out log_out.log
     ]]></command>
     <inputs>
-        <param type="data" name="mu_sim" label="input file containing simulation parameters"/>
+        <param type="data" name="mu_sim" label="Configuration file containing simulation parameters"/>
         <param type="data" name="mu_exp_in" optional="true" label="Experiment data to fit (.dat) (Optional)" />
     </inputs>
     <outputs>
