@@ -18,7 +18,7 @@
         </param>
         <repeat name="mu_out_series" title="Muspinsim File Series">
             <param type="data" name="mu_data" label="Muspinsim Experiment Data (.dat)" />
-            <param type="text" name="mu_label" optional="true" label="Muspinsim Experiment Label" value="" />
+            <param type="text" name="mu_label" optional="true" label="Muspinsim Experiment Label" value="" help="Label to use for this series in the plot legend."/>
             <param type="select" name="colour" label="Line/Point Color">
                 <option value="k">Black</option>
                 <option value="r">Red</option>
