@@ -97,9 +97,12 @@
         </test>
     </tests>
     <help><![CDATA[
-        This tool allows you to plot values generated from muspinsim using Matplotlib
-        You can plot them as points or as lines
+        This tool allows you to plot values generated from muspinsim using Matplotlib.
 
-        You can overlay multiple plots on top of each other by providing more than one data file
+
+        You can plot them as points or as lines.
+
+
+        You can overlay multiple plots on top of each other by providing more than one data file.
     ]]></help>
 </tool>
