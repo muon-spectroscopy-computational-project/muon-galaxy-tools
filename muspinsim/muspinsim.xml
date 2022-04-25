@@ -5,16 +5,24 @@
         pip install git+https://github.com/muon-spectroscopy-computational-project/muspinsim.git &&
         ## remove spaces in names
         mu_sim_name=\$(sed 's/ //g' <<< "$mu_sim.name") &&
-        mu_exp_in_name=\$(sed 's/ //g' <<< "$mu_exp_in.name") &&
         ## create links
         ln -s $mu_sim \$mu_sim_name &&
-        ln -s $mu_exp_in \$mu_exp_in_name &&
         ## grab 'name' field from input file, if it doesn't exist, set name as 'muspinsim'
         mu_out=\$(grep -A1 '^name' \$mu_sim_name | grep -v 'name' | sed -e 's/^[ \t]*//') &&
         mu_out=\${mu_out:-"muspinsim"}.dat &&
         log_out=\$(echo \$mu_sim_name | cut -d '.' -f1).log &&
-        ## if fitting data required, change filepath in input file to point to symlink
-        if grep '^fitting_data' $mu_sim; then sed -iE "/^fitting_data/{n;s/([^)]*)/(\"\$mu_exp_in_name\")/g}" \$mu_sim_name; fi &&
+        ## if fitting data required, check if fitting data exists
+        ## create symlink and change filepath in input file to point to symlink
+        if grep '^fitting_data' $mu_sim; then
+            if [[ $mu_exp_in.name != 'None' ]]; then
+                mu_exp_in_name=\$(sed 's/ //g' <<< "$mu_exp_in.name") &&
+                ln -s $mu_exp_in \$mu_exp_in_name &&
+                sed -iE "/^fitting_data/{n;s/([^)]*)/(\"\$mu_exp_in_name\")/g}" \$mu_sim_name;
+            else
+                echo "fitting data required, but no experiment data given" && exit 64;
+            fi;
+        fi &&
+        cat \$mu_sim_name &&
         muspinsim \$mu_sim_name &&
         mv \$mu_out mu_out.dat &&
         mv \$log_out log_out.log
