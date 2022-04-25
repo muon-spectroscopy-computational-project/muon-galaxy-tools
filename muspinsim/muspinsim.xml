@@ -54,9 +54,9 @@
         </test>
     </tests>
     <help><![CDATA[
-        MuSpinSim is a program designed to carry out spin dynamics calculations
+        MuSpinSim is a program designed to carry out spin dynamics calculations.
 
-        Tool requires an input (.in) file which describes system and experiment details
+        Tool requires an input (.in) file which describes system and experiment details.
         This is a text file containing keywords and values in indented blocks.
 
         Full documentation: https://muon-spectroscopy-computational-project.github.io/muspinsim/
