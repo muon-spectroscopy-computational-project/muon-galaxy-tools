@@ -1,21 +1,22 @@
-<tool id="pm_muairss_write" name="Generate muonated structures (pm-muairss)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_muairss_write" name="Generate muonated structures (pm-muairss)" version="0.1.1" python_template_version="3.5">
     <requirements>
         <requirement type="package">pymuonsuite</requirement>
         <requirement type="package">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        ln -s $structure input.cell &&
+        structure_name_internal="input_structure.$structure.ext" &&
+        ln -s $structure \$structure_name_internal &&
         ln -s $params params.yaml &&
         #if str($iscastep.iscastep_sel)=="true":
             ln -s $castep_param $castep_param.name &&
             sed -i '/^castep_param: /{h;s/:.*/: $castep_param.name/};\${x;/^$/{s//castep_param: $castep_param.name/;H};x}' params.yaml &&
         #end if
-        pm-muairss -t w input.cell params.yaml &&
+        pm-muairss -t w \$structure_name_internal params.yaml &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         #if str($iscastep.iscastep_sel)=="true":
-            zip -r out_zip.zip \$out_folder params.yaml input.cell $castep_param.name &&
+            zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal $castep_param.name &&
         #else if str($iscastep.iscastep_sel)=="false":
-            zip -r out_zip.zip \$out_folder params.yaml input.cell &&
+            zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal &&
         #end if
         #if $testing=="true" and str($iscastep.iscastep_sel)=="true":
             grep -o "castep_param" params.yaml | wc -l > tree.txt &&
@@ -26,7 +27,7 @@
 
     ]]></command>
     <inputs>
-        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to add muons to. The original file will be preserved. Accepted file types: cell."/>
+        <param type="data" name="structure" label="Structure file" format="cell, cif, xyz, extxyz" help="The structure to add muons to. The original file will be preserved. Accepted file types: CELL, CIF, XYZ (standard or extended)."/>
         <param type="data" name="params" label="YAML parameter file" format="yaml" help="YAML parameters for this and subsequent tools. You can create this file using the [YAML config generator] tool."/>
         <param type="hidden" name="testing" label="Test mode" value="false"/>
     <conditional name="iscastep">
@@ -46,7 +47,7 @@
     </outputs>
     <tests>
         <test>
-            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <conditional name="iscastep">
@@ -60,7 +61,7 @@
             </output>
         </test>
         <test>
-            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <conditional name="iscastep">
@@ -74,7 +75,7 @@
             </output>
         </test>
         <test>
-            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_no_outfolder_and_castep_param.yaml" ftype="yaml"/>
             <conditional name="iscastep">
@@ -88,7 +89,7 @@
             </output>
         </test>
         <test>
-            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configdftb_t.yaml" ftype="yaml"/>
             <output name="file_tree" file="tree_dftb.txt" ftype="txt" compare="sim_size" delta="350">
@@ -98,7 +99,37 @@
             </output>
         </test>
         <test>
-            <param name="structure" value="Si.cell" ftype="txt"/>
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configuep_t.yaml" ftype="yaml"/>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test expect_test_failure="true">
+            <param name="structure" value="Si.xyz" ftype="xyz"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configuep_t.yaml" ftype="yaml"/>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test>
+            <param name="structure" value="Si.extxyz" ftype="extxyz"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configuep_t.yaml" ftype="yaml"/>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
+                <assert_contents>
+                    <has_line_matching expression="^1$"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test>
+            <param name="structure" value="Si.cif" ftype="cif"/>
             <param name="testing" value="true"/>
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
             <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">

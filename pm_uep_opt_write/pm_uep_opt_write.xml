@@ -1,4 +1,4 @@
-<tool id="pm_uep_opt_write" name="Run UEP optimisation (pm-uep-opt)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_uep_opt_write" name="Run UEP optimisation (pm-uep-opt)" version="0.1.1" python_template_version="3.5">
     <requirements>
         <requirement type="package">pymuonsuite</requirement>
         <requirement type="package">zip</requirement>
@@ -6,7 +6,7 @@
     <command detect_errors="exit_code"><![CDATA[
         unzip $muonated_structures &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi
-        && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi
+        && if ( test -f input_structure.* ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi
         && ln -s $charge_density $charge_density.name &&
         x="$charge_density.name" &&
         echo "calculated seed name \$x" &&
@@ -15,7 +15,7 @@
         find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_path: .*#chden_path: .\/#g" &&
         find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_seed: .*#chden_seed: \${x%%.*}#g" &&
         bash ${__tool_directory__}/run.sh \$out_folder &&
-        zip -r out_zip.zip \$out_folder params.yaml input.cell &&
+        zip -r out_zip.zip \$out_folder params.yaml input_structure.* &&
         find \$out_folder > tree.txt
     ]]></command>
     <inputs>

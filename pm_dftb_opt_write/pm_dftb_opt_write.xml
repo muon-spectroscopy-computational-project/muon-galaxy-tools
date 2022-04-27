@@ -1,4 +1,4 @@
-<tool id="pm_dftb_opt_write" name="Generate DFTB+ outputs (dftb+)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_dftb_opt_write" name="Generate DFTB+ outputs (dftb+)" version="0.1.1" python_template_version="3.5">
     <requirements>
         <requirement type="package">dftbplus</requirement>
         <requirement type="package">pymuonsuite</requirement>
@@ -7,15 +7,15 @@
     <command detect_errors="exit_code"><![CDATA[
         pip show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $muonated_structures &&
-        if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi 
-        && if test -f "input.cell"; then echo "input.cell present"; else echo "input.cell missing" && exit 64; fi &&
-        out_folder="`python ${__tool_directory__}/get_out_folder.py`" ;
+        if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi
+        && if ( test -f input_structure.* ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi
+        && out_folder="`python ${__tool_directory__}/get_out_folder.py`" ;
         bash ${__tool_directory__}/run.sh \$out_folder ;
         passed=$? &&
         echo \$passed &&
         if [ \$passed == 2 ]; then echo "input file structure is not dftb" && exit 25; elif [ \$passed == 3 ]; then echo "error in parsing dftb file. check log for details" && exit 26; else echo "parse ok"; fi &&
-        if grep -q 'pbc-0-3' params.yaml; then cp ${__tool_directory__}/README-pbc \$out_folder/README; elif grep -q '3ob-3-1' params.yaml; then cp ${__tool_directory__}/README-3ob \$out_folder README; else ( cp ${__tool_directory__}/README-3ob \$out_folder README-3ob && cp ${__tool_directory__}/README-pbc \$out_folder/README-pbc ); fi; 
-        zip -r dftb_results.zip \$out_folder params.yaml input.cell &&
+        if grep -q 'pbc-0-3' params.yaml; then cp ${__tool_directory__}/README-pbc \$out_folder/README; elif grep -q '3ob-3-1' params.yaml; then cp ${__tool_directory__}/README-3ob \$out_folder README; else ( cp ${__tool_directory__}/README-3ob \$out_folder README-3ob && cp ${__tool_directory__}/README-pbc \$out_folder/README-pbc ); fi;
+        zip -r dftb_results.zip \$out_folder params.yaml input_structure.* &&
         find \$out_folder > tree.txt
     ]]></command>
     <inputs>
@@ -34,7 +34,7 @@
     <help><![CDATA[
         usage: dftb+
         Given some input muonated structures (structures containing a muon), applies DFTB+ optimization to refine them.
-        
+
         **LICENSE**
 
         All data is licensed under the Creative Commons Attribution-ShareAlike 4.0
@@ -104,11 +104,11 @@
          year = {2020},
          doi = {10.1063/1.5143190},
 
-         URL = { 
+         URL = {
                  https://doi.org/10.1063/1.5143190
 
          },
-         eprint = { 
+         eprint = {
                  https://doi.org/10.1063/1.5143190
          }
          }
