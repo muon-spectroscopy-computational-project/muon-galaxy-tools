@@ -43,3 +43,5 @@ nosetests.xml
 # Tool test outputs.
 *tool_test_output*
 *test_report.html
+
+.venv*
