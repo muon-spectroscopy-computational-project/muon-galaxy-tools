@@ -41,4 +41,6 @@ nosetests.xml
 *tool_test_output*
 *test_report.html
 
+.idea/*
+
 .venv*
