@@ -14,7 +14,7 @@
         ## if fitting data required, check if fitting data exists
         ## create symlink and change filepath in input file to point to symlink
         if grep '^fitting_data' $mu_sim; then
-            if [[ $mu_exp_in.name != 'None' ]]; then
+            if [[ '$mu_exp_in.name' != 'None' ]]; then
                 mu_exp_in_name=\$(sed 's/ //g' <<< "$mu_exp_in.name") &&
                 ln -s $mu_exp_in \$mu_exp_in_name &&
                 sed -iE "/^fitting_data/{n;s/([^)]*)/(\"\$mu_exp_in_name\")/g}" \$mu_sim_name;
