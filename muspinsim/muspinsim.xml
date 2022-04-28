@@ -1,0 +1,77 @@
+<tool id="muspinsim" name="Simulate muon experiment spin dynamics (muspinsim)" version="0.1.0" python_template_version="3.5">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        pip install git+https://github.com/muon-spectroscopy-computational-project/muspinsim.git &&
+        ## remove spaces in names
+        mu_sim_name=\$(sed 's/ //g' <<< "$mu_sim.name") &&
+        ## create links
+        ln -s $mu_sim \$mu_sim_name &&
+        ## grab 'name' field from input file, if it doesn't exist, set name as 'muspinsim'
+        mu_out=\$(grep -A1 '^name' \$mu_sim_name | grep -v 'name' | sed -e 's/^[ \t]*//') &&
+        mu_out=\${mu_out:-"muspinsim"}.dat &&
+        log_out=\$(echo \$mu_sim_name | cut -d '.' -f1).log &&
+        ## if fitting data required, check if fitting data exists
+        ## create symlink and change filepath in input file to point to symlink
+        if grep '^fitting_data' $mu_sim; then
+            if [[ '$mu_exp_in.name' != 'None' ]]; then
+                mu_exp_in_name=\$(sed 's/ //g' <<< "$mu_exp_in.name") &&
+                ln -s $mu_exp_in \$mu_exp_in_name &&
+                sed -iE "/^fitting_data/{n;s/([^)]*)/(\"\$mu_exp_in_name\")/g}" \$mu_sim_name;
+            else
+                echo "fitting data required, but no experiment data given" && exit 64;
+            fi;
+        fi &&
+        cat \$mu_sim_name &&
+        muspinsim \$mu_sim_name &&
+        mv \$mu_out mu_out.dat &&
+        mv \$log_out log_out.log
+    ]]></command>
+    <inputs>
+        <param type="data" name="mu_sim" label="Configuration file containing simulation parameters"/>
+        <param type="data" name="mu_exp_in" optional="true" label="Experiment data to fit (.dat) (Optional)" help="Only required if the 'fitting_data' parameter is set in the configuration file above."/>
+    </inputs>
+    <outputs>
+        <data label="muspinsim results for $mu_sim.name" name="mu_out" format="txt" from_work_dir="mu_out.dat" />
+        <data label="muspinsim log for $mu_sim.name" name="log_out" format="txt" from_work_dir="log_out.log" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="mu_sim" value="hfine.in" ftype="txt" />
+            <output name="mu_out" file="hfine.dat" ftype="txt" compare="sim_size" lines_diff="20" />
+            <output name="log_out" file="hfine.log" ftype="txt" compare="sim_size" delta="100" />
+        </test>
+        <test>
+            <param name="mu_sim" value="hfine_powder.in" ftype="txt" />
+            <output name="mu_out" file="hfine_powder.dat" ftype="txt" compare="sim_size" delta="20" />
+            <output name="log_out" file="hfine_powder.log" ftype="txt" compare="sim_size" delta="100" />
+        </test>
+        <test>
+            <param name="mu_sim" value="fitting.in" ftype="txt" />
+            <param name="mu_exp_in" value="fitting_input.dat" ftype="txt" />
+            <output name="mu_out" file="fitting_data.dat" ftype="txt" compare="sim_size" delta="20" />
+            <output name="log_out" file="fitting.log" ftype="txt" compare="sim_size" delta="100" />
+        </test>
+    </tests>
+    <help><![CDATA[
+        MuSpinSim is a program designed to carry out spin dynamics calculations.
+
+        Tool requires an input (.in) file which describes system and experiment details.
+        This is a text file containing keywords and values in indented blocks.
+
+        Full documentation: https://muon-spectroscopy-computational-project.github.io/muspinsim/
+
+        Command-line usage: muspinsim muspinsim.in
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+            @misc{github,
+                author = {{Muon Spectroscopy Computational Project}},
+                year = {2021},
+                title = {muspinsim v1.0.2},
+                publisher = {GitHub},
+                url = {https://github.com/muon-spectroscopy-computational-project/muspinsim/}
+            }
+        </citation>
+    </citations>
+</tool>

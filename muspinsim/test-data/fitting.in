@@ -1,0 +1,27 @@
+# A basic test of fitting. We define a single muon with no interactions except
+# for a dissipation term, causing an exponential decay. We then fit the rate
+# of decay using a single variable g, starting at g=0.1, bounded from 0 to
+# positive infinity.
+#
+# Some target data with added artificial noise is used as the "experiment"
+# that we are trying to fit. We expect the decay to go like
+#
+#    0.5*cos(2*pi*t)*exp(-g*t)
+#
+# with g our variable, t the time, and pi = 3.1415...
+#
+# The 0.5 factor appears in front as that's the moment of the muon.
+# With the data provided, we expect the fitting to find that g = 3.0
+
+name
+    fitting_data
+spins
+    mu
+field
+    1.0/muon_gyr
+fitting_data
+    load("fitting_input.dat")
+fitting_variables
+    g 0.1 0.0 inf
+dissipation 1
+    g

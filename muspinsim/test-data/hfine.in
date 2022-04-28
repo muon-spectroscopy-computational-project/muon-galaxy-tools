@@ -1,0 +1,12 @@
+name
+    hfine
+spins
+    mu e
+hyperfine 1
+    10   0    0
+    0    10   0
+    0    0    10
+time
+    range(0, 0.1)
+y_axis
+    asymmetry

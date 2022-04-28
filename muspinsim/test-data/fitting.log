@@ -1,0 +1,249 @@
+[INFO] [MainThread] [2022-03-31 18:26:46] Launching MuSpinSim calculation from file: fitting.in
+[INFO] [MainThread] [2022-03-31 18:26:46] Performing fitting in variables: g
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Using X axis:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		t => 100 points
+[INFO] [MainThread] [2022-03-31 18:26:46] Created spin system with spins:
+[INFO] [MainThread] [2022-03-31 18:26:46] 		mu
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to simulate: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Total number of configurations to average: 1
+[INFO] [MainThread] [2022-03-31 18:26:46] Simulation completed in 0.315 seconds

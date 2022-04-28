@@ -1,0 +1,12 @@
+spins
+    mu e
+hyperfine 1
+    5    2    3
+    2    5    2
+    3    2    5
+field
+    0.01
+time
+    range(0, 1.0)
+orientation
+    eulrange(10)
