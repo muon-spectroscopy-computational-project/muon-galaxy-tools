@@ -1,6 +1,5 @@
 categories:
-  - Computational chemistry
-  - Molecular Dynamics
+- Materials science
 description: Convert a .cif file to a .cell file
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
 long_description: Convert a .cif file to a .cell file using cif2cell

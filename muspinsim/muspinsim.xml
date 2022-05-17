@@ -1,4 +1,15 @@
-<tool id="muspinsim" name="Simulate muon experiment spin dynamics (muspinsim)" version="0.1.0" python_template_version="3.5">
+<tool id="muspinsim" name="Simulate muon experiment spin dynamics (muspinsim)" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+    <macros>
+        <!-- version of underlying tool (PEP 440) -->
+        <token name="@TOOL_VERSION@">1.0.4</token>
+        <!-- version of this tool wrapper (integer) -->
+        <token name="@WRAPPER_VERSION@">0</token>
+    </macros>
+    <creator>
+        <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
+        <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
+    </creator>
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[

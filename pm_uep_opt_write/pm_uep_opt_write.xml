@@ -1,6 +1,17 @@
-<tool id="pm_uep_opt_write" name="Run UEP optimisation (pm-uep-opt)" version="0.1.1" python_template_version="3.5">
+<tool id="pm_uep_opt_write" name="Run UEP optimisation (pm-uep-opt)" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+    <macros>
+        <!-- version of underlying tool (PEP 440) -->
+        <token name="@TOOL_VERSION@">0.2.1</token>
+        <!-- version of this tool wrapper (integer) -->
+        <token name="@WRAPPER_VERSION@">0</token>
+    </macros>
+    <creator>
+        <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
+        <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
+    </creator>
     <requirements>
-        <requirement type="package">pymuonsuite</requirement>
+        <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
         <requirement type="package">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[

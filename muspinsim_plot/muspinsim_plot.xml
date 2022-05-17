@@ -1,4 +1,9 @@
-<tool id="muspinsim_plot" name="Plot Muspinsim Results" version="0.1.0" python_template_version="3.5">
+<tool id="muspinsim_plot" name="Plot Muspinsim Results" version="0.1.0" python_template_version="3.5" profile="22.01">
+    <creator>
+        <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
+        <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
+    </creator>
     <requirements>
         <requirement type="package" version="3.5.1">matplotlib</requirement>
     </requirements>

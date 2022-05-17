@@ -1,11 +1,16 @@
-<tool id="pm_dftb_opt_write" name="Generate DFTB+ outputs (dftb+)" version="0.1.1" python_template_version="3.5">
+<tool id="pm_dftb_opt_write" name="Generate DFTB+ outputs (dftb+)" version="0.1.0" python_template_version="3.5" profile="22.01">
+    <creator>
+        <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
+        <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
+    </creator>
     <requirements>
-        <requirement type="package">dftbplus</requirement>
-        <requirement type="package">pymuonsuite</requirement>
+        <!-- note versioning is different due to multiple dependencies -->
+        <requirement type="package" version="21.2">dftbplus</requirement>
+        <requirement type="package" version="0.2.1">pymuonsuite</requirement>
         <requirement type="package">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip show pymuonsuite || ( git clone https://github.com/muon-spectroscopy-computational-project/pymuon-suite /tmp/pymuon-suite && pip install /tmp/pymuon-suite && rm -rf /tmp/pymuon-suite) &&
         unzip $muonated_structures &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi
         && if ( test -f input_structure.* ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi

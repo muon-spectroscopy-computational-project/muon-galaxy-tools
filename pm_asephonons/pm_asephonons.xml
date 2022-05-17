@@ -1,7 +1,13 @@
-<tool id="pm_asephonons" name="Generate phonons using ASE and DFTB+ (pm-asephonons)" version="0.1.0" python_template_version="3.5">
+<tool id="pm_asephonons" name="Generate phonons using ASE and DFTB+ (pm-asephonons)" version="0.1.0" python_template_version="3.5" profile="22.01">
+    <creator>
+        <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
+        <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
+    </creator>
     <requirements>
+        <!-- note versioning is different due to multiple dependencies -->
         <requirement type="package" version="0.2.1">pymuonsuite</requirement>
-        <requirement type="package">dftbplus</requirement>
+        <requirement type="package" version="21.2">dftbplus</requirement>
         <requirement type="package">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[

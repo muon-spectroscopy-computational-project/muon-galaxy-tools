@@ -1,10 +1,11 @@
 categories:
-- Computational chemistry
-- Molecular Dynamics
-description: Generate phonons (pm-asephonons)
+- Materials science
+- Muon spectroscopy
+description: Generate phonons
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
 long_description: |
   Given an input structure, generates a set of phonon configurations.
+  Uses the pm-asephonons tool from pymuon-suite.
 name: pm_asephonons
 owner: muon-spectroscopy-computational-project
 remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_asephonons
