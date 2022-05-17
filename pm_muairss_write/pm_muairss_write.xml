@@ -4,6 +4,20 @@
         <token name="@TOOL_VERSION@">0.2.1</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
+        <!-- citation should be updated with every underlying tool version -->
+        <!-- typical fields to update are version, month, year, and doi -->
+        <token name="@TOOL_CITATION@">
+            @software{pymuon-suite,
+                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and {Muon Spectroscopy Computational Project}},
+                license = {GPL-3.0},
+                title = {{pymuon-suite}},
+                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
+                version = {v0.2.1},
+                month = {2},
+                year = {2022},
+                doi = {}
+            }
+        </token>
     </macros>
     <creator>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
@@ -12,7 +26,7 @@
     </creator>
     <requirements>
         <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
-        <requirement type="package">zip</requirement>
+        <requirement type="package" version="3.0">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         structure_name_internal="input_structure.$structure.ext" &&
@@ -228,14 +242,7 @@
             }
         </citation>
         <citation type="bibtex">
-            @article {castep,
-                author = {Clark, S. J. and Segall, M. D. and Pickard, C. J. and Hasnip, P. J. and Probert, M. I. J. and Refson, K. and Payne, M. C.},
-                title = {First principles methods using CASTEP},
-                journal = {Zeitschrift fuer Kristallographie},
-                volume = {220},
-                pages = {567},
-                year = {2005}
-            }
+            @TOOL_CITATION@
         </citation>
     </citations>
 </tool>

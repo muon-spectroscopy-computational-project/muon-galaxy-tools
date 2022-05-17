@@ -1,4 +1,20 @@
 <tool id="pm_asephonons" name="Generate phonons using ASE and DFTB+ (pm-asephonons)" version="0.1.0" python_template_version="3.5" profile="22.01">
+    <macros>
+        <!-- citation should be updated with every underlying tool version -->
+        <!-- typical fields to update are version, month, year, and doi -->
+        <token name="@PYMUONSUITE_CITATION@">
+            @software{pymuon-suite,
+                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and {Muon Spectroscopy Computational Project}},
+                license = {GPL-3.0},
+                title = {{pymuon-suite}},
+                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
+                version = {v0.2.1},
+                month = {2},
+                year = {2022},
+                doi = {}
+            }
+        </token>
+    </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
@@ -8,7 +24,7 @@
         <!-- note versioning is different due to multiple dependencies -->
         <requirement type="package" version="0.2.1">pymuonsuite</requirement>
         <requirement type="package" version="21.2">dftbplus</requirement>
-        <requirement type="package">zip</requirement>
+        <requirement type="package" version="3.0">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         structure_name_internal="input_structure.$structure.ext" &&
@@ -30,20 +46,20 @@
         zip -r out_zip.zip $name "${name}_phonons.txt" asephonons.out band.out pho_params.yaml
     ]]></command>
     <inputs>
-        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to generate the phonon report from. Accepted file types: cell." />
+        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to generate the phonon report from. Accepted file types: cell."/>
         <param type="text" name="name" label="Structure name" help="Name of the structure." value="struct"/>
-        <param type="text" name="phonon_kpoint_grid" label="Phonon k-points" value="[1, 1, 1]" />
-        <param type="text" name="kpoint_grid" label="K-points used for DFTB+ calculation" value="[1, 1, 1]" />
-        <param type="float" name="force_tol" label="Force tolerance for optimisation" value="0.01" />
+        <param type="text" name="phonon_kpoint_grid" label="Phonon k-points" value="[1, 1, 1]"/>
+        <param type="text" name="kpoint_grid" label="K-points used for DFTB+ calculation" value="[1, 1, 1]"/>
+        <param type="float" name="force_tol" label="Force tolerance for optimisation" value="0.01"/>
         <param type="select" name="dftb_set" label="DFTB set to use" value="3ob-3-1">
             <option value="3ob-3-1">3ob-3-1</option>
             <option value="pbc-0-3">pbc-0-3</option>
         </param>
-        <param type="boolean" name="pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." value="true" />
+        <param type="boolean" name="pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." value="true"/>
     </inputs>
     <outputs>
         <data label="phonons outputs of $structure.name" name="phonon_outputs" format="zip" from_work_dir="out_zip.zip"/>
-        <data label="phonon report for $structure.name" name="phonon_report" format="txt" from_work_dir="phonon_report.txt" />
+        <data label="phonon report for $structure.name" name="phonon_report" format="txt" from_work_dir="phonon_report.txt"/>
     </outputs>
     <tests>
         <test>
@@ -77,15 +93,9 @@
         Given an input structure, this tool generates a phonon report for that structure using the parameters provided.
 
     ]]></help>
-       <citations>
+    <citations>
         <citation type="bibtex">
-            @misc{github,
-                author = {{Muon Spectroscopy Computational Project}},
-                year = {2021},
-                title = {pymuon-suite 0.2.0},
-                publisher = {GitHub},
-                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/}
-            }
+            @PYMUONSUITE_CITATION@
         </citation>
         <citation type="bibtex">
             @article{doi:10.1063/1.5085197,

@@ -11,18 +11,18 @@
        python ${__tool_directory__}/generate_plot.py inputs.json
     ]]></command>
     <configfiles>
-        <inputs name="inputs" data_style="paths" filename="inputs.json" />
+        <inputs name="inputs" data_style="paths" filename="inputs.json"/>
     </configfiles>
     <inputs>
-        <param type="text" name="title" label="Plot Title" value="" />
-        <param type="text" name="xlab" label="Label for x axis" value="" />
-        <param type="text" name="ylab" label="Label for y axis" value="" />
-        <param name="out_file_type" type="select" label="Output File Type" >
+        <param type="text" name="title" label="Plot Title" value=""/>
+        <param type="text" name="xlab" label="Label for x axis" value=""/>
+        <param type="text" name="ylab" label="Label for y axis" value=""/>
+        <param name="out_file_type" type="select" label="Output File Type">
             <option value="pdf">PDF</option>
             <option value="png">PNG</option>
         </param>
         <repeat name="mu_out_series" title="Muspinsim File Series">
-            <param type="data" name="mu_data" label="Muspinsim Experiment Data (.dat)" />
+            <param type="data" name="mu_data" format="txt" label="Muspinsim Experiment Data (.dat)"/>
             <param type="text" name="mu_label" optional="true" label="Muspinsim Experiment Label" value="" help="Label to use for this series in the plot legend."/>
             <param type="select" name="colour" label="Line/Point Color">
                 <option value="k">Black</option>
@@ -31,17 +31,17 @@
                 <option value="b">Blue</option>
             </param>
             <conditional name="series_type">
-                <param type="select" name="type" label="Series Type" >
+                <param type="select" name="type" label="Series Type">
                     <option value="line">Line</option>
                     <option value="points">Points</option>
                 </param>
                 <when value="line">
-                   <param type="select" name="linestyle" label="Line type">
-                       <option value="solid">Solid</option>
-                       <option value="dashed">Dashed</option>
-                       <option value="dotted">Dotted</option>
-                   </param>
-                   <param type="float" name="linewidth" label="Line width" value="1.0"/>
+                    <param type="select" name="linestyle" label="Line type">
+                        <option value="solid">Solid</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                    </param>
+                    <param type="float" name="linewidth" label="Line width" value="1.0"/>
                 </when>
                 <when value="points">
                     <param type="select" name="pointstyle" label="Point Type">
@@ -54,7 +54,7 @@
         </repeat>
     </inputs>
     <outputs>
-        <data format="pdf" name="out_file_pdf" from_work_dir="outfile.pdf" >
+        <data format="pdf" name="out_file_pdf" from_work_dir="outfile.pdf">
             <filter>(out_file_type == 'pdf')</filter>
         </data>
         <data format="png" name="out_file_png" from_work_dir="outfile.png">
@@ -79,7 +79,7 @@
             <param name="linestyle" value="solid"/>
             <param name="colour" value="k"/>
             <param name="linewidth" value="1.0"/>
-            <output name="out_file_png" file="temp_example.png" ftype="png" compare="sim_size" />
+            <output name="out_file_png" file="temp_example.png" ftype="png" compare="sim_size"/>
         </test>
         <test>
             <param name="title" value="Fitting Example"/>
@@ -98,7 +98,7 @@
             <param name="linestyle" value="solid"/>
             <param name="colour" value="b"/>
             <param name="linewidth" value="1.0"/>
-            <output name="out_file_pdf" ftype="pdf" file="fitting_example.pdf" compare="sim_size" />
+            <output name="out_file_pdf" ftype="pdf" file="fitting_example.pdf" compare="sim_size"/>
         </test>
     </tests>
     <help><![CDATA[
@@ -110,4 +110,6 @@
 
         You can overlay multiple plots on top of each other by providing more than one data file.
     ]]></help>
+    <citations>
+    </citations>
 </tool>

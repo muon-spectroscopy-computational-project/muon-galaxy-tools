@@ -4,6 +4,20 @@
         <token name="@TOOL_VERSION@">0.2.1</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
+        <!-- citation should be updated with every underlying tool version -->
+        <!-- typical fields to update are version, month, year, and doi -->
+        <token name="@TOOL_CITATION@">
+            @software{pymuon-suite,
+                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and {Muon Spectroscopy Computational Project}},
+                license = {GPL-3.0},
+                title = {{pymuon-suite}},
+                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
+                version = {v0.2.1},
+                month = {2},
+                year = {2022},
+                doi = {}
+            }
+        </token>
     </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
@@ -27,22 +41,22 @@
     <tests>
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
-            <output name="symmetry_report" file="test_out.txt" ftype="txt"  compare="sim_size" delta="500">
+            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="500">
             </output>
         </test>
         <test>
             <param name="structure" value="Si.cif" ftype="cif"/>
-            <output name="symmetry_report" file="test_out.txt" ftype="txt"  compare="sim_size" delta="500">
+            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="500">
             </output>
         </test>
         <test expect_test_failure="true">
             <param name="structure" value="Si.xyz" ftype="xyz"/>
-            <output name="symmetry_report" file="test_out.txt" ftype="txt"  compare="sim_size" delta="500">
+            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="500">
             </output>
         </test>
         <test>
             <param name="structure" value="Si.extxyz" ftype="extxyz"/>
-            <output name="symmetry_report" file="test_out.txt" ftype="txt"  compare="sim_size" delta="500">
+            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="500">
             </output>
         </test>
     </tests>
@@ -51,15 +65,9 @@
 
         Given an input structure, generates a Wyckoff points symmetry report for that structure.
     ]]></help>
-     <citations>
+    <citations>
         <citation type="bibtex">
-            @misc{github,
-                author = {{Muon Spectroscopy Computational Project}},
-                year = {2021},
-                title = {pymuon-suite 0.2.0},
-                publisher = {GitHub},
-                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/}
-            }
+            @TOOL_CITATION@
         </citation>
         <citation type="bibtex">
             @article{doi:10.1063/5.0012381,
