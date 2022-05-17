@@ -49,10 +49,11 @@
             <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="500">
             </output>
         </test>
-        <test expect_test_failure="true">
+        <test expect_failure="true">
             <param name="structure" value="Si.xyz" ftype="xyz"/>
-            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="500">
-            </output>
+            <assert_stderr>
+                <has_text text="TypeError: 'NoneType' object is not subscriptable"/>
+            </assert_stderr>
         </test>
         <test>
             <param name="structure" value="Si.extxyz" ftype="extxyz"/>

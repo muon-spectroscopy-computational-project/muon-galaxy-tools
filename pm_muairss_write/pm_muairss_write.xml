@@ -133,15 +133,13 @@
                 </assert_contents>
             </output>
         </test>
-        <test expect_test_failure="true">
+        <test expect_failure="true">
             <param name="structure" value="Si.xyz" ftype="xyz"/>
             <param name="testing" value="true"/>
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
-            <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
-                <assert_contents>
-                    <has_line_matching expression="^1$"/>
-                </assert_contents>
-            </output>
+            <assert_stderr>
+                <has_text text="TypeError: cannot unpack non-iterable NoneType object"/>
+            </assert_stderr>
         </test>
         <test>
             <param name="structure" value="Si.extxyz" ftype="extxyz"/>
