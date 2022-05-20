@@ -1,10 +1,11 @@
 categories:
-- Computational chemistry
-- Molecular Dynamics
-description: Generate muon structures (pm-muairss)
+- Materials science
+- Muon spectroscopy
+description: Generate muonated structures
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
 long_description: |
   Given an input structure, generates a set of structures with a muon added in a random location.
+  Uses the pm-muairss tool from pymuon-suite.
 name: pm_muairss_write
 owner: muon-spectroscopy-computational-project
 remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_muairss_write

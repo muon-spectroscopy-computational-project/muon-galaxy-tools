@@ -1,9 +1,9 @@
 categories:
-- Computational chemistry
-- Molecular Dynamics
+- Materials science
+- Muon spectroscopy
 description: Generate input file for pymuonsuite
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
-long_description: Generate yaml parameter input file to be used by pymuonsuite tools
+long_description: Generate YAML parameter input file to be used by pymuonsuite tools
 name: pm_yaml_config
 owner: muon-spectroscopy-computational-project
 remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_yaml_config
