@@ -3,6 +3,7 @@ import sys
 import re
 from muspinsim import MuSpinInput
 
+
 def write_file(file_name, content):
     """
     Write muspinsim file
@@ -29,20 +30,23 @@ def build_block(title, vals):
     """
     return "{0}\n    {1}\n".format(title, "\n    ".join(vals))
 
+
 def remove_bracket_whitespace(entry):
     stck = []
     new_str = ""
     for i, char in enumerate(entry):
-        if char == '(':
+        if char == "(":
             stck.append(i)
-        elif char == ')':
+        elif char == ")":
             if len(stck) == 0:
                 raise ValueError(
                     "Could not parse entry {0}"
-                    "brackets mismatch - unexpected ')' found on char {1}".format(entry, i)
+                    "brackets mismatch - unexpected ')' found on char {1}".format(
+                        entry, i
+                    )
                 )
             stck.pop()
-        elif char == ' ':
+        elif char == " ":
             if len(stck) > 0:
                 continue
         new_str += char
@@ -53,6 +57,7 @@ def remove_bracket_whitespace(entry):
             "brackets mismatch - unclosed '(' found on char(s): {1}".format(entry, stck)
         )
     return new_str
+
 
 def split_into_args(entry, nargs=1):
     """
@@ -75,7 +80,9 @@ def split_into_args(entry, nargs=1):
         raise ValueError(
             "Could not parse entry {0}"
             " incorrect number of args"
-            " found {1}:\n({2})\nBut expected {3}".format(entry, len(chars), chars, nargs)
+            " found {1}:\n({2})\nBut expected {3}".format(
+                entry, len(chars), chars, nargs
+            )
         )
     return chars
 
@@ -175,7 +182,7 @@ def parse_polarization(polarization):
     """
     options = polarization["polarization_options"]
     preset = options["polarization_preset"]
-    if preset != 'custom':
+    if preset != "custom":
         return preset
     else:
         try:
@@ -191,7 +198,7 @@ def parse_field(field):
     :return: a formatted string
     """
     try:
-        return  " ".join(split_into_args(field["field"], 1))
+        return " ".join(split_into_args(field["field"], 1))
     except ValueError:
         return " ".join(split_into_args(field["field"], 3))
 
@@ -219,12 +226,10 @@ def main():
 
     euler_convention = mu_params["euler_convention"]
 
-    file_contents = [
-        build_block("name", [out_file_name.replace(' ', '_')])
-    ]
+    file_contents = [build_block("name", [out_file_name.replace(" ", "_")])]
 
     for keyword, values in mu_params.items():
-        if values and values not in ['None']:
+        if values and values not in ["None"]:
             try:
                 file_contents.append(
                     {
@@ -234,7 +239,7 @@ def main():
                                 " ".join(
                                     [
                                         i["spin_options"]["spin"]
-                                        if "spin" in i['spin_options'].keys()
+                                        if "spin" in i["spin_options"].keys()
                                         else i["spin_options"]["spin_preset"]
                                         for i in values
                                     ]
@@ -243,18 +248,23 @@ def main():
                         ),
                         # either 1x3 vector or scalar or function
                         "fields": lambda values: build_block(
-                            'field',
-                            [parse_field(entry) for entry in values]
+                            "field", [parse_field(entry) for entry in values]
                         ),
                         # either scalar or single function
                         "times": lambda values: build_block(
                             "time",
-                            [" ".join(split_into_args(entry["time"], 1)) for entry in values],
+                            [
+                                " ".join(split_into_args(entry["time"], 1))
+                                for entry in values
+                            ],
                         ),
                         # either scalar or single function
                         "temperatures": lambda values: build_block(
                             "temperature",
-                            [" ".join(split_into_args(entry["temperature"], 1)) for entry in values],
+                            [
+                                " ".join(split_into_args(entry["temperature"], 1))
+                                for entry in values
+                            ],
                         ),
                         "x_axis": lambda value: build_block("x_axis", [value]),
                         "y_axis": lambda value: build_block("y_axis", [value]),
@@ -278,7 +288,9 @@ def main():
                     }.get(keyword, lambda _: "")(values)
                 )
             except ValueError as e:
-                sys.stderr.write("Error occurred when parsing {0}\n{1}".format(keyword, str(e)))
+                sys.stderr.write(
+                    "Error occurred when parsing {0}\n{1}".format(keyword, str(e))
+                )
                 sys.exit(1)
 
     write_file("outfile.in", file_contents)
