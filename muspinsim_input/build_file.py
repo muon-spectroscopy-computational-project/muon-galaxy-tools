@@ -1,6 +1,7 @@
 import json
-import sys
 import re
+import sys
+
 from muspinsim import MuSpinInput
 
 
@@ -41,7 +42,8 @@ def remove_bracket_whitespace(entry):
             if len(stck) == 0:
                 raise ValueError(
                     "Could not parse entry {0}"
-                    "brackets mismatch - unexpected ')' found on char {1}".format(
+                    "brackets mismatch - unexpected ')' "
+                    "found on char {1}".format(
                         entry, i
                     )
                 )
@@ -54,7 +56,9 @@ def remove_bracket_whitespace(entry):
     if len(stck) != 0:
         raise ValueError(
             "Could not parse entry {0}"
-            "brackets mismatch - unclosed '(' found on char(s): {1}".format(entry, stck)
+            "brackets mismatch - unclosed '(' found on char(s): {1}".format(
+                entry, stck
+            )
         )
     return new_str
 
@@ -65,7 +69,8 @@ def split_into_args(entry, nargs=1):
     :param entry: a string containing a user inputted line
     :param nargs: number of expected arguments
     :return: a list of arguments found
-    :exception: ValueError - if number of arguments found does not match expected (nargs)
+    :exception: ValueError - if number of arguments
+        found does not match expected (nargs)
     """
 
     # remove square brackets and extra whitespace/newline
@@ -89,18 +94,24 @@ def split_into_args(entry, nargs=1):
 
 def parse_matrix(entry_string, size):
     """
-    Helper function to parse and format matrix/vector to be readable by Muspinsim
+    Helper function to parse and format matrix/vector
+    to be readable by Muspinsim
     :param entry_string: a user input string for a matrix/vector
     :param size: (x, y) integer tuple: dimensions of matrix
-    :return: a list of strings of length y, each string containing x elements (space separated)
+    :return: a list of strings of length y, each string
+    containing x elements (space separated)
     """
     content = split_into_args(entry_string, nargs=size[0] * size[1])
-    return [" ".join(content[x : x + size[0]]) for x in range(0, len(content), size[0])]
+    return [
+        " ".join(content[x: x + size[0]])
+        for x in range(0, len(content), size[0])
+    ]
 
 
 def parse_interactions(interaction):
     """
-    Helper function to build keyword blocks for all interaction parameters entered
+    Helper function to build keyword blocks for all
+    interaction parameters entered
         (hyperfine, zeeman, dipolar, quadrupolar and dissipation)
 
     :param interaction: a dictionary containing all interaction parameters
@@ -118,12 +129,16 @@ def parse_interactions(interaction):
             "hyperfine": lambda options: build_block(
                 "hyperfine {0} {1}".format(
                     options["hfine_index"],
-                    options["hfine_e_index"] if options["hfine_e_index"] else "",
+                    options["hfine_e_index"]
+                    if options["hfine_e_index"]
+                    else "",
                 ).strip(),
                 parse_matrix(options["hfine_matrix"], (3, 3)),
             ),
             "dipolar": lambda options: build_block(
-                "dipolar {0} {1}".format(options["di_index"], options["di_index_2"]),
+                "dipolar {0} {1}".format(
+                    options["di_index"], options["di_index_2"]
+                ),
                 parse_matrix(options["di_vector"], (3, 1)),
             ),
             "quadrupolar": lambda options: build_block(
@@ -136,13 +151,14 @@ def parse_interactions(interaction):
             ),
         }.get(interaction_type)(options)
     except ValueError as e:
-        raise ValueError("Error occurred when parsing {0}")
+        raise ValueError("Error occurred when parsing {0}".format(e))
 
 
 def parse_orientation(orientation):
     """
     Helper function to parse orientation keyword arguments
-    :param orientation: a dictionary containing one set of orientation arguments
+    :param orientation: a dictionary containing one set of
+        orientation arguments
     :return: a formatted string
     """
 
@@ -177,7 +193,8 @@ def parse_orientation(orientation):
 def parse_polarization(polarization):
     """
     Helper function to parse polarization keyword arguments
-    :param polarization: a dictionary containing one set of polarization arguments
+    :param polarization: a dictionary containing one set
+        of polarization arguments
     :return: a formatted string
     """
     options = polarization["polarization_options"]
@@ -206,7 +223,8 @@ def parse_field(field):
 def parse_fitting_variables(fitting_variables):
     """
     Helper function to parse field keyword fitting_variables
-    :param fitting_variables: a dictionary containing one set of arguments
+    :param fitting_variables: a dictionary containing one set of
+        arguments
     :return: a formatted string
     """
     return "{0} {1} {2} {3}".format(
@@ -228,7 +246,8 @@ def parse_spin(spin):
         return spin["spin_preset"]
     else:
         return "{0}{1}".format(
-            spin["atomic_mass"] if spin["atomic_mass"] else "", spin["spin"].strip()
+            spin["atomic_mass"] if spin["atomic_mass"] else "",
+            spin["spin"].strip(),
         ).strip()
 
 
@@ -256,9 +275,11 @@ def main():
 
     euler_convention = mu_params["euler_convention"]
 
-    file_contents = [build_block("name", [out_file_name.strip().replace(" ", "_")])]
-    for keyword, values in mu_params.items():
-        if values and values not in ["None"]:
+    file_contents = [
+        build_block("name", [out_file_name.strip().replace(" ", "_")])
+    ]
+    for keyword, val in mu_params.items():
+        if val and val not in ["None"]:
             try:
                 file_contents.append(
                     {
@@ -289,14 +310,17 @@ def main():
                         "temperatures": lambda values: build_block(
                             "temperature",
                             [
-                                " ".join(split_into_args(entry["temperature"], 1))
+                                " ".join(
+                                    split_into_args(entry["temperature"], 1)
+                                )
                                 for entry in values
                             ],
                         ),
                         "x_axis": lambda value: build_block("x_axis", [value]),
                         "y_axis": lambda value: build_block("y_axis", [value]),
                         "average_axes": lambda values: build_block(
-                            "average_axes", [v.strip() for v in values.split(",")]
+                            "average_axes",
+                            [v.strip() for v in values.split(",")],
                         ),
                         "experiment_preset": lambda value: build_block(
                             "experiment", [value]
@@ -318,30 +342,37 @@ def main():
                         "fitting_method": lambda value: build_block(
                             "fitting_method", [value]
                         ),
-                        "fitting_variables": lambda value: build_block(
+                        "fitting_variables": lambda values: build_block(
                             "fitting_variables",
-                            [parse_fitting_variables(entry) for entry in values],
+                            [
+                                parse_fitting_variables(entry)
+                                for entry in values
+                            ],
                         ),
                         "fitting_tolerance": lambda value: build_block(
                             "fitting_tolerance",
                             [str(value)],
                         ),
-                    }.get(keyword, lambda _: "")(values)
+                    }.get(keyword, lambda _: "")(val)
                 )
             except ValueError as e:
                 sys.stderr.write(
-                    "Error occurred when parsing {0}\n{1}".format(keyword, str(e))
+                    "Error occurred when parsing {0}\n{1}".format(
+                        keyword, str(e)
+                    )
                 )
                 sys.exit(1)
 
     write_file("outfile.in", file_contents)
 
     try:
-        mu_inp = MuSpinInput(open("outfile.in"))
+        MuSpinInput(open("outfile.in"))
     except Exception as e:
         sys.stdout.write(
             "Warning, This input file may not work properly. "
-            "Errors encountered when trying to parse the file : {0}".format(str(e))
+            "Errors encountered when trying to parse the file : {0}".format(
+                str(e)
+            )
         )
         sys.exit(1)
 

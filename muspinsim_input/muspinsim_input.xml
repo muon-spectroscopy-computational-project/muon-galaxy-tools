@@ -1,4 +1,4 @@
-<tool id="muspinsim_input" name="Create Muspinsim input file" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="muspinsim_input" name="Create Muspinsim input file" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5">
        <macros>
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">1.0.4</token>
@@ -180,7 +180,7 @@
                     </repeat>
                 </when>
             </conditional>
-            <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" label="Choose keywords that should have an average carried out over them"
+            <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Choose keywords that should have an average carried out over them"
                 help="Any keywords not included here or as x-axis are included in separate files">
                 <option selected="true" value="orientation">orientation</option>
                 <option value="polarization">polarization</option>
