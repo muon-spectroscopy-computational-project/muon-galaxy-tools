@@ -203,6 +203,35 @@ def parse_field(field):
         return " ".join(split_into_args(field["field"], 3))
 
 
+def parse_fitting_variables(fitting_variables):
+    """
+    Helper function to parse field keyword fitting_variables
+    :param fitting_variables: a dictionary containing one set of arguments
+    :return: a formatted string
+    """
+    return "{0} {1} {2} {3}".format(
+        fitting_variables["var_name"].strip().replace(" ", "_"),
+        " ".join(split_into_args(fitting_variables["start_val"], 1))
+        if fitting_variables["start_val"].strip() != ""
+        else "",
+        " ".join(split_into_args(fitting_variables["min_bound"], 1))
+        if fitting_variables["min_bound"].strip() != ""
+        else "",
+        " ".join(split_into_args(fitting_variables["max_bound"], 1))
+        if fitting_variables["max_bound"].strip() != ""
+        else "",
+    ).strip()
+
+
+def parse_spin(spin):
+    if spin["spin_preset"] != "custom":
+        return spin["spin_preset"]
+    else:
+        return "{0}{1}".format(
+            spin["atomic_mass"] if spin["atomic_mass"] else "", spin["spin"].strip()
+        ).strip()
+
+
 def main():
     input_json_path = sys.argv[1]
     mu_params = json.load(open(input_json_path, "r"))
@@ -214,6 +243,7 @@ def main():
         **mu_params["species"],
         **mu_params["interaction_params"],
         **mu_params["experiment_params"],
+        **mu_params["fitting_params"]["fitting_options"],
     }
 
     # get experiment parameters
@@ -226,8 +256,7 @@ def main():
 
     euler_convention = mu_params["euler_convention"]
 
-    file_contents = [build_block("name", [out_file_name.replace(" ", "_")])]
-
+    file_contents = [build_block("name", [out_file_name.strip().replace(" ", "_")])]
     for keyword, values in mu_params.items():
         if values and values not in ["None"]:
             try:
@@ -238,10 +267,8 @@ def main():
                             [
                                 " ".join(
                                     [
-                                        i["spin_options"]["spin"]
-                                        if "spin" in i["spin_options"].keys()
-                                        else i["spin_options"]["spin_preset"]
-                                        for i in values
+                                        parse_spin(entry["spin_options"])
+                                        for entry in values
                                     ]
                                 )
                             ],
@@ -285,6 +312,20 @@ def main():
                             "polarization",
                             [parse_polarization(entry) for entry in values],
                         ),
+                        "fitting": lambda value: build_block(
+                            "fitting_data", ['load("fitting_data.dat")']
+                        ),
+                        "fitting_method": lambda value: build_block(
+                            "fitting_method", [value]
+                        ),
+                        "fitting_variables": lambda value: build_block(
+                            "fitting_variables",
+                            [parse_fitting_variables(entry) for entry in values],
+                        ),
+                        "fitting_tolerance": lambda value: build_block(
+                            "fitting_tolerance",
+                            [str(value)],
+                        ),
                     }.get(keyword, lambda _: "")(values)
                 )
             except ValueError as e:
@@ -297,9 +338,11 @@ def main():
 
     try:
         mu_inp = MuSpinInput(open("outfile.in"))
-        res = mu_inp.evaluate()
     except Exception as e:
-        sys.stderr.write(str(e))
+        sys.stdout.write(
+            "Warning, This input file may not work properly. "
+            "Errors encountered when trying to parse the file : {0}".format(str(e))
+        )
         sys.exit(1)
 
 

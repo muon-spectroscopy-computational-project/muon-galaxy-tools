@@ -2,7 +2,7 @@
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip install wheel &&
+        cp ${__tool_directory__}/sample_fitting_data.dat ./fitting_data.dat &&
         pip install git+https://github.com/muon-spectroscopy-computational-project/muspinsim.git &&
         python ${__tool_directory__}/build_file.py inputs.json
     ]]></command>
@@ -21,6 +21,7 @@
                     </param>
                     <when value="custom">
                         <param name="spin" optional="false" type="text" label="Enter custom species"/>
+                        <param name="atomic_mass" optional="true" type="float" value="" label="Custom Atomic Mass, Leave blank to use default symbol mass"/>
                     </when>
                     <when value="mu"/>
                     <when value="e"/>
@@ -222,6 +223,34 @@
                        Warning: both density matrices and dissipative couplings for finite temperatures are only calculated approximatively, see muspinsim docs."/>
             </repeat>
         </section>
+        <section name="fitting_params" expanded="true" title="Fitting Parameters">
+            <conditional name="fitting_options">
+                <param name="fitting" type="select" display="radio" optional="false" default="" label="Fit experimental data with simulations"
+                       help="Fitting requires a file with data to fit. File must be given in muspinsim tool, or by manually setting filepath for keyword 'fitting_data' if running muspinsim externally">
+                    <option value="true">Yes</option>
+                    <option selected="true" value="">No</option>
+                </param>
+                <when value="true">
+                    <param name="fitting_method" type="select" display="radio" optional="false" default="nelder-mead" label="Method to use to fit the data"
+                           help="Currently available are only nelder-mead (default) and lbfgs">
+                        <option selected="true" value="nelder-mead">nelder-mead</option>
+                        <option value="lbfgs">lbfgs</option>
+                    </param>
+                    <repeat name="fitting_variables" title="Variable to fit to the experimental data">
+                        <param name="var_name" type="text" optional="false" label="Name of the variable"/>
+                        <param name="start_val" type="text" value="0" label="Starting value"
+                               help="Optional, default is 0. Each entry allows default expressions, constants (including MHz, muon_gyr) and functions but cannot contain names of other variables"/>
+                        <param name="min_bound" type="text" value="-inf" label="minimum bound"
+                               help="Optional, default is -inf"/>
+                        <param name="max_bound" type="text" value="inf" label="maximum bound"
+                               help="Optional, default is inf"/>
+                    </repeat>
+                    <param name="fitting_tolerance" type="float" optional='true' value="" label="Tolerance for the fitting."
+                           help="Used as the tol parameter in Scipy's scipy.optimize.minimize method. Does not accept expressions/functions/constants"
+                    />
+                </when>
+            </conditional>
+        </section>
     </inputs>
     <outputs>
         <data format="txt" name="out_file" from_work_dir="outfile.in" />
@@ -300,6 +329,18 @@
             <param name="orientation_preset" value="eulrange"/>
             <param name="eul_n" value="10"/>
             <output name="out_file" file="test_4.in" ftype="txt" compare="diff" />
+        </test>
+        <test>
+            <param name="out_file_prefix" value="test_5"/>
+            <param name="spin_preset" value="mu"/>
+            <param name="interaction" value="dissipation"/>
+            <param name="dis_index" value="1"/>
+            <param name="dis_val" value="g"/>
+            <param name="experiment_preset" value="custom" />
+            <param name="field" value="1.0/muon_gyr" />
+            <param name="fitting" value="true"/>
+            <param name="var_name" value="g" />
+            <param name="min_bound" value="0.0" />
         </test>
     </tests>
     <help><![CDATA[
