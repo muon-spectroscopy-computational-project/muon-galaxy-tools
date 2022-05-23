@@ -1,7 +1,7 @@
 categories:
-- Computational chemistry
-- Molecular Dynamics
-description: Run DFTB+ optimisation (dftb+)
+- Materials science
+- Muon spectroscopy
+description: Run DFTB+ optimisation
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
 long_description: |
   Given input muonated structures, perform DFTB+ optimisation.
