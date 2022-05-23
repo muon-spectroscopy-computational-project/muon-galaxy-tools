@@ -8,11 +8,19 @@ name
     test_5
 spins
     mu
-field
-    1.0/muon_gyr
-fitting_data
-    load("fitting_data.dat")
-fitting_variables
-    g 0.1 0.0 inf
 dissipation 1
     g
+average_axes
+    orientation
+fitting_method
+    nelder-mead
+fitting_variables
+    g 0 0.0 inf
+fitting_data
+    load("fitting_data.dat")
+x_axis
+    time
+y_axis
+    asymmetry
+field
+    1.0/muon_gyr

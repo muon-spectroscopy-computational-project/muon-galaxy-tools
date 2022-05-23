@@ -1,4 +1,29 @@
-<tool id="muspinsim_input" name="Create Muspinsim input file" version="0.1.0" python_template_version="3.5">
+<tool id="muspinsim_input" name="Create Muspinsim input file" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+       <macros>
+        <!-- version of underlying tool (PEP 440) -->
+        <token name="@TOOL_VERSION@">1.0.4</token>
+        <!-- version of this tool wrapper (integer) -->
+        <token name="@WRAPPER_VERSION@">0</token>
+        <!-- citation should be updated with every underlying tool version -->
+        <!-- typical fields to update are version, month, year, and doi -->
+        <token name="@TOOL_CITATION@">
+            @software{muspinsim,
+                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and {Muon Spectroscopy Computational Project}},
+                license = {MIT},
+                title = {{muspinsim}},
+                url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
+                version = {v1.0.4},
+                month = {5},
+                year = {2022},
+                doi = {10.5281/zenodo.6517627}
+            }
+        </token>
+    </macros>
+    <creator>
+        <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
+        <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
+    </creator>
     <requirements>
         <requirement type="package" version="1.1.0">muspinsim</requirement>
     </requirements>
@@ -14,7 +39,7 @@
         <section name="species" expanded="true" title="Species to simulate">
             <repeat name="spins" title="Species to simulate">
                 <conditional name="spin_options">
-                    <param name="spin_preset" type="select" default="custom" label="Choose from species, or choose 'custom' to enter your own">
+                    <param name="spin_preset" type="select" value="custom" label="Choose from species, or choose 'custom' to enter your own">
                         <option value="mu">mu</option>
                         <option value="e">e</option>
                         <option selected="true" value="custom">custom</option>
@@ -31,7 +56,7 @@
         <section name="interaction_params" expanded="true" title="Spin Interaction Parameters">
             <repeat name="interactions" title="Interactions to simulate">
                 <conditional name="interaction_options">
-                    <param name="interaction" type="select" optional="true" label="Choose interaction type">
+                    <param name="interaction" type="select" label="Choose interaction type">
                         <option value="zeeman">zeeman</option>
                         <option value="hyperfine">hyperfine</option>
                         <option value="dipolar">dipolar</option>
@@ -87,10 +112,10 @@
         </section>
         <section name="experiment_params" expanded="true" title="Experiment Parameters">
             <conditional name="experiment">
-                <param name="experiment_preset" type="select" default='custom' display="radio" label="Choose an experiment type, or custom to define own params"
+                <param name="experiment_preset" type="select" value='custom' display="radio" label="Choose an experiment type, or custom to define own params"
                        help="`alc` - Avoided Level Crossing,
-                             `zero field` - No external fields,
-                             `custom` - No preset values,
+                             `zero field` - No external,
+                             `custom` - No preset values fields,
                              (See muspinsim docs 'experiment' keyword for more info)
                             ">
                     <option value="alc">Avoided Level Crossing (ALC)</option>
@@ -107,11 +132,11 @@
                     </repeat>
                 </when>
                 <when value="zero_field">
-                    <param name="x_axis" type="select" default="time" display="radio" label="Choose which range to use as x axis for output file(s)">
+                    <param name="x_axis" type="select" value="time" display="radio" label="Choose which range to use as x axis for output file(s)">
                         <option selected="true" value="time">time</option>
                         <option value="field">field</option>
                     </param>
-                    <param name="y_axis" type="select" default="asymmetry" display="radio" label="Choose which range to use as y axis for output file(s)"
+                    <param name="y_axis" type="select" value="asymmetry" display="radio" label="Choose which range to use as y axis for output file(s)"
                            help="Asymmetry: Use muon's polarization, Integral: use muon's polarization integral over time,
                                 WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter ">
                         <option value="integral">integral</option>
@@ -119,11 +144,11 @@
                     </param>
                 </when>
                 <when value="custom">
-                    <param name="x_axis" type="select" default="time" display="radio" label="Choose which range to use as x axis for output file(s)">
+                    <param name="x_axis" type="select" value="time" display="radio" label="Choose which range to use as x axis for output file(s)">
                         <option selected="true" value="time">time</option>
                         <option value="field">field</option>
                     </param>
-                    <param name="y_axis" type="select" default="asymmetry" display="radio" label="Choose which range to use as y axis for output file(s)"
+                    <param name="y_axis" type="select" value="asymmetry" display="radio" label="Choose which range to use as y axis for output file(s)"
                            help="Asymmetry: Use muon's polarization, Integral: use muon's polarization integral over time,
                                 WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter ">
                         <option value="integral">integral</option>
@@ -138,7 +163,7 @@
                     </repeat>
                     <repeat name="polarizations" title="Muon polarization directions">
                         <conditional name="polarization_options">
-                            <param name="polarization_preset" default="custom" type="select" display="radio" label="Choose direction muon polarization will be measured"
+                            <param name="polarization_preset" value="custom" type="select" display="radio" label="Choose direction muon polarization will be measured"
                                 help="transverse - shorthand for along x-axis, longitudinal - shorthand for along z-axis">
                                 <option value="longitudinal">longditudinal</option>
                                 <option value="transverse">transverse</option>
@@ -225,13 +250,13 @@
         </section>
         <section name="fitting_params" expanded="true" title="Fitting Parameters">
             <conditional name="fitting_options">
-                <param name="fitting" type="select" display="radio" optional="false" default="" label="Fit experimental data with simulations"
+                <param name="fitting" type="select" display="radio" optional="false" value="" label="Fit experimental data with simulations"
                        help="Fitting requires a file with data to fit. File must be given in muspinsim tool, or by manually setting filepath for keyword 'fitting_data' if running muspinsim externally">
                     <option value="true">Yes</option>
                     <option selected="true" value="">No</option>
                 </param>
                 <when value="true">
-                    <param name="fitting_method" type="select" display="radio" optional="false" default="nelder-mead" label="Method to use to fit the data"
+                    <param name="fitting_method" type="select" display="radio" optional="false" value="nelder-mead" label="Method to use to fit the data"
                            help="Currently available are only nelder-mead (default) and lbfgs">
                         <option selected="true" value="nelder-mead">nelder-mead</option>
                         <option value="lbfgs">lbfgs</option>
@@ -249,6 +274,7 @@
                            help="Used as the tol parameter in Scipy's scipy.optimize.minimize method. Does not accept expressions/functions/constants"
                     />
                 </when>
+                <when value=""/>
             </conditional>
         </section>
     </inputs>
@@ -341,6 +367,7 @@
             <param name="fitting" value="true"/>
             <param name="var_name" value="g" />
             <param name="min_bound" value="0.0" />
+            <output name="out_file" file="test_5.in" ftype="txt" compare="diff" />
         </test>
     </tests>
     <help><![CDATA[
@@ -388,4 +415,9 @@
 
 
     ]]></help>
+    <citations>
+        <citation type="bibtex">
+            @TOOL_CITATION@
+        </citation>
+    </citations>
 </tool>
