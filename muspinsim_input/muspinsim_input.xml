@@ -226,6 +226,82 @@
     <outputs>
         <data format="txt" name="out_file" from_work_dir="outfile.in" />
     </outputs>
+    <tests>
+        <test>
+            <param name="out_file_prefix" value="test_1"/>
+            <param name="spin_preset" value="custom"/>
+            <param name="spin" value="H"/>
+            <param name="spin_preset" value="mu"/>
+            <param name="interaction" value="zeeman"/>
+            <param name="zeeman_index" value="1" />
+            <param name="zeeman_vector" value="1 0 0" />
+            <param name="zeeman_index" value="2" />
+            <param name="zeeman_vector" value="2 0 0" />
+            <output name="out_file" file="test_1.in" ftype="txt" compare="diff" />
+        </test>
+        <test>
+            <param name="out_file_prefix" value="test_2"/>
+            <param name="spin_preset" value="e"/>
+            <param name="spin_preset" value="mu"/>
+            <param name="interaction" value="hyperfine"/>
+            <param name="hfine_index" value="1" />
+            <param name="hfine_matrix" value="[1 0 0 sin(10) (5*2) 0 10*pi 5 cos(20)]"/>
+            <param name="time" value="range(0, 0.1)" />
+            <param name="y_axis" value="asymmetry" />
+            <param name="field" value="1.0" />
+            <param name="temperature" value="1.0" />
+            <output name="out_file" file="test_2.in" ftype="txt" compare="diff" />
+        </test>
+        <test>
+            <param name="out_file_prefix" value="test_3"/>
+            <param name="spin_preset" value="custom"/>
+            <param name="spin" value="H"/>
+            <param name="spin_preset" value="mu"/>
+            <param name="spin_preset" value="e"/>
+            <param name="interaction" value="hyperfine"/>
+            <param name="hfine_index" value="2" />
+            <param name="hfine_matrix" value="[580 5  10 5   580 9 10  9   580]"/>
+            <param name="interaction" value="hyperfine"/>
+            <param name="hfine_index" value="3" />
+            <param name="hfine_matrix" value="[(300/2)  3   4*10 ] [3  15*10 6-3+2] [4  5   15 ]"/>
+            <param name="average_axes" value="" />
+            <param name="experiment_preset" value="alc" />
+            <param name="field" value="range(1.8, 2.6, 100)" />
+            <param name="orientation_preset" value="zcw" />
+            <param name="zcw_n" value="20" />
+            <output name="out_file" file="test_3.in" ftype="txt" compare="diff" />
+        </test>
+        <test>
+            <param name="out_file_prefix" value="test_4"/>
+            <param name="spin_preset" value="custom"/>
+            <param name="spin" value="F"/>
+            <param name="spin_preset" value="custom"/>
+            <param name="spin" value="F"/>
+            <param name="spin_preset" value="mu"/>
+            <param name="interaction" value="dipolar"/>
+            <param name="di_index" value="1"/>
+            <param name="di_index_2" value="2"/>
+            <param name="di_vector" value="0.9 0.9 0"/>
+            <param name="interaction" value="dipolar"/>
+            <param name="di_index" value="1"/>
+            <param name="di_index_2" value="3"/>
+            <param name="di_vector" value="-0.9 -0.9 0"/>
+            <param name="interaction" value="dissipation"/>
+            <param name="dis_index" value="1"/>
+            <param name="dis_val" value="0.5"/>
+            <param name="average_axes" value="" />
+            <param name="experiment_preset" value="custom" />
+            <param name="field" value="1.5e-2 1.0e-2 1.0e-2"/>
+            <param name="field" value="0.01"/>
+            <param name="polarization_preset" value="custom"/>
+            <param name="polarization" value="1 0 0"/>
+            <param name="time" value="range(0,8.0,1000)"/>
+            <param name="time" value="range(0,1.0)"/>
+            <param name="orientation_preset" value="eulrange"/>
+            <param name="eul_n" value="10"/>
+            <output name="out_file" file="test_4.in" ftype="txt" compare="diff" />
+        </test>
+    </tests>
     <help><![CDATA[
     Tool to create input parameter file for Muspinsim.
 
