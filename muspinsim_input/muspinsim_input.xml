@@ -1,9 +1,9 @@
 <tool id="muspinsim_input" name="Create Muspinsim input file" version="0.1.0" python_template_version="3.5">
     <requirements>
+        <requirement type="package" version="1.1.0">muspinsim</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         cp ${__tool_directory__}/sample_fitting_data.dat ./fitting_data.dat &&
-        pip install git+https://github.com/muon-spectroscopy-computational-project/muspinsim.git &&
         python ${__tool_directory__}/build_file.py inputs.json
     ]]></command>
     <configfiles>
