@@ -320,7 +320,7 @@ def main():
                         "y_axis": lambda value: build_block("y_axis", [value]),
                         "average_axes": lambda values: build_block(
                             "average_axes",
-                            [v.strip() for v in values.split(",")],
+                            values
                         ),
                         "experiment_preset": lambda value: build_block(
                             "experiment", [value]
