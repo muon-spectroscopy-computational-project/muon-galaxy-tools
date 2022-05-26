@@ -257,7 +257,7 @@ def main():
 
     # combine all sections
     mu_params = {
-        **mu_params["species"],
+        **mu_params["spins"],
         **mu_params["interaction_params"],
         **mu_params["experiment_params"],
         **mu_params["fitting_params"]["fitting_options"],

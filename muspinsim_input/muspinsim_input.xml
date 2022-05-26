@@ -35,18 +35,18 @@
         <inputs name="inputs" filename="inputs.json" />
     </configfiles>
     <inputs>
-        <param type="text" name="out_file_prefix" label="A prefix for all output files (default muspinsim)" optional="true" value="muspinsim" />
-        <section name="species" expanded="true" title="Species to simulate">
-            <repeat name="spins" title="Species to simulate">
+        <param type="text" name="out_file_prefix" label="Name" help="A name with which to label this configuration" optional="true" value="muspinsim" />
+        <section name="spins" expanded="true" title="Spins" help="Section for specifying a list of the spins to be used in the system ">
+            <repeat name="spins" title="Species' spins" min="1" help="This should include a muon (mu) and one or more electrons (e)">
                 <conditional name="spin_options">
-                    <param name="spin_preset" type="select" value="custom" label="Choose from species, or choose 'custom' to enter your own">
-                        <option value="mu">mu</option>
+                    <param name="spin_preset" type="select" value="mu" label="Species" help="Select 'custom' to define own">
+                        <option selected="true" value="mu">mu</option>
                         <option value="e">e</option>
-                        <option selected="true" value="custom">custom</option>
+                        <option value="custom">custom</option>
                     </param>
                     <when value="custom">
-                        <param name="spin" optional="false" type="text" label="Enter custom species"/>
-                        <param name="atomic_mass" optional="true" type="float" value="" label="Custom Atomic Mass, Leave blank to use default symbol mass"/>
+                        <param name="spin" optional="false" type="text" label="Species name"/>
+                        <param name="atomic_mass" optional="true" type="float" min="0" value="" label="Atomic mass" help="Leave blank to use default mass"/>
                     </when>
                     <when value="mu"/>
                     <when value="e"/>
