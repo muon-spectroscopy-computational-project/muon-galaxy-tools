@@ -25,9 +25,9 @@
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
+        <requirement type="package" version="1.1.0">muspinsim</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip install git+https://github.com/muon-spectroscopy-computational-project/muspinsim.git &&
         ## remove spaces in names
         mu_sim_name=\$(sed 's/ //g' <<< "$mu_sim.name") &&
         ## create links
