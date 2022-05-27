@@ -53,28 +53,31 @@
                 </conditional>
             </repeat>
         </section>
-        <section name="interaction_params" expanded="true" title="Spin Interaction Parameters">
-            <repeat name="interactions" title="Interactions to simulate">
+        <section name="interaction_params" expanded="true" title="Spin Interactions" help="Interaction terms available: zeeman, hyperfine, dipolar, quadrupolar or dissipation">
+            <repeat name="interactions" title="Interactions to simulate" help="Add couplings between spins, and/or dissipation terms, see muspinsim docs for more info">
                 <conditional name="interaction_options">
                     <param name="interaction" type="select" label="Choose interaction type">
-                        <option value="zeeman">zeeman</option>
+                        <option value="zeeman">Zeeman</option>
                         <option value="hyperfine">hyperfine</option>
                         <option value="dipolar">dipolar</option>
                         <option value="quadrupolar">quadrupolar</option>
                         <option value="dissipation">dissipation</option>
                     </param>
                     <when value="zeeman">
-                        <param name="zeeman_index" type="integer" value="" label="Index of coupled spin (index starts from 1)"/>
-                        <param name="zeeman_vector" type="text" value="" label="Vector for Zeeman coupling (Tesla)"
-                            help="Define 1X3 vector for local magnetic field coupling.
+                        <param name="zeeman_index" type="integer" value="" label="Index of coupled spin" min="1"
+                               help="Index refers to the position of the spin as selected in 'spins' section "/>
+                        <param name="zeeman_vector" type="text" value="" label="Zeeman coupling vector"
+                            help="Define 1X3 vector for local magnetic field coupling (T).
                             Allows default expressions, constants and functions (see help)"/>
                     </when>
                     <when value="hyperfine">
-                        <param name="hfine_index" type="integer" value="" label="Index of non-electron spin (index starts from 1)"/>
-                        <param name="hfine_e_index" type="integer" value="" optional="true" label="Index of electron spin"
-                               help="Optional, will use first defined electron if unspecified"/>
-                        <param name="hfine_matrix" area="true" type="text" value="" label="3x3 Tensor for hyperfine coupling (MHz)"
-                               help="Define 3X3 tensor for coupling between electron and non-electron spins.
+                        <param name="hfine_index" type="integer" value="" label="Index of nuclear coupled spin" min="1"
+                               help="Non-electronic spin - muon or otherwise.
+                               Index refers to the position of the spin as selected in 'spins' section"/>
+                        <param name="hfine_e_index" type="integer" value="" optional="true" min="1" label="Index of electronic coupled spin"
+                               help="Optional, will use first defined electronic spin if unspecified"/>
+                        <param name="hfine_matrix" area="true" type="text" value="" label="Hyperfine coupling tensor"
+                               help="Define 3X3 tensor for coupling between electron and non-electron spins (in MHz).
                                Allows default expressions, constants and functions (see help)">
                             <sanitizer>
                                 <valid initial="string.printable">
@@ -83,16 +86,19 @@
                         </param>
                     </when>
                     <when value="dipolar">
-                        <param name="di_index" type="integer" value="" label="Index of first dipolar spin (index starts from 1)"/>
-                        <param name="di_index_2" type="integer" value="" label="Index of second dipolar spin"/>
-                        <param name="di_vector" type="text" value="" label="Vector for dipole coupling (Angstrom)"
-                               help="Define 1X3 vector for coupling between two spins.
+                        <param name="di_index" type="integer" value="" min="1" label="Index of 1st coupled spin"
+                               help="Index refers to the position of the spin as selected in 'spins' section"/>
+                        <param name="di_index_2" type="integer" value="" label="Index of 2nd coupled spin"
+                               help="Index refers to the position of the spin as selected in 'spins' section"/>
+                        <param name="di_vector" type="text" value="" label="Dipole coupling vector"
+                               help="Define 1X3 vector for coupling between two spins (Angstrom).
                                Allows default expressions, constants and functions (see help)"/>
                     </when>
                     <when value="quadrupolar">
-                        <param name="quad_index" type="integer" value="" label="Index of coupled spin (index starts from 1)"/>
-                        <param name="quad_matrix" area="true" type="text" value="" label="3x3 Electric Field Gradient Tensor (in atomic units) for quadrupolar coupling"
-                               help="Define 3X3 tensor.
+                        <param name="quad_index" type="integer" value="" label="Index of coupled spin"
+                               help="Index refers to the position of the spin as selected in 'spins' section"/>
+                        <param name="quad_matrix" area="true" type="text" value="" label="Electric Field Gradient tensor"
+                               help="Define 3X3 tensor (in atomic units) for quadrupolar coupling.
                                Allows default expressions, constants and functions (see help).
                                Warning: spins with zero quadrupole moment will have zero coupling regardless of the input">
                             <sanitizer>
@@ -102,9 +108,10 @@
                         </param>
                     </when>
                     <when value="dissipation">
-                        <param name="dis_index" type="integer" value="" label="Index of spin to be given dissipation term (index starts from 1)"/>
-                        <param name="dis_val" type="text" value="" label="Enter dissipation value (MHz)"
-                               help="Define dissipation term.
+                        <param name="dis_index" type="integer" value="" label="Index of spin with dissipation"
+                               help="Index refers to the position of the spin as selected in 'spins' section"/>
+                        <param name="dis_val" type="text" value="" label="Dissipation"
+                               help="Define dissipation term (MHz).
                                Allows default expressions, constants and functions (see help)"/>
                     </when>
                 </conditional>
