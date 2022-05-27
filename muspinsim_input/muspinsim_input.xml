@@ -306,7 +306,7 @@
         </section>
     </inputs>
     <outputs>
-        <data format="txt" name="out_file" from_work_dir="outfile.in" />
+        <data format="txt" label="muspinsim input file $out_file_prefix" name="out_file" from_work_dir="outfile.in" />
     </outputs>
     <tests>
         <test>
