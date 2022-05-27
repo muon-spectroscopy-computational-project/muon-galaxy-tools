@@ -119,59 +119,64 @@
         </section>
         <section name="experiment_params" expanded="true" title="Experiment Parameters">
             <conditional name="experiment">
-                <param name="experiment_preset" type="select" value='custom' display="radio" label="Choose an experiment type, or custom to define own params"
-                       help="`alc` - Avoided Level Crossing,
-                             `zero field` - No external,
-                             `custom` - No preset values fields,
-                             (See muspinsim docs 'experiment' keyword for more info)
-                            ">
+                <param name="experiment_preset" type="select" value='custom' display="radio" label="Experiment type"
+                       help="Avoided Level Crossing (ALC) - polarization: longitudinal, x-axis: field, y-axis: integral
+                             Zero field - polarization: transverse, field: 0
+                             Custom - No preset">
+
                     <option value="alc">Avoided Level Crossing (ALC)</option>
                     <option value="zero_field">Zero Field</option>
                     <option selected="true" value="custom">Custom</option>
                 </param>
                 <when value="alc">
-                    <repeat name="fields" title="Magnetic fields to simulate">
-                        <param name="field" type="text" value="0" label="Enter field to simulate, either scalar of vector"
+                    <repeat name="fields" title="Fields" help="Magnetic fields">
+                        <param name="field" type="text" value="0" label="Field"
                             optional="true" help="Optional, (default is 0).
                             Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis.
-                            Allows default expressions, constants and functions.
-                            Including MHz, muon_gyr constants and special 'range()' function (see help section)"/>
+                            Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
                     </repeat>
                 </when>
                 <when value="zero_field">
-                    <param name="x_axis" type="select" value="time" display="radio" label="Choose which range to use as x axis for output file(s)">
+                    <param name="x_axis" type="select" value="time" display="radio" label="X axis"
+                           help="Range to use as X axis for output file(s)">
                         <option selected="true" value="time">time</option>
                         <option value="field">field</option>
                     </param>
-                    <param name="y_axis" type="select" value="asymmetry" display="radio" label="Choose which range to use as y axis for output file(s)"
-                           help="Asymmetry: Use muon's polarization, Integral: use muon's polarization integral over time,
+                    <param name="y_axis" type="select" value="asymmetry" display="radio" label="Y axis"
+                           help="Range to use as y axis for output file(s)
+                                Asymmetry: Use muon's polarization,
+                                Integral: use muon's polarization integral over time,
                                 WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter ">
                         <option value="integral">integral</option>
                         <option selected="true" value="asymmetry">asymmetry</option>
                     </param>
                 </when>
                 <when value="custom">
-                    <param name="x_axis" type="select" value="time" display="radio" label="Choose which range to use as x axis for output file(s)">
+                    <param name="x_axis" type="select" value="time" display="radio" label="X axis"
+                           help="Range to use as X axis for output file(s)">
                         <option selected="true" value="time">time</option>
                         <option value="field">field</option>
                     </param>
-                    <param name="y_axis" type="select" value="asymmetry" display="radio" label="Choose which range to use as y axis for output file(s)"
-                           help="Asymmetry: Use muon's polarization, Integral: use muon's polarization integral over time,
+                    <param name="y_axis" type="select" value="asymmetry" display="radio" label="Y axis"
+                           help="Range to use as y axis for output file(s)
+                                Asymmetry: Use muon's polarization,
+                                Integral: use muon's polarization integral over time,
                                 WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter ">
                         <option value="integral">integral</option>
                         <option selected="true" value="asymmetry">asymmetry</option>
                     </param>
-                    <repeat name="fields" title="Magnetic fields to simulate">
-                        <param name="field" type="text" value="0" label="Enter field to simulate, either scalar of vector"
-                               optional="true" help="Optional, (default is 0).
-                               Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis.
-                               Allows default expressions, constants and functions.
-                               Including MHz, muon_gyr and special 'range()' function (see help section)"/>
+                    <repeat name="fields" title="Fields" help="Magnetic fields">
+                         <param name="field" type="text" value="0" label="Field"
+                            optional="true" help="Optional, (default is 0).
+                            Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis.
+                            Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
                     </repeat>
-                    <repeat name="polarizations" title="Muon polarization directions">
+                    <repeat name="polarizations" title="Polarizations" help="The direction along which the muon
+                    should be polarized when starting, as well as the one in which it will be measured.
+                    Each entry will generate a separate calculation when muspinsim is run">
                         <conditional name="polarization_options">
-                            <param name="polarization_preset" value="custom" type="select" display="radio" label="Choose direction muon polarization will be measured"
-                                help="transverse - shorthand for along x-axis, longitudinal - shorthand for along z-axis">
+                            <param name="polarization_preset" value="custom" type="select" display="radio" label="Polarization"
+                                   help="transverse: along x-axis, longitudinal: along z-axis, custom: define vector">
                                 <option value="longitudinal">longditudinal</option>
                                 <option value="transverse">transverse</option>
                                 <option selected="true" value="custom">custom</option>
@@ -187,72 +192,87 @@
                     </repeat>
                 </when>
             </conditional>
-            <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Choose keywords that should have an average carried out over them"
-                help="Any keywords not included here or as x-axis are included in separate files">
+            <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes"
+                   help="keywords that should have an average carried out over them. Each keyword ticked should have a range specified.
+                   Keywords not ticked or set as X axis with a range will be included in separate files">
                 <option selected="true" value="orientation">orientation</option>
                 <option value="polarization">polarization</option>
+                <option value="field">field</option>
+                <option value="time">time</option>
+                <option value="temperature">temperature</option>
             </param>
-            <param name="euler_convention" type="select" display="radio" label="Define euler angle convention (ignored if euler angles not defined)">
-                <option selected="true" value="zyz">zyz</option>
-                <option value="zxz">zxz</option>
-            </param>
-            <repeat name="orientations" title="Orientations to use for crystallites - (define powder averages)">
+            <repeat name="orientations" title="Orientations" help="Orientations to use for crystallites - (define powder averages)">
                 <conditional name="orientation_options">
-                    <param name="orientation_preset" type="select" display="radio" label="Choose orientation type to define" optional="false"
-                           help="Polar angles: Define two polar angles theta and phi, defining only the direction of the z-axis (recommended for powder averages).
-                                Euler angles: Define 3 euler angles defining a new frame, convention used is ZYZ by default.
-                                Euler angles with weight: define 3 euler angles and a weight (will be normalized automatically).
+                    <param name="orientation_preset" type="select" display="radio" label="Orientation" optional="false"
+                           help="Polar angles: Define two polar angles θ and ϕ, defining only the direction of the z-axis (recommended for powder averages).
+                                Euler angles: Define 3 Euler angles defining a new frame, convention used is ZYZ by default.
+                                Euler angles with weight: define 3 Euler angles and a weight (will be normalized automatically).
                                 Euler angles helper function: eulrange(n).
                                 Zaremba-Conroy-Wolfsberg helper function: zcw(n)">
                         <option value="2_polar">Polar angles</option>
                         <option value="3_euler">Euler angles</option>
-                        <option value="4_euler">Euler angles with 1 weight</option>
+                        <option value="4_euler">Euler angles with weight</option>
                         <option value="eulrange">Euler angles helper function (eulrange(n))</option>
                         <option value="zcw">Zaremba-Conroy-Wolfsberg helper function (zcw(n))</option>
                     </param>
                     <when value="eulrange">
-                        <param name="eul_n" type="text" value="0" label="value for n for eulrange(n)"
-                               help="Enter number (larger numbers are more computationally expensive).
-                               Allows default expressions, constants and functions"/>
+                        <param name="eul_n" type="text" value="0" label="N"
+                               help="value for n for eulrange(n),
+                               Allows default expressions, constants and functions
+                               WARNING: large values are more computationally expensive."
+                        />
                     </when>
                     <when value="zcw">
-                        <param name="zcw_n" type="text" value="0" label="value for n for zcw(n)"
-                               help="Enter number (larger numbers are more computationally expensive).
-                               09Allows default expressions, constants and functions"/>
-
+                        <param name="zcw_n" type="text" value="0" label="N"
+                               help="value for n for zcw(n)
+                               Allows default expressions, constants and functions
+                               WARNING: large values are more computationally expensive."
+                        />
                     </when>
                     <when value="2_polar">
-                        <param name="theta" type="text" value="" label="theta polar angle"
-                               help="Allows default expressions, constants and functions"/>
-                        <param name="phi" type="text" value="" label="phi polar angle"/>
+                        <param name="theta" type="text" value="" label="θ (theta) angle"
+                               help="All polar angle entries allow default expressions, constants and functions"/>
+                        <param name="phi" type="text" value="" label="ϕ (phi) angle"
+                               help="All polar angle entries allow default expressions, constants and functions"/>
                     </when>
                     <when value="3_euler">
-                        <param name="eul_1" type="text" value="" label="enter euler angle"
-                               help="Allows default expressions, constants and functions"/>
-                        <param name="eul_2" type="text" value="" label="enter euler angle"/>
-                        <param name="eul_3" type="text" value="" label="enter euler angle"/>
+                        <param name="eul_1" type="text" value="" label="Euler angle 1"
+                               help="All Euler angle entries allow default expressions, constants and functions"/>
+                        <param name="eul_2" type="text" value="" label="Euler angle 2"
+                               help="All Euler angle entries allow default expressions, constants and functions"/>
+                        <param name="eul_3" type="text" value="" label="Euler angle 3"
+                               help="All Euler angle entries allow default expressions, constants and functions"/>
+
                     </when>
                     <when value="4_euler">
-                        <param name="eul_1" type="text" value="" label="enter euler angle"
-                               help="Allows default expressions and constants"/>
-                        <param name="eul_2" type="text" value="" label="enter euler angle"/>
-                        <param name="eul_3" type="text" value="" label="enter euler angle"/>
-                        <param name="weight" type="float" value="0" label="enter weight"/>
+                        <param name="eul_1" type="text" value="" label="Euler angle 1"
+                               help="All Euler angle entries allow default expressions and constants"/>
+                        <param name="eul_2" type="text" value="" label="Euler angle 2"
+                               help="All Euler angle entries allow default expressions and constants"/>
+                        <param name="eul_3" type="text" value="" label="Euler angle 3"
+                               help="All Euler angle entries allow default expressions and constants"/>
+                        <param name="weight" type="float" value="0" label="Weight"
+                               help="Allows only floating point value, weights will automatically be normalised"/>
                     </when>
                 </conditional>
             </repeat>
-            <repeat name="times" title="A time or range of times, in microseconds, to simulate">
-                <param name="time" type="text" label="Enter time to simulate, either single time or `range` function"
-                       optional="true" value="range(0, 10, 101)"
-                       help="Optional, (default is range(0, 10, 101)).
-                       Allows default expressions, default constants, and special 'range()' function (see help section)"/>
+            <param name="euler_convention" type="select" display="radio" label="Euler Convention"
+                   help="Euler angle convention to use for orientation definitions (ignored if Euler angles not defined)">
+                <option selected="true" value="zyz">ZYZ</option>
+                <option value="zxz">ZXZ</option>
+            </param>
+            <repeat name="times" title="Time" help="A time or range of times (μs)">
+                <param name="time" type="text" label="Time"
+                       help="Either a single time value or `range` function
+                       Allows default expressions, default constants, and special 'range()' function (see help section)"
+                       optional="true" value="range(0, 10, 101)"/>
             </repeat>
-            <repeat name="temperatures" title="Temperature in Kelvin of the system">
-                <param name="temperature" type="text" label="Enter temp to simulate, either single value or 'range()' function"
-                       optional="true" value="inf"
-                       help="Optional, (default is 'inf' - infinity).
+            <repeat name="temperatures" title="Temperature" help="Temperature or range of temps (K)">
+                <param name="temperature" type="text"
+                       help="Either single value or 'range()' function
                        Allows default expressions, default constants, and special 'range()' function (see help section).
-                       Warning: both density matrices and dissipative couplings for finite temperatures are only calculated approximatively, see muspinsim docs."/>
+                       Warning: both density matrices and dissipative couplings for finite temperatures are only calculated approximatively, see muspinsim docs."
+                       optional="true" value="inf"/>
             </repeat>
         </section>
         <section name="fitting_params" expanded="true" title="Fitting Parameters">
