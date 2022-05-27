@@ -284,20 +284,20 @@
                 </param>
                 <when value="true">
                     <param name="fitting_method" type="select" display="radio" optional="false" value="nelder-mead" label="Method to use to fit the data"
-                           help="Currently available are only nelder-mead (default) and lbfgs">
-                        <option selected="true" value="nelder-mead">nelder-mead</option>
-                        <option value="lbfgs">lbfgs</option>
+                           help="Currently available are only Nelder-Mead and L-BFGS (see help section)">
+                        <option selected="true" value="nelder-mead">Nelder-Mead</option>
+                        <option value="lbfgs">L-BFGS</option>
                     </param>
                     <repeat name="fitting_variables" title="Variable to fit to the experimental data">
                         <param name="var_name" type="text" optional="false" label="Name of the variable"/>
                         <param name="start_val" type="text" value="0" label="Starting value"
-                               help="Optional, default is 0. Each entry allows default expressions, constants (including MHz, muon_gyr) and functions but cannot contain names of other variables"/>
+                               help="Allows default expressions, constants and functions, plus MHz, muon_gyr constants. Cannot contain names of other variables"/>
                         <param name="min_bound" type="text" value="-inf" label="minimum bound"
-                               help="Optional, default is -inf"/>
+                               help="Allows default expressions, constants and functions, plus MHz, muon_gyr constants"/>
                         <param name="max_bound" type="text" value="inf" label="maximum bound"
-                               help="Optional, default is inf"/>
+                               help="Allows default expressions, constants and functions, plus MHz, muon_gyr constants"/>
                     </repeat>
-                    <param name="fitting_tolerance" type="float" optional='true' value="" label="Tolerance for the fitting."
+                    <param name="fitting_tolerance" type="float" optional='true' value="" label="Fitting Tolerance"
                            help="Used as the tol parameter in Scipy's scipy.optimize.minimize method. Does not accept expressions/functions/constants"
                     />
                 </when>
