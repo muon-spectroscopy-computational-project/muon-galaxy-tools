@@ -394,6 +394,7 @@
             <param name="fitting" value="true"/>
             <param name="var_name" value="g" />
             <param name="min_bound" value="0.0" />
+            <param name="fitting_tolerance" value="1.0" />
             <output name="out_file" file="test_5.in" ftype="txt" compare="diff" />
         </test>
     </tests>
