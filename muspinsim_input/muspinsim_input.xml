@@ -409,36 +409,36 @@
     Check the hint at the bottom of each input to see what, if any, special function or expressions can be used.
 
 
-    Default expressions include the use of the operators \+, \-, \*, \/ and \^ for exponentiation.
+    Default expressions include the use of the operators :code:`+ - * /` and :code:`^` for exponentiation.
 
 
     Default constants include:
-        - pi: ratio of a circle and its diameter
-        - e: base of the natural logarithm
-        - deg: conversion factor between radians and degrees, equivalent to 180/pi
-        - inf: infinity
+        - :code:`pi`: ratio of a circle and its diameter
+        - :code:`e`: base of the natural logarithm
+        - :code:`deg`: conversion factor between radians and degrees, equivalent to 180/pi
+        - :code:`inf`: infinity
 
     Special constants include:
-        - muon_gyr: gyromagnetic ratio of muon (135.5388 MHz/T)
-        - MHz: `1/2*muon_gyr`
+        - :code:`muon_gyr`: gyromagnetic ratio of muon (135.5388 MHz/T)
+        - :code:`MHz`: :code:`1/(2*muon_gyr)`
 
 
     Default functions include:
-        - sin(x): sine
-        - cos(x): cosine
-        - tan(x): tangent
-        - arcsin(x): inverse of the sine
-        - arccos(x): inverse of the cosine
-        - arctan(x): inverse of the tangent
-        - arctan2(y, x): inverse of the tangent taking two arguments as (sine, cosine) to resolve the quadrant
-        - exp(x): exponential with base e
-        - log(x): natural logarithm
-        - sqrt(x): square root
+        - :code:`sin(x)`: sine
+        - :code:`cos(x)`: cosine
+        - :code:`tan(x)`: tangent
+        - :code:`arcsin(x)`: inverse of the sine
+        - :code:`arccos(x)`: inverse of the cosine
+        - :code:`arctan(x)`: inverse of the tangent
+        - :code:`arctan2(y, x)`: inverse of the tangent taking two arguments as (sine, cosine) to resolve the quadrant
+        - :code:`exp(x)`: exponential with base e
+        - :code:`log(x)`: natural logarithm
+        - :code:`sqrt(x)`: square root
 
     Special functions include:
-        - range(x, y, z): get z equally spaced values between x and y
-        - zcw(n): Zaremba-Conroy-Wolfsberg helper function
-        - eulrange(n): helper function to create regular grid of NxNxN Euler angles with appropriate weights.
+        - :code:`range(x, y, z)`: get z equally spaced values between x and y
+        - :code:`zcw(n)`: Zaremba-Conroy-Wolfsberg helper function
+        - :code:`eulrange(n)`: helper function to create regular grid of n x n x n Euler angles with appropriate weights.
 
 
     ]]></help>
