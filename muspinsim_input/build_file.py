@@ -185,7 +185,7 @@ def parse_orientation(orientation):
             " ".join(split_into_args(options["theta"], 1)),
             " ".join(split_into_args(options["phi"], 1)),
         ),
-        "3_euler": lambda entries: "{0} {1} {2}".format(
+        "3_euler": lambda options: "{0} {1} {2}".format(
             " ".join(split_into_args(options["eul_1"], 1)),
             " ".join(split_into_args(options["eul_2"], 1)),
             " ".join(split_into_args(options["eul_3"], 1)),
