@@ -273,6 +273,7 @@ def main():
 
     euler_convention = mu_params["euler_convention"]
 
+    err_found = False
     file_contents = [
         build_block("name", [out_file_name.strip().replace(" ", "_")])
     ]
@@ -355,7 +356,10 @@ def main():
                         keyword, str(e)
                     )
                 )
-                sys.exit(1)
+                err_found = True
+
+    if err_found:
+        sys.exit(1)
 
     write_file("outfile.in", file_contents)
 
@@ -363,8 +367,8 @@ def main():
         MuSpinInput(open("outfile.in"))
     except Exception as e:
         sys.stdout.write(
-            "Warning, This input file may not work properly. "
-            "Errors encountered when trying to parse the file : {0}".format(
+            "Warning, This created file may not work properly. "
+            "Error(s) encountered when trying to parse the file : {0}".format(
                 str(e)
             )
         )
