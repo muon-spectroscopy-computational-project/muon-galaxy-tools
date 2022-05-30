@@ -32,7 +32,13 @@ def build_block(title, vals):
     return "{0}\n    {1}\n".format(title, "\n    ".join(vals))
 
 
-def remove_bracket_whitespace(entry):
+def format_entry(entry):
+    """
+    Helper function to remove whitespace between function parameters
+    and remove ',' or ';' inbetween parameters
+    :param entry: string - user entry
+    :return: string containing only valid parameters
+    """
     stck = []
     new_str = ""
     for i, char in enumerate(entry):
@@ -46,9 +52,13 @@ def remove_bracket_whitespace(entry):
                     "found on char {1}".format(entry, i)
                 )
             stck.pop()
-        elif char == " ":
-            if len(stck) > 0:
-                continue
+        elif char == " " and len(stck) > 0:
+            continue
+
+        # remove ',' between functions
+        elif char in [",", ";"] and len(stck) == 0:
+            new_str += " "
+            continue
         new_str += char
 
     if len(stck) != 0:
@@ -75,9 +85,10 @@ def split_into_args(entry, nargs=1):
     content = " ".join(entry.replace("[", "").replace("]", "").split())
 
     # remove whitespace in between expressions/functions
+    # remove commas/semicolons in between expressions/functions
     # split on whitespace to separate args
 
-    content = re.split(r"\s", remove_bracket_whitespace(content))
+    content = re.split(r"\s", format_entry(content))
     chars = [elem.strip() for elem in content if elem != ""]
     if len(chars) != nargs:
         raise ValueError(
