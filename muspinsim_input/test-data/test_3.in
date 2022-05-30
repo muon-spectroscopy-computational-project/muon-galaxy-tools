@@ -16,6 +16,9 @@ hyperfine 2
     580 5 10
     5 580 9
     10 9 580
+average_axes
+    polarization
+    temperature
 orientation zyz
     zcw(20)
 field
