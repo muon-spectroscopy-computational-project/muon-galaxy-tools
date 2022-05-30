@@ -85,6 +85,16 @@
             </output_collection>
             <output name="log_out" file="fitting.log" ftype="txt" compare="sim_size" delta="100"/>
         </test>
+        <test>
+            <param name="mu_sim" value="multi_out.in" ftype="txt"/>
+            <output_collection name="muspinsim_results" type="list">
+                <element name="multi_out_0_0.dat" file="multi_out_0.dat" ftype="txt" compare="sim_size" delta="20"/>
+                <element name="multi_out_0_1.dat" file="multi_out_1.dat" ftype="txt" compare="sim_size" delta="20"/>
+                <element name="multi_out_1_0.dat" file="multi_out_2.dat" ftype="txt" compare="sim_size" delta="20"/>
+                <element name="multi_out_1_1.dat" file="multi_out_3.dat" ftype="txt" compare="sim_size" delta="20"/>
+            </output_collection>
+            <output name="log_out" file="multi_out.log" ftype="txt" compare="sim_size" delta="100"/>
+        </test>
     </tests>
     <help><![CDATA[
         MuSpinSim is a program designed to carry out spin dynamics calculations.
