@@ -112,7 +112,7 @@ def parse_matrix(entry_string, size):
     """
     content = split_into_args(entry_string, nargs=size[0] * size[1])
     return [
-        " ".join(content[x : x + size[0]])
+        " ".join(content[x: x + size[0]])
         for x in range(0, len(content), size[0])
     ]
 
