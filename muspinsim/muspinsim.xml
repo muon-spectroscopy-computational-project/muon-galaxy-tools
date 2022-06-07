@@ -1,7 +1,7 @@
 <tool id="muspinsim" name="Simulate muon experiment spin dynamics (muspinsim)" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
     <macros>
         <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">1.0.4</token>
+        <token name="@TOOL_VERSION@">1.1.0</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
@@ -12,7 +12,7 @@
                 license = {MIT},
                 title = {{muspinsim}},
                 url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
-                version = {v1.0.4},
+                version = {v1.1.0},
                 month = {5},
                 year = {2022},
                 doi = {10.5281/zenodo.6517627}
@@ -25,16 +25,16 @@
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
+        <requirement type="package" version="@TOOL_VERSION@">Muspinsim</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip install git+https://github.com/muon-spectroscopy-computational-project/muspinsim.git &&
         ## remove spaces in names
         mu_sim_name=\$(sed 's/ //g' <<< "$mu_sim.name") &&
         ## create links
         ln -s $mu_sim \$mu_sim_name &&
         ## grab 'name' field from input file, if it doesn't exist, set name as 'muspinsim'
         mu_out=\$(grep -A1 '^name' \$mu_sim_name | grep -v 'name' | sed -e 's/^[ \t]*//') &&
-        mu_out=\${mu_out:-"muspinsim"}.dat &&
+        mu_out=\${mu_out:-"muspinsim"} &&
         log_out=\$(echo \$mu_sim_name | cut -d '.' -f1).log &&
         ## if fitting data required, check if fitting data exists
         ## create symlink and change filepath in input file to point to symlink
@@ -47,9 +47,9 @@
                 echo "fitting data required, but no experiment data given" && exit 64;
             fi;
         fi &&
-        cat \$mu_sim_name &&
         muspinsim \$mu_sim_name &&
-        mv \$mu_out mu_out.dat &&
+        mkdir data &&
+        mv \$mu_out*.dat data &&
         mv \$log_out log_out.log
     ]]></command>
     <inputs>
@@ -57,24 +57,32 @@
         <param type="data" name="mu_exp_in" format="txt" optional="true" label="Experiment data to fit (.dat) (Optional)" help="Only required if the 'fitting_data' parameter is set in the configuration file above."/>
     </inputs>
     <outputs>
-        <data label="muspinsim results for $mu_sim.name" name="mu_out" format="txt" from_work_dir="mu_out.dat"/>
+        <collection name="muspinsim_results" type="list" label="Muspinsim output collection">
+            <discover_datasets pattern="__name__" directory="data" format="txt"/>
+        </collection>
         <data label="muspinsim log for $mu_sim.name" name="log_out" format="txt" from_work_dir="log_out.log"/>
     </outputs>
     <tests>
         <test>
             <param name="mu_sim" value="hfine.in" ftype="txt"/>
-            <output name="mu_out" file="hfine.dat" ftype="txt" compare="sim_size" lines_diff="20"/>
+            <output_collection name="muspinsim_results" type="list">
+                <element name="hfine.dat" file="hfine.dat" ftype="txt" compare="sim_size" delta="20"/>
+            </output_collection>
             <output name="log_out" file="hfine.log" ftype="txt" compare="sim_size" delta="100"/>
         </test>
         <test>
             <param name="mu_sim" value="hfine_powder.in" ftype="txt"/>
-            <output name="mu_out" file="hfine_powder.dat" ftype="txt" compare="sim_size" delta="20"/>
+             <output_collection name="muspinsim_results" type="list">
+                <element name="muspinsim.dat"  file="hfine_powder.dat"  ftype="txt" compare="sim_size" delta="20"/>
+            </output_collection>
             <output name="log_out" file="hfine_powder.log" ftype="txt" compare="sim_size" delta="100"/>
         </test>
         <test>
             <param name="mu_sim" value="fitting.in" ftype="txt"/>
             <param name="mu_exp_in" value="fitting_input.dat" ftype="txt"/>
-            <output name="mu_out" file="fitting_data.dat" ftype="txt" compare="sim_size" delta="20"/>
+             <output_collection name="muspinsim_results" type="list">
+                <element name="fitting_data.dat" file="fitting_data.dat" ftype="txt" compare="sim_size" delta="20"/>
+            </output_collection>
             <output name="log_out" file="fitting.log" ftype="txt" compare="sim_size" delta="100"/>
         </test>
     </tests>
