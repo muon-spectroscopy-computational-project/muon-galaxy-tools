@@ -255,7 +255,7 @@ def parse_spin(spin):
         return spin["spin_preset"]
     else:
         return "{0}{1}".format(
-            spin["atomic_mass"] if spin["atomic_mass"] else "",
+            int(spin["atomic_mass"]) if spin["atomic_mass"] else "",
             spin["spin"].strip(),
         ).strip()
 

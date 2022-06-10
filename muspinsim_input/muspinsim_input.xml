@@ -46,7 +46,7 @@
                     </param>
                     <when value="custom">
                         <param name="spin" optional="false" type="text" label="Species name"/>
-                        <param name="atomic_mass" optional="true" type="float" min="0" value="" label="Atomic mass" help="Leave blank to use default mass"/>
+                        <param name="atomic_mass" optional="true" type="integer" min="0" value="" label="Atomic mass" help="Leave blank to use default mass - whole numbers only"/>
                     </when>
                     <when value="mu"/>
                     <when value="e"/>
