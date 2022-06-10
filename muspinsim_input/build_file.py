@@ -264,7 +264,7 @@ def main():
     input_json_path = sys.argv[1]
     mu_params = json.load(open(input_json_path, "r"))
 
-    out_file_name = mu_params["out_file_prefix"]
+    out_file_name = mu_params["out_file_prefix"].strip().replace(" ", "_")
 
     # combine all sections
     mu_params = {
