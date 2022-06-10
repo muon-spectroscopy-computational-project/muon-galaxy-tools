@@ -213,7 +213,7 @@
                         <option value="3_euler">Euler angles</option>
                         <option value="4_euler">Euler angles with weight</option>
                         <option value="eulrange">Euler angles helper function (eulrange(n))</option>
-                        <option value="zcw">Zaremba-Conroy-Wolfsberg helper function (zcw(n))</option>
+                        <option selected="true" value="zcw">Zaremba-Conroy-Wolfsberg helper function (zcw(n))</option>
                     </param>
                     <when value="eulrange">
                         <param name="eul_n" type="text" value="0" label="N"
