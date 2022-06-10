@@ -8,14 +8,14 @@
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
             @software{muspinsim,
-                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and {Muon Spectroscopy Computational Project}},
+                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
                 license = {MIT},
                 title = {{muspinsim}},
                 url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
                 version = {v1.1.0},
                 month = {5},
                 year = {2022},
-                doi = {10.5281/zenodo.6517627}
+                doi = {10.5281/zenodo.6563074}
             }
         </token>
     </macros>
