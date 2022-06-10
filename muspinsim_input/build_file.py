@@ -254,9 +254,12 @@ def parse_spin(spin):
     if spin["spin_preset"] != "custom":
         return spin["spin_preset"]
     else:
+        elem_name = spin["spin"].strip()
+        if elem_name not in ['e', 'mu']:
+            elem_name = elem_name.capitalize()
         return "{0}{1}".format(
             int(spin["atomic_mass"]) if spin["atomic_mass"] else "",
-            spin["spin"].strip(),
+            elem_name
         ).strip()
 
 
