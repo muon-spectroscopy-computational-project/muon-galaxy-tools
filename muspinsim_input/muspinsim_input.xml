@@ -442,6 +442,20 @@
         - :code:`eulrange(n)`: helper function to create regular grid of n x n x n Euler angles with appropriate weights.
 
 
+    To enter vectors or matrices the following formats are accepted:
+        - :code:`[[1, 2, 3], [4, 5, 6], [7, 8, 9]]`
+        - :code:`1 2 3 4 5 6 7 8 9`
+        - :code:`[1 2 3] [4 5 6] [7 8 9]`
+
+
+
+    **Note** - use only square brackets when defining matrices. Accepts comma-spaced and white-spaced entries
+
+
+    **Note** - tool will automatically format matrices into appropriate dimensions, if it cannot, it will produce an error
+
+
+    **Note** - to use expressions in vector/matrices please encase them in :code:`( )`
     ]]></help>
     <citations>
         <citation type="bibtex">
