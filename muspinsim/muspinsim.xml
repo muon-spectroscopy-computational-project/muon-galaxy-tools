@@ -1,21 +1,21 @@
 <tool id="muspinsim" name="Simulate muon experiment spin dynamics (muspinsim)" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
     <macros>
         <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">1.0.4</token>
+        <token name="@TOOL_VERSION@">1.1.0</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
             @software{muspinsim,
-                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and {Muon Spectroscopy Computational Project}},
+                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
                 license = {MIT},
                 title = {{muspinsim}},
                 url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
-                version = {v1.0.4},
+                version = {v1.1.0},
                 month = {5},
                 year = {2022},
-                doi = {10.5281/zenodo.6517627}
+                doi = {10.5281/zenodo.6563074}
             }
         </token>
     </macros>
@@ -25,9 +25,9 @@
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
+        <requirement type="package" version="@TOOL_VERSION@">muspinsim</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        pip install git+https://github.com/muon-spectroscopy-computational-project/muspinsim.git &&
         ## remove spaces in names
         mu_sim_name=\$(sed 's/ //g' <<< "$mu_sim.name") &&
         ## create links
