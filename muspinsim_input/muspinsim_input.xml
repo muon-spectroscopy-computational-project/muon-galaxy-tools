@@ -15,7 +15,7 @@
                 version = {v1.1.0},
                 month = {5},
                 year = {2022},
-                doi = {10.5281/zenodo.6517627}
+                doi = {10.5281/zenodo.6563074}
             }
         </token>
     </macros>
@@ -37,7 +37,7 @@
     <inputs>
         <param type="text" name="out_file_prefix" label="Name" help="A name with which to label this configuration" optional="true" value="muspinsim" />
         <section name="spins" expanded="true" title="Spins" help="Section for specifying a list of the spins to be used in the system ">
-            <repeat name="spins" title="Species' spins" min="1" help="This should include a muon (mu) and one or more electrons (e)">
+            <repeat name="spins" title="Spins to simulate" min="1" help="This should include a muon (mu) and one or more electrons (e)">
                 <conditional name="spin_options">
                     <param name="spin_preset" type="select" value="mu" label="Species" help="Select 'custom' to define own">
                         <option selected="true" value="mu">mu</option>
@@ -53,7 +53,7 @@
                 </conditional>
             </repeat>
         </section>
-        <section name="interaction_params" expanded="true" title="Spin Interactions" help="Interaction terms available: zeeman, hyperfine, dipolar, quadrupolar or dissipation">
+        <section name="interaction_params" expanded="true" title="Spin Interactions" help="Interaction terms available: Zeeman, hyperfine, dipolar, quadrupolar or dissipation">
             <repeat name="interactions" title="Interactions to simulate" help="Add couplings between spins, and/or dissipation terms, see muspinsim docs for more info">
                 <conditional name="interaction_options">
                     <param name="interaction" type="select" label="Choose interaction type">
@@ -65,7 +65,7 @@
                     </param>
                     <when value="zeeman">
                         <param name="zeeman_index" type="integer" value="" label="Index of coupled spin" min="1"
-                               help="Index refers to the position of the spin as selected in 'spins' section "/>
+                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on. "/>
                         <param name="zeeman_vector" type="text" value="" label="Zeeman coupling vector"
                             help="Define 1X3 vector for local magnetic field coupling (T).
                             Allows default expressions, constants and functions (see help)"/>
@@ -166,7 +166,7 @@
                         <option selected="true" value="asymmetry">asymmetry</option>
                     </param>
                     <repeat name="fields" title="Fields" help="Magnetic fields">
-                         <param name="field" type="text" value="0" label="Field"
+                         <param name="field" type="text" value="0" label="Field (T)"
                             optional="true" help="Optional, (default is 0).
                             Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis.
                             Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
@@ -193,8 +193,8 @@
                 </when>
             </conditional>
             <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes"
-                   help="keywords that should have an average carried out over them. Each keyword ticked should have a range specified.
-                   Keywords not ticked or set as X axis with a range will be included in separate files">
+                   help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified.
+                   Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when muspinsim is run.">
                 <option selected="true" value="orientation">orientation</option>
                 <option value="polarization">polarization</option>
                 <option value="field">field</option>
@@ -216,16 +216,16 @@
                         <option selected="true" value="zcw">Zaremba-Conroy-Wolfsberg helper function (zcw(n))</option>
                     </param>
                     <when value="eulrange">
-                        <param name="eul_n" type="text" value="0" label="N"
+                        <param name="eul_n" type="text" value="0" label="n"
                                help="value for n for eulrange(n),
-                               Allows default expressions, constants and functions
+                               Allows default expressions, constants and functions.
                                WARNING: large values are more computationally expensive."
                         />
                     </when>
                     <when value="zcw">
-                        <param name="zcw_n" type="text" value="0" label="N"
+                        <param name="zcw_n" type="text" value="0" label="n"
                                help="value for n for zcw(n)
-                               Allows default expressions, constants and functions
+                               Allows default expressions, constants and functions.
                                WARNING: large values are more computationally expensive."
                         />
                     </when>
@@ -267,7 +267,7 @@
                        Allows default expressions, default constants, and special 'range()' function (see help section)"
                        optional="true" value="range(0, 10, 101)"/>
             </repeat>
-            <repeat name="temperatures" title="Temperature" help="Temperature or range of temps (K)">
+            <repeat name="temperatures" title="Temperature" help="Temperature or range of temperatures (K)">
                 <param name="temperature" type="text"
                        help="Either single value or 'range()' function
                        Allows default expressions, default constants, and special 'range()' function (see help section).
@@ -439,7 +439,7 @@
     Special functions include:
         - :code:`range(x, y, z)`: get z equally spaced values between x and y
         - :code:`zcw(n)`: Zaremba-Conroy-Wolfsberg helper function
-        - :code:`eulrange(n)`: helper function to create regular grid of n x n x n Euler angles with appropriate weights.
+        - :code:`eulrange(n)`: helper function to create regular grid of n × n × n Euler angles with appropriate weights.
 
 
     To enter vectors or matrices the following formats are accepted:

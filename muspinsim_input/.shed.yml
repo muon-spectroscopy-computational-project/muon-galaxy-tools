@@ -1,6 +1,6 @@
 categories:
-- Computational Chemistry
-- Molecular Dynamics
+- Materials science
+- Muon spectroscopy
 description: Create Input File for Muspinsim Tool
 homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
 long_description: |
