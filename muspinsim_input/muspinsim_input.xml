@@ -226,9 +226,9 @@
                         />
                     </when>
                     <when value="2_polar">
-                        <param name="theta" type="text" value="" label="θ (theta) angle"
+                        <param name="theta" type="text" value="" label="θ (theta/inclination) angle"
                                help="All polar angle entries allow default expressions, constants and functions"/>
-                        <param name="phi" type="text" value="" label="ϕ (phi) angle"
+                        <param name="phi" type="text" value="" label="ϕ (phi/azimuth) angle"
                                help="All polar angle entries allow default expressions, constants and functions"/>
                     </when>
                     <when value="3_euler">
