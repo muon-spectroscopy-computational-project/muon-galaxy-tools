@@ -120,10 +120,8 @@
         <section name="experiment_params" expanded="true" title="Experiment Parameters">
             <conditional name="experiment">
                 <param name="experiment_preset" type="select" value='custom' display="radio" label="Experiment type"
-                       help="Avoided Level Crossing (ALC) - polarization: longitudinal, x-axis: field, y-axis: integral
-                             Zero field - polarization: transverse, field: 0
-                             Custom - No preset">
-
+                       help="Experiment preset to use. Avoided Level Crossing (ALC): sets polarization to longitudinal, x-axis to field and y-axis to integral.
+                             Zero field: sets polarization to transverse and field to 0. Choose custom for no preset">
                     <option value="alc">Avoided Level Crossing (ALC)</option>
                     <option value="zero_field">Zero Field</option>
                     <option selected="true" value="custom">Custom</option>
@@ -143,10 +141,9 @@
                         <option value="field">field</option>
                     </param>
                     <param name="y_axis" type="select" value="asymmetry" display="radio" label="Y axis"
-                           help="Range to use as y axis for output file(s)
-                                Asymmetry: Use muon's polarization,
-                                Integral: use muon's polarization integral over time,
-                                WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter ">
+                           help="Define range to use as y axis. Asymmetry (uses muon's polarization) or
+                                Integral (uses muon's polarization integral over time).
+                                WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter">
                         <option value="integral">integral</option>
                         <option selected="true" value="asymmetry">asymmetry</option>
                     </param>
@@ -158,10 +155,9 @@
                         <option value="field">field</option>
                     </param>
                     <param name="y_axis" type="select" value="asymmetry" display="radio" label="Y axis"
-                           help="Range to use as y axis for output file(s)
-                                Asymmetry: Use muon's polarization,
-                                Integral: use muon's polarization integral over time,
-                                WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter ">
+                           help="Define range to use as y axis. Asymmetry (uses muon's polarization) or
+                                Integral (uses muon's polarization integral over time).
+                                WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter">
                         <option value="integral">integral</option>
                         <option selected="true" value="asymmetry">asymmetry</option>
                     </param>
@@ -298,7 +294,8 @@
                                help="Allows default expressions, constants and functions, plus MHz, muon_gyr constants"/>
                     </repeat>
                     <param name="fitting_tolerance" type="float" optional='true' value="" label="Fitting Tolerance"
-                           help="Used as the tol parameter in Scipy's scipy.optimize.minimize method. Does not accept expressions/functions/constants"
+                           help="Used as the tol parameter in Scipy's scipy.optimize.minimize method. Will use scipy defaults if left blank.
+                           Does not accept expressions/functions/constants"
                     />
                 </when>
                 <when value=""/>
