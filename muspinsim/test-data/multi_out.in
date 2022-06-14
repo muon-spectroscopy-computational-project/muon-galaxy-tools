@@ -1,0 +1,31 @@
+name
+    multi_out
+spins
+    mu 2H e
+field
+    0
+    10
+temperature
+    inf
+    0
+time
+    range(0, 10, 20)
+orientation
+    0 0
+    0 180
+polarization
+    0 1 1
+zeeman 1
+    1 0 0
+dipolar 1 2
+    0 1 0
+hyperfine 1 3
+    10 2 2
+    2 10 2
+    2 2 10
+quadrupolar 2
+    -2 0 0
+    0  1 0
+    0  0 1
+dissipation 2
+    0.1

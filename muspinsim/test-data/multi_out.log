@@ -1,0 +1,19 @@
+[INFO] [MainThread] [2022-05-30 15:24:01] Launching MuSpinSim calculation from file: new.in(modified)
+[INFO] [MainThread] [2022-05-30 15:24:01] Using X axis:
+[INFO] [MainThread] [2022-05-30 15:24:01] 		t => 20 points
+[INFO] [MainThread] [2022-05-30 15:24:01] Averaging over:
+[INFO] [MainThread] [2022-05-30 15:24:01] 		orient => 2 points
+[INFO] [MainThread] [2022-05-30 15:24:01] Scanning over:
+[INFO] [MainThread] [2022-05-30 15:24:01] 		B => 2 points
+[INFO] [MainThread] [2022-05-30 15:24:01] 		T => 2 points
+[INFO] [MainThread] [2022-05-30 15:24:01] Created spin system with spins:
+[INFO] [MainThread] [2022-05-30 15:24:01] 		mu 2H e
+[INFO] [MainThread] [2022-05-30 15:24:01] Adding dipolar term to spins 1-2
+[INFO] [MainThread] [2022-05-30 15:24:01] Adding hyperfine term to spins 1-3
+[INFO] [MainThread] [2022-05-30 15:24:01] Adding quadrupolar term to spin 2
+[INFO] [MainThread] [2022-05-30 15:24:01] Adding Zeeman term to spin 1
+[INFO] [MainThread] [2022-05-30 15:24:01] Total number of configurations to simulate: 8
+[INFO] [MainThread] [2022-05-30 15:24:01] Total number of configurations to average: 2
+[WARNING] [MainThread] [2022-05-30 15:24:01] WARNING: initial density matrix is computed with an approximation that can fail at low fields and finite temperature
+[WARNING] [MainThread] [2022-05-30 15:24:02] WARNING: initial density matrix is computed with an approximation that can fail at low fields and finite temperature
+[INFO] [MainThread] [2022-05-30 15:24:02] Simulation completed in 0.952 seconds
