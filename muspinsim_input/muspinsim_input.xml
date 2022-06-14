@@ -407,7 +407,8 @@
     Check the hint at the bottom of each input to see what, if any, special function or expressions can be used.
 
 
-    Default expressions include the use of the operators :code:`+ - * /` and :code:`^` for exponentiation.
+    Default expressions include the use of the operators :code:`+ - * /` and :code:`^` for exponentiation. Expressions
+    should not contain whitespace. For example, use :code:`1+2` not :code:`1 + 2`.
 
 
     Default constants include:
@@ -445,14 +446,20 @@
         - :code:`[1 2 3] [4 5 6] [7 8 9]`
 
 
-
-    **Note** - use only square brackets when defining matrices. Accepts comma-spaced and white-spaced entries
-
-
-    **Note** - tool will automatically format matrices into appropriate dimensions, if it cannot, it will produce an error
+    Currently, the only fitting (function minimization) algorithms available are:
 
 
-    **Note** - to use expressions in vector/matrices please encase them in :code:`( )`
+    :code:`nelder-mead`
+        - A direct search method.
+        - Starting with a 'simplex' of candidates, the algorithm will iteratively move the position of the worst candidate towards the optimum until all candidates converge (have values within a predefined tolerance level).
+        - Scipy default tolerance is :code:`1e-4`
+
+
+    :code:`L-BFGS`
+        - Limited Memory Broyden–Fletcher–Goldfarb–Shanno algorithm.
+        - A second-order Quasi-Newton optimization algorithm
+        - Makes use of second-order derivative (Hessian Matrix) to converge on optimum.
+        - Scipy default tolerance is :code:`1e-5`
     ]]></help>
     <citations>
         <citation type="bibtex">
