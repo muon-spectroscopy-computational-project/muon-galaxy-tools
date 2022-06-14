@@ -263,6 +263,75 @@ def parse_spin(spin):
         ).strip()
 
 
+parse_func_dict = {
+    "spins": lambda values: build_block(
+        "spins",
+        [
+            " ".join(
+                [
+                    parse_spin(entry["spin_options"])
+                    for entry in values
+                ]
+            )
+        ],
+    ),
+    # either 1x3 vector or scalar or function
+    "fields": lambda values: build_block(
+        "field", [parse_field(entry) for entry in values]
+    ),
+    # either scalar or single function
+    "times": lambda values: build_block(
+        "time",
+        [
+            " ".join(split_into_args(entry["time"], 1))
+            for entry in values
+        ],
+    ),
+    # either scalar or single function
+    "temperatures": lambda values: build_block(
+        "temperature",
+        [
+            " ".join(split_into_args(entry["temperature"], 1))
+            for entry in values
+        ],
+    ),
+    "x_axis": lambda value: build_block("x_axis", [value]),
+    "y_axis": lambda value: build_block("y_axis", [value]),
+    "average_axes": lambda values: build_block(
+        "average_axes", values
+    ),
+    "experiment_preset": lambda value: build_block(
+        "experiment", [value]
+    ),
+    "orientations": lambda values: build_block(
+        "orientation {0}".format(euler_convention),
+        [parse_orientation(entry) for entry in values],
+    ),
+    "interactions": lambda values: "".join(
+        [parse_interactions(entry) for entry in values]
+    ),
+    "polarizations": lambda values: build_block(
+        "polarization",
+        [parse_polarization(entry) for entry in values],
+    ),
+    "fitting": lambda value: build_block(
+        "fitting_data", ['load("fitting_data.dat")']
+    ),
+    "fitting_method": lambda value: build_block(
+        "fitting_method", [value]
+    ),
+    "fitting_variables": lambda values: build_block(
+        "fitting_variables",
+        [parse_fitting_variables(entry) for entry in values],
+    ),
+    "fitting_tolerance": lambda value: build_block(
+        "fitting_tolerance",
+        [str(value)],
+    ),
+}
+euler_convention = 'ZYZ'
+
+
 def main():
     input_json_path = sys.argv[1]
     mu_params = json.load(open(input_json_path, "r"))
@@ -285,6 +354,7 @@ def main():
         del mu_params["experiment_preset"]
     del mu_params["experiment"]
 
+    global euler_convention
     euler_convention = mu_params["euler_convention"]
 
     err_found = False
@@ -294,73 +364,7 @@ def main():
     for keyword, val in mu_params.items():
         if val and val not in ["None"]:
             try:
-                keyword_func = {
-                    "spins": lambda values: build_block(
-                        "spins",
-                        [
-                            " ".join(
-                                [
-                                    parse_spin(entry["spin_options"])
-                                    for entry in values
-                                ]
-                            )
-                        ],
-                    ),
-                    # either 1x3 vector or scalar or function
-                    "fields": lambda values: build_block(
-                        "field", [parse_field(entry) for entry in values]
-                    ),
-                    # either scalar or single function
-                    "times": lambda values: build_block(
-                        "time",
-                        [
-                            " ".join(split_into_args(entry["time"], 1))
-                            for entry in values
-                        ],
-                    ),
-                    # either scalar or single function
-                    "temperatures": lambda values: build_block(
-                        "temperature",
-                        [
-                            " ".join(split_into_args(entry["temperature"], 1))
-                            for entry in values
-                        ],
-                    ),
-                    "x_axis": lambda value: build_block("x_axis", [value]),
-                    "y_axis": lambda value: build_block("y_axis", [value]),
-                    "average_axes": lambda values: build_block(
-                        "average_axes", values
-                    ),
-                    "experiment_preset": lambda value: build_block(
-                        "experiment", [value]
-                    ),
-                    "orientations": lambda values: build_block(
-                        "orientation {0}".format(euler_convention),
-                        [parse_orientation(entry) for entry in values],
-                    ),
-                    "interactions": lambda values: "".join(
-                        [parse_interactions(entry) for entry in values]
-                    ),
-                    "polarizations": lambda values: build_block(
-                        "polarization",
-                        [parse_polarization(entry) for entry in values],
-                    ),
-                    "fitting": lambda value: build_block(
-                        "fitting_data", ['load("fitting_data.dat")']
-                    ),
-                    "fitting_method": lambda value: build_block(
-                        "fitting_method", [value]
-                    ),
-                    "fitting_variables": lambda values: build_block(
-                        "fitting_variables",
-                        [parse_fitting_variables(entry) for entry in values],
-                    ),
-                    "fitting_tolerance": lambda value: build_block(
-                        "fitting_tolerance",
-                        [str(value)],
-                    ),
-                }.get(keyword, None)
-
+                keyword_func = parse_func_dict.get(keyword)
                 if keyword_func:
                     file_contents.append(keyword_func(val))
 
