@@ -36,8 +36,8 @@
     </configfiles>
     <inputs>
         <param type="text" name="out_file_prefix" label="Name" help="A name with which to label this configuration" optional="true" value="muspinsim" />
-        <section name="spins" expanded="true" title="Spins" help="Section for specifying a list of the spins to be used in the system ">
-            <repeat name="spins" title="Spins to simulate" min="1" help="This should include a muon (mu) and one or more electrons (e)">
+        <section name="spins" expanded="true" title="Spins">
+            <repeat name="spins" title="Spins to simulate" min="1" help="Specify the spins to be used in the system. This should include a muon (mu) and one or more electrons (e)">
                 <conditional name="spin_options">
                     <param name="spin_preset" type="select" value="mu" label="Species" help="Select 'custom' to define own">
                         <option selected="true" value="mu">mu</option>
@@ -53,8 +53,8 @@
                 </conditional>
             </repeat>
         </section>
-        <section name="interaction_params" expanded="true" title="Spin Interactions" help="Interaction terms available: Zeeman, hyperfine, dipolar, quadrupolar or dissipation">
-            <repeat name="interactions" title="Interactions to simulate" help="Add couplings between spins, and/or dissipation terms, see muspinsim docs for more info">
+        <section name="interaction_params" expanded="true" title="Spin Interactions" help="">
+            <repeat name="interactions" title="Interactions to simulate" help="Add couplings between spins, and/or dissipation terms. Interaction terms available: Zeeman, hyperfine, dipolar, quadrupolar or dissipation. See muspinsim docs for more info">
                 <conditional name="interaction_options">
                     <param name="interaction" type="select" label="Choose interaction type">
                         <option value="zeeman">Zeeman</option>
