@@ -61,6 +61,9 @@
             <discover_datasets pattern="__name__" directory="data" format="txt"/>
         </collection>
         <data label="muspinsim log for $mu_sim.name" name="log_out" format="txt" from_work_dir="log_out.log"/>
+        <data label="fit report for $mu_sim.name" name="fit_report" format="txt" from_work_dir="fitting_data_fitreport.txt">
+            <filter>mu_exp_in</filter>
+        </data>
     </outputs>
     <tests>
         <test>
