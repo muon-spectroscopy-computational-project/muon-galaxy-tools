@@ -70,7 +70,9 @@
     </inputs>
     <outputs>
         <data label="Muonated $structure.name using $params.name" name="muonated_structures" format="zip" from_work_dir="out_zip.zip"/>
-        <data label="File tree (testing only)" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true"/>
+        <data label="File tree (testing only)" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true">
+            <filter>(testing == "true")</filter>
+        </data>
     </outputs>
     <tests>
         <test>
@@ -81,49 +83,23 @@
                 <param name="iscastep_sel" value="true"/>
                 <param name="castep_param" value="Si.param" ftype="txt"/>
             </conditional>
-            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" compare="sim_size" delta="350">
-                <assert_contents>
-                    <has_line_matching expression="^1$"/>
-                </assert_contents>
-            </output>
+            <output name="muonated_structures" file="out_configcastep_t_with_out_folder_and_castep_param.zip" decompress="true"/>
         </test>
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
-            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param" ftype="yaml"/>
-            </conditional>
-            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" compare="sim_size" delta="350">
-                <assert_contents>
-                    <has_line_matching expression="^1$"/>
-                </assert_contents>
-            </output>
-        </test>
-        <test>
-            <param name="structure" value="Si.cell" ftype="cell"/>
-            <param name="testing" value="true"/>
-            <param name="params" value="configcastep_t_no_outfolder_and_castep_param.yaml" ftype="yaml"/>
+            <param name="params" value="configcastep_t_no_out_folder_no_castep_param.yaml" ftype="yaml"/>
             <conditional name="iscastep">
                 <param name="iscastep_sel" value="true"/>
                 <param name="castep_param" value="Si.param"/>
             </conditional>
-            <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" compare="sim_size" delta="700">
-                <assert_contents>
-                    <has_line_matching expression="^1$"/>
-                </assert_contents>
-            </output>
+            <output name="muonated_structures" file="out_configcastep_t_no_out_folder_no_castep_param.zip" decompress="true"/>
         </test>
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configdftb_t.yaml" ftype="yaml"/>
-            <output name="file_tree" file="tree_dftb.txt" ftype="txt" compare="sim_size" delta="350">
-                <assert_contents>
-                    <has_line_matching expression="^1$"/>
-                </assert_contents>
-            </output>
+            <output name="muonated_structures" file="out_configdftb_t.zip" decompress="true"/>
         </test>
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
@@ -162,6 +138,12 @@
                     <has_line_matching expression="^1$"/>
                 </assert_contents>
             </output>
+        </test>
+        <!-- check that file_tree filter works -->
+        <test expect_num_outputs="1">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="false"/>
+            <param name="params" value="configuep_t.yaml" ftype="yaml"/>
         </test>
     </tests>
     <help><![CDATA[
