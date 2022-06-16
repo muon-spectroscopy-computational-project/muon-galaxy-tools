@@ -46,9 +46,7 @@
             zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal &&
         #end if
         #if $testing=="true" and str($iscastep.iscastep_sel)=="true":
-            grep -o "castep_param" params.yaml | wc -l > tree.txt &&
-        #else if $testing=="true" and str($iscastep.iscastep_sel)=="false":
-            grep -o "name" params.yaml | wc -l > tree.txt &&
+            grep "castep_param" params.yaml > tree.txt &&
         #end if
         find \$out_folder >> tree.txt
 
@@ -75,6 +73,7 @@
         </data>
     </outputs>
     <tests>
+        <!-- CASTEP with out_folder and castep_param specified, param as txt -->
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
@@ -83,8 +82,20 @@
                 <param name="iscastep_sel" value="true"/>
                 <param name="castep_param" value="Si.param" ftype="txt"/>
             </conditional>
-            <output name="muonated_structures" file="out_configcastep_t_with_out_folder_and_castep_param.zip" decompress="true"/>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt"/>
         </test>
+        <!-- CASTEP with out_folder and castep_param specified, param as yaml -->
+        <test>
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param" ftype="yaml"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt"/>
+        </test>
+        <!-- CASTEP with no out_folder and no castep_param specified in yaml file -->
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
@@ -93,24 +104,23 @@
                 <param name="iscastep_sel" value="true"/>
                 <param name="castep_param" value="Si.param"/>
             </conditional>
-            <output name="muonated_structures" file="out_configcastep_t_no_out_folder_no_castep_param.zip" decompress="true"/>
+            <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt"/>
         </test>
+        <!-- DFTB+ -->
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configdftb_t.yaml" ftype="yaml"/>
-            <output name="muonated_structures" file="out_configdftb_t.zip" decompress="true"/>
+            <output name="file_tree" file="tree_dftb.txt" ftype="txt"/>
         </test>
+        <!-- UEP with CELL -->
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
-            <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
-                <assert_contents>
-                    <has_line_matching expression="^1$"/>
-                </assert_contents>
-            </output>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt"/>
         </test>
+        <!-- UEP with XYZ -->
         <test expect_failure="true">
             <param name="structure" value="Si.xyz" ftype="xyz"/>
             <param name="testing" value="true"/>
@@ -119,25 +129,19 @@
                 <has_text text="TypeError: cannot unpack non-iterable NoneType object"/>
             </assert_stderr>
         </test>
+        <!-- UEP with extended XYZ -->
         <test>
             <param name="structure" value="Si.extxyz" ftype="extxyz"/>
             <param name="testing" value="true"/>
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
-            <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
-                <assert_contents>
-                    <has_line_matching expression="^1$"/>
-                </assert_contents>
-            </output>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt"/>
         </test>
+        <!-- UEP with CIF -->
         <test>
             <param name="structure" value="Si.cif" ftype="cif"/>
             <param name="testing" value="true"/>
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
-            <output name="file_tree" file="tree_uep.txt" ftype="txt" compare="sim_size" delta="350">
-                <assert_contents>
-                    <has_line_matching expression="^1$"/>
-                </assert_contents>
-            </output>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt"/>
         </test>
         <!-- check that file_tree filter works -->
         <test expect_num_outputs="1">
