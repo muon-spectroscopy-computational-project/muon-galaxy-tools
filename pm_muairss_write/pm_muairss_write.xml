@@ -82,7 +82,9 @@
                 <param name="iscastep_sel" value="true"/>
                 <param name="castep_param" value="Si.param" ftype="txt"/>
             </conditional>
-            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt"/>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt">
+                <has_size value="1353" delta="10"/>
+            </output>
         </test>
         <!-- CASTEP with out_folder and castep_param specified, param as yaml -->
         <test>
