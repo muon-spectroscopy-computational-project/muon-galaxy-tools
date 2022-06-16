@@ -9,6 +9,6 @@ clustering_method: hier
 clustering_hier_t: 0.2
 out_folder: Si-out
 castep_command: castep.serial
-castep_param: Si.param
+castep_param: test.param
 mu_symbol: H:mu
 random_seed: 7357
