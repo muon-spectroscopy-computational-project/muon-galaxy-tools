@@ -1,0 +1,11 @@
+Fitting process for fitting_data completed
+Success achieved: True
+Final absolute error <|f-f_targ|>: 0.0
+Number of simulations: 40
+Number of iterations: 20
+
+====================
+
+Values found for fitting variables:
+
+	g = 3.0368750000000104

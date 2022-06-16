@@ -34,6 +34,7 @@
         ln -s $mu_sim \$mu_sim_name &&
         ## grab 'name' field from input file, if it doesn't exist, set name as 'muspinsim'
         mu_out=\$(grep -A1 '^name' \$mu_sim_name | grep -v 'name' | sed -e 's/^[ \t]*//') &&
+        fitreport_out=\${mu_out:-"fitting_data"}_fitreport.txt &&
         mu_out=\${mu_out:-"muspinsim"} &&
         log_out=\$(echo \$mu_sim_name | cut -d '.' -f1).log &&
         ## if fitting data required, check if fitting data exists
@@ -50,6 +51,7 @@
         muspinsim \$mu_sim_name &&
         mkdir data &&
         mv \$mu_out*.dat data &&
+        if test -f \$fitreport_out; then mv -f \$fitreport_out fit_report.txt; fi &&
         mv \$log_out log_out.log
     ]]></command>
     <inputs>
@@ -61,6 +63,9 @@
             <discover_datasets pattern="__name__" directory="data" format="txt"/>
         </collection>
         <data label="muspinsim log for $mu_sim.name" name="log_out" format="txt" from_work_dir="log_out.log"/>
+        <data label="fit report for $mu_sim.name" name="fit_report" format="txt" from_work_dir="fit_report.txt">
+            <filter>mu_exp_in</filter>
+        </data>
     </outputs>
     <tests>
         <test>
@@ -84,6 +89,7 @@
                 <element name="fitting_data.dat" file="fitting_data.dat" ftype="txt" compare="sim_size" delta="20"/>
             </output_collection>
             <output name="log_out" file="fitting.log" ftype="txt" compare="sim_size" delta="100"/>
+            <output name="fit_report" file="fitting_fitreport.txt" ftype="txt" compare="sim_size" delta="100"/>
         </test>
         <test>
             <param name="mu_sim" value="multi_out.in" ftype="txt"/>
