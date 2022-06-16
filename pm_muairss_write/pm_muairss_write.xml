@@ -82,7 +82,7 @@
             </conditional>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true">
                 <assert_contents>
-                    <has_size value="1353" delta="10"/>
+                    <has_size value="1353"/>
                 </assert_contents>
             </output>
         </test>
@@ -97,7 +97,7 @@
             </conditional>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true">
                 <assert_contents>
-                    <has_size value="1353" delta="10"/>
+                    <has_size value="1353"/>
                 </assert_contents>
             </output>
         </test>
@@ -112,7 +112,7 @@
             </conditional>
             <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" sort="true">
                 <assert_contents>
-                    <has_size value="1761" delta="10"/>
+                    <has_size value="1761"/>
                 </assert_contents>
             </output>
         </test>
@@ -123,7 +123,7 @@
             <param name="params" value="configdftb_t.yaml" ftype="yaml"/>
             <output name="file_tree" file="tree_dftb.txt" ftype="txt" sort="true">
                 <assert_contents>
-                    <has_size value="1334" delta="10"/>
+                    <has_size value="1334"/>
                 </assert_contents>
             </output>
         </test>
@@ -134,7 +134,7 @@
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
             <output name="file_tree" file="tree_uep.txt" ftype="txt" sort="true">
                 <assert_contents>
-                    <has_size value="734" delta="10"/>
+                    <has_size value="734"/>
                 </assert_contents>
             </output>
         </test>
@@ -154,7 +154,7 @@
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
             <output name="file_tree" file="tree_uep.txt" ftype="txt" sort="true">
                 <assert_contents>
-                    <has_size value="734" delta="10"/>
+                    <has_size value="734"/>
                 </assert_contents>
             </output>
         </test>
@@ -165,7 +165,7 @@
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
             <output name="file_tree" file="tree_uep.txt" ftype="txt" sort="true">
                 <assert_contents>
-                    <has_size value="734" delta="10"/>
+                    <has_size value="734"/>
                 </assert_contents>
             </output>
         </test>
