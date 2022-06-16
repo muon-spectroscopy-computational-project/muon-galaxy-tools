@@ -97,7 +97,11 @@
                 <param name="iscastep_sel" value="true"/>
                 <param name="castep_param" value="Si.param" ftype="yaml"/>
             </conditional>
-            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt"/>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true">
+                <assert_contents>
+                    <has_size value="1353" delta="10"/>
+                </assert_contents>
+            </output>
         </test>
         <!-- CASTEP with no out_folder and no castep_param specified in yaml file -->
         <test>
@@ -108,21 +112,33 @@
                 <param name="iscastep_sel" value="true"/>
                 <param name="castep_param" value="Si.param"/>
             </conditional>
-            <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt"/>
+            <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" sort="true">
+                <assert_contents>
+                    <has_size value="1761" delta="10"/>
+                </assert_contents>
+            </output>
         </test>
         <!-- DFTB+ -->
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configdftb_t.yaml" ftype="yaml"/>
-            <output name="file_tree" file="tree_dftb.txt" ftype="txt"/>
+            <output name="file_tree" file="tree_dftb.txt" ftype="txt" sort="true">
+                <assert_contents>
+                    <has_size value="1334" delta="10"/>
+                </assert_contents>
+            </output>
         </test>
         <!-- UEP with CELL -->
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
-            <output name="file_tree" file="tree_uep.txt" ftype="txt"/>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt" sort="true">
+                <assert_contents>
+                    <has_size value="734" delta="10"/>
+                </assert_contents>
+            </output>
         </test>
         <!-- UEP with XYZ -->
         <test expect_failure="true">
@@ -138,14 +154,22 @@
             <param name="structure" value="Si.extxyz" ftype="extxyz"/>
             <param name="testing" value="true"/>
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
-            <output name="file_tree" file="tree_uep.txt" ftype="txt"/>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt" sort="true">
+                <assert_contents>
+                    <has_size value="734" delta="10"/>
+                </assert_contents>
+            </output>
         </test>
         <!-- UEP with CIF -->
         <test>
             <param name="structure" value="Si.cif" ftype="cif"/>
             <param name="testing" value="true"/>
             <param name="params" value="configuep_t.yaml" ftype="yaml"/>
-            <output name="file_tree" file="tree_uep.txt" ftype="txt"/>
+            <output name="file_tree" file="tree_uep.txt" ftype="txt" sort="true">
+                <assert_contents>
+                    <has_size value="734" delta="10"/>
+                </assert_contents>
+            </output>
         </test>
         <!-- check that file_tree filter works -->
         <test expect_num_outputs="1">
