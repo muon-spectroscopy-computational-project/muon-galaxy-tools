@@ -463,6 +463,27 @@
     ]]></help>
     <citations>
         <citation type="bibtex">
+            @article{nelder_mead_1965,
+                title={A Simplex Method for Function Minimization},
+                volume={7},
+                doi={10.1093/comjnl/7.4.308},
+                number={4},
+                journal={The Computer Journal},
+                author={Nelder, J. A. and Mead, R.},
+                year={1965},
+                pages={308-313}
+            }
+        </citation>
+        <citation type="bibtex">
+            @book{nocedal_wright_2006,
+                place={New York (NY)},
+                title={Numerical Optimization},
+                publisher={Springer},
+                author={Nocedal, Jorge and Wright, Stephen J},
+                year={2006}
+            }
+        </citation>
+        <citation type="bibtex">
             @TOOL_CITATION@
         </citation>
     </citations>
