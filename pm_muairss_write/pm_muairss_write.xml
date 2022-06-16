@@ -54,7 +54,6 @@
     <inputs>
         <param type="data" name="structure" label="Structure file" format="cell, cif, xyz, extxyz" help="The structure to add muons to. The original file will be preserved. Accepted file types: CELL, CIF, XYZ (standard or extended)."/>
         <param type="data" name="params" label="YAML parameter file" format="yaml" help="YAML parameters for this and subsequent tools. You can create this file using the [YAML config generator] tool."/>
-        <param type="hidden" name="testing" label="Test mode" value="false"/>
         <conditional name="iscastep">
             <param type="boolean" value="false" name="iscastep_sel" label="Does your configuration use the CASTEP calculator?" help="Select 'Yes' if the 'calculator' parameter is set to 'castep' in your chosen YAML file (not case sensitive).">
                 <option value="false">no</option>
@@ -65,6 +64,7 @@
             </when>
             <when value="false"/>
         </conditional>
+        <param type="hidden" name="testing" label="Test mode" value="false"/>
     </inputs>
     <outputs>
         <data label="Muonated $structure.name using $params.name" name="muonated_structures" format="zip" from_work_dir="out_zip.zip"/>
