@@ -42,7 +42,7 @@
     <tests>
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
-            <output name="symmetry_report" file="out.txt" ftype="txt" lines_diff="2"/>
+            <output name="symmetry_report" file="test_out.txt" ftype="txt" lines_diff="2"/>
         </test>
         <test>
             <param name="structure" value="Si.cif" ftype="cif"/>
