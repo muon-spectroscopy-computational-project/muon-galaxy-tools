@@ -42,11 +42,11 @@
     <tests>
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
-            <output name="symmetry_report" file="out_cell.txt" ftype="txt"/>
+            <output name="symmetry_report" file="out.txt" ftype="txt" lines_diff="2"/>
         </test>
         <test>
             <param name="structure" value="Si.cif" ftype="cif"/>
-            <output name="symmetry_report" file="out_cif.txt" ftype="txt"/>
+            <output name="symmetry_report" file="out.txt" ftype="txt" lines_diff="2"/>
         </test>
         <test expect_failure="true">
             <param name="structure" value="Si.xyz" ftype="xyz"/>
@@ -56,7 +56,7 @@
         </test>
         <test>
             <param name="structure" value="Si.extxyz" ftype="extxyz"/>
-            <output name="symmetry_report" file="out_extxyz.txt" ftype="txt"/>
+            <output name="symmetry_report" file="out.txt" ftype="txt" lines_diff="2"/>
         </test>
     </tests>
     <help><![CDATA[
