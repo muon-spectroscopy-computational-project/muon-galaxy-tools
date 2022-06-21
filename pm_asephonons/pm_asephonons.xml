@@ -69,7 +69,7 @@
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="contains">
                 <assert_contents>
-                    <has_size value="8160" delta="10"/>
+                    <has_size value="8155" delta="10"/>
                 </assert_contents>
             </output>
         </test>
@@ -79,7 +79,7 @@
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="contains">
                 <assert_contents>
-                    <has_size value="8160" delta="10"/>
+                    <has_size value="8155" delta="10"/>
                 </assert_contents>
             </output>
         </test>
@@ -89,7 +89,7 @@
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="contains">
                 <assert_contents>
-                    <has_size value="8160" delta="10"/>
+                    <has_size value="8155" delta="10"/>
                 </assert_contents>
             </output>
         </test>
@@ -99,7 +99,7 @@
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="contains">
                 <assert_contents>
-                    <has_size value="8160" delta="10"/>
+                    <has_size value="8155" delta="10"/>
                 </assert_contents>
             </output>
         </test>
