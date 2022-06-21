@@ -1,0 +1,28 @@
+
+#######################################################
+#Muspinsim Input File
+#Generated using Muon Galaxy Tool Muspinsim_Input
+#######################################################
+
+name
+    test_5
+spins
+    mu
+dissipation 1
+    g
+average_axes
+    orientation
+fitting_method
+    nelder-mead
+fitting_variables
+    g 0 0.0 inf
+fitting_tolerance
+    1.0
+fitting_data
+    load("fitting_data.dat")
+x_axis
+    time
+y_axis
+    asymmetry
+field
+    1.0/muon_gyr

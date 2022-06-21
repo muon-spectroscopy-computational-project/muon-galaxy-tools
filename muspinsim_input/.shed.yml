@@ -1,0 +1,10 @@
+categories:
+- Materials science
+- Muon spectroscopy
+description: Create Input File for Muspinsim Tool
+homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
+long_description: |
+  Create input file containing parameters for Muspinsim Tool to model spin dynamics
+name: muspinsim_input
+owner: muon-spectroscopy-computational-project
+remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/muspinsim_input

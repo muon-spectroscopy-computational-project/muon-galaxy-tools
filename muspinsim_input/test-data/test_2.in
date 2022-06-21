@@ -1,0 +1,26 @@
+
+#######################################################
+#Muspinsim Input File
+#Generated using Muon Galaxy Tool Muspinsim_Input
+#######################################################
+
+name
+    test_2
+spins
+    mu e
+hyperfine 1
+    1 0 0
+    sin(10) (5*2) 0
+    10*pi 5 cos(20)
+average_axes
+    orientation
+time
+    range(0,0.1)
+temperature
+    1.0
+x_axis
+    time
+y_axis
+    asymmetry
+field
+    1.0
