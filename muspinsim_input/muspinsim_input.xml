@@ -282,7 +282,7 @@
                 </param>
                 <when value="true">
                     <param name="fitting_method" type="select" display="radio" optional="false" value="nelder-mead" label="Method to use to fit the data"
-                           help="Currently available are only Nelder-Mead and L-BFGS (see help section)">
+                           help="See the help section for a description of each method">
                         <option selected="true" value="nelder-mead">Nelder-Mead</option>
                         <option value="lbfgs">L-BFGS</option>
                     </param>
@@ -448,16 +448,16 @@
         - :code:`[1 2 3] [4 5 6] [7 8 9]`
 
 
-    Currently, the only fitting (function minimization) algorithms available are:
+    The fitting (function minimization) algorithms available are:
 
 
-    :code:`nelder-mead`
+    Nelder-Mead
         - A direct search method.
         - Starting with a 'simplex' of candidates, the algorithm will iteratively move the position of the worst candidate towards the optimum until all candidates converge (have values within a predefined tolerance level).
         - Scipy default tolerance is :code:`1e-4`
 
 
-    :code:`L-BFGS`
+    L-BFGS
         - Limited Memory Broyden–Fletcher–Goldfarb–Shanno algorithm.
         - A second-order Quasi-Newton optimization algorithm
         - Makes use of second-order derivative (Hessian Matrix) to converge on optimum.
