@@ -141,9 +141,10 @@
                         <option value="field">field</option>
                     </param>
                     <param name="y_axis" type="select" value="asymmetry" display="radio" label="Y axis"
-                           help="Define range to use as y axis. Asymmetry (uses muon's polarization) or
-                                Integral (uses muon's polarization integral over time).
-                                WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter">
+                           help="Range to use as y axis for output file(s)
+                                Asymmetry: use muon's polarization.
+                                Integral: use muon's polarization integral over time.
+                                WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter ">
                         <option value="integral">integral</option>
                         <option selected="true" value="asymmetry">asymmetry</option>
                     </param>
@@ -155,9 +156,10 @@
                         <option value="field">field</option>
                     </param>
                     <param name="y_axis" type="select" value="asymmetry" display="radio" label="Y axis"
-                           help="Define range to use as y axis. Asymmetry (uses muon's polarization) or
-                                Integral (uses muon's polarization integral over time).
-                                WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter">
+                           help="Range to use as y axis for output file(s)
+                                Asymmetry: use muon's polarization.
+                                Integral: use muon's polarization integral over time.
+                                WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter ">
                         <option value="integral">integral</option>
                         <option selected="true" value="asymmetry">asymmetry</option>
                     </param>
