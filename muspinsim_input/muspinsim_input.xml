@@ -65,7 +65,7 @@
                     </param>
                     <when value="zeeman">
                         <param name="zeeman_index" type="integer" value="" label="Index of coupled spin" min="1"
-                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on. "/>
+                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
                         <param name="zeeman_vector" type="text" value="" label="Zeeman coupling vector"
                             help="Define 1X3 vector for local magnetic field coupling (T).
                             Allows default expressions, constants and functions (see help)"/>
@@ -73,7 +73,7 @@
                     <when value="hyperfine">
                         <param name="hfine_index" type="integer" value="" label="Index of nuclear coupled spin" min="1"
                                help="Non-electronic spin - muon or otherwise.
-                               Index refers to the position of the spin as selected in 'spins' section"/>
+                               Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
                         <param name="hfine_e_index" type="integer" value="" optional="true" min="1" label="Index of electronic coupled spin"
                                help="Optional, will use first defined electronic spin if unspecified"/>
                         <param name="hfine_matrix" area="true" type="text" value="" label="Hyperfine coupling tensor"
@@ -87,16 +87,16 @@
                     </when>
                     <when value="dipolar">
                         <param name="di_index" type="integer" value="" min="1" label="Index of 1st coupled spin"
-                               help="Index refers to the position of the spin as selected in 'spins' section"/>
+                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
                         <param name="di_index_2" type="integer" value="" label="Index of 2nd coupled spin"
-                               help="Index refers to the position of the spin as selected in 'spins' section"/>
+                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
                         <param name="di_vector" type="text" value="" label="Dipole coupling vector"
                                help="Define 1X3 vector for coupling between two spins (Angstrom).
                                Allows default expressions, constants and functions (see help)"/>
                     </when>
                     <when value="quadrupolar">
                         <param name="quad_index" type="integer" value="" label="Index of coupled spin"
-                               help="Index refers to the position of the spin as selected in 'spins' section"/>
+                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
                         <param name="quad_matrix" area="true" type="text" value="" label="Electric Field Gradient tensor"
                                help="Define 3X3 tensor (in atomic units) for quadrupolar coupling.
                                Allows default expressions, constants and functions (see help).
@@ -109,7 +109,7 @@
                     </when>
                     <when value="dissipation">
                         <param name="dis_index" type="integer" value="" label="Index of spin with dissipation"
-                               help="Index refers to the position of the spin as selected in 'spins' section"/>
+                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
                         <param name="dis_val" type="text" value="" label="Dissipation"
                                help="Define dissipation term (MHz).
                                Allows default expressions, constants and functions (see help)"/>
