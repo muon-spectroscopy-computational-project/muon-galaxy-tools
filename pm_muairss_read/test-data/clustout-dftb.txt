@@ -7,8 +7,8 @@
 ****************************
 
 Name: Si
-Date: 2021-10-25 09:31:52.814231
-Structure file(s): input.cell
+Date: 2022-06-21 09:31:14.069470
+Structure file(s): input_structure.cell
 Parameter file: params.yaml
 
 Clustering method: Hierarchical
