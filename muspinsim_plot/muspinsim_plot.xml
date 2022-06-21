@@ -103,7 +103,11 @@
             <param name="linestyle" value="solid"/>
             <param name="colour" value="k"/>
             <param name="linewidth" value="1.0"/>
-            <output name="out_file_png" file="temp_example.png" ftype="png" compare="sim_size"/>
+            <output name="out_file_png" ftype="png">
+                <assert_contents>
+                    <has_size value="52486"/>
+                </assert_contents>
+            </output>
         </test>
         <test>
             <param name="title" value="Fitting Example"/>
@@ -122,7 +126,11 @@
             <param name="linestyle" value="solid"/>
             <param name="colour" value="b"/>
             <param name="linewidth" value="1.0"/>
-            <output name="out_file_pdf" ftype="pdf" file="fitting_example.pdf" compare="sim_size"/>
+            <output name="out_file_pdf" ftype="pdf">
+                <assert_contents>
+                    <has_size value="14785"/>
+                </assert_contents>
+            </output>
         </test>
     </tests>
     <help><![CDATA[
