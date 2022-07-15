@@ -22,7 +22,62 @@
 K-point 1: [0. 0. 0.]
 
 	Frequencies (cm^-1):
+	1
+	2
+	3
+	4
+	5
+	6
+	7
+	8
+	9
+	10
+	11
+	12
+	13
+	14	
+	15
+	16
+	17
+	18
+	19
+	20
+	21
+	22
+	23
+	24
 
 	Displacements:
 		Mode 1:
 		Atom x			 y			 z
+		1
+		2
+		3
+		4
+		5
+		6
+		7
+		8
+		Mode 2:
+		Mode 3:
+		Mode 4:
+		Mode 5:
+		Mode 6:
+		Mode 7:
+		Mode 8:
+		Mode 9:
+		Mode 10:
+		Mode 11:
+		Mode 12:
+		Mode 13:
+		Mode 14:
+		Mode 15:
+		Mode 16:
+		Mode 17:
+		Mode 18:
+		Mode 19:
+		Mode 20:
+		Mode 21:
+		Mode 22:
+		Mode 23:
+		Mode 24:
