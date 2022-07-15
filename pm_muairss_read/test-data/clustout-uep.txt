@@ -1,3 +1,4 @@
+
 ****************************
 |                          |
 |       PYMUON-SUITE       |
@@ -6,8 +7,8 @@
 ****************************
 
 Name: Si
-Date: 2021-12-08 14:29:59.498458
-Structure file(s): input.cell
+Date: 2022-06-21 09:32:03.839222
+Structure file(s): input_structure.cell
 Parameter file: params.yaml
 
 Clustering method: Hierarchical
@@ -62,3 +63,4 @@ CALCULATOR: uep
 
 
 ==========================
+

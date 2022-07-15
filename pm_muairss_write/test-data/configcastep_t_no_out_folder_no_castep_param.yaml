@@ -3,11 +3,10 @@ name: Si
 charged: true
 geom_steps: 300
 vdw_scale: 0.25
-calculator: uep
+calculator: castep
 geom_force_tol: 0.05
 clustering_method: hier
 clustering_hier_t: 0.2
-out_folder: Si-out
-uep_gw_factor: 4.0
-uep_chden: Si.den_fmt
+castep_command: castep.serial
+mu_symbol: H:mu
 random_seed: 7357
