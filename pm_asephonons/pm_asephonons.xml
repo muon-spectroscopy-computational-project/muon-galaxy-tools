@@ -25,6 +25,7 @@
         <!-- note versioning is different due to multiple dependencies -->
         <requirement type="package" version="0.2.1">pymuonsuite</requirement>
         <requirement type="package" version="21.2">dftbplus</requirement>
+        <requirement type="package" version="1.22.4">numpy</requirement> <!-- pinned due to numpy/ASE/DFTB+ incompatibility https://github.com/dftbplus/dftbplus/issues/1064 -->
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
