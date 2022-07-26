@@ -1,4 +1,5 @@
-<tool id="muspinsim" name="Simulate muon experiment spin dynamics (muspinsim)" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="muspinsim" name="muspinsim" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+    <description>carry out one or more spin dynamics calculations for muon science experiments.</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">1.1.0</token>

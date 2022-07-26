@@ -1,4 +1,5 @@
-<tool id="pm_dftb_opt_write" name="Generate DFTB+ outputs (dftb+)" version="0.1.0" python_template_version="3.5" profile="22.01">
+<tool id="pm_dftb_opt_write" name="DFTB+ write" version="0.1.0" python_template_version="3.5" profile="22.01">
+    <description>generate DFTB+ outputs</description>
     <macros>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->

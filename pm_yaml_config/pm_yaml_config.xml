@@ -1,4 +1,5 @@
-<tool id="pm_yaml_config" name="Creates yaml for pm-muairss" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="pm_yaml_config" name="pm-muairrs input" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+    <description>create YAML configuration file from input parameters</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
         <!-- this wrapper doesn't have pymuonsuite as a dependency, but it will change according

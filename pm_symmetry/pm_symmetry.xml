@@ -1,4 +1,5 @@
-<tool id="pm_symmetry" name="Generate Wyckoff points symmetry report (pm-symmetry)" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="pm_symmetry" name="pm-symmetry" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+    <description>generate Wyckoff points symmetry report</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">0.2.1</token>

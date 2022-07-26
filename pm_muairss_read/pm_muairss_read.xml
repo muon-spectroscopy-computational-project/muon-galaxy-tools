@@ -1,4 +1,5 @@
-<tool id="pm_muairss_read" name="Run clustering for optimised structures (pm-muairss read)" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="pm_muairss_read" name="pm-muairss read" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+    <description>run clustering for optimised structures</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">0.2.1</token>
