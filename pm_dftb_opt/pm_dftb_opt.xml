@@ -1,4 +1,4 @@
-<tool id="pm_dftb_opt" name="PyMuonSuite AIRSS DFTB+ Optimise" version="0.1.0" python_template_version="3.5" profile="22.01">
+<tool id="pm_dftb_opt" name="PyMuonSuite AIRSS DFTB+ Optimise" version="0.1.1" python_template_version="3.5" profile="22.01">
     <description>run DFTB+ optimisation</description>
     <macros>
         <!-- citation should be updated with every underlying tool version -->
