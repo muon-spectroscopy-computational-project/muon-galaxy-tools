@@ -1,4 +1,4 @@
-<tool id="muspinsim_input" name="Create Muspinsim input" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="muspinsim_config" name="Create Muspinsim input" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
     <description>define simulation parameters</description>
        <macros>
         <!-- version of underlying tool (PEP 440) -->
