@@ -1,11 +1,11 @@
-Launching MuSpinSim calculation from file: hfine_powder.in
-Using X axis:
-		t => 100 points
-Averaging over:
-		orient => 1000 points
-Created spin system with spins:
-		mu e
-Adding hyperfine term to spins 1-2
-Total number of configurations to simulate: 1000
-Total number of configurations to average: 1000
-Simulation completed in
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Launching MuSpinSim calculation from file: hfine_powder.in
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Using X axis:
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] 		t => 100 points
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Averaging over:
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] 		orient => 1000 points
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Created spin system with spins:
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] 		mu e
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Adding hyperfine term to spins 1-2
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Total number of configurations to simulate: 1000
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Total number of configurations to average: 1000
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Simulation completed in [\d\.]+ seconds

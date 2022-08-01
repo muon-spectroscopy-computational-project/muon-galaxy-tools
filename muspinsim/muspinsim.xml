@@ -70,28 +70,24 @@
     </outputs>
     <tests>
         <!-- log files have a timestamp on each line, and .dat files vary by machine
-                so use compare="contains" with some generic test files -->
+                so use compare="re_match" or "contains" with some generalised test files -->
         <test>
             <param name="mu_sim" value="hfine.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
                 <element name="hfine.dat" file="hfine.dat" ftype="txt" lines_diff="4"/>
             </output_collection>
-            <output name="log_out" file="hfine.log" ftype="txt" compare="contains">
-                <assert_contents>
-                    <has_size value="665"/>
-                </assert_contents>
-            </output>
+            <output name="log_out" file="hfine.log" ftype="txt" compare="re_match"/>
         </test>
         <test>
             <param name="mu_sim" value="hfine_powder.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
-                <element name="muspinsim.dat" file="generic_out.dat" ftype="txt" compare="contains">
+                <element name="muspinsim.dat" file="generic_out.dat" ftype="txt" compare="re_match_multiline">
                     <assert_contents>
                         <has_size value="5100" delta="100"/>
                     </assert_contents>
                 </element>
             </output_collection>
-            <output name="log_out" file="hfine_powder.log" ftype="txt" compare="contains">
+            <output name="log_out" file="hfine_powder.log" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="802"/>
                 </assert_contents>
@@ -113,32 +109,28 @@
         <test>
             <param name="mu_sim" value="multi_out.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
-                <element name="multi_out_0_0.dat" file="generic_out.dat" ftype="txt" compare="contains">
+                <element name="multi_out_0_0.dat" file="multi_out_0_0.dat" ftype="txt" compare="re_match_multiline">
                     <assert_contents>
                         <has_size value="1164" delta="100"/>
                     </assert_contents>
                 </element>
-                <element name="multi_out_0_1.dat" file="generic_out.dat" ftype="txt" compare="contains">
+                <element name="multi_out_0_1.dat" file="multi_out_0_1.dat" ftype="txt" compare="re_match_multiline">
                     <assert_contents>
                         <has_size value="1164" delta="100"/>
                     </assert_contents>
                 </element>
-                <element name="multi_out_1_0.dat" file="generic_out.dat" ftype="txt" compare="contains">
+                <element name="multi_out_1_0.dat" file="multi_out_1_0.dat" ftype="txt" compare="re_match_multiline">
                     <assert_contents>
                         <has_size value="1164" delta="100"/>
                     </assert_contents>
                 </element>
-                <element name="multi_out_1_1.dat" file="generic_out.dat" ftype="txt" compare="contains">
+                <element name="multi_out_1_1.dat" file="multi_out_1_1.dat" ftype="txt" compare="re_match_multiline">
                     <assert_contents>
                         <has_size value="1164" delta="100"/>
                     </assert_contents>
                 </element>
             </output_collection>
-            <output name="log_out" file="multi_out.log" ftype="txt" compare="contains">
-                <assert_contents>
-                    <has_size value="1511"/>
-                </assert_contents>
-            </output>
+            <output name="log_out" file="multi_out.log" ftype="txt" compare="re_match"/>
         </test>
     </tests>
     <help><![CDATA[
