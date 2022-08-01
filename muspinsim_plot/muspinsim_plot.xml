@@ -1,5 +1,4 @@
 <tool id="muspinsim_plot" name="Plot Muspinsim outputs" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
-    <description>onto a line graph using matplotlib</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">3.5.1</token>

@@ -1,5 +1,5 @@
 <tool id="pm_asephonons" name="pm-asephonons" version="0.1.0" python_template_version="3.5" profile="22.01">
-    <description>generate phonons using ASE and DFTB+</description>
+    <description>calculate phonons using ASE and DFTB+</description>
     <macros>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
