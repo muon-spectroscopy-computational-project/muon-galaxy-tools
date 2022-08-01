@@ -105,7 +105,7 @@
             <param name="linewidth" value="1.0"/>
             <output name="out_file_png" ftype="png">
                 <assert_contents>
-                    <has_size value="52486"/>
+                    <has_size value="52486" delta="20"/>
                 </assert_contents>
             </output>
         </test>
