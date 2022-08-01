@@ -1,4 +1,5 @@
-Wyckoff points symmetry report for Si.
+Wyckoff points symmetry report for Si\.(cell|cif|xyz|extxyz)
 Space Group International Symbol: Fd-3m
 Space Group Hall Number: 525
-Absolute		Fractional		Hessian constraints	Occupied
+Absolute\t\tFractional\t\tHessian constraints\tOccupied
+((\[(-?\d+\.\d+ ?){3}\]\t){2}(none|isotropic)\t\t\tX?\n){48}

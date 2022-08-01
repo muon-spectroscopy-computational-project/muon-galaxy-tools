@@ -68,7 +68,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
-            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="contains">
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="8155" delta="20"/>
                 </assert_contents>
@@ -78,7 +78,7 @@
             <param name="structure" value="Si.cif" ftype="cif"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
-            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="contains">
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="8155" delta="20"/>
                 </assert_contents>
@@ -88,7 +88,7 @@
             <param name="structure" value="Si.xyz" ftype="xyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
-            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="contains">
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="8155" delta="20"/>
                 </assert_contents>
@@ -98,7 +98,7 @@
             <param name="structure" value="Si.extxyz" ftype="extxyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
-            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="contains">
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="8155" delta="20"/>
                 </assert_contents>
