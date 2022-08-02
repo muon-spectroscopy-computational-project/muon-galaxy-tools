@@ -69,7 +69,7 @@
                 </assert_contents>
             </output>
         </test>
-        <test>
+        <test expect_num_outputs="2">
             <param name="testing" value="true"/>
             <param name="muonated_structures" value="muonated-default-folder.zip" ftype="zip"/>
             <param name="charge_density" value="Si.den_fmt" ftype="txt"/>

@@ -51,7 +51,7 @@
         </data>
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="2">
             <param name="testing" value="true"/>
             <param name="muonated_structures" value="muonated-dftb.zip" ftype="zip"/>
             <output name="file_tree" file="tree.txt" ftype="txt" sort="true"/>
