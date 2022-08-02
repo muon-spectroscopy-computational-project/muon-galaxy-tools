@@ -1,11 +1,35 @@
-<tool id="muspinsim_plot" name="Plot Muspinsim Results" version="0.1.0" python_template_version="3.5" profile="22.01">
+<tool id="muspinsim_plot" name="MuSpinSim Plot" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+    <macros>
+        <!-- version of underlying tool (PEP 440) -->
+        <token name="@TOOL_VERSION@">3.5.1</token>
+        <!-- version of this tool wrapper (integer) -->
+        <token name="@WRAPPER_VERSION@">0</token>
+        <!-- citation should be updated with every underlying tool version -->
+        <!-- typical fields to update are version, month, year, and doi -->
+        <token name="@TOOL_CITATION@">
+            @article{Hunter:2007,
+                author = {Hunter, J. D.},
+                title = {Matplotlib: A 2D graphics environment},
+                journal = {Computing in Science &amp; Engineering},
+                volume = {9},
+                number = {3},
+                pages = {90--95},
+                abstract = {Matplotlib is a 2D graphics package used for Python for
+                      application development, interactive scripting, and publication-quality
+                      image generation across user interfaces and operating systems.},
+                      publisher = {IEEE COMPUTER SOC},
+                doi = {10.1109/MCSE.2007.55},
+                year = {2007}
+            }
+        </token>
+    </macros>
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
-        <requirement type="package" version="3.5.1">matplotlib</requirement>
+        <requirement type="package" version="@TOOL_VERSION@">matplotlib</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
        python ${__tool_directory__}/generate_plot.py inputs.json
@@ -111,5 +135,20 @@
         You can overlay multiple plots on top of each other by providing more than one data file.
     ]]></help>
     <citations>
+        <citation type="bibtex">
+            @TOOL_CITATION@
+        </citation>
+        <citation type="bibtex">
+            @software{muspinsim,
+                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
+                license = {MIT},
+                title = {{muspinsim}},
+                url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
+                version = {v1.1.0},
+                month = {5},
+                year = {2022},
+                doi = {10.5281/zenodo.6563074}
+            }
+        </citation>
     </citations>
 </tool>

@@ -1,4 +1,5 @@
-<tool id="pm_uep_opt_write" name="Run UEP optimisation (pm-uep-opt)" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="pm_uep_opt" name="PyMuonSuite AIRSS UEP Optimise" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+    <description>run UEP optimisation</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">0.2.1</token>

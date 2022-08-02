@@ -1,4 +1,5 @@
-<tool id="cif2cell" name="Convert .cif file to .cell (cif2cell)" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="cif2cell" name="cif2cell" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+    <description>convert .cif file to .cell</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">2.0.0a3</token>
