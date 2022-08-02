@@ -4,7 +4,7 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">0.2.1</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">0</token>
+        <token name="@WRAPPER_VERSION@">1</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
@@ -29,7 +29,7 @@
         <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        structure_name_internal="input_structure.$structure.ext" &&
+        structure_name_internal=\$(sed 's/ /\_/g' <<< "$structure.name") &&
         ln -s $structure \$structure_name_internal &&
         pm-symmetry \$structure_name_internal > out.txt
     ]]></command>
@@ -42,13 +42,11 @@
     <tests>
         <test>
             <param name="structure" value="Si.cell" ftype="cell"/>
-            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="500">
-            </output>
+            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="re_match_multiline"/>
         </test>
         <test>
             <param name="structure" value="Si.cif" ftype="cif"/>
-            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="500">
-            </output>
+            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="re_match_multiline"/>
         </test>
         <test expect_failure="true">
             <param name="structure" value="Si.xyz" ftype="xyz"/>
@@ -58,8 +56,7 @@
         </test>
         <test>
             <param name="structure" value="Si.extxyz" ftype="extxyz"/>
-            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="500">
-            </output>
+            <output name="symmetry_report" file="test_out.txt" ftype="txt" compare="re_match_multiline"/>
         </test>
     </tests>
     <help><![CDATA[

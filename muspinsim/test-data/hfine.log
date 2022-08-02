@@ -1,9 +1,9 @@
-[INFO] [MainThread] [2022-03-31 15:40:40] Launching MuSpinSim calculation from file: hfine.in
-[INFO] [MainThread] [2022-03-31 15:40:40] Using X axis:
-[INFO] [MainThread] [2022-03-31 15:40:40] 		t => 100 points
-[INFO] [MainThread] [2022-03-31 15:40:40] Created spin system with spins:
-[INFO] [MainThread] [2022-03-31 15:40:40] 		mu e
-[INFO] [MainThread] [2022-03-31 15:40:40] Adding hyperfine term to spins 1-2
-[INFO] [MainThread] [2022-03-31 15:40:40] Total number of configurations to simulate: 1
-[INFO] [MainThread] [2022-03-31 15:40:40] Total number of configurations to average: 1
-[INFO] [MainThread] [2022-03-31 15:40:40] Simulation completed in 0.015 seconds
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Launching MuSpinSim calculation from file: hfine.in
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Using X axis:
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] 		t => 100 points
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Created spin system with spins:
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] 		mu e
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Adding hyperfine term to spins 1-2
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Total number of configurations to simulate: 1
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Total number of configurations to average: 1
+\[INFO\] \[MainThread\] \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] Simulation completed in [\d\.]+ seconds

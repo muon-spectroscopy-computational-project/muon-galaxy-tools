@@ -4,7 +4,7 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">1.1.0</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">0</token>
+        <token name="@WRAPPER_VERSION@">1</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
@@ -69,38 +69,68 @@
         </data>
     </outputs>
     <tests>
+        <!-- log files have a timestamp on each line, and .dat files vary by machine
+                so use compare="re_match" or "contains" with some generalised test files -->
         <test>
             <param name="mu_sim" value="hfine.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
-                <element name="hfine.dat" file="hfine.dat" ftype="txt" compare="sim_size" delta="20"/>
+                <element name="hfine.dat" file="hfine.dat" ftype="txt" lines_diff="4"/>
             </output_collection>
-            <output name="log_out" file="hfine.log" ftype="txt" compare="sim_size" delta="100"/>
+            <output name="log_out" file="hfine.log" ftype="txt" compare="re_match"/>
         </test>
         <test>
             <param name="mu_sim" value="hfine_powder.in" ftype="txt"/>
-             <output_collection name="muspinsim_results" type="list">
-                <element name="muspinsim.dat"  file="hfine_powder.dat"  ftype="txt" compare="sim_size" delta="20"/>
+            <output_collection name="muspinsim_results" type="list">
+                <element name="muspinsim.dat" file="generic_out.dat" ftype="txt" compare="re_match_multiline">
+                    <assert_contents>
+                        <has_size value="5100" delta="100"/>
+                    </assert_contents>
+                </element>
             </output_collection>
-            <output name="log_out" file="hfine_powder.log" ftype="txt" compare="sim_size" delta="100"/>
+            <output name="log_out" file="hfine_powder.log" ftype="txt" compare="re_match">
+                <assert_contents>
+                    <has_size value="802"/>
+                </assert_contents>
+            </output>
         </test>
         <test>
             <param name="mu_sim" value="fitting.in" ftype="txt"/>
             <param name="mu_exp_in" value="fitting_input.dat" ftype="txt"/>
-             <output_collection name="muspinsim_results" type="list">
-                <element name="fitting_data.dat" file="fitting_data.dat" ftype="txt" compare="sim_size" delta="20"/>
+            <output_collection name="muspinsim_results" type="list">
+                <element name="fitting_data.dat" file="fitting_data.dat" ftype="txt" lines_diff="4"/>
             </output_collection>
-            <output name="log_out" file="fitting.log" ftype="txt" compare="sim_size" delta="100"/>
-            <output name="fit_report" file="fitting_fitreport.txt" ftype="txt" compare="sim_size" delta="100"/>
+            <output name="log_out" file="fitting.log" ftype="txt" compare="contains">
+                <assert_contents>
+                    <has_size value="17145"/>
+                </assert_contents>
+            </output>
+            <output name="fit_report" file="fitting_fitreport.txt" ftype="txt" lines_diff="4"/>
         </test>
         <test>
             <param name="mu_sim" value="multi_out.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
-                <element name="multi_out_0_0.dat" file="multi_out_0.dat" ftype="txt" compare="sim_size" delta="20"/>
-                <element name="multi_out_0_1.dat" file="multi_out_1.dat" ftype="txt" compare="sim_size" delta="20"/>
-                <element name="multi_out_1_0.dat" file="multi_out_2.dat" ftype="txt" compare="sim_size" delta="20"/>
-                <element name="multi_out_1_1.dat" file="multi_out_3.dat" ftype="txt" compare="sim_size" delta="20"/>
+                <element name="multi_out_0_0.dat" file="multi_out_0_0.dat" ftype="txt" compare="re_match_multiline">
+                    <assert_contents>
+                        <has_size value="1164" delta="100"/>
+                    </assert_contents>
+                </element>
+                <element name="multi_out_0_1.dat" file="multi_out_0_1.dat" ftype="txt" compare="re_match_multiline">
+                    <assert_contents>
+                        <has_size value="1164" delta="100"/>
+                    </assert_contents>
+                </element>
+                <element name="multi_out_1_0.dat" file="multi_out_1_0.dat" ftype="txt" compare="re_match_multiline">
+                    <assert_contents>
+                        <has_size value="1164" delta="100"/>
+                    </assert_contents>
+                </element>
+                <element name="multi_out_1_1.dat" file="multi_out_1_1.dat" ftype="txt" compare="re_match_multiline">
+                    <assert_contents>
+                        <has_size value="1164" delta="100"/>
+                    </assert_contents>
+                </element>
             </output_collection>
-            <output name="log_out" file="multi_out.log" ftype="txt" compare="sim_size" delta="100"/>
+            <output name="log_out" file="multi_out.log" ftype="txt" compare="re_match"/>
         </test>
     </tests>
     <help><![CDATA[

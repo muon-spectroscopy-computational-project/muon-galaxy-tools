@@ -1,4 +1,4 @@
-<tool id="pm_asephonons" name="PyMuonSuite Phonons" version="0.1.0" python_template_version="3.5" profile="22.01">
+<tool id="pm_asephonons" name="PyMuonSuite Phonons" version="0.1.1" python_template_version="3.5" profile="22.01">
     <description>calculate phonons using ASE and DFTB+</description>
     <macros>
         <!-- citation should be updated with every underlying tool version -->
@@ -25,6 +25,7 @@
         <!-- note versioning is different due to multiple dependencies -->
         <requirement type="package" version="0.2.1">pymuonsuite</requirement>
         <requirement type="package" version="21.2">dftbplus</requirement>
+        <requirement type="package" version="1.22.4">numpy</requirement> <!-- pinned due to numpy/ASE/DFTB+ incompatibility https://github.com/dftbplus/dftbplus/issues/1064 -->
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
@@ -67,25 +68,41 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
-            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="300"/>
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
+                <assert_contents>
+                    <has_size value="8155" delta="20"/>
+                </assert_contents>
+            </output>
         </test>
         <test>
             <param name="structure" value="Si.cif" ftype="cif"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
-            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="300"/>
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
+                <assert_contents>
+                    <has_size value="8155" delta="20"/>
+                </assert_contents>
+            </output>
         </test>
         <test>
             <param name="structure" value="Si.xyz" ftype="xyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
-            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="300"/>
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
+                <assert_contents>
+                    <has_size value="8155" delta="20"/>
+                </assert_contents>
+            </output>
         </test>
         <test>
             <param name="structure" value="Si.extxyz" ftype="extxyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
-            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="sim_size" delta="300"/>
+            <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
+                <assert_contents>
+                    <has_size value="8155" delta="20"/>
+                </assert_contents>
+            </output>
         </test>
     </tests>
     <help><![CDATA[
