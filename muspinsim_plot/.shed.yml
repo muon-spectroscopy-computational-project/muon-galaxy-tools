@@ -6,5 +6,5 @@ homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-ga
 long_description: |
   Plot output of muon experiments using matplotlib.
 name: muspinsim_plot
-owner: muon-spectroscopy-computational-project
+owner: elichad
 remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/muspinsim_plot

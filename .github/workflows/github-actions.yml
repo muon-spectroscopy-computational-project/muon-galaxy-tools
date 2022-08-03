@@ -105,14 +105,24 @@ jobs:
       with:
         path: ~/.cache/pip
         key: pip_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
+    # ideally this would use the planemo-ci-action in lint mode, but some of our URLs fail mysteriously
+    # so we use the next 3 steps to do the linting with the --urls flag removed
+    - name: Install planemo
+      run: pip install wheel planemo
+      shell: bash
+    - name: Install jq
+      run: sudo apt-get install jq
+      shell: bash
     - name: Planemo lint
-      uses: galaxyproject/planemo-ci-action@v1
-      id: lint
-      with:
-        mode: lint
-        repository-list: ${{ needs.setup.outputs.repository-list }}
-        tool-list: ${{ needs.setup.outputs.tool-list }}
-
+      run: ${{ github.workspace }}/.github/workflows/planemo_lint.sh
+      shell: bash
+      env:
+        REPOSITORIES: ${{ needs.setup.outputs.repository-list }}
+        TOOLS: ${{ needs.setup.outputs.tool-list }}
+        REPORT_LEVEL: all
+        FAIL_LEVEL: error
+        ADDITIONAL_PLANEMO_OPTIONS: ''
+        
   # flake8 of Python scripts in the changed repositories
   flake8:
     name: Lint Python scripts
@@ -242,3 +252,41 @@ jobs:
       id: check
       with:
         mode: check
+
+  # deploy the tools to the toolsheds (first TTS for testing)
+  deploy:
+    name: Deploy
+    needs: [setup, lint, flake8, combine_outputs]
+    if: ${{ ( github.ref == 'refs/heads/main' ) && github.repository_owner == 'muon-spectroscopy-computational-project' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.7']
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Cache .cache/pip
+      uses: actions/cache@v2
+      id: cache-pip
+      with:
+        path: ~/.cache/pip
+        key: pip_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
+    - name: Deploy on testtoolshed
+      uses: galaxyproject/planemo-ci-action@v1
+      with:
+        mode: deploy
+        repository-list: ${{ needs.setup.outputs.repository-list }}
+        shed-target: testtoolshed
+        shed-key: ${{ secrets.TTS_API_KEY }}
+      continue-on-error: true
+    # - name: Deploy on toolshed
+    #   uses: galaxyproject/planemo-ci-action@v1
+    #   with:
+    #     mode: deploy
+    #     repository-list: ${{ needs.setup.outputs.repository-list }}
+    #     shed-target: toolshed
+    #     shed-key: ${{ secrets.TS_API_KEY }}b
