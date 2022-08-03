@@ -7,5 +7,5 @@ long_description: |
   Given an input structure, generates a Wyckoff points symmetry report.
   Uses the pm-symmetry tool from pymuon-suite.
 name: pm_symmetry
-owner: muon-spectroscopy-computational-project
+owner: elichad
 remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_symmetry
