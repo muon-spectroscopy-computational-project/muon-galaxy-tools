@@ -105,14 +105,24 @@ jobs:
       with:
         path: ~/.cache/pip
         key: pip_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
+    # ideally this would use the planemo-ci-action in lint mode, but some of our URLs fail mysteriously
+    # so we use the next 3 steps to do the linting with the --urls flag removed
+    - name: Install planemo
+      run: pip install wheel planemo
+      shell: bash
+    - name: Install jq
+      run: sudo apt-get install jq
+      shell: bash
     - name: Planemo lint
-      uses: galaxyproject/planemo-ci-action@v1
-      id: lint
-      with:
-        mode: lint
-        repository-list: ${{ needs.setup.outputs.repository-list }}
-        tool-list: ${{ needs.setup.outputs.tool-list }}
-
+      run: ${{ github.workspace }}/.github/workflows/planemo_lint.sh
+      shell: bash
+      env:
+        REPOSITORIES: ${{ needs.setup.outputs.repository-list }}
+        TOOLS: ${{ needs.setup.outputs.tool-list }}
+        REPORT_LEVEL: all
+        FAIL_LEVEL: error
+        ADDITIONAL_PLANEMO_OPTIONS: ''
+        
   # flake8 of Python scripts in the changed repositories
   flake8:
     name: Lint Python scripts
