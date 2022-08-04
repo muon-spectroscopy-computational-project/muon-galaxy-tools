@@ -6,5 +6,5 @@ homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-ga
 long_description: |
   Given input muonated structures, perform DFTB+ optimisation.
 name: pm_dftb_opt
-owner: elichad
+owner: muon-spectroscopy-computational-project
 remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_dftb_opt
