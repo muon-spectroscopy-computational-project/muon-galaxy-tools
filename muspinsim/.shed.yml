@@ -6,5 +6,5 @@ homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-ga
 long_description: |
   Given an input file, models spin dynamics of muon experiment.
 name: muspinsim
-owner: elichad
+owner: muon-spectroscopy-computational-project
 remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/muspinsim
