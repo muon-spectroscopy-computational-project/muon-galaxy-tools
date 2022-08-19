@@ -4,7 +4,7 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">0.2.1</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">1</token>
+        <token name="@WRAPPER_VERSION@">2</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
@@ -60,7 +60,7 @@
                 <option value="true">yes</option>
             </param>
             <when value="true">
-                <param type="data" name="castep_param" label="CASTEP parameter file" format="txt,yaml" help="CASTEP parameters (.param file) for the optimisation stage. These parameters will be copied for each muonated structure."/>
+                <param type="data" name="castep_param" label="CASTEP parameter file" format="param" help="CASTEP parameters (.param file) for the optimisation stage. These parameters will be copied for each muonated structure."/>
             </when>
             <when value="false"/>
         </conditional>
