@@ -4,7 +4,7 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">0.2.1</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">1</token>
+        <token name="@WRAPPER_VERSION@">2</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
@@ -38,12 +38,18 @@
             ln -s $castep_param \$castep_param_name &&
             sed -i '/^castep_param: /{h;s/:.*/: $castep_param.name/};\${x;/^$/{s//castep_param: $castep_param.name/;H};x}' params.yaml &&
         #end if
+        #if $allpos_ext:
+            sed -i '/^allpos_filename: /{h;s/:.*/: allpos.$allpos_ext/};\${x;/^$/{s//allpos_filename: allpos.$allpos_ext/;H};x}' params.yaml &&
+        #end if
         pm-muairss -t w \$structure_name_internal params.yaml &&
         out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
         #if str($iscastep.iscastep_sel)=="true":
             zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal \$castep_param_name &&
         #else if str($iscastep.iscastep_sel)=="false":
             zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal &&
+        #end if
+        #if $allpos_ext:
+            mv allpos.$allpos_ext allpos &&
         #end if
         #if $testing=="true" and str($iscastep.iscastep_sel)=="true":
             grep "castep_param" params.yaml > tree.txt &&
@@ -64,10 +70,19 @@
             </when>
             <when value="false"/>
         </conditional>
+        <param type="select" name="allpos_ext" label="All Positions File" help="Optionally generate output file containing all muon sites using the specified file type." optional="true">
+            <option value="cell">CELL</option>
+            <option value="cif">CIF</option>
+            <option value="xyz">XYZ (standard)</option>
+            <option value="extxyz">XYZ (extendend)</option>
+        </param>
         <param type="hidden" name="testing" label="Test mode" value="false"/>
     </inputs>
     <outputs>
         <data label="Muonated $structure.name using $params.name" name="muonated_structures" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="File containing the positions of all muon sites" name="allpos_file" from_work_dir="allpos" auto_format="true">
+            <filter>(allpos_ext)</filter>
+        </data>
         <data label="File tree (testing only)" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true">
             <filter>(testing == "true")</filter>
         </data>
@@ -105,6 +120,58 @@
                 <param name="castep_param" value="Si.param"/>
             </conditional>
             <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" sort="true" />
+        </test>
+        <!-- CASTEP with allpos_ext xyz -->
+        <test expect_num_outputs="3">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <param name="allpos_ext" value="xyz"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param" ftype="yaml"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
+            <output name="allpos_file" file="allpos.xyz" />
+        </test>
+        <!-- CASTEP with allpos_ext extxyz -->
+        <test expect_num_outputs="3">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <param name="allpos_ext" value="extxyz"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param" ftype="yaml"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
+            <output name="allpos_file" file="allpos.xyz" />
+        </test>
+        <!-- CASTEP with allpos_ext cell -->
+        <test expect_num_outputs="3">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <param name="allpos_ext" value="cell"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param" ftype="yaml"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
+            <output name="allpos_file" file="allpos.cell" />
+        </test>
+        <!-- CASTEP with allpos_ext cif -->
+        <test expect_num_outputs="3">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <param name="allpos_ext" value="cif"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param" ftype="yaml"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
+            <output name="allpos_file" file="allpos.cif" />
         </test>
         <!-- DFTB+ -->
         <test expect_num_outputs="2">
