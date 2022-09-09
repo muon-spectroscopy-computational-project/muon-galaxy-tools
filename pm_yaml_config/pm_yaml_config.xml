@@ -113,7 +113,7 @@
                     </param>
                 </when>
                 <when value="all">
-                    <param type="float" argument="uep_gw_factor" name="uep_gw_factor" optional="true" value="5.0" label="Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
+                    <param type="float" argument="uep_gw_factor" name="uep_gw_factor" optional="true" value="5.0" min="0.0" label="Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
                     <param type="text" argument="uep_chden" name="uep_chden" optional="true" label="Path to .den_fmt and CASTEP files" help="Name of the .den_fmt file containing the electronic density for an Unperturbed Electrostatic Potential optimisation. The corresponding .castep file must be with the same seedname. Only required for use outside Muon Galaxy"/>
                     <param type="text" argument="castep_command" name="castep_command" optional="true" value="castep.serial" label="CASTEP command" help="Command to use to run CASTEP."/>
                     <param type="text" argument="castep_param" name="castep_param" optional="true" label="PARAM path" help="File path to the CASTEP parameter file."/>
