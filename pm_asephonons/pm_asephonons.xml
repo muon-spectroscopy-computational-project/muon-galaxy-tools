@@ -1,4 +1,4 @@
-<tool id="pm_asephonons" name="PyMuonSuite Phonons" version="0.1.1" python_template_version="3.5" profile="22.01">
+<tool id="pm_asephonons" name="PyMuonSuite Phonons" version="0.1.1" python_template_version="3.5" profile="22.01" license="GPL-3.0-only">
     <description>calculate phonons using ASE and DFTB+</description>
     <macros>
         <!-- citation should be updated with every underlying tool version -->
@@ -6,7 +6,7 @@
         <token name="@PYMUONSUITE_CITATION@">
             @software{pymuon-suite,
                 author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and {Muon Spectroscopy Computational Project}},
-                license = {GPL-3.0},
+                license = {GPL-3.0-only},
                 title = {{pymuon-suite}},
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
                 version = {v0.2.1},
