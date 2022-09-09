@@ -115,24 +115,7 @@
         <citation type="bibtex">
             @PYMUONSUITE_CITATION@
         </citation>
-        <citation type="bibtex">
-            @article{doi:10.1063/1.5085197,
-                author = {Sturniolo,Simone  and Liborio,Leandro  and Jackson,Samuel },
-                title = {Comparison between density functional theory and density functional tight binding approaches for finding the muon stopping site in organic molecular crystals},
-                journal = {The Journal of Chemical Physics},
-                volume = {150},
-                number = {15},
-                pages = {154301},
-                year = {2019},
-                doi = {10.1063/1.5085197},
-                URL = {
-                        https://doi.org/10.1063/1.5085197
-                },
-                eprint = {
-                        https://doi.org/10.1063/1.5085197
-                }
-            }
-        </citation>
+        <citation type="doi">10.1063/1.5085197</citation>
         <citation type="bibtex">
             @article{larsen2017atomic,
                 title={The atomic simulation environment—a Python library for working with atoms},

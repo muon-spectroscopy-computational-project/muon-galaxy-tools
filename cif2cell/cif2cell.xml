@@ -42,21 +42,6 @@
         Uses electronic structure program 'castep'
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @article{cif2cell,
-                author = {Torbj\"orn Bj\"orkman},
-                title = {CIF2Cell: Generating geometries for electronic structure programs},
-                journal = {Computer Physics Communications},
-                volume = {182},
-                number = {5},
-                pages = {1183 - 1186},
-                year = {2011},
-                issn = {0010-4655},
-                doi={10.1016/j.cpc.2011.01.013},
-                URL={
-                    http://www.sciencedirect.com/science/article/pii/S0010465511000336
-                }
-            }
-        </citation>
+        <citation type="doi">10.1016/j.cpc.2011.01.013</citation>
     </citations>
 </tool>
