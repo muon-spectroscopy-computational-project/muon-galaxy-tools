@@ -152,7 +152,7 @@
         <data label="Configuration for $general_params.struct_name" name="out_yaml" format="yaml" from_work_dir="output.yaml"/>
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="1">
             <section name="general_params">
                 <param name="poisson_r" value="0.8"/>
                 <param name="struct_name" value="Si"/>
@@ -180,7 +180,7 @@
             </section>
             <output name="out_yaml" file="config.yaml" ftype="yaml" delta="100"/>
         </test>
-        <test>
+        <test expect_num_outputs="1">
             <section name="general_params">
             </section>
             <section name="calculator_params">
