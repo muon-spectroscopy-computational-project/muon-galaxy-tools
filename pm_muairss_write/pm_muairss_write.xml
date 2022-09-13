@@ -29,6 +29,9 @@
         <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
+    <required_files>
+        <include type="literal" path="get_out_folder.py"/>
+    </required_files>
     <command detect_errors="exit_code"><![CDATA[
         structure_name_internal="input_structure.$structure.ext" &&
         ln -s $structure \$structure_name_internal &&
