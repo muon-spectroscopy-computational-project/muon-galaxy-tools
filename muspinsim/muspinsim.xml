@@ -71,14 +71,14 @@
     <tests>
         <!-- log files have a timestamp on each line, and .dat files vary by machine
                 so use compare="re_match" or "contains" with some generalised test files -->
-        <test>
+        <test expect_num_outputs="2">
             <param name="mu_sim" value="hfine.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
                 <element name="hfine.dat" file="hfine.dat" ftype="txt" lines_diff="4"/>
             </output_collection>
             <output name="log_out" file="hfine.log" ftype="txt" compare="re_match"/>
         </test>
-        <test>
+        <test expect_num_outputs="2">
             <param name="mu_sim" value="hfine_powder.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
                 <element name="muspinsim.dat" file="generic_out.dat" ftype="txt" compare="re_match_multiline">
@@ -93,7 +93,7 @@
                 </assert_contents>
             </output>
         </test>
-        <test>
+        <test expect_num_outputs="3">
             <param name="mu_sim" value="fitting.in" ftype="txt"/>
             <param name="mu_exp_in" value="fitting_input.dat" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
@@ -106,7 +106,7 @@
             </output>
             <output name="fit_report" file="fitting_fitreport.txt" ftype="txt" lines_diff="4"/>
         </test>
-        <test>
+        <test expect_num_outputs="2">
             <param name="mu_sim" value="multi_out.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
                 <element name="multi_out_0_0.dat" file="multi_out_0_0.dat" ftype="txt" compare="re_match_multiline">

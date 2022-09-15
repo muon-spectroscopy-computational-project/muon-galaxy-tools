@@ -89,7 +89,7 @@
         </data>
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="1">
             <param name="title" value="Temperature Example"/>
             <param name="xlab" value="Time"/>
             <param name="ylab" value="Asymmetry"/>
@@ -112,7 +112,7 @@
                 </assert_contents>
             </output>
         </test>
-        <test>
+        <test expect_num_outputs="1">
             <param name="title" value="Fitting Example"/>
             <param name="xlab" value="Time"/>
             <param name="ylab" value="Asymmetry"/>

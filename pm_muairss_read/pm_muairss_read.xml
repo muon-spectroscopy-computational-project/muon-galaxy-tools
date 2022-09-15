@@ -46,12 +46,12 @@
         <data label="Cluster data for $optimisation_results.name" name="cluster_data" format="txt" from_work_dir="$out_folder/*clusters.dat"/>
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="2">
             <param name="optimisation_results" value="uep-out.zip" ftype="zip"/>
             <output name="cluster_report" file="clustout-uep.txt" ftype="txt" lines_diff="2"/>
             <output name="cluster_data" file="clustout-uep.dat" ftype="txt"/>
         </test>
-        <test>
+        <test expect_num_outputs="2">
             <param name="optimisation_results" value="dftb-out.zip" ftype="zip"/>
             <output name="cluster_report" file="clustout-dftb.txt" ftype="txt" lines_diff="2"/>
             <output name="cluster_data" file="clustout-dftb.dat" ftype="txt"/>
