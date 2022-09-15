@@ -30,18 +30,18 @@
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        unzip "$muonated_structures" &&
+        unzip '$muonated_structures' &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi &&
         if ( test -f input_structure.* ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi &&
-        charge_density_name=\$(sed 's/ //g' <<< "$charge_density.name") &&
-        ln -s $charge_density \$charge_density_name &&
-        x="\$charge_density_name" &&
+        charge_density_name=\$(sed 's/ //g' <<< '$charge_density.name') &&
+        ln -s '$charge_density' \$charge_density_name &&
+        x=\$charge_density_name &&
         echo "calculated seed name \$x" &&
-        ln -s $castep_log "\${x%%.*}.castep" &&
-        out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
+        ln -s '$castep_log' "\${x%%.*}.castep" &&
+        out_folder="`python '${__tool_directory__}/get_out_folder.py'`" &&
         find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_path: .*#chden_path: .\/#g" &&
         find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_seed: .*#chden_seed: \${x%%.*}#g" &&
-        bash ${__tool_directory__}/run.sh \$out_folder &&
+        bash '${__tool_directory__}/run.sh' \$out_folder &&
         zip -r out_zip.zip \$out_folder params.yaml input_structure.* &&
         find \$out_folder > tree.txt
     ]]></command>

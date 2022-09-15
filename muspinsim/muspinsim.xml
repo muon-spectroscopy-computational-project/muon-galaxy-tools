@@ -30,9 +30,9 @@
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         ## remove spaces in names
-        mu_sim_name=\$(sed 's/ //g' <<< "$mu_sim.name") &&
+        mu_sim_name=\$(sed 's/ //g' <<< '$mu_sim.name') &&
         ## create links
-        ln -s $mu_sim \$mu_sim_name &&
+        ln -s '$mu_sim' \$mu_sim_name &&
         ## grab 'name' field from input file, if it doesn't exist, set name as 'muspinsim'
         mu_out=\$(grep -A1 '^name' \$mu_sim_name | grep -v 'name' | sed -e 's/^[ \t]*//') &&
         fitreport_out=\${mu_out:-"fitting_data"}_fitreport.txt &&
@@ -40,10 +40,10 @@
         log_out=\$(echo \$mu_sim_name | cut -d '.' -f1).log &&
         ## if fitting data required, check if fitting data exists
         ## create symlink and change filepath in input file to point to symlink
-        if grep '^fitting_data' $mu_sim; then
+        if grep '^fitting_data' '$mu_sim'; then
             if [[ '$mu_exp_in.name' != 'None' ]]; then
-                mu_exp_in_name=\$(sed 's/ //g' <<< "$mu_exp_in.name") &&
-                ln -s $mu_exp_in \$mu_exp_in_name &&
+                mu_exp_in_name=\$(sed 's/ //g' <<< '$mu_exp_in.name') &&
+                ln -s '$mu_exp_in' \$mu_exp_in_name &&
                 sed -iE "/^fitting_data/{n;s/([^)]*)/(\"\$mu_exp_in_name\")/g}" \$mu_sim_name;
             else
                 echo "fitting data required, but no experiment data given" && exit 64;

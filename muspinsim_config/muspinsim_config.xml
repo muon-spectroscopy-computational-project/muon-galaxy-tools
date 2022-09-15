@@ -29,8 +29,8 @@
         <requirement type="package" version="@TOOL_VERSION@">muspinsim</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        cp ${__tool_directory__}/sample_fitting_data.dat ./fitting_data.dat &&
-        python ${__tool_directory__}/build_file.py inputs.json
+        cp '${__tool_directory__}/sample_fitting_data.dat' ./fitting_data.dat &&
+        python '${__tool_directory__}/build_file.py' inputs.json
     ]]></command>
     <configfiles>
         <inputs name="inputs" filename="inputs.json" />
