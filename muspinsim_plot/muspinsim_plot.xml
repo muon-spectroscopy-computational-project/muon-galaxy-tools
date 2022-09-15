@@ -31,6 +31,9 @@
     <requirements>
         <requirement type="package" version="@TOOL_VERSION@">matplotlib</requirement>
     </requirements>
+    <required_files>
+        <include type="literal" path="generate_plot.py"/>
+    </required_files>
     <command detect_errors="exit_code"><![CDATA[
        python ${__tool_directory__}/generate_plot.py inputs.json
     ]]></command>
