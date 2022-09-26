@@ -35,7 +35,7 @@
         <include type="literal" path="generate_plot.py"/>
     </required_files>
     <command detect_errors="exit_code"><![CDATA[
-       python ${__tool_directory__}/generate_plot.py inputs.json
+       python '${__tool_directory__}/generate_plot.py' inputs.json
     ]]></command>
     <configfiles>
         <inputs name="inputs" data_style="paths" filename="inputs.json"/>
