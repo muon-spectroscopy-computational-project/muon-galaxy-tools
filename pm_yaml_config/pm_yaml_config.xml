@@ -59,7 +59,7 @@
             ([[ ! -z "$calculator_params.calculator_cond.castep_command" ]] && printf "castep_command: $calculator_params.calculator_cond.castep_command\n">>outputx.yaml || echo "CASTEP command unset") &&
             ([[ ! -z "$calculator_params.calculator_cond.castep_param" ]] && printf "castep_param: $calculator_params.calculator_cond.castep_param\n">>outputx.yaml || echo "CASTEP param unset") &&
             ([[ ! -z "$calculator_params.calculator_cond.mu_symbol" ]] && printf "mu_symbol: $calculator_params.calculator_cond.mu_symbol\n">>outputx.yaml || echo "mu symbol unset") &&
-            ([[ ! -z "$calculator_params.calculator_cond.mu_symbol" ]] && printf "dftb_set: $calculator_params.calculator_cond.dftb_set\n">>outputx.yaml || echo "dftb parameter set unselected") &&
+            ([[ ! -z "$calculator_params.calculator_cond.dftb_set" ]] && printf "dftb_set: $calculator_params.calculator_cond.dftb_set\n">>outputx.yaml || echo "dftb parameter set unselected") &&
             ([[ ! -z "$calculator_params.calculator_cond.dftb_pbc" ]] && printf "dftb_pbc: $calculator_params.calculator_cond.dftb_pbc\n">>outputx.yaml || echo "dftb periodic boundary condition unselected") &&
         #end if
         ([[ ! -z "$clustering_params.clustering.clustering_method " ]] && printf "clustering_method: $clustering_params.clustering.clustering_method\n">>outputx.yaml || ( echo "clustering method unselected" && exit 2)) &&
