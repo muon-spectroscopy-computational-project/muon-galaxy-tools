@@ -29,8 +29,8 @@
         <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        structure_name_internal=\$(sed 's/ /\_/g' <<< "$structure.name") &&
-        ln -s $structure \$structure_name_internal &&
+        structure_name_internal=\$(sed 's/ /\_/g' <<< '$structure.name') &&
+        ln -s '$structure' \$structure_name_internal &&
         pm-symmetry \$structure_name_internal > out.txt
     ]]></command>
     <inputs>
