@@ -39,11 +39,11 @@
         #if str($iscastep.iscastep_sel)=="true":
             castep_param_name=\$(sed 's/ //g' <<< '$castep_param.name') &&
             ln -s '$castep_param' \$castep_param_name &&
-            sed -i '/^castep_param: /{h;s/:.*/: $castep_param_name/};\${x;/^$/{s//castep_param: $castep_param_name/;H};x}' params.yaml &&
+            sed -i '/^castep_param: /{h;s/:.*/: '"\$castep_param_name"'/};\${x;/^$/{s//castep_param: '"\$castep_param_name"'/;H};x}' params.yaml &&
             #if $script_file:
                 script_file_name=\$(sed 's/ //g' <<< '$script_file.name') &&
                 ln -s '$script_file' \$script_file_name &&
-                sed -i '/^script_file: /{h;s/:.*/: \$script_file_name/};\${x;/^$/{s//script_file: \$script_file_name/;H};x}' params.yaml &&
+                sed -i '/^script_file: /{h;s/:.*/: '"\$script_file_name"'/};\${x;/^$/{s//script_file: '"\$script_file_name"'/;H};x}' params.yaml &&
             #end if
         #end if
         pm-muairss -t w \$structure_name_internal params.yaml &&
