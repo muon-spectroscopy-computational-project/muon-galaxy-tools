@@ -31,44 +31,44 @@
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         touch outputx.yaml &&
-        ([[ ! -z "$general_params.poisson_r" ]] && printf "poisson_r: $general_params.poisson_r\n">>outputx.yaml || ( >&2 echo "poisson_r empty" && exit 2)) &&
-        ([[ ! -z "$general_params.struct_name" ]] && printf "name: $general_params.struct_name\n">>outputx.yaml || ( >&2 echo "structure name is empty" && exit 2)) &&
-        ([[ ! -z "$general_params.charged" ]] && printf "charged: $general_params.charged\n">>outputx.yaml || ( >&2 echo "charged muon empty" && exit 2)) &&
-        ([[ ! -z "$general_params.geom_steps" ]] && printf "geom_steps: $general_params.geom_steps\n">>outputx.yaml || ( >&2 echo "geom_steps empty" && exit 2)) &&
-        ([[ ! -z "$general_params.vdw_scale" ]] && printf "vdw_scale: $general_params.vdw_scale\n">>outputx.yaml || ( >&2 echo "vdw_scale empty" && exit 2)) &&
-        ([[ ! -z "$calculator_params.calculator_cond.calculator" ]] && printf "calculator: $calculator_params.calculator_cond.calculator\n">>outputx.yaml || ( >&2 echo "calculator unselected" && exit 2)) &&
-        ([[ ! -z "$general_params.geom_force_tol" ]] && printf "geom_force_tol: $general_params.geom_force_tol\n">>outputx.yaml || ( >&2 echo "geom_force_tol empty" && exit 2)) &&
-        ([[ ! -z "$general_params.out_folder" ]] && printf "out_folder: $general_params.out_folder\n">>outputx.yaml || printf "out_folder: muon-airss-out\n">>outputx.yaml) &&
-        ([[ ! -z "$general_params.random_seed" ]] && printf "random_seed: $general_params.random_seed\n">>outputx.yaml || ( echo "random_seed empty")) &&
-        ([[ ! -z "$clustering_params.supercell" ]] && (printf "supercell: $clustering_params.supercell\n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>outputx.yaml || ( >&2 echo "supercell empty" && exit 2)) &&
-        ([[ ! -z "$clustering_params.k_points_grid" ]] && (printf "k_points_grid: $clustering_params.k_points_grid\n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || ( >&2 echo "k_points_grid empty" && exit 2)) &&
-        ([[ ! -z "$clustering_params.max_scc_steps" ]] && printf "max_scc_steps: $clustering_params.max_scc_steps\n">>outputx.yaml || ( >&2 echo "max_scc_steps empty")) &&
+        ([[ ! -z '$general_params.poisson_r' ]] && printf 'poisson_r: $general_params.poisson_r\n'>>outputx.yaml || ( >&2 echo "poisson_r empty" && exit 2)) &&
+        ([[ ! -z '$general_params.struct_name' ]] && printf 'name: $general_params.struct_name\n'>>outputx.yaml || ( >&2 echo "structure name is empty" && exit 2)) &&
+        ([[ ! -z '$general_params.charged' ]] && printf 'charged: $general_params.charged\n'>>outputx.yaml || ( >&2 echo "charged muon empty" && exit 2)) &&
+        ([[ ! -z '$general_params.geom_steps' ]] && printf 'geom_steps: $general_params.geom_steps\n'>>outputx.yaml || ( >&2 echo "geom_steps empty" && exit 2)) &&
+        ([[ ! -z '$general_params.vdw_scale' ]] && printf 'vdw_scale: $general_params.vdw_scale\n'>>outputx.yaml || ( >&2 echo "vdw_scale empty" && exit 2)) &&
+        ([[ ! -z '$calculator_params.calculator_cond.calculator' ]] && printf 'calculator: $calculator_params.calculator_cond.calculator\n'>>outputx.yaml || ( >&2 echo "calculator unselected" && exit 2)) &&
+        ([[ ! -z '$general_params.geom_force_tol' ]] && printf 'geom_force_tol: $general_params.geom_force_tol\n'>>outputx.yaml || ( >&2 echo "geom_force_tol empty" && exit 2)) &&
+        ([[ ! -z '$general_params.out_folder' ]] && printf 'out_folder: $general_params.out_folder\n'>>outputx.yaml || printf "out_folder: muon-airss-out\n">>outputx.yaml) &&
+        ([[ ! -z '$general_params.random_seed' ]] && printf 'random_seed: $general_params.random_seed\n'>>outputx.yaml || ( echo "random_seed empty")) &&
+        ([[ ! -z '$clustering_params.supercell' ]] && (printf 'supercell: $clustering_params.supercell\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>outputx.yaml || ( >&2 echo "supercell empty" && exit 2)) &&
+        ([[ ! -z '$clustering_params.k_points_grid' ]] && (printf 'k_points_grid: $clustering_params.k_points_grid\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || ( >&2 echo "k_points_grid empty" && exit 2)) &&
+        ([[ ! -z '$clustering_params.max_scc_steps' ]] && printf 'max_scc_steps: $clustering_params.max_scc_steps\n'>>outputx.yaml || ( >&2 echo "max_scc_steps empty")) &&
         #if str($calculator_params.calculator_cond.calculator)=="uep":
-            ([[ ! -z "$calculator_params.calculator_cond.uep_gw_factor" ]] && printf "uep_gw_factor: $calculator_params.calculator_cond.uep_gw_factor\n">>outputx.yaml || ( >&2 echo "uep gaussian width unset" && exit 2)) &&
-            ([[ ! -z "$calculator_params.calculator_cond.uep_chden" ]] && printf "uep_chden: $calculator_params.calculator_cond.uep_chden.value\n">>outputx.yaml || echo "den_fmt path unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.uep_gw_factor' ]] && printf 'uep_gw_factor: $calculator_params.calculator_cond.uep_gw_factor\n'>>outputx.yaml || ( >&2 echo "uep gaussian width unset" && exit 2)) &&
+            ([[ ! -z '$calculator_params.calculator_cond.uep_chden' ]] && printf 'uep_chden: $calculator_params.calculator_cond.uep_chden.value\n'>>outputx.yaml || echo "den_fmt path unset") &&
         #else if str($calculator_params.calculator_cond.calculator)=="CASTEP":
-            ([[ ! -z "$calculator_params.calculator_cond.castep_command" ]] && printf "castep_command: $calculator_params.calculator_cond.castep_command\n">>outputx.yaml || echo "CASTEP command unset") &&
-            ([[ ! -z "$calculator_params.calculator_cond.castep_param" ]] && printf "castep_param: $calculator_params.calculator_cond.castep_param\n">>outputx.yaml || echo "CASTEP param unset") &&
-            ([[ ! -z "$calculator_params.calculator_cond.mu_symbol" ]] && printf "mu_symbol: $calculator_params.calculator_cond.mu_symbol\n">>outputx.yaml || echo "mu symbol unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.castep_command' ]] && printf 'castep_command: $calculator_params.calculator_cond.castep_command\n'>>outputx.yaml || echo "CASTEP command unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.castep_param' ]] && printf 'castep_param: $calculator_params.calculator_cond.castep_param\n'>>outputx.yaml || echo "CASTEP param unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.mu_symbol' ]] && printf 'mu_symbol: $calculator_params.calculator_cond.mu_symbol\n'>>outputx.yaml || echo "mu symbol unset") &&
         #else if str($calculator_params.calculator_cond.calculator)=="dftb+":
-            ([[ ! -z "$calculator_params.calculator_cond.dftb_set" ]] && printf "dftb_set: $calculator_params.calculator_cond.dftb_set\n">>outputx.yaml || ( >&2 echo "dftb parameter set unselected" && exit 2)) &&
-            ([[ ! -z "$calculator_params.calculator_cond.dftb_optionals" ]] && (printf "dftb_optionals: $calculator_params.calculator_cond.dftb_optionals\n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || echo "dftb optional json files unset") &&
-            ([[ ! -z "$calculator_params.calculator_cond.dftb_pbc" ]] && printf "dftb_pbc: $calculator_params.calculator_cond.dftb_pbc\n">>outputx.yaml || echo "dftb periodic boundary condition unselected") &&
+            ([[ ! -z '$calculator_params.calculator_cond.dftb_set' ]] && printf 'dftb_set: $calculator_params.calculator_cond.dftb_set\n'>>outputx.yaml || ( >&2 echo "dftb parameter set unselected" && exit 2)) &&
+            ([[ ! -z '$calculator_params.calculator_cond.dftb_optionals' ]] && (printf 'dftb_optionals: $calculator_params.calculator_cond.dftb_optionals\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || echo "dftb optional json files unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.dftb_pbc' ]] && printf 'dftb_pbc: $calculator_params.calculator_cond.dftb_pbc\n'>>outputx.yaml || echo "dftb periodic boundary condition unselected") &&
         #else if str($calculator_params.calculator_cond.calculator)=="all":
-            ([[ ! -z "$calculator_params.calculator_cond.uep_gw_factor" ]] && printf "uep_gw_factor: $calculator_params.calculator_cond.uep_gw_factor\n">>outputx.yaml || echo "uep gaussian width unset") &&
-            ([[ ! -z "$calculator_params.calculator_cond.uep_chden" ]] && printf "uep_chden: $calculator_params.calculator_cond.uep_chden\n">>outputx.yaml || echo "den_fmt path unset") &&
-            ([[ ! -z "$calculator_params.calculator_cond.castep_command" ]] && printf "castep_command: $calculator_params.calculator_cond.castep_command\n">>outputx.yaml || echo "CASTEP command unset") &&
-            ([[ ! -z "$calculator_params.calculator_cond.castep_param" ]] && printf "castep_param: $calculator_params.calculator_cond.castep_param\n">>outputx.yaml || echo "CASTEP param unset") &&
-            ([[ ! -z "$calculator_params.calculator_cond.mu_symbol" ]] && printf "mu_symbol: $calculator_params.calculator_cond.mu_symbol\n">>outputx.yaml || echo "mu symbol unset") &&
-            ([[ ! -z "$calculator_params.calculator_cond.mu_symbol" ]] && printf "dftb_set: $calculator_params.calculator_cond.dftb_set\n">>outputx.yaml || echo "dftb parameter set unselected") &&
-            ([[ ! -z "$calculator_params.calculator_cond.dftb_optionals" ]] && (printf "dftb_optionals: $calculator_params.calculator_cond.dftb_optionals\n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || echo "dftb optional json files unset") &&
-            ([[ ! -z "$calculator_params.calculator_cond.dftb_pbc" ]] && printf "dftb_pbc: $calculator_params.calculator_cond.dftb_pbc\n">>outputx.yaml || echo "dftb periodic boundary condition unselected") &&
+            ([[ ! -z '$calculator_params.calculator_cond.uep_gw_factor' ]] && printf 'uep_gw_factor: $calculator_params.calculator_cond.uep_gw_factor\n'>>outputx.yaml || echo "uep gaussian width unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.uep_chden' ]] && printf 'uep_chden: $calculator_params.calculator_cond.uep_chden\n'>>outputx.yaml || echo "den_fmt path unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.castep_command' ]] && printf 'castep_command: $calculator_params.calculator_cond.castep_command\n'>>outputx.yaml || echo "CASTEP command unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.castep_param' ]] && printf 'castep_param: $calculator_params.calculator_cond.castep_param\n'>>outputx.yaml || echo "CASTEP param unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.mu_symbol' ]] && printf 'mu_symbol: $calculator_params.calculator_cond.mu_symbol\n'>>outputx.yaml || echo "mu symbol unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.dftb_set' ]] && printf 'dftb_set: $calculator_params.calculator_cond.dftb_set\n'>>outputx.yaml || echo "dftb parameter set unselected") &&
+            ([[ ! -z '$calculator_params.calculator_cond.dftb_optionals' ]] && (printf 'dftb_optionals: $calculator_params.calculator_cond.dftb_optionals\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || echo "dftb optional json files unset") &&
+            ([[ ! -z '$calculator_params.calculator_cond.dftb_pbc' ]] && printf 'dftb_pbc: $calculator_params.calculator_cond.dftb_pbc\n'>>outputx.yaml || echo "dftb periodic boundary condition unselected") &&
         #end if
-        ([[ ! -z "$clustering_params.clustering.clustering_method " ]] && printf "clustering_method: $clustering_params.clustering.clustering_method\n">>outputx.yaml || ( echo "clustering method unselected" && exit 2)) &&
+        ([[ ! -z '$clustering_params.clustering.clustering_method' ]] && printf 'clustering_method: $clustering_params.clustering.clustering_method\n'>>outputx.yaml || ( echo "clustering method unselected" && exit 2)) &&
         #if str($clustering_params.clustering.clustering_method)=="hier":
-            ([[ ! -z "$clustering_params.clustering.clustering_hier_t" ]] && printf "clustering_hier_t: $clustering_params.clustering.clustering_hier_t\n">>outputx.yaml || echo "clustering_hier_t unset") &&
+            ([[ ! -z '$clustering_params.clustering.clustering_hier_t' ]] && printf 'clustering_hier_t: $clustering_params.clustering.clustering_hier_t\n'>>outputx.yaml || echo "clustering_hier_t unset") &&
         #else if str($clustering_params.clustering.clustering_method)=="kmeans":
-            ([[ ! -z "$clustering_params.clustering.clustering_kmeans_k" ]] && printf "clustering_kmeans_k: $clustering_params.clustering.clustering_kmeans_k\n">>outputx.yaml || echo "clustering_kmeans_k unset") &&
+            ([[ ! -z '$clustering_params.clustering.clustering_kmeans_k' ]] && printf 'clustering_kmeans_k: $clustering_params.clustering.clustering_kmeans_k\n'>>outputx.yaml || echo "clustering_kmeans_k unset") &&
         #end if
         ln -s outputx.yaml output.yaml
     ]]></command>
@@ -145,8 +145,12 @@
                     <param type="integer" argument="clustering_kmeans_k" name="clustering_kmeans_k" value="4" optional="true" label="Number of clusters for k-means clustering"/>
                 </when>
             </conditional>
-            <param type="integer" argument="supercell" name="supercell" value="1" label="Supercell" multiple="true" help="Supercell size and shape to use. This can either be a single int, a list of three integers or a 3x3 matrix of integers. For a single number a diagonal matrix will be generated with the integer repeated on the diagonals. For a list of three numbers a diagonal matrix will be generated where the diagonal elements are set to the list. A matrix will be used directly as is. Default is a 3x3 identity matrix."/>
-            <param type="text" argument="k_points_grid" name="k_points_grid" value="[1,1,1]" label="K-points grid" multiple="true" help="List of three integer k-points. Default is [1,1,1]."/>
+            <param type="text" argument="supercell" name="supercell" value="1" label="Supercell" help="Supercell size and shape to use. This can either be a single int, a list of three integers or a 3x3 matrix of integers. For a single number a diagonal matrix will be generated with the integer repeated on the diagonals. For a list of three numbers a diagonal matrix will be generated where the diagonal elements are set to the list. A matrix will be used directly as is. Default is a 3x3 identity matrix.">
+                <validator type="regex" message="Input should only contain whitespace, '[', ']', ',' and digits.">^[\s\d,\[\]]+$</validator>
+            </param>
+            <param type="text" argument="k_points_grid" name="k_points_grid" value="[1,1,1]" label="K-points grid" help="List of three integer k-points. Default is [1,1,1].">
+                <validator type="regex" message="Input should only contain whitespace, '[', ']', ',' and digits.">^[\s\d,\[\]]+$</validator>
+            </param>
             <param type="integer" argument="max_scc_steps" name="max_scc_steps" value="200" optional="true" label="Max SCC steps" help="If applicable, max number of SCC steps to perform before giving up. Default is 200 for DFTB+ and 30 for CASTEP."/>
         </section>
     </inputs>
@@ -214,6 +218,24 @@
             <section name="clustering_params">
             </section>
             <output name="out_yaml" file="config-all.yaml" ftype="yaml" delta="100"/>
+        </test>
+        <test expect_failure="true">
+            <section name="general_params">
+            </section>
+            <section name="calculator_params">
+            </section>
+            <section name="clustering_params">
+                <param name="supercell" value="bad format"/>
+            </section>
+        </test>
+        <test expect_failure="true">
+            <section name="general_params">
+            </section>
+            <section name="calculator_params">
+            </section>
+            <section name="clustering_params">
+                <param name="k_points_grid" value="bad format"/>
+            </section>
         </test>
     </tests>
     <help><![CDATA[
