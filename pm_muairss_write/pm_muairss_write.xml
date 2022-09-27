@@ -29,22 +29,25 @@
         <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
+    <required_files>
+        <include type="literal" path="get_out_folder.py"/>
+    </required_files>
     <command detect_errors="exit_code"><![CDATA[
-        structure_name_internal="input_structure.$structure.ext" &&
-        ln -s $structure \$structure_name_internal &&
-        ln -s $params params.yaml &&
+        structure_name_internal='input_structure.$structure.ext' &&
+        ln -s '$structure' \$structure_name_internal &&
+        ln -s '$params' params.yaml &&
         #if str($iscastep.iscastep_sel)=="true":
-            castep_param_name=\$(sed 's/ //g' <<< "$castep_param.name") &&
-            ln -s $castep_param \$castep_param_name &&
-            sed -i '/^castep_param: /{h;s/:.*/: '"\$castep_param_name"'/};\${x;/^$/{s//castep_param: '"\$castep_param_name"'/;H};x}' params.yaml &&
+            castep_param_name=\$(sed 's/ //g' <<< '$castep_param.name') &&
+            ln -s '$castep_param' \$castep_param_name &&
+            sed -i '/^castep_param: /{h;s/:.*/: $castep_param_name/};\${x;/^$/{s//castep_param: $castep_param_name/;H};x}' params.yaml &&
             #if $script_file:
-                script_file_name=\$(sed 's/ //g' <<< "$script_file.name") &&
-                ln -s $script_file \$script_file_name &&
-                sed -i '/^script_file: /{h;s/:.*/: '"\$script_file_name"'/};\${x;/^$/{s//script_file: '"\$script_file_name"'/;H};x}' params.yaml &&
+                script_file_name=\$(sed 's/ //g' <<< '$script_file.name') &&
+                ln -s '$script_file' \$script_file_name &&
+                sed -i '/^script_file: /{h;s/:.*/: \$script_file_name/};\${x;/^$/{s//script_file: \$script_file_name/;H};x}' params.yaml &&
             #end if
         #end if
         pm-muairss -t w \$structure_name_internal params.yaml &&
-        out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
+        out_folder="`python '${__tool_directory__}/get_out_folder.py'`" &&
         #if str($iscastep.iscastep_sel)=="true":
             zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal \$castep_param_name &&
         #else if str($iscastep.iscastep_sel)=="false":
