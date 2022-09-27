@@ -1,4 +1,5 @@
 <tool id="muspinsim_plot" name="MuSpinSim Plot" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+    <description>plot values generated from MuSpinSim</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">3.5.1</token>
@@ -35,7 +36,7 @@
         <include type="literal" path="generate_plot.py"/>
     </required_files>
     <command detect_errors="exit_code"><![CDATA[
-       python ${__tool_directory__}/generate_plot.py inputs.json
+       python '${__tool_directory__}/generate_plot.py' inputs.json
     ]]></command>
     <configfiles>
         <inputs name="inputs" data_style="paths" filename="inputs.json"/>

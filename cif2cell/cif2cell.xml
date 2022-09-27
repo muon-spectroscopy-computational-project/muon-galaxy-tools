@@ -15,8 +15,8 @@
         <requirement type="package" version="2.0.0a3">cif2cell</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        file_name=\$(sed 's/ //g' <<< "$file.name") &&
-        ln -s $file \$file_name &&
+        file_name=\$(sed 's/ //g' <<< '$file.name') &&
+        ln -s '$file' \$file_name &&
         cif2cell -f \$file_name -p castep -o out.cell
     ]]></command>
     <inputs>
