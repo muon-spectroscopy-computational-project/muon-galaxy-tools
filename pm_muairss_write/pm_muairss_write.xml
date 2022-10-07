@@ -4,7 +4,7 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">0.2.1</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">1</token>
+        <token name="@WRAPPER_VERSION@">2</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
@@ -39,7 +39,12 @@
         #if str($iscastep.iscastep_sel)=="true":
             castep_param_name=\$(sed 's/ //g' <<< '$castep_param.name') &&
             ln -s '$castep_param' \$castep_param_name &&
-            sed -i '/^castep_param: /{h;s/:.*/: $castep_param.name/};\${x;/^$/{s//castep_param: $castep_param.name/;H};x}' params.yaml &&
+            sed -i '/^castep_param: /{h;s/:.*/: '"\$castep_param_name"'/};\${x;/^$/{s//castep_param: '"\$castep_param_name"'/;H};x}' params.yaml &&
+            #if $script_file:
+                script_file_name=\$(sed 's/ //g' <<< '$script_file.name') &&
+                ln -s '$script_file' \$script_file_name &&
+                sed -i '/^script_file: /{h;s/:.*/: '"\$script_file_name"'/};\${x;/^$/{s//script_file: '"\$script_file_name"'/;H};x}' params.yaml &&
+            #end if
         #end if
         pm-muairss -t w \$structure_name_internal params.yaml &&
         out_folder="`python '${__tool_directory__}/get_out_folder.py'`" &&
@@ -64,6 +69,7 @@
             </param>
             <when value="true">
                 <param type="data" name="castep_param" label="CASTEP parameter file" format="txt,yaml" help="CASTEP parameters (.param file) for the optimisation stage. These parameters will be copied for each muonated structure."/>
+                <param type="data" name="script_file" label="Submission script template (optional)" format="txt" help="Template script for submitting to an HPC job scheduler. Occurences of {seedname} will be replaced with the unique input directory for each job." optional="true"/>
             </when>
             <when value="false"/>
         </conditional>
@@ -98,6 +104,18 @@
             </conditional>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
+        <!-- CASTEP with spaces in param name -->
+        <test expect_num_outputs="2">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <!-- <param name="params" value="configcastep t with out folder and castep param.yaml" ftype="yaml"/> -->
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="S i.param" ftype="yaml"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
+        </test>
         <!-- CASTEP with no out_folder and no castep_param specified in yaml file -->
         <test expect_num_outputs="2">
             <param name="structure" value="Si.cell" ftype="cell"/>
@@ -108,6 +126,30 @@
                 <param name="castep_param" value="Si.param"/>
             </conditional>
             <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" sort="true" />
+        </test>
+        <!-- CASTEP with script_file not specified in YAML file -->
+        <test expect_num_outputs="2">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param" ftype="txt"/>
+                <param name="script_file" value="submit.sh" ftype="txt"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_script_file.txt" ftype="txt" sort="true" />
+        </test>
+        <!-- CASTEP with script_file specified in YAML file -->
+        <test expect_num_outputs="2">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_script_file.yaml" ftype="yaml"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param" ftype="txt"/>
+                <param name="script_file" value="s u b m i t.sh" ftype="txt"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_script_file.txt" ftype="txt" sort="true" />
         </test>
         <!-- DFTB+ -->
         <test expect_num_outputs="2">
