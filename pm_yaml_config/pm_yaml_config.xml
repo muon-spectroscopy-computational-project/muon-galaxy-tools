@@ -52,6 +52,7 @@
             ([[ ! -z '$calculator_params.calculator_cond.mu_symbol' ]] && printf 'mu_symbol: $calculator_params.calculator_cond.mu_symbol\n'>>outputx.yaml || echo "mu symbol unset") &&
         #else if str($calculator_params.calculator_cond.calculator)=="dftb+":
             ([[ ! -z '$calculator_params.calculator_cond.dftb_set' ]] && printf 'dftb_set: $calculator_params.calculator_cond.dftb_set\n'>>outputx.yaml || ( >&2 echo "dftb parameter set unselected" && exit 2)) &&
+            ([[ ! -z '$calculator_params.calculator_cond.dftb_optionals' ]] && (printf 'dftb_optionals: $calculator_params.calculator_cond.dftb_optionals\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || echo "dftb optional json files unset") &&
             ([[ ! -z '$calculator_params.calculator_cond.dftb_pbc' ]] && printf 'dftb_pbc: $calculator_params.calculator_cond.dftb_pbc\n'>>outputx.yaml || echo "dftb periodic boundary condition unselected") &&
         #else if str($calculator_params.calculator_cond.calculator)=="all":
             ([[ ! -z '$calculator_params.calculator_cond.uep_gw_factor' ]] && printf 'uep_gw_factor: $calculator_params.calculator_cond.uep_gw_factor\n'>>outputx.yaml || echo "uep gaussian width unset") &&
@@ -60,6 +61,7 @@
             ([[ ! -z '$calculator_params.calculator_cond.castep_param' ]] && printf 'castep_param: $calculator_params.calculator_cond.castep_param\n'>>outputx.yaml || echo "CASTEP param unset") &&
             ([[ ! -z '$calculator_params.calculator_cond.mu_symbol' ]] && printf 'mu_symbol: $calculator_params.calculator_cond.mu_symbol\n'>>outputx.yaml || echo "mu symbol unset") &&
             ([[ ! -z '$calculator_params.calculator_cond.dftb_set' ]] && printf 'dftb_set: $calculator_params.calculator_cond.dftb_set\n'>>outputx.yaml || echo "dftb parameter set unselected") &&
+            ([[ ! -z '$calculator_params.calculator_cond.dftb_optionals' ]] && (printf 'dftb_optionals: $calculator_params.calculator_cond.dftb_optionals\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || echo "dftb optional json files unset") &&
             ([[ ! -z '$calculator_params.calculator_cond.dftb_pbc' ]] && printf 'dftb_pbc: $calculator_params.calculator_cond.dftb_pbc\n'>>outputx.yaml || echo "dftb periodic boundary condition unselected") &&
         #end if
         ([[ ! -z '$clustering_params.clustering.clustering_method' ]] && printf 'clustering_method: $clustering_params.clustering.clustering_method\n'>>outputx.yaml || ( echo "clustering method unselected" && exit 2)) &&
@@ -106,7 +108,7 @@
                         <option value="3ob-3-1" selected="true">3ob-3-1</option>
                         <option value="pbc-0-3">pbc-0-3</option>
                     </param>
-                    <param type="text" argument="dftb_optionals" name="dftb_optionals" value="[]" optional="true" label="DFTB optional files" help="Additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
+                    <param type="text" argument="dftb_optionals" value="[]" optional="true" label="DFTB optional files" help="List of additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
                     <param type="select" argument="dftb_pbc" optional="true" value="true" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+.">
                         <option value="true" selected="true">true</option>
                         <option value="false">false</option>
@@ -122,7 +124,7 @@
                         <option value="3ob-3-1" selected="true">3ob-3-1</option>
                         <option value="pbc-0-3">pbc-0-3</option>
                     </param>
-                    <param type="text" argument="dftb_optionals" name="dftb_optionals" value="[]" optional="true" label="DFTB optional files" help="Additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
+                    <param type="text" argument="dftb_optionals" value="[]" optional="true" label="DFTB optional files" help="List of additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
                     <param type="select" argument="dftb_pbc" optional="true" value="true" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+.">
                         <option value="true" selected="true">true</option>
                         <option value="false">false</option>
@@ -192,6 +194,30 @@
             <section name="clustering_params">
             </section>
             <output name="out_yaml" file="config-default.yaml" ftype="yaml" delta="100"/>
+        </test>
+        <test expect_num_outputs="1">
+            <section name="general_params">
+            </section>
+            <section name="calculator_params">
+                <conditional name="calculator_cond">
+                    <param name="calculator" value="dftb+"/>
+                </conditional>
+            </section>
+            <section name="clustering_params">
+            </section>
+            <output name="out_yaml" file="config-dftb.yaml" ftype="yaml" delta="100"/>
+        </test>
+        <test expect_num_outputs="1">
+            <section name="general_params">
+            </section>
+            <section name="calculator_params">
+                <conditional name="calculator_cond">
+                    <param name="calculator" value="all"/>
+                </conditional>
+            </section>
+            <section name="clustering_params">
+            </section>
+            <output name="out_yaml" file="config-all.yaml" ftype="yaml" delta="100"/>
         </test>
         <test expect_failure="true">
             <section name="general_params">
