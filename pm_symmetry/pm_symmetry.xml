@@ -1,4 +1,4 @@
-<tool id="pm_symmetry" name="PyMuonSuite Symmetry" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="GPL-3.0-only">
+<tool id="pm_symmetry" name="PyMuonSuite Symmetry" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
     <description>generate Wyckoff points symmetry report</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
@@ -63,6 +63,8 @@
         usage: pm-symmetry structure
 
         Given an input structure, generates a Wyckoff points symmetry report for that structure.
+        
+        Note that while this tool uses the MIT license, PyMuonSuite itself is distributed under GPLv3.
     ]]></help>
     <citations>
         <citation type="bibtex">

@@ -1,4 +1,4 @@
-<tool id="pm_muairss_read" name="PyMuonSuite AIRSS Cluster" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="GPL-3.0-only">
+<tool id="pm_muairss_read" name="PyMuonSuite AIRSS Cluster" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
     <description>run clustering for optimised structures</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
@@ -88,6 +88,8 @@
         'Generate muon structures' tool or pm-muairss.
 
         Command-line usage: pm-muairss [-h] -t r structures parameter_file
+
+        Note that while this tool uses the MIT license, PyMuonSuite itself is distributed under GPLv3.
     ]]></help>
     <citations>
         <citation type="bibtex">

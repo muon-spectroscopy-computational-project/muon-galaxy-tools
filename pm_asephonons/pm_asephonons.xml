@@ -1,4 +1,4 @@
-<tool id="pm_asephonons" name="PyMuonSuite Phonons" version="0.1.1" python_template_version="3.5" profile="22.01" license="GPL-3.0-only">
+<tool id="pm_asephonons" name="PyMuonSuite Phonons" version="0.1.1" python_template_version="3.5" profile="22.01" license="MIT">
     <description>calculate phonons using ASE and DFTB+</description>
     <macros>
         <!-- citation should be updated with every underlying tool version -->
@@ -110,6 +110,7 @@
 
         Given an input structure, this tool generates a phonon report for that structure using the parameters provided.
 
+        Note that while this tool uses the MIT license, PyMuonSuite itself is distributed under GPLv3.
     ]]></help>
     <citations>
         <citation type="bibtex">

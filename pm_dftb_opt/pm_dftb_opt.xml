@@ -1,4 +1,4 @@
-<tool id="pm_dftb_opt" name="PyMuonSuite AIRSS DFTB+ Optimise" version="0.1.1" python_template_version="3.5" profile="22.01" license="GPL-3.0-only">
+<tool id="pm_dftb_opt" name="PyMuonSuite AIRSS DFTB+ Optimise" version="0.1.1" python_template_version="3.5" profile="22.01" license="MIT">
     <description>run DFTB+ optimisation</description>
     <macros>
         <!-- citation should be updated with every underlying tool version -->
@@ -70,6 +70,8 @@
     <help><![CDATA[
         usage: dftb+
         Given some input muonated structures (structures containing a muon), applies DFTB+ optimization to refine them.
+        
+        Note that while this tool uses the MIT license, PyMuonSuite itself is distributed under GPLv3.
 
         **LICENSE**
 

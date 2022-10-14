@@ -1,4 +1,4 @@
-<tool id="pm_yaml_config" name="PyMuonSuite AIRSS Configure" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="GPL-3.0-only">
+<tool id="pm_yaml_config" name="PyMuonSuite AIRSS Configure" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
     <description>define AIRSS parameters</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
@@ -214,6 +214,8 @@
     </tests>
     <help><![CDATA[
         Creates a YAML configuration file from input parameters.
+
+        Note that while this tool uses the MIT license, PyMuonSuite itself is distributed under GPLv3.
 
       **DFTB+ parameter sets:**
 
