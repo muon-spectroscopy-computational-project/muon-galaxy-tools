@@ -30,9 +30,9 @@
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         ## remove spaces in names
-        mu_sim_name=\$(sed 's/ //g' <<< "$mu_sim.name") &&
+        mu_sim_name=\$(sed 's/ //g' <<< '$mu_sim.name') &&
         ## create links
-        ln -s $mu_sim \$mu_sim_name &&
+        ln -s '$mu_sim' \$mu_sim_name &&
         ## grab 'name' field from input file, if it doesn't exist, set name as 'muspinsim'
         mu_out=\$(grep -A1 '^name' \$mu_sim_name | grep -v 'name' | sed -e 's/^[ \t]*//') &&
         fitreport_out=\${mu_out:-"fitting_data"}_fitreport.txt &&
@@ -40,10 +40,10 @@
         log_out=\$(echo \$mu_sim_name | cut -d '.' -f1).log &&
         ## if fitting data required, check if fitting data exists
         ## create symlink and change filepath in input file to point to symlink
-        if grep '^fitting_data' $mu_sim; then
+        if grep '^fitting_data' '$mu_sim'; then
             if [[ '$mu_exp_in.name' != 'None' ]]; then
-                mu_exp_in_name=\$(sed 's/ //g' <<< "$mu_exp_in.name") &&
-                ln -s $mu_exp_in \$mu_exp_in_name &&
+                mu_exp_in_name=\$(sed 's/ //g' <<< '$mu_exp_in.name') &&
+                ln -s '$mu_exp_in' \$mu_exp_in_name &&
                 sed -iE "/^fitting_data/{n;s/([^)]*)/(\"\$mu_exp_in_name\")/g}" \$mu_sim_name;
             else
                 echo "fitting data required, but no experiment data given" && exit 64;
@@ -71,14 +71,14 @@
     <tests>
         <!-- log files have a timestamp on each line, and .dat files vary by machine
                 so use compare="re_match" or "contains" with some generalised test files -->
-        <test>
+        <test expect_num_outputs="2">
             <param name="mu_sim" value="hfine.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
                 <element name="hfine.dat" file="hfine.dat" ftype="txt" lines_diff="4"/>
             </output_collection>
             <output name="log_out" file="hfine.log" ftype="txt" compare="re_match"/>
         </test>
-        <test>
+        <test expect_num_outputs="2">
             <param name="mu_sim" value="hfine_powder.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
                 <element name="muspinsim.dat" file="generic_out.dat" ftype="txt" compare="re_match_multiline">
@@ -93,7 +93,7 @@
                 </assert_contents>
             </output>
         </test>
-        <test>
+        <test expect_num_outputs="3">
             <param name="mu_sim" value="fitting.in" ftype="txt"/>
             <param name="mu_exp_in" value="fitting_input.dat" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
@@ -106,7 +106,7 @@
             </output>
             <output name="fit_report" file="fitting_fitreport.txt" ftype="txt" lines_diff="4"/>
         </test>
-        <test>
+        <test expect_num_outputs="2">
             <param name="mu_sim" value="multi_out.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
                 <element name="multi_out_0_0.dat" file="multi_out_0_0.dat" ftype="txt" compare="re_match_multiline">

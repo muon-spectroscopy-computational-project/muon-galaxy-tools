@@ -4,7 +4,7 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">0.2.1</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">1</token>
+        <token name="@WRAPPER_VERSION@">2</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
@@ -29,17 +29,25 @@
         <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
+    <required_files>
+        <include type="literal" path="get_out_folder.py"/>
+    </required_files>
     <command detect_errors="exit_code"><![CDATA[
-        structure_name_internal="input_structure.$structure.ext" &&
-        ln -s $structure \$structure_name_internal &&
-        ln -s $params params.yaml &&
+        structure_name_internal='input_structure.$structure.ext' &&
+        ln -s '$structure' \$structure_name_internal &&
+        ln -s '$params' params.yaml &&
         #if str($iscastep.iscastep_sel)=="true":
-            castep_param_name=\$(sed 's/ //g' <<< "$castep_param.name") &&
-            ln -s $castep_param \$castep_param_name &&
-            sed -i '/^castep_param: /{h;s/:.*/: $castep_param.name/};\${x;/^$/{s//castep_param: $castep_param.name/;H};x}' params.yaml &&
+            castep_param_name=\$(sed 's/ //g' <<< '$castep_param.name') &&
+            ln -s '$castep_param' \$castep_param_name &&
+            sed -i '/^castep_param: /{h;s/:.*/: '"\$castep_param_name"'/};\${x;/^$/{s//castep_param: '"\$castep_param_name"'/;H};x}' params.yaml &&
+            #if $script_file:
+                script_file_name=\$(sed 's/ //g' <<< '$script_file.name') &&
+                ln -s '$script_file' \$script_file_name &&
+                sed -i '/^script_file: /{h;s/:.*/: '"\$script_file_name"'/};\${x;/^$/{s//script_file: '"\$script_file_name"'/;H};x}' params.yaml &&
+            #end if
         #end if
         pm-muairss -t w \$structure_name_internal params.yaml &&
-        out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
+        out_folder="`python '${__tool_directory__}/get_out_folder.py'`" &&
         #if str($iscastep.iscastep_sel)=="true":
             zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal \$castep_param_name &&
         #else if str($iscastep.iscastep_sel)=="false":
@@ -61,6 +69,7 @@
             </param>
             <when value="true">
                 <param type="data" name="castep_param" label="CASTEP parameter file" format="txt,yaml" help="CASTEP parameters (.param file) for the optimisation stage. These parameters will be copied for each muonated structure."/>
+                <param type="data" name="script_file" label="Submission script template (optional)" format="txt" help="Template script for submitting to an HPC job scheduler. Occurences of {seedname} will be replaced with the unique input directory for each job." optional="true"/>
             </when>
             <when value="false"/>
         </conditional>
@@ -95,6 +104,18 @@
             </conditional>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
+        <!-- CASTEP with spaces in param name -->
+        <test expect_num_outputs="2">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <!-- <param name="params" value="configcastep t with out folder and castep param.yaml" ftype="yaml"/> -->
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="S i.param" ftype="yaml"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
+        </test>
         <!-- CASTEP with no out_folder and no castep_param specified in yaml file -->
         <test expect_num_outputs="2">
             <param name="structure" value="Si.cell" ftype="cell"/>
@@ -105,6 +126,30 @@
                 <param name="castep_param" value="Si.param"/>
             </conditional>
             <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" sort="true" />
+        </test>
+        <!-- CASTEP with script_file not specified in YAML file -->
+        <test expect_num_outputs="2">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param" ftype="txt"/>
+                <param name="script_file" value="submit.sh" ftype="txt"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_script_file.txt" ftype="txt" sort="true" />
+        </test>
+        <!-- CASTEP with script_file specified in YAML file -->
+        <test expect_num_outputs="2">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_script_file.yaml" ftype="yaml"/>
+            <conditional name="iscastep">
+                <param name="iscastep_sel" value="true"/>
+                <param name="castep_param" value="Si.param" ftype="txt"/>
+                <param name="script_file" value="s u b m i t.sh" ftype="txt"/>
+            </conditional>
+            <output name="file_tree" file="tree_castep_t_with_script_file.txt" ftype="txt" sort="true" />
         </test>
         <!-- DFTB+ -->
         <test expect_num_outputs="2">
@@ -185,60 +230,9 @@
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/}
             }
         </citation>
-        <citation type="bibtex">
-            @article{airss,
-                author = {Liborio, L. and Sturniolo, S. and Jochym, D.},
-                title = {Computational prediction of muon stopping sites using ab initio random structure searching (AIRSS)},
-                journal = {The Journal of Chemical Physics},
-                volume = {148},
-                pages = {134114},
-                year = {2018},
-                doi={10.1063/1.5024450},
-                URL={
-                    https://doi.org/10.1063/1.5024450
-                },
-                eprint={
-                    https://doi.org/10.1063/1.5024450
-                }
-            }
-        </citation>
-        <citation type="bibtex">
-            @article{doi:10.1063/1.5085197,
-                author = {Sturniolo,Simone  and Liborio,Leandro  and Jackson,Samuel },
-                title = {Comparison between density functional theory and density functional tight binding approaches for finding the muon stopping site in organic molecular crystals},
-                journal = {The Journal of Chemical Physics},
-                volume = {150},
-                number = {15},
-                pages = {154301},
-                year = {2019},
-                doi = {10.1063/1.5085197},
-                URL = {
-                        https://doi.org/10.1063/1.5085197
-                },
-                eprint = {
-                        https://doi.org/10.1063/1.5085197
-                }
-            }
-        </citation>
-        <citation type="bibtex">
-            @article{doi:10.1063/5.0012381,
-                author = {Sturniolo,Simone  and Liborio,Leandro },
-                title = {Computational prediction of muon stopping sites: A novel take on the unperturbed electrostatic potential method},
-                journal = {The Journal of Chemical Physics},
-                volume = {153},
-                number = {4},
-                pages = {044111},
-                year = {2020},
-                doi = {10.1063/5.0012381},
-                URL = {
-                        https://doi.org/10.1063/5.0012381
-                },
-                eprint = {
-                        https://doi.org/10.1063/5.0012381
-                },
-                abstract = { Finding the stopping site of the muon in a muon-spin relaxation experiment is one of the main problems of muon spectroscopy, and computational techniques that make use of quantum chemistry simulations can be of great help when looking for this stopping site. The most thorough approach would require the use of simulations, such as Density Functional Theory (DFT), to test and optimize multiple possible sites, accounting for the effect that the added muon has on its surroundings. However, this can be computationally expensive and sometimes unnecessary. Hence, in this work, we present a software implementation of the Unperturbed Electrostatic Potential (UEP) Method: an approach used for finding the muon stopping site in crystalline materials. The UEP method requires only one DFT calculation, necessary to compute the electronic density. This, in turn, is used to calculate the minima of the crystalline material’s electrostatic potential and the estimates of the muon stopping site, relying on the approximation that the muon’s presence does not significantly affect its surroundings. One of the main UEP’s assumptions is that the muon stopping site will be one of the crystalline material’s electrostatic potential minima. In this regard, we also propose some symmetry-based considerations about the properties of this crystalline material’s electrostatic potential, in particular, which sites are more likely to be its minima and why the unperturbed approximation may be sufficiently robust for them. We introduce the Python software package pymuon-suite and the various utilities it provides to facilitate these calculations, and finally, we demonstrate the effectiveness of the method with some chosen example systems. }
-            }
-        </citation>
+        <citation type="doi">10.1063/1.5024450</citation>
+        <citation type="doi">10.1063/1.5085197</citation>
+        <citation type="doi">10.1063/5.0012381</citation>
         <citation type="bibtex">
             @TOOL_CITATION@
         </citation>
