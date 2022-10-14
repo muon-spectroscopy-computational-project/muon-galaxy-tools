@@ -28,9 +28,13 @@
     <requirements>
         <requirement type="package" version="@TOOL_VERSION@">muspinsim</requirement>
     </requirements>
+    <required_files>
+        <include type="literal" path="sample_fitting_data.dat"/>
+        <include type="literal" path="build_file.py"/>
+    </required_files>
     <command detect_errors="exit_code"><![CDATA[
-        cp ${__tool_directory__}/sample_fitting_data.dat ./fitting_data.dat &&
-        python ${__tool_directory__}/build_file.py inputs.json
+        cp '${__tool_directory__}/sample_fitting_data.dat' ./fitting_data.dat &&
+        python '${__tool_directory__}/build_file.py' inputs.json
     ]]></command>
     <configfiles>
         <inputs name="inputs" filename="inputs.json" />
@@ -309,7 +313,7 @@
         <data format="txt" label="muspinsim input file $out_file_prefix" name="out_file" from_work_dir="outfile.in" />
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_1"/>
             <param name="spin_preset" value="custom"/>
             <param name="spin" value="H"/>
@@ -321,7 +325,7 @@
             <param name="zeeman_vector" value="2 0 0" />
             <output name="out_file" file="test_1.in" ftype="txt" compare="diff" />
         </test>
-        <test>
+        <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_2"/>
             <param name="spin_preset" value="e"/>
             <param name="spin_preset" value="mu"/>
@@ -334,7 +338,7 @@
             <param name="temperature" value="1.0" />
             <output name="out_file" file="test_2.in" ftype="txt" compare="diff" />
         </test>
-        <test>
+        <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_3"/>
             <param name="spin_preset" value="custom"/>
             <param name="spin" value="H"/>
@@ -353,7 +357,7 @@
             <param name="zcw_n" value="20" />
             <output name="out_file" file="test_3.in" ftype="txt" compare="diff" />
         </test>
-        <test>
+        <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_4"/>
             <param name="spin_preset" value="custom"/>
             <param name="spin" value="F"/>
@@ -383,7 +387,7 @@
             <param name="eul_n" value="10"/>
             <output name="out_file" file="test_4.in" ftype="txt" compare="diff" />
         </test>
-        <test>
+        <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_5"/>
             <param name="spin_preset" value="mu"/>
             <param name="interaction" value="dissipation"/>
@@ -465,18 +469,7 @@
         - Scipy default tolerance is :code:`1e-5`
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @article{nelder_mead_1965,
-                title={A Simplex Method for Function Minimization},
-                volume={7},
-                doi={10.1093/comjnl/7.4.308},
-                number={4},
-                journal={The Computer Journal},
-                author={Nelder, J. A. and Mead, R.},
-                year={1965},
-                pages={308-313}
-            }
-        </citation>
+        <citation type="doi">10.1093/comjnl/7.4.308</citation>
         <citation type="bibtex">
             @book{nocedal_wright_2006,
                 place={New York (NY)},
