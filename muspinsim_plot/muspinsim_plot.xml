@@ -45,7 +45,7 @@
         <param type="text" name="title" label="Plot Title" value=""/>
         <param type="text" name="xlab" label="Label for x axis" value=""/>
         <param type="text" name="ylab" label="Label for y axis" value=""/>
-        <param name="out_file_type" type="select" label="Output File Type">
+        <param name="out_file_type" type="select" label="Output File Type" display="radio">
             <option value="pdf">PDF</option>
             <option value="png">PNG</option>
         </param>

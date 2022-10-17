@@ -36,19 +36,19 @@
         structure_name_internal='input_structure.$structure.ext' &&
         ln -s '$structure' \$structure_name_internal &&
         ln -s '$params' params.yaml &&
-        #if str($iscastep.iscastep_sel)=="true":
+        #if $castep_param:
             castep_param_name=\$(sed 's/ //g' <<< '$castep_param.name') &&
             ln -s '$castep_param' \$castep_param_name &&
             sed -i '/^castep_param: /{h;s/:.*/: $castep_param.name/};\${x;/^$/{s//castep_param: $castep_param.name/;H};x}' params.yaml &&
         #end if
         pm-muairss -t w \$structure_name_internal params.yaml &&
         out_folder="`python '${__tool_directory__}/get_out_folder.py'`" &&
-        #if str($iscastep.iscastep_sel)=="true":
+        #if $castep_param:
             zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal \$castep_param_name &&
-        #else if str($iscastep.iscastep_sel)=="false":
+        #else:
             zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal &&
         #end if
-        #if $testing=="true" and str($iscastep.iscastep_sel)=="true":
+        #if $testing=="true" and $castep_param:
             grep "castep_param" params.yaml > tree.txt &&
         #end if
         find \$out_folder >> tree.txt
@@ -57,16 +57,7 @@
     <inputs>
         <param type="data" name="structure" label="Structure file" format="cell, cif, xyz, extxyz" help="The structure to add muons to. The original file will be preserved. Accepted file types: CELL, CIF, XYZ (standard or extended)."/>
         <param type="data" name="params" label="YAML parameter file" format="yaml" help="YAML parameters for this and subsequent tools. You can create this file using the [YAML config generator] tool."/>
-        <conditional name="iscastep">
-            <param type="boolean" value="false" name="iscastep_sel" label="Does your configuration use the CASTEP calculator?" help="Select 'Yes' if the 'calculator' parameter is set to 'castep' in your chosen YAML file (not case sensitive).">
-                <option value="false">no</option>
-                <option value="true">yes</option>
-            </param>
-            <when value="true">
-                <param type="data" name="castep_param" label="CASTEP parameter file" format="txt,yaml" help="CASTEP parameters (.param file) for the optimisation stage. These parameters will be copied for each muonated structure."/>
-            </when>
-            <when value="false"/>
-        </conditional>
+        <param type="data" name="castep_param" optional="true" label="CASTEP parameter file" format="txt,yaml" help="CASTEP parameters (.param file) for the optimisation stage. These parameters will be copied for each muonated structure. Only required when the 'calculator' parameter is set to 'castep' in your chosen YAML file."/>
         <param type="hidden" name="testing" label="Test mode" value="false"/>
     </inputs>
     <outputs>
@@ -81,10 +72,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param" ftype="txt"/>
-            </conditional>
+            <param name="castep_param" value="Si.param" ftype="txt"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
         <!-- CASTEP with out_folder and castep_param specified, param as yaml -->
@@ -92,10 +80,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param" ftype="yaml"/>
-            </conditional>
+            <param name="castep_param" value="Si.param" ftype="yaml"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
         <!-- CASTEP with no out_folder and no castep_param specified in yaml file -->
@@ -103,10 +88,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_no_out_folder_no_castep_param.yaml" ftype="yaml"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param"/>
-            </conditional>
+            <param name="castep_param" value="Si.param"/>
             <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
         <!-- DFTB+ -->

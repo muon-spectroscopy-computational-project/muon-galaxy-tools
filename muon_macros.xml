@@ -1,0 +1,12 @@
+<macros>
+    <xml name="dftb+">
+        <param type="select" name="dftb_set" value="3ob-3-1" display="radio" label="DFTB parameter set" help="The parameter set to use for DFTB+. Currently supported are: 3ob-3-1 and pbc-0-3. See help section at the bottom of the page for details.">
+            <option value="3ob-3-1">3ob-3-1</option>
+            <option value="pbc-0-3">pbc-0-3</option>
+        </param>
+        <param type="boolean" name="dftb_pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." value="true"/>
+    </xml>
+    <xml name="dftb_optionals">
+        <param type="text" argument="dftb_optionals" name="dftb_optionals" value="[]" optional="true" label="DFTB optional files" help="Additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
+    </xml>
+</macros>
