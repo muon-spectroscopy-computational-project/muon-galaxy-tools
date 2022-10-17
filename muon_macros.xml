@@ -4,7 +4,7 @@
             <option value="3ob-3-1">3ob-3-1</option>
             <option value="pbc-0-3">pbc-0-3</option>
         </param>
-        <param type="boolean" name="dftb_pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." value="true"/>
+        <param type="boolean" name="dftb_pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." checked="true"/>
     </xml>
     <xml name="dftb_optionals">
         <param type="text" argument="dftb_optionals" name="dftb_optionals" value="[]" optional="true" label="DFTB optional files" help="Additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>

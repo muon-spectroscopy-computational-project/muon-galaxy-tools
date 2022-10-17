@@ -36,6 +36,7 @@
         structure_name_internal='input_structure.$structure.ext' &&
         ln -s '$structure' \$structure_name_internal &&
         ln -s '$params' params.yaml &&
+        echo '$castep_param' &&
         #if $castep_param:
             castep_param_name=\$(sed 's/ //g' <<< '$castep_param.name') &&
             ln -s '$castep_param' \$castep_param_name &&
@@ -108,12 +109,8 @@
         <test expect_num_outputs="2">
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
-            <!-- <param name="params" value="configcastep t with out folder and castep param.yaml" ftype="yaml"/> -->
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="S i.param" ftype="yaml"/>
-            </conditional>
+            <param name="castep_param" value="S i.param" ftype="yaml"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
         <!-- CASTEP with no out_folder and no castep_param specified in yaml file -->
@@ -130,10 +127,7 @@
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <param name="allpos_ext" value="xyz"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param" ftype="yaml"/>
-            </conditional>
+            <param name="castep_param" value="Si.param" ftype="yaml"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
             <output name="allpos_file" file="allpos.xyz" />
         </test>
@@ -143,10 +137,7 @@
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <param name="allpos_ext" value="cell"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param" ftype="yaml"/>
-            </conditional>
+            <param name="castep_param" value="Si.param" ftype="yaml"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
             <output name="allpos_file" file="allpos.cell" />
         </test>
@@ -156,10 +147,7 @@
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <param name="allpos_ext" value="cif"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param" ftype="yaml"/>
-            </conditional>
+            <param name="castep_param" value="Si.param" ftype="yaml"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
             <output name="allpos_file" file="allpos.cif" />
         </test>
@@ -168,11 +156,8 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param" ftype="txt"/>
-                <param name="script_file" value="submit.sh" ftype="txt"/>
-            </conditional>
+            <param name="castep_param" value="Si.param" ftype="txt"/>
+            <param name="script_file" value="submit.sh" ftype="txt"/>
             <output name="file_tree" file="tree_castep_t_with_script_file.txt" ftype="txt" sort="true" />
         </test>
         <!-- CASTEP with script_file specified in YAML file -->
@@ -180,11 +165,8 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_script_file.yaml" ftype="yaml"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param" ftype="txt"/>
-                <param name="script_file" value="s u b m i t.sh" ftype="txt"/>
-            </conditional>
+            <param name="castep_param" value="Si.param" ftype="txt"/>
+            <param name="script_file" value="s u b m i t.sh" ftype="txt"/>
             <output name="file_tree" file="tree_castep_t_with_script_file.txt" ftype="txt" sort="true" />
         </test>
         <!-- DFTB+ -->
