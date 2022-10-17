@@ -74,16 +74,16 @@
     ]]></command>
     <inputs>
         <section name="general_params" expanded="true" title="General Parameters">
-            <param type="float" argument="poisson_r" value="0.8" label="Poisson radius" help=" Poisson sphere radius to use for random generation. No two starting muon positions will be closer than this distance. Smaller values make for bigger structure sets."/>
+            <param type="float" argument="poisson_r" value="0.8" min="0.0" label="Poisson radius" help=" Poisson sphere radius to use for random generation. No two starting muon positions will be closer than this distance. Smaller values make for bigger structure sets."/>
             <param type="text" argument="name" value="struct" label="Name" help="Name of the structure. This name will be postfixed with a unique number, e.g. struct_001 for each generated structure."/>
             <param type="select" argument="charged" label="Charged muon" value="true" help="If true, the muon will be considered charged instead of a muonium with an accompanying electron. Must be true for UEP calculations.">
                 <option value="true">true</option>
                 <option value="false">false</option>
             </param>
-            <param type="integer" argument="geom_steps" value="30" label="Geometry optimization steps" help="Maximum number of geometry optimisation steps."/>
-            <param type="float" argument="vdw_scale" value="0.5" label="Van der Waals scale" help="Van der Waals scaling factor to use when generating muon sites to avoid existing atoms. Smaller values will allow muons to get closer to the other ions."/>
+            <param type="integer" argument="geom_steps" value="30" min="0" label="Geometry optimization steps" help="Maximum number of geometry optimisation steps."/>
+            <param type="float" argument="vdw_scale" value="0.5" min="0.0" label="Van der Waals scale" help="Van der Waals scaling factor to use when generating muon sites to avoid existing atoms. Smaller values will allow muons to get closer to the other ions."/>
             <param type="text" argument="out_folder" optional="true" value="muon-airss-out" label="Output folder name" help="Name to call the output folder used to store the files that the script generates."/>
-            <param type="float" argument="geom_force_tol" value="0.05" label="Geometry optimization tolerance" help="Tolerance on geometry optimisation in units of eV/Å."/>
+            <param type="float" argument="geom_force_tol" value="0.05" min="0.0" label="Geometry optimization tolerance" help="Tolerance on geometry optimisation in units of eV/Å."/>
             <param type="integer" argument="random_seed" label="Random Seed" optional="true" help="Random seed for pymuonsuite."/>
         </section>
         <section name="calculator_params" expanded="true" title="Calculator parameters">
@@ -95,7 +95,7 @@
                     <option value="all">all</option>
                 </param>
                 <when value="uep">
-                    <param type="float" argument="uep_gw_factor" optional="true" value="5.0" label="Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
+                    <param type="float" argument="uep_gw_factor" optional="true" value="5.0" min="0.0" label="Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
                     <param type="text" argument="uep_chden" optional="true" label="Path to .den_fmt and .castep files" help="Name of the .den_fmt file containing the electronic density for an Unperturbed Electrostatic Potential optimisation. The corresponding .castep file must be with the same seedname. Only required for use outside Muon Galaxy"/>
                 </when>
                 <when value="castep">
@@ -115,7 +115,7 @@
                     </param>
                 </when>
                 <when value="all">
-                    <param type="float" argument="uep_gw_factor" optional="true" value="5.0" label="Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
+                    <param type="float" argument="uep_gw_factor" optional="true" value="5.0" min="0.0" label="Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
                     <param type="text" argument="uep_chden" optional="true" label="Path to .den_fmt and CASTEP files" help="Name of the .den_fmt file containing the electronic density for an Unperturbed Electrostatic Potential optimisation. The corresponding .castep file must be with the same seedname. Only required for use outside Muon Galaxy"/>
                     <param type="text" argument="castep_command" optional="true" value="castep.serial" label="CASTEP command" help="Command to use to run CASTEP."/>
                     <param type="text" argument="castep_param" optional="true" label="PARAM path" help="File path to the CASTEP parameter file."/>
@@ -139,10 +139,10 @@
                     <option value="kmeans">k-means</option>
                 </param>
                 <when value="hier">
-                    <param type="float" argument="clustering_hier_t" value="0.3" optional="true" label="t parameter for hierarchical clustering"/>
+                    <param type="float" argument="clustering_hier_t" value="0.3" min="0.0" optional="true" label="t parameter for hierarchical clustering"/>
                 </when>
                 <when value="kmeans">
-                    <param type="integer" argument="clustering_kmeans_k" value="4" optional="true" label="Number of clusters for k-means clustering"/>
+                    <param type="integer" argument="clustering_kmeans_k" value="4" min="0" optional="true" label="Number of clusters for k-means clustering"/>
                 </when>
             </conditional>
             <param type="text" argument="supercell" value="1" label="Supercell" help="Supercell size and shape to use. This can either be a single int, a list of three integers or a 3x3 matrix of integers. For a single number a diagonal matrix will be generated with the integer repeated on the diagonals. For a list of three numbers a diagonal matrix will be generated where the diagonal elements are set to the list. A matrix will be used directly as is. Default is a 3x3 identity matrix.">
@@ -151,7 +151,7 @@
             <param type="text" argument="k_points_grid" value="[1,1,1]" label="K-points grid" help="List of three integer k-points. Default is [1,1,1].">
                 <validator type="regex" message="Input should only contain whitespace, '[', ']', ',' and digits.">^[\s\d,\[\]]+$</validator>
             </param>
-            <param type="integer" argument="max_scc_steps" value="200" optional="true" label="Max SCC steps" help="If applicable, max number of SCC steps to perform before giving up. Default is 200 for DFTB+ and 30 for CASTEP."/>
+            <param type="integer" argument="max_scc_steps" value="200" min="0" optional="true" label="Max SCC steps" help="If applicable, max number of SCC steps to perform before giving up. Default is 200 for DFTB+ and 30 for CASTEP."/>
         </section>
     </inputs>
     <outputs>
