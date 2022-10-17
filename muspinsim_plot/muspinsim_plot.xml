@@ -1,4 +1,4 @@
-<tool id="muspinsim_plot" name="MuSpinSim Plot" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="muspinsim_plot" name="MuSpinSim Plot" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
     <description>plot values generated from MuSpinSim</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->

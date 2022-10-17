@@ -1,4 +1,4 @@
-<tool id="cif2cell" name="cif2cell" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="cif2cell" name="cif2cell" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
     <description>convert .cif file to .cell</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
@@ -40,6 +40,8 @@
 
         Given an input .cif structure file, convert to equivalent .cell structure file.
         Uses electronic structure program 'castep'
+
+        cif2cell is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
     ]]></help>
     <citations>
         <citation type="doi">10.1016/j.cpc.2011.01.013</citation>

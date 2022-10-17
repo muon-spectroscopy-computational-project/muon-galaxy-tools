@@ -1,4 +1,4 @@
-<tool id="pm_yaml_config" name="PyMuonSuite AIRSS Configure" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="pm_yaml_config" name="PyMuonSuite AIRSS Configure" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
     <description>define AIRSS parameters</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
@@ -12,7 +12,7 @@
         <token name="@TOOL_CITATION@">
             @software{pymuon-suite,
                 author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and {Muon Spectroscopy Computational Project}},
-                license = {GPL-3.0},
+                license = {GPL-3.0-only},
                 title = {{pymuon-suite}},
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
                 version = {v0.2.1},
@@ -240,6 +240,8 @@
     </tests>
     <help><![CDATA[
         Creates a YAML configuration file from input parameters.
+
+        PyMuonSuite is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
 
       **DFTB+ parameter sets:**
 
