@@ -178,7 +178,7 @@
         .. _YAML config generator: /tool_runner?tool_id=pm_yaml_config
         .. _Generate UEP outputs: /tool_runner?tool_id=pm_uep_opt_write
 
-        Note that while this tool uses the MIT license, PyMuonSuite itself is distributed under GPLv3.
+        PyMuonSuite is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
     ]]></help>
     <citations>
         <citation type="bibtex">

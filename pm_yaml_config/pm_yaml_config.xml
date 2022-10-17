@@ -215,7 +215,7 @@
     <help><![CDATA[
         Creates a YAML configuration file from input parameters.
 
-        Note that while this tool uses the MIT license, PyMuonSuite itself is distributed under GPLv3.
+        PyMuonSuite is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
 
       **DFTB+ parameter sets:**
 
