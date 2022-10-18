@@ -85,9 +85,10 @@
             <param name="structure" value="Si.xyz" ftype="xyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
+            <param name="dftb_pbc" value="false"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
-                    <has_size value="8255" delta="20"/>
+                    <has_size value="8155" delta="20"/>
                 </assert_contents>
             </output>
         </test>
