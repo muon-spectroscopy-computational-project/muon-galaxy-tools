@@ -15,6 +15,7 @@
                 doi = {}
             }
         </token>
+        <import>muon_macros.xml</import>
     </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
@@ -36,7 +37,7 @@
         ([[ ! -z '$kpoint_grid' ]] && ( printf 'kpoint_grid: $kpoint_grid \n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "kpoint_grid empty" && exit 2)) &&
         ([[ ! -z '$force_tol' ]] && printf 'force_tol: $force_tol \n'>>pho_params.yaml || ( >&2 echo "force_tol empty" && exit 2)) &&
         ([[ ! -z '$dftb_set' ]] && printf 'dftb_set: $dftb_set \n'>>pho_params.yaml || ( >&2 echo "dftb_set empty" && exit 2)) &&
-        ([[ ! -z '$pbc' ]] && printf 'pbc: $pbc \n'>>pho_params.yaml || ( >&2 echo "pbc empty" && exit 2)) &&
+        ([[ ! -z '$dftb_pbc' ]] && printf 'pbc: $dftb_pbc \n'>>pho_params.yaml || ( >&2 echo "pbc empty" && exit 2)) &&
         printf "force_clean: false \n">>pho_params.yaml &&
         ln -s '$structure' \$structure_name_internal &&
         cat pho_params.yaml &&
@@ -53,11 +54,7 @@
         <param type="text" name="phonon_kpoint_grid" label="Phonon k-points" value="[1, 1, 1]"/>
         <param type="text" name="kpoint_grid" label="K-points used for DFTB+ calculation" value="[1, 1, 1]"/>
         <param type="float" name="force_tol" label="Force tolerance for optimisation" value="0.01"/>
-        <param type="select" name="dftb_set" label="DFTB set to use" value="3ob-3-1">
-            <option value="3ob-3-1">3ob-3-1</option>
-            <option value="pbc-0-3">pbc-0-3</option>
-        </param>
-        <param type="boolean" name="pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." value="true"/>
+        <expand macro="dftb+"/>
     </inputs>
     <outputs>
         <data label="phonons outputs of $structure.name" name="phonon_outputs" format="zip" from_work_dir="out_zip.zip"/>
@@ -70,7 +67,7 @@
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
-                    <has_size value="8155" delta="20"/>
+                    <has_size value="8255" delta="20"/>
                 </assert_contents>
             </output>
         </test>
@@ -80,7 +77,7 @@
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
-                    <has_size value="8155" delta="20"/>
+                    <has_size value="8255" delta="20"/>
                 </assert_contents>
             </output>
         </test>
@@ -88,6 +85,7 @@
             <param name="structure" value="Si.xyz" ftype="xyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
+            <param name="dftb_pbc" value="false"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="8155" delta="20"/>
@@ -100,7 +98,7 @@
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
-                    <has_size value="8155" delta="20"/>
+                    <has_size value="8255" delta="20"/>
                 </assert_contents>
             </output>
         </test>

@@ -21,6 +21,7 @@
                 doi = {}
             }
         </token>
+        <import>muon_macros.xml</import>
     </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
@@ -76,10 +77,7 @@
         <section name="general_params" expanded="true" title="General Parameters">
             <param type="float" argument="poisson_r" value="0.8" min="0.0" label="Poisson radius" help=" Poisson sphere radius to use for random generation. No two starting muon positions will be closer than this distance. Smaller values make for bigger structure sets."/>
             <param type="text" argument="name" value="struct" label="Name" help="Name of the structure. This name will be postfixed with a unique number, e.g. struct_001 for each generated structure."/>
-            <param type="select" argument="charged" label="Charged muon" value="true" help="If true, the muon will be considered charged instead of a muonium with an accompanying electron. Must be true for UEP calculations.">
-                <option value="true">true</option>
-                <option value="false">false</option>
-            </param>
+            <param argument="charged" type="boolean" checked="true" label="Charged muon" help="If true, the muon will be charged. Otherwise, will be muonium (with an accompanying electron). Must be true for UEP calculations."/>
             <param type="integer" argument="geom_steps" value="30" min="0" label="Geometry optimization steps" help="Maximum number of geometry optimisation steps."/>
             <param type="float" argument="vdw_scale" value="0.5" min="0.0" label="Van der Waals scale" help="Van der Waals scaling factor to use when generating muon sites to avoid existing atoms. Smaller values will allow muons to get closer to the other ions."/>
             <param type="text" argument="out_folder" optional="true" value="muon-airss-out" label="Output folder name" help="Name to call the output folder used to store the files that the script generates."/>
@@ -104,15 +102,8 @@
                     <param type="text" argument="mu_symbol" optional="true" label="Muon symbol" value="H:mu" help="The symbol to use for the muon when writing out the CASTEP custom species."/>
                 </when>
                 <when value="dftb+">
-                    <param type="select" argument="dftb_set" optional="true" value="3ob-3-1" label="DFTB parameter set" help="The parameter set to use for DFTB+. Currently supported are: 3ob-3-1 and pbc-0-3. See help section at the bottom of the page for details.">
-                        <option value="3ob-3-1" selected="true">3ob-3-1</option>
-                        <option value="pbc-0-3">pbc-0-3</option>
-                    </param>
-                    <param type="text" argument="dftb_optionals" value="[]" optional="true" label="DFTB optional files" help="List of additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
-                    <param type="select" argument="dftb_pbc" optional="true" value="true" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+.">
-                        <option value="true" selected="true">true</option>
-                        <option value="false">false</option>
-                    </param>
+                    <expand macro="dftb+"/>
+                    <expand macro="dftb_optionals"/>
                 </when>
                 <when value="all">
                     <param type="float" argument="uep_gw_factor" optional="true" value="5.0" min="0.0" label="Gaussian width factor" help="Gaussian width factor for UEP calculation. Higher values will make the potential of atomic nuclei closer to the point-like approximation but may introduce artifacts."/>
@@ -120,21 +111,14 @@
                     <param type="text" argument="castep_command" optional="true" value="castep.serial" label="CASTEP command" help="Command to use to run CASTEP."/>
                     <param type="text" argument="castep_param" optional="true" label="PARAM path" help="File path to the CASTEP parameter file."/>
                     <param type="text" argument="mu_symbol" optional="true" label="Muon symbol" value="H:mu" help="The symbol to use for the muon when writing out the CASTEP custom species."/>
-                    <param type="select" argument="dftb_set" optional="true" value="3ob-3-1" label="DFTB parameter set" help="The parameter set to use for DFTB+. Currently supported are: 3ob-3-1 and pbc-0-3. See help section at the bottom of the page for details.">
-                        <option value="3ob-3-1" selected="true">3ob-3-1</option>
-                        <option value="pbc-0-3">pbc-0-3</option>
-                    </param>
-                    <param type="text" argument="dftb_optionals" value="[]" optional="true" label="DFTB optional files" help="List of additional optional json files to activate for DFTBArgs (for example, dftd3.json will use DFTD3 dispersion forces for 3ob-3-1 if DFTB+ has been compiled to support them)."/>
-                    <param type="select" argument="dftb_pbc" optional="true" value="true" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+.">
-                        <option value="true" selected="true">true</option>
-                        <option value="false">false</option>
-                    </param>
+                    <expand macro="dftb+"/>
+                    <expand macro="dftb_optionals"/>
                 </when>
             </conditional>
         </section>
         <section name="clustering_params" expanded="true" title="Clustering Parameters">
             <conditional name="clustering">
-                <param type="select" argument="clustering_method" label="Clustering method" value="hier">
+                <param type="select" argument="clustering_method" display="radio" label="Clustering method" value="hier">
                     <option value="hier">hierarchical</option>
                     <option value="kmeans">k-means</option>
                 </param>
