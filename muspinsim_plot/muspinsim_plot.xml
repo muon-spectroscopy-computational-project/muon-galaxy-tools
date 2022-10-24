@@ -1,4 +1,5 @@
-<tool id="muspinsim_plot" name="MuSpinSim Plot" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="muspinsim_plot" name="MuSpinSim Plot" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
+    <description>plot values generated from MuSpinSim</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">3.5.1</token>
@@ -31,8 +32,11 @@
     <requirements>
         <requirement type="package" version="@TOOL_VERSION@">matplotlib</requirement>
     </requirements>
+    <required_files>
+        <include type="literal" path="generate_plot.py"/>
+    </required_files>
     <command detect_errors="exit_code"><![CDATA[
-       python ${__tool_directory__}/generate_plot.py inputs.json
+       python '${__tool_directory__}/generate_plot.py' inputs.json
     ]]></command>
     <configfiles>
         <inputs name="inputs" data_style="paths" filename="inputs.json"/>
@@ -41,7 +45,7 @@
         <param type="text" name="title" label="Plot Title" value=""/>
         <param type="text" name="xlab" label="Label for x axis" value=""/>
         <param type="text" name="ylab" label="Label for y axis" value=""/>
-        <param name="out_file_type" type="select" label="Output File Type">
+        <param name="out_file_type" type="select" label="Output File Type" display="radio">
             <option value="pdf">PDF</option>
             <option value="png">PNG</option>
         </param>
@@ -86,7 +90,7 @@
         </data>
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="1">
             <param name="title" value="Temperature Example"/>
             <param name="xlab" value="Time"/>
             <param name="ylab" value="Asymmetry"/>
@@ -109,7 +113,7 @@
                 </assert_contents>
             </output>
         </test>
-        <test>
+        <test expect_num_outputs="1">
             <param name="title" value="Fitting Example"/>
             <param name="xlab" value="Time"/>
             <param name="ylab" value="Asymmetry"/>

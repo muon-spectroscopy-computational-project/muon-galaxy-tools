@@ -1,4 +1,4 @@
-<tool id="pm_asephonons" name="PyMuonSuite Phonons" version="0.1.1" python_template_version="3.5" profile="22.01">
+<tool id="pm_asephonons" name="PyMuonSuite Phonons" version="0.1.1" python_template_version="3.5" profile="22.01" license="MIT">
     <description>calculate phonons using ASE and DFTB+</description>
     <macros>
         <!-- citation should be updated with every underlying tool version -->
@@ -6,7 +6,7 @@
         <token name="@PYMUONSUITE_CITATION@">
             @software{pymuon-suite,
                 author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and {Muon Spectroscopy Computational Project}},
-                license = {GPL-3.0},
+                license = {GPL-3.0-only},
                 title = {{pymuon-suite}},
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
                 version = {v0.2.1},
@@ -15,6 +15,7 @@
                 doi = {}
             }
         </token>
+        <import>muon_macros.xml</import>
     </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
@@ -29,23 +30,23 @@
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        structure_name_internal="input_structure.$structure.ext" &&
+        structure_name_internal='input_structure.$structure.ext' &&
         touch pho_params.yaml &&
-        ([[ ! -z "$name" ]] && printf "name: $name \n">>pho_params.yaml || ( >&2 echo "name empty" && exit 2)) &&
-        ([[ ! -z "$phonon_kpoint_grid" ]] && ( printf "phonon_kpoint_grid: $phonon_kpoint_grid \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "phonon_kpoint_grid empty" && exit 2)) &&
-        ([[ ! -z "$kpoint_grid" ]] && ( printf "kpoint_grid: $kpoint_grid \n" | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "kpoint_grid empty" && exit 2)) &&
-        ([[ ! -z "$force_tol" ]] && printf "force_tol: $force_tol \n">>pho_params.yaml || ( >&2 echo "force_tol empty" && exit 2)) &&
-        ([[ ! -z "$dftb_set" ]] && printf "dftb_set: $dftb_set \n">>pho_params.yaml || ( >&2 echo "dftb_set empty" && exit 2)) &&
-        ([[ ! -z "$pbc" ]] && printf "pbc: $pbc \n">>pho_params.yaml || ( >&2 echo "pbc empty" && exit 2)) &&
+        ([[ ! -z '$name' ]] && printf 'name: $name \n'>>pho_params.yaml || ( >&2 echo "name empty" && exit 2)) &&
+        ([[ ! -z '$phonon_kpoint_grid' ]] && ( printf 'phonon_kpoint_grid: $phonon_kpoint_grid \n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "phonon_kpoint_grid empty" && exit 2)) &&
+        ([[ ! -z '$kpoint_grid' ]] && ( printf 'kpoint_grid: $kpoint_grid \n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "kpoint_grid empty" && exit 2)) &&
+        ([[ ! -z '$force_tol' ]] && printf 'force_tol: $force_tol \n'>>pho_params.yaml || ( >&2 echo "force_tol empty" && exit 2)) &&
+        ([[ ! -z '$dftb_set' ]] && printf 'dftb_set: $dftb_set \n'>>pho_params.yaml || ( >&2 echo "dftb_set empty" && exit 2)) &&
+        ([[ ! -z '$dftb_pbc' ]] && printf 'pbc: $dftb_pbc \n'>>pho_params.yaml || ( >&2 echo "pbc empty" && exit 2)) &&
         printf "force_clean: false \n">>pho_params.yaml &&
-        ln -s $structure \$structure_name_internal &&
+        ln -s '$structure' \$structure_name_internal &&
         cat pho_params.yaml &&
         pm-asephonons \$structure_name_internal pho_params.yaml ; err=\$? &&
         echo "Asephonons output:" &&
         cat asephonons.out &&
         if [ \$err != 0 ] ; then echo "errored" && exit 24 ; fi &&
-        ln -s "${name}_phonons.txt" phonon_report.txt &&
-        zip -r out_zip.zip $name "${name}_phonons.txt" asephonons.out band.out pho_params.yaml
+        ln -s '${name}_phonons.txt' phonon_report.txt &&
+        zip -r out_zip.zip '$name' '${name}_phonons.txt' asephonons.out band.out pho_params.yaml
     ]]></command>
     <inputs>
         <param type="data" name="structure" label="Structure file" format="cell" help="The structure to generate the phonon report from. Accepted file types: cell."/>
@@ -53,54 +54,51 @@
         <param type="text" name="phonon_kpoint_grid" label="Phonon k-points" value="[1, 1, 1]"/>
         <param type="text" name="kpoint_grid" label="K-points used for DFTB+ calculation" value="[1, 1, 1]"/>
         <param type="float" name="force_tol" label="Force tolerance for optimisation" value="0.01"/>
-        <param type="select" name="dftb_set" label="DFTB set to use" value="3ob-3-1">
-            <option value="3ob-3-1">3ob-3-1</option>
-            <option value="pbc-0-3">pbc-0-3</option>
-        </param>
-        <param type="boolean" name="pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." value="true"/>
+        <expand macro="dftb+"/>
     </inputs>
     <outputs>
         <data label="phonons outputs of $structure.name" name="phonon_outputs" format="zip" from_work_dir="out_zip.zip"/>
         <data label="phonon report for $structure.name" name="phonon_report" format="txt" from_work_dir="phonon_report.txt"/>
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="2">
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
-                    <has_size value="8155" delta="20"/>
+                    <has_size value="8255" delta="20"/>
                 </assert_contents>
             </output>
         </test>
-        <test>
+        <test expect_num_outputs="2">
             <param name="structure" value="Si.cif" ftype="cif"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
-                    <has_size value="8155" delta="20"/>
+                    <has_size value="8255" delta="20"/>
                 </assert_contents>
             </output>
         </test>
-        <test>
+        <test expect_num_outputs="2">
             <param name="structure" value="Si.xyz" ftype="xyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
+            <param name="dftb_pbc" value="false"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="8155" delta="20"/>
                 </assert_contents>
             </output>
         </test>
-        <test>
+        <test expect_num_outputs="2">
             <param name="structure" value="Si.extxyz" ftype="extxyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
-                    <has_size value="8155" delta="20"/>
+                    <has_size value="8255" delta="20"/>
                 </assert_contents>
             </output>
         </test>
@@ -110,29 +108,13 @@
 
         Given an input structure, this tool generates a phonon report for that structure using the parameters provided.
 
+        PyMuonSuite is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
     ]]></help>
     <citations>
         <citation type="bibtex">
             @PYMUONSUITE_CITATION@
         </citation>
-        <citation type="bibtex">
-            @article{doi:10.1063/1.5085197,
-                author = {Sturniolo,Simone  and Liborio,Leandro  and Jackson,Samuel },
-                title = {Comparison between density functional theory and density functional tight binding approaches for finding the muon stopping site in organic molecular crystals},
-                journal = {The Journal of Chemical Physics},
-                volume = {150},
-                number = {15},
-                pages = {154301},
-                year = {2019},
-                doi = {10.1063/1.5085197},
-                URL = {
-                        https://doi.org/10.1063/1.5085197
-                },
-                eprint = {
-                        https://doi.org/10.1063/1.5085197
-                }
-            }
-        </citation>
+        <citation type="doi">10.1063/1.5085197</citation>
         <citation type="bibtex">
             @article{larsen2017atomic,
                 title={The atomic simulation environment—a Python library for working with atoms},

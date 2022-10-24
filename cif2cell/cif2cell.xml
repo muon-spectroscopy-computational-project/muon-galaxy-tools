@@ -1,4 +1,4 @@
-<tool id="cif2cell" name="cif2cell" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="cif2cell" name="cif2cell" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
     <description>convert .cif file to .cell</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
@@ -15,23 +15,23 @@
         <requirement type="package" version="2.0.0a3">cif2cell</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        cif_structure_name=\$(sed 's/ //g' <<< "$cif_structure.name") &&
-        ln -s $cif_structure \$cif_structure_name &&
-        cif2cell -f \$cif_structure_name -p castep -o out.cell
+        file_name=\$(sed 's/ //g' <<< '$file.name') &&
+        ln -s '$file' \$file_name &&
+        cif2cell -f \$file_name -p castep -o out.cell
     ]]></command>
     <inputs>
-        <param type="data" name="cif_structure" format="cif" label="Structure file to Convert (.cif)" />
+        <param type="data" argument="--file" format="cif" label="Structure file to Convert (.cif)" />
     </inputs>
     <outputs>
-        <data label="Conversion of $cif_structure.name to .cell" name="out_cell" format="cell" from_work_dir="out.cell" />
+        <data label="Conversion of $file.name to .cell" name="out_cell" format="cell" from_work_dir="out.cell" />
     </outputs>
     <tests>
-        <test>
-            <param name="cif_structure" value="Si.cif" ftype="cif" />
+        <test expect_num_outputs="1">
+            <param name="file" value="Si.cif" ftype="cif" />
             <output name="out_cell" file="Si_out.cell" compare="diff" lines_diff="2" ftype="cell" />
         </test>
-        <test>
-            <param name="cif_structure" value="diamond.cif" ftype="cif" />
+        <test expect_num_outputs="1">
+            <param name="file" value="diamond.cif" ftype="cif" />
             <output name="out_cell" file="diamond_out.cell" compare="diff" lines_diff="2" ftype="cell" />
         </test>
     </tests>
@@ -40,23 +40,10 @@
 
         Given an input .cif structure file, convert to equivalent .cell structure file.
         Uses electronic structure program 'castep'
+
+        cif2cell is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @article{cif2cell,
-                author = {Torbj\"orn Bj\"orkman},
-                title = {CIF2Cell: Generating geometries for electronic structure programs},
-                journal = {Computer Physics Communications},
-                volume = {182},
-                number = {5},
-                pages = {1183 - 1186},
-                year = {2011},
-                issn = {0010-4655},
-                doi={10.1016/j.cpc.2011.01.013},
-                URL={
-                    http://www.sciencedirect.com/science/article/pii/S0010465511000336
-                }
-            }
-        </citation>
+        <citation type="doi">10.1016/j.cpc.2011.01.013</citation>
     </citations>
 </tool>

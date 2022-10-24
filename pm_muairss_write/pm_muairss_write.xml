@@ -1,4 +1,4 @@
-<tool id="pm_muairss_write" name="PyMuonSuite AIRSS Generate" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="pm_muairss_write" name="PyMuonSuite AIRSS Generate" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
     <description>generate muonated structures</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
@@ -10,7 +10,7 @@
         <token name="@TOOL_CITATION@">
             @software{pymuon-suite,
                 author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and {Muon Spectroscopy Computational Project}},
-                license = {GPL-3.0},
+                license = {GPL-3.0-only},
                 title = {{pymuon-suite}},
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
                 version = {v0.2.1},
@@ -29,23 +29,38 @@
         <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
+    <required_files>
+        <include type="literal" path="get_out_folder.py"/>
+    </required_files>
     <command detect_errors="exit_code"><![CDATA[
-        structure_name_internal="input_structure.$structure.ext" &&
-        ln -s $structure \$structure_name_internal &&
-        ln -s $params params.yaml &&
-        #if str($iscastep.iscastep_sel)=="true":
-            castep_param_name=\$(sed 's/ //g' <<< "$castep_param.name") &&
-            ln -s $castep_param \$castep_param_name &&
-            sed -i '/^castep_param: /{h;s/:.*/: $castep_param.name/};\${x;/^$/{s//castep_param: $castep_param.name/;H};x}' params.yaml &&
+        structure_name_internal='input_structure.$structure.ext' &&
+        ln -s '$structure' \$structure_name_internal &&
+        ln -s '$params' params.yaml &&
+        echo '$castep_param' &&
+        #if $castep_param:
+            castep_param_name=\$(sed 's/ //g' <<< '$castep_param.name') &&
+            ln -s '$castep_param' \$castep_param_name &&
+            sed -i '/^castep_param: /{h;s/:.*/: '"\$castep_param_name"'/};\${x;/^$/{s//castep_param: '"\$castep_param_name"'/;H};x}' params.yaml &&
+            #if $script_file:
+                script_file_name=\$(sed 's/ //g' <<< '$script_file.name') &&
+                ln -s '$script_file' \$script_file_name &&
+                sed -i '/^script_file: /{h;s/:.*/: '"\$script_file_name"'/};\${x;/^$/{s//script_file: '"\$script_file_name"'/;H};x}' params.yaml &&
+            #end if
+        #end if
+        #if $allpos_ext!="none":
+            sed -i '/^allpos_filename: /{h;s/:.*/: allpos.$allpos_ext/};\${x;/^$/{s//allpos_filename: allpos.$allpos_ext/;H};x}' params.yaml &&
         #end if
         pm-muairss -t w \$structure_name_internal params.yaml &&
-        out_folder="`python ${__tool_directory__}/get_out_folder.py`" &&
-        #if str($iscastep.iscastep_sel)=="true":
+        out_folder="`python '${__tool_directory__}/get_out_folder.py'`" &&
+        #if $castep_param:
             zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal \$castep_param_name &&
-        #else if str($iscastep.iscastep_sel)=="false":
+        #else:
             zip -r out_zip.zip \$out_folder params.yaml \$structure_name_internal &&
         #end if
-        #if $testing=="true" and str($iscastep.iscastep_sel)=="true":
+        #if $allpos_ext!="none":
+            mv allpos.$allpos_ext allpos &&
+        #end if
+        #if $testing=="true" and $castep_param:
             grep "castep_param" params.yaml > tree.txt &&
         #end if
         find \$out_folder >> tree.txt
@@ -54,20 +69,21 @@
     <inputs>
         <param type="data" name="structure" label="Structure file" format="cell, cif, xyz, extxyz" help="The structure to add muons to. The original file will be preserved. Accepted file types: CELL, CIF, XYZ (standard or extended)."/>
         <param type="data" name="params" label="YAML parameter file" format="yaml" help="YAML parameters for this and subsequent tools. You can create this file using the [YAML config generator] tool."/>
-        <conditional name="iscastep">
-            <param type="boolean" value="false" name="iscastep_sel" label="Does your configuration use the CASTEP calculator?" help="Select 'Yes' if the 'calculator' parameter is set to 'castep' in your chosen YAML file (not case sensitive).">
-                <option value="false">no</option>
-                <option value="true">yes</option>
-            </param>
-            <when value="true">
-                <param type="data" name="castep_param" label="CASTEP parameter file" format="param" help="CASTEP parameters (.param file) for the optimisation stage. These parameters will be copied for each muonated structure."/>
-            </when>
-            <when value="false"/>
-        </conditional>
+        <param type="data" name="castep_param" optional="true" label="CASTEP parameter file" format="param" help="CASTEP parameters (.param file) for the optimisation stage. These parameters will be copied for each muonated structure. Only required when the 'calculator' parameter is set to 'castep' in your chosen YAML file."/>
+        <param type="data" name="script_file" label="Submission script template (optional)" format="txt" help="Template script for submitting to an HPC job scheduler. Occurences of {seedname} will be replaced with the unique input directory for each job." optional="true"/>
+        <param type="select" name="allpos_ext" value="none" label="Format for file containing all muon positions (optional)" help="If set, generates an extra output file containing all the muon positions using the specified file type.">
+            <option value="none">Do not generate</option>
+            <option value="cell">CELL</option>
+            <option value="cif">CIF</option>
+            <option value="xyz">XYZ</option>
+        </param>
         <param type="hidden" name="testing" label="Test mode" value="false"/>
     </inputs>
     <outputs>
         <data label="Muonated $structure.name using $params.name" name="muonated_structures" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="File containing the positions of all muon sites" name="allpos_file" from_work_dir="allpos" auto_format="true">
+            <filter>(allpos_ext != "none")</filter>
+        </data>
         <data label="File tree (testing only)" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true">
             <filter>(testing == "true")</filter>
         </data>
@@ -78,10 +94,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param" ftype="txt"/>
-            </conditional>
+            <param name="castep_param" value="Si.param" ftype="txt"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
         <!-- CASTEP with out_folder and castep_param specified, param as yaml -->
@@ -89,10 +102,15 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param" ftype="yaml"/>
-            </conditional>
+            <param name="castep_param" value="Si.param" ftype="yaml"/>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
+        </test>
+        <!-- CASTEP with spaces in param name -->
+        <test expect_num_outputs="2">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <param name="castep_param" value="S i.param" ftype="yaml"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
         <!-- CASTEP with no out_folder and no castep_param specified in yaml file -->
@@ -100,11 +118,56 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_no_out_folder_no_castep_param.yaml" ftype="yaml"/>
-            <conditional name="iscastep">
-                <param name="iscastep_sel" value="true"/>
-                <param name="castep_param" value="Si.param"/>
-            </conditional>
+            <param name="castep_param" value="Si.param"/>
             <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" sort="true" />
+        </test>
+        <!-- CASTEP with allpos_ext xyz -->
+        <test expect_num_outputs="3">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <param name="allpos_ext" value="xyz"/>
+            <param name="castep_param" value="Si.param" ftype="yaml"/>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
+            <output name="allpos_file" file="allpos.xyz" />
+        </test>
+        <!-- CASTEP with allpos_ext cell -->
+        <test expect_num_outputs="3">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <param name="allpos_ext" value="cell"/>
+            <param name="castep_param" value="Si.param" ftype="yaml"/>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
+            <output name="allpos_file" file="allpos.cell" />
+        </test>
+        <!-- CASTEP with allpos_ext cif -->
+        <test expect_num_outputs="3">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <param name="allpos_ext" value="cif"/>
+            <param name="castep_param" value="Si.param" ftype="yaml"/>
+            <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
+            <output name="allpos_file" file="allpos.cif" />
+        </test>
+        <!-- CASTEP with script_file not specified in YAML file -->
+        <test expect_num_outputs="2">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
+            <param name="castep_param" value="Si.param" ftype="txt"/>
+            <param name="script_file" value="submit.sh" ftype="txt"/>
+            <output name="file_tree" file="tree_castep_t_with_script_file.txt" ftype="txt" sort="true" />
+        </test>
+        <!-- CASTEP with script_file specified in YAML file -->
+        <test expect_num_outputs="2">
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="testing" value="true"/>
+            <param name="params" value="configcastep_t_with_script_file.yaml" ftype="yaml"/>
+            <param name="castep_param" value="Si.param" ftype="txt"/>
+            <param name="script_file" value="s u b m i t.sh" ftype="txt"/>
+            <output name="file_tree" file="tree_castep_t_with_script_file.txt" ftype="txt" sort="true" />
         </test>
         <!-- DFTB+ -->
         <test expect_num_outputs="2">
@@ -174,6 +237,8 @@
         .. _pm-muairss documentation: https://github.com/muon-spectroscopy-computational-project/pymuon-suite/blob/master/docs/muairss-gen-docs.md
         .. _YAML config generator: /tool_runner?tool_id=pm_yaml_config
         .. _Generate UEP outputs: /tool_runner?tool_id=pm_uep_opt_write
+
+        PyMuonSuite is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
     ]]></help>
     <citations>
         <citation type="bibtex">
@@ -185,60 +250,9 @@
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite/}
             }
         </citation>
-        <citation type="bibtex">
-            @article{airss,
-                author = {Liborio, L. and Sturniolo, S. and Jochym, D.},
-                title = {Computational prediction of muon stopping sites using ab initio random structure searching (AIRSS)},
-                journal = {The Journal of Chemical Physics},
-                volume = {148},
-                pages = {134114},
-                year = {2018},
-                doi={10.1063/1.5024450},
-                URL={
-                    https://doi.org/10.1063/1.5024450
-                },
-                eprint={
-                    https://doi.org/10.1063/1.5024450
-                }
-            }
-        </citation>
-        <citation type="bibtex">
-            @article{doi:10.1063/1.5085197,
-                author = {Sturniolo,Simone  and Liborio,Leandro  and Jackson,Samuel },
-                title = {Comparison between density functional theory and density functional tight binding approaches for finding the muon stopping site in organic molecular crystals},
-                journal = {The Journal of Chemical Physics},
-                volume = {150},
-                number = {15},
-                pages = {154301},
-                year = {2019},
-                doi = {10.1063/1.5085197},
-                URL = {
-                        https://doi.org/10.1063/1.5085197
-                },
-                eprint = {
-                        https://doi.org/10.1063/1.5085197
-                }
-            }
-        </citation>
-        <citation type="bibtex">
-            @article{doi:10.1063/5.0012381,
-                author = {Sturniolo,Simone  and Liborio,Leandro },
-                title = {Computational prediction of muon stopping sites: A novel take on the unperturbed electrostatic potential method},
-                journal = {The Journal of Chemical Physics},
-                volume = {153},
-                number = {4},
-                pages = {044111},
-                year = {2020},
-                doi = {10.1063/5.0012381},
-                URL = {
-                        https://doi.org/10.1063/5.0012381
-                },
-                eprint = {
-                        https://doi.org/10.1063/5.0012381
-                },
-                abstract = { Finding the stopping site of the muon in a muon-spin relaxation experiment is one of the main problems of muon spectroscopy, and computational techniques that make use of quantum chemistry simulations can be of great help when looking for this stopping site. The most thorough approach would require the use of simulations, such as Density Functional Theory (DFT), to test and optimize multiple possible sites, accounting for the effect that the added muon has on its surroundings. However, this can be computationally expensive and sometimes unnecessary. Hence, in this work, we present a software implementation of the Unperturbed Electrostatic Potential (UEP) Method: an approach used for finding the muon stopping site in crystalline materials. The UEP method requires only one DFT calculation, necessary to compute the electronic density. This, in turn, is used to calculate the minima of the crystalline material’s electrostatic potential and the estimates of the muon stopping site, relying on the approximation that the muon’s presence does not significantly affect its surroundings. One of the main UEP’s assumptions is that the muon stopping site will be one of the crystalline material’s electrostatic potential minima. In this regard, we also propose some symmetry-based considerations about the properties of this crystalline material’s electrostatic potential, in particular, which sites are more likely to be its minima and why the unperturbed approximation may be sufficiently robust for them. We introduce the Python software package pymuon-suite and the various utilities it provides to facilitate these calculations, and finally, we demonstrate the effectiveness of the method with some chosen example systems. }
-            }
-        </citation>
+        <citation type="doi">10.1063/1.5024450</citation>
+        <citation type="doi">10.1063/1.5085197</citation>
+        <citation type="doi">10.1063/5.0012381</citation>
         <citation type="bibtex">
             @TOOL_CITATION@
         </citation>

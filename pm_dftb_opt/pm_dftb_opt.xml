@@ -1,4 +1,4 @@
-<tool id="pm_dftb_opt" name="PyMuonSuite AIRSS DFTB+ Optimise" version="0.1.1" python_template_version="3.5" profile="22.01">
+<tool id="pm_dftb_opt" name="PyMuonSuite AIRSS DFTB+ Optimise" version="0.1.1" python_template_version="3.5" profile="22.01" license="MIT">
     <description>run DFTB+ optimisation</description>
     <macros>
         <!-- citation should be updated with every underlying tool version -->
@@ -6,7 +6,7 @@
         <token name="@PYMUONSUITE_CITATION@">
             @software{pymuon-suite,
                 author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and {Muon Spectroscopy Computational Project}},
-                license = {GPL-3.0},
+                license = {GPL-3.0-only},
                 title = {{pymuon-suite}},
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
                 version = {v0.2.1},
@@ -27,16 +27,21 @@
         <requirement type="package" version="0.2.1">pymuonsuite</requirement>
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
+    <required_files>
+        <include type="literal" path="get_out_folder.py"/>
+        <include type="literal" path="run.sh"/>
+        <include type="prefix" path="README-"/>
+    </required_files>
     <command detect_errors="exit_code"><![CDATA[
-        unzip "$muonated_structures" &&
+        unzip '$muonated_structures' &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi
         && if ( test -f input_structure.* ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi
-        && out_folder="`python ${__tool_directory__}/get_out_folder.py`" ;
-        bash ${__tool_directory__}/run.sh \$out_folder ;
+        && out_folder="`python '${__tool_directory__}/get_out_folder.py'`" ;
+        bash '${__tool_directory__}/run.sh' \$out_folder ;
         passed=$? &&
         echo \$passed &&
         if [ \$passed == 2 ]; then echo "input file structure is not dftb" && exit 25; elif [ \$passed == 3 ]; then echo "error in parsing dftb file. check log for details" && exit 26; else echo "parse ok"; fi &&
-        if grep -q 'pbc-0-3' params.yaml; then cp ${__tool_directory__}/README-pbc \$out_folder/README; elif grep -q '3ob-3-1' params.yaml; then cp ${__tool_directory__}/README-3ob \$out_folder README; else ( cp ${__tool_directory__}/README-3ob \$out_folder README-3ob && cp ${__tool_directory__}/README-pbc \$out_folder/README-pbc ); fi;
+        if grep -q 'pbc-0-3' params.yaml; then cp '${__tool_directory__}/README-pbc' \$out_folder/README; elif grep -q '3ob-3-1' params.yaml; then cp '${__tool_directory__}/README-3ob' \$out_folder README; else ( cp '${__tool_directory__}/README-3ob' \$out_folder README-3ob && cp '${__tool_directory__}/README-pbc' \$out_folder/README-pbc ); fi;
         zip -r dftb_results.zip \$out_folder params.yaml input_structure.* &&
         find \$out_folder > tree.txt
     ]]></command>
@@ -65,6 +70,8 @@
     <help><![CDATA[
         usage: dftb+
         Given some input muonated structures (structures containing a muon), applies DFTB+ optimization to refine them.
+        
+        PyMuonSuite is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
 
         **LICENSE**
 
@@ -118,25 +125,6 @@
         <citation type="bibtex">
             @PYMUONSUITE_CITATION@
         </citation>
-        <citation type="bibtex">
-        @article{doi:10.1063/1.5143190,
-         author = {Hourahine,B.  and Aradi,B.  and Blum,V.  and Bonafé,F.  and Buccheri,A.  and Camacho,C.  and Cevallos,C.  and Deshaye,M. Y.  and Dumitrică,T.  and Dominguez,A.  and Ehlert,S.  and Elstner,M.  and van der Heide,T.  and Hermann,J.  and Irle,S.  and Kranz,J. J.  and Köhler,C.  and Kowalczyk,T.  and Kubař,T.  and Lee,I. S.  and Lutsker,V.  and Maurer,R. J.  and Min,S. K.  and Mitchell,I.  and Negre,C.  and Niehaus,T. A.  and Niklasson,A. M. N.  and Page,A. J.  and Pecchia,A.  and Penazzi,G.  and Persson,M. P.  and Řezáč,J.  and Sánchez,C. G.  and Sternberg,M.  and Stöhr,M.  and Stuckenberg,F.  and Tkatchenko,A.  and Yu,V. W.-z.  and Frauenheim,T. },
-         title = {DFTB+, a software package for efficient approximate density functional theory based atomistic simulations},
-         journal = {The Journal of Chemical Physics},
-         volume = {152},
-         number = {12},
-         pages = {124101},
-         year = {2020},
-         doi = {10.1063/1.5143190},
-
-         URL = {
-                 https://doi.org/10.1063/1.5143190
-
-         },
-         eprint = {
-                 https://doi.org/10.1063/1.5143190
-         }
-         }
-        </citation>
+        <citation type="doi">10.1063/1.5143190</citation>
     </citations>
 </tool>
