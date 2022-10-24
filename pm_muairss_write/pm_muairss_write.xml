@@ -1,4 +1,4 @@
-<tool id="pm_muairss_write" name="PyMuonSuite AIRSS Generate" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
+<tool id="pm_muairss_write" name="PyMuonSuite AIRSS Generate" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
     <description>generate muonated structures</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
@@ -94,7 +94,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <param name="castep_param" value="Si.param" ftype="txt"/>
+            <param name="castep_param" value="Si.param" ftype="param"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
         <!-- CASTEP with out_folder and castep_param specified, param as yaml -->
@@ -102,7 +102,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <param name="castep_param" value="Si.param" ftype="yaml"/>
+            <param name="castep_param" value="Si.param" ftype="param"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
         <!-- CASTEP with spaces in param name -->
@@ -110,7 +110,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <param name="castep_param" value="S i.param" ftype="yaml"/>
+            <param name="castep_param" value="S i.param" ftype="param"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
         <!-- CASTEP with no out_folder and no castep_param specified in yaml file -->
@@ -118,7 +118,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_no_out_folder_no_castep_param.yaml" ftype="yaml"/>
-            <param name="castep_param" value="Si.param"/>
+            <param name="castep_param" value="Si.param" ftype="param"/>
             <output name="file_tree" file="tree_castep_t_no_outfolder_and_castep_param.txt" ftype="txt" sort="true" />
         </test>
         <!-- CASTEP with allpos_ext xyz -->
@@ -127,7 +127,7 @@
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <param name="allpos_ext" value="xyz"/>
-            <param name="castep_param" value="Si.param" ftype="yaml"/>
+            <param name="castep_param" value="Si.param" ftype="param"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
             <output name="allpos_file" file="allpos.xyz" />
         </test>
@@ -137,7 +137,7 @@
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <param name="allpos_ext" value="cell"/>
-            <param name="castep_param" value="Si.param" ftype="yaml"/>
+            <param name="castep_param" value="Si.param" ftype="param"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
             <output name="allpos_file" file="allpos.cell" />
         </test>
@@ -147,7 +147,7 @@
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
             <param name="allpos_ext" value="cif"/>
-            <param name="castep_param" value="Si.param" ftype="yaml"/>
+            <param name="castep_param" value="Si.param" ftype="param"/>
             <output name="file_tree" file="tree_castep_t_with_out_folder_and_castep_param.txt" ftype="txt" sort="true" />
             <output name="allpos_file" file="allpos.cif" />
         </test>
@@ -156,7 +156,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_out_folder_and_castep_param.yaml" ftype="yaml"/>
-            <param name="castep_param" value="Si.param" ftype="txt"/>
+            <param name="castep_param" value="Si.param" ftype="param"/>
             <param name="script_file" value="submit.sh" ftype="txt"/>
             <output name="file_tree" file="tree_castep_t_with_script_file.txt" ftype="txt" sort="true" />
         </test>
@@ -165,7 +165,7 @@
             <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="testing" value="true"/>
             <param name="params" value="configcastep_t_with_script_file.yaml" ftype="yaml"/>
-            <param name="castep_param" value="Si.param" ftype="txt"/>
+            <param name="castep_param" value="Si.param" ftype="param"/>
             <param name="script_file" value="s u b m i t.sh" ftype="txt"/>
             <output name="file_tree" file="tree_castep_t_with_script_file.txt" ftype="txt" sort="true" />
         </test>

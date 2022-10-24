@@ -1,4 +1,4 @@
-<tool id="pm_uep_opt" name="PyMuonSuite AIRSS UEP Optimise" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01" license="MIT">
+<tool id="pm_uep_opt" name="PyMuonSuite AIRSS UEP Optimise" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
     <description>run UEP optimisation</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
@@ -65,8 +65,8 @@
         <test expect_num_outputs="2">
             <param name="testing" value="true"/>
             <param name="muonated_structures" value="muonated.zip" ftype="zip"/>
-            <param name="charge_density" value="Si.den_fmt" ftype="txt"/>
-            <param name="castep_log" value="Si.castep" ftype="txt"/>
+            <param name="charge_density" value="Si.den_fmt" ftype="den_fmt"/>
+            <param name="castep_log" value="Si.castep" ftype="castep"/>
             <output name="file_tree" file="tree.txt" ftype="txt" sort="true">
                 <assert_contents>
                     <has_size value="1780"/>
@@ -76,15 +76,15 @@
         <test expect_num_outputs="2">
             <param name="testing" value="true"/>
             <param name="muonated_structures" value="muonated-default-folder.zip" ftype="zip"/>
-            <param name="charge_density" value="Si.den_fmt" ftype="txt"/>
-            <param name="castep_log" value="Si.castep" ftype="txt"/>
+            <param name="charge_density" value="Si.den_fmt" ftype="den_fmt"/>
+            <param name="castep_log" value="Si.castep" ftype="castep"/>
             <output name="file_tree" file="tree-default-folder.txt" sort="true"/>
         </test>
         <test expect_failure="true">
             <param name="testing" value="true"/>
             <param name="muonated_structures" value="muonated-default-folder.zip" ftype="zip"/>
-            <param name="castep_log" value="Si.castep" ftype="txt"/>
-            <param name="charge_density" value="Sifail.den_fmt" ftype="txt"/>
+            <param name="castep_log" value="Si.castep" ftype="castep"/>
+            <param name="charge_density" value="Sifail.den_fmt" ftype="den_fmt"/>
             <assert_stderr>
                 <has_text text="Error:  FMT file has no header"/>
             </assert_stderr>
@@ -93,8 +93,8 @@
         <test expect_num_outputs="1">
             <param name="testing" value="false"/>
             <param name="muonated_structures" value="muonated.zip" ftype="zip"/>
-            <param name="charge_density" value="Si.den_fmt" ftype="txt"/>
-            <param name="castep_log" value="Si.castep" ftype="txt"/>
+            <param name="charge_density" value="Si.den_fmt" ftype="den_fmt"/>
+            <param name="castep_log" value="Si.castep" ftype="castep"/>
         </test>
     </tests>
     <help><![CDATA[
