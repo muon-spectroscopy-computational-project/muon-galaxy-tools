@@ -1,0 +1,1115 @@
+ +-------------------------------------------------+
+ |                                                 |
+ |      CCC   AA    SSS  TTTTT  EEEEE  PPPP        |
+ |     C     A  A  S       T    E      P   P       |
+ |     C     AAAA   SS     T    EEE    PPPP        |
+ |     C     A  A     S    T    E      P           |
+ |      CCC  A  A  SSS     T    EEEEE  P           |
+ |                                                 |
+ +-------------------------------------------------+
+ |                                                 |
+ | Welcome to Academic Release CASTEP version 19.11|          
+ | Ab Initio Total Energy Program                  |
+ |                                                 |
+ | Authors:                                        |
+ | M. Segall, M. Probert, C. Pickard, P. Hasnip,   |
+ | S. Clark, K. Refson, J. R. Yates, M. Payne      |
+ |                                                 |
+ | Contributors:                                   |
+ | P. Lindan, P. Haynes, J. White, V. Milman,      |
+ | N. Govind, M. Gibson, P. Tulip, V. Cocula,      |
+ | B. Montanari, D. Quigley, M. Glover,            |
+ | L. Bernasconi, A. Perlov, M. Plummer,           |
+ | E. McNellis, J. Meyer, J. Gale, D. Jochym       |
+ | J. Aarons, B. Walker, R. Gillen, D. Jones       |
+ | T. Green, I. J. Bush, C. J. Armstrong,          |
+ | E. J. Higgins, E. L. Brown, M. S. McFly,        |
+ | J. Wilkins, B-C. Shih, P. J. P. Byrne           |
+ |                                                 |
+ | Copyright (c) 2000 - 2018                       |
+ |                                                 |
+ |     Distributed under the terms of an           |
+ |     Agreement between the United Kingdom        |
+ |     Car-Parrinello (UKCP) Consortium,           |
+ |     Daresbury Laboratory and Accelrys, Inc.     |
+ |                                                 |
+ | Please cite                                     |
+ |                                                 |
+ |     "First principles methods using CASTEP"     |
+ |                                                 |
+ |         Zeitschrift fuer Kristallographie       |
+ |           220(5-6) pp. 567-570 (2005)           |
+ |                                                 |
+ | S. J. Clark, M. D. Segall, C. J. Pickard,       |
+ | P. J. Hasnip, M. J. Probert, K. Refson,         |
+ | M. C. Payne                                     |
+ |                                                 |
+ |       in all publications arising from          |
+ |              your use of CASTEP                 |
+ |                                                 |
+ +-------------------------------------------------+
+ |                                                 |
+ |              http://www.castep.org              |
+ |                                                 |
+ +-------------------------------------------------+
+ 
+ 
+ 
+ Compiled for linux_x86_64_ifort18 on Wed, 23 Dec 2020 18:08:40 +0000
+ from code version 
+ e1fe0d666396+ Castep191_branch Thu, 24 Oct 2019 13:54:03 +0100
+ Compiler: Intel Fortran 18.0.3.222; Optimisation: fast
+ MATHLIBS: Intel MKL(2018.0.3) (LAPACK version 3.7.0)
+ FFT Lib : default
+ Fundamental constants values: CODATA 2014
+ 
+ Run started: Mon, 31 Oct 2022 16:36:36 +0000
+ +-------------------------------------------------+
+ |                                                 |
+ |      CCC   AA    SSS  TTTTT  EEEEE  PPPP        |
+ |     C     A  A  S       T    E      P   P       |
+ |     C     AAAA   SS     T    EEE    PPPP        |
+ |     C     A  A     S    T    E      P           |
+ |      CCC  A  A  SSS     T    EEEEE  P           |
+ |                                                 |
+ +-------------------------------------------------+
+ |                                                 |
+ | Welcome to Academic Release CASTEP version 19.11|          
+ | Ab Initio Total Energy Program                  |
+ |                                                 |
+ | Authors:                                        |
+ | M. Segall, M. Probert, C. Pickard, P. Hasnip,   |
+ | S. Clark, K. Refson, J. R. Yates, M. Payne      |
+ |                                                 |
+ | Contributors:                                   |
+ | P. Lindan, P. Haynes, J. White, V. Milman,      |
+ | N. Govind, M. Gibson, P. Tulip, V. Cocula,      |
+ | B. Montanari, D. Quigley, M. Glover,            |
+ | L. Bernasconi, A. Perlov, M. Plummer,           |
+ | E. McNellis, J. Meyer, J. Gale, D. Jochym       |
+ | J. Aarons, B. Walker, R. Gillen, D. Jones       |
+ | T. Green, I. J. Bush, C. J. Armstrong,          |
+ | E. J. Higgins, E. L. Brown, M. S. McFly,        |
+ | J. Wilkins, B-C. Shih, P. J. P. Byrne           |
+ |                                                 |
+ | Copyright (c) 2000 - 2018                       |
+ |                                                 |
+ |     Distributed under the terms of an           |
+ |     Agreement between the United Kingdom        |
+ |     Car-Parrinello (UKCP) Consortium,           |
+ |     Daresbury Laboratory and Accelrys, Inc.     |
+ |                                                 |
+ | Please cite                                     |
+ |                                                 |
+ |     "First principles methods using CASTEP"     |
+ |                                                 |
+ |         Zeitschrift fuer Kristallographie       |
+ |           220(5-6) pp. 567-570 (2005)           |
+ |                                                 |
+ | S. J. Clark, M. D. Segall, C. J. Pickard,       |
+ | P. J. Hasnip, M. J. Probert, K. Refson,         |
+ | M. C. Payne                                     |
+ |                                                 |
+ |       in all publications arising from          |
+ |              your use of CASTEP                 |
+ |                                                 |
+ +-------------------------------------------------+
+ |                                                 |
+ |              http://www.castep.org              |
+ |                                                 |
+ +-------------------------------------------------+
+ 
+ 
+ 
+ Compiled for linux_x86_64_ifort18 on Wed, 23 Dec 2020 18:08:40 +0000
+ from code version 
+ e1fe0d666396+ Castep191_branch Thu, 24 Oct 2019 13:54:03 +0100
+ Compiler: Intel Fortran 18.0.3.222; Optimisation: fast
+ MATHLIBS: Intel MKL(2018.0.3) (LAPACK version 3.7.0)
+ FFT Lib : default
+ Fundamental constants values: CODATA 2014
+ 
+ Run started: Tue, 01 Nov 2022 11:05:44 +0000
+
+ Warning in parameters_validate: current value of 
+   ELEC_ENERGY_TOL = 0.100000E-07eV
+   is too large to achieve desired level of convergence of response properties.
+   This may cause convergence failures and/or inaccuracy of results
+   of PHONON calculations - recommend you use a smaller value, e.g. 
+   ELEC_ENERGY_TOL ~ 0.100000E-08eV
+
+ Warning in parameters_validate: current value of 
+   ELEC_EIGENVALUE_TOL = 0.400000E-08eV
+   is too large to achieve desired level of convergence of response properties.
+   This may cause convergence failures and/or inaccuracy of results
+   of PHONON calculations - recommend you use a smaller value, e.g. 
+   ELEC_EIGENVALUE_TOL = 0.100000E-08eV
+ +-------------------------------------------------+
+ |                                                 |
+ |  D D D D    F F F F F  P P P P     T T T T T    |
+ |  D       D  F          P       P       T        |
+ |  D       D  F F F F    P P P P         T        |
+ |  D       D  F          P               T        |
+ |  D D D D    F          P               T        |
+ |                                                 |
+ +-------------------------------------------------+
+ |                                                 |
+ | Welcome to Castep Linear Response (DFPT)        |
+ |                                                 |
+ | Copyright (c) 2006 - 2018                       |
+ |                                                 |
+ | Please cite the following publications in all   |
+ | work arising from your use of CASTEP LR.        |
+ |                                                 |
+ | K. Refson, S. J. Clark and P. R. Tulip          |
+ | Variational density functional perturbation     |
+ | theory for dielectrics and lattice dynamics     |
+ | Phys. Rev. B 73(15), 155114 (2006)              |
+ +-------------------------------------------------+
+ 
+ 
+ Atomic calculation performed for Si: 1s2 2s2 2p6 3s2 3p2
+ 
+ Converged in 54 iterations to an ae energy of -7886.857 eV
+ 
+   ============================================================                
+   | Pseudopotential Report - Date of generation  1-11-2022   |                
+   ------------------------------------------------------------                
+   | Element: Si Ionic charge:  4.00 Level of theory: PBE     |                
+   | Atomic Solver: Koelling-Harmon                           |                
+   |                                                          |                
+   |               Reference Electronic Structure             |                
+   |         Orbital         Occupation         Energy        |                
+   |            3s              2.000           -0.397        |                
+   |            3p              2.000           -0.150        |                
+   |                                                          |                
+   |                 Pseudopotential Definition               |                
+   |        Beta     l      e      Rc     scheme   norm       |                
+   |          1      0   -0.397   1.797     qc      0         |                
+   |          2      0    0.250   1.797     qc      0         |                
+   |          3      1   -0.150   1.797     qc      0         |                
+   |          4      1    0.250   1.797     qc      0         |                
+   |          5      2    0.000   1.797     qc      0         |                
+   |          6      2    0.250   1.797     qc      0         |                
+   |         loc     3    0.000   1.797     pn      0         |                
+   |                                                          |                
+   | Augmentation charge Rinner = 1.255                       |                
+   | Partial core correction Rc = 1.255                       |                
+   ------------------------------------------------------------                
+   | "3|1.8|5|6|7|30:31:32"                                   |                
+   ------------------------------------------------------------                
+   |      Author: Chris J. Pickard, Cambridge University      |                
+   ============================================================                
+ 
+ Pseudo atomic calculation performed for Si 3s2 3p2
+ 
+ Converged in 20 iterations to a total energy of -165.0690 eV
+ Calculation parallelised over 8 processes.
+ Data is distributed by G-vector(8-way)
+
+ ************************************ Title ************************************
+ 
+
+ ***************************** General Parameters ******************************
+  
+ output verbosity                               : normal  (1)
+ write checkpoint data to                       : Si.check
+ type of calculation                            : phonon calculation
+ stress calculation                             : off
+ density difference calculation                 : off
+ electron localisation func (ELF) calculation   : off
+ Hirshfeld analysis                             : off
+ unlimited duration calculation
+ timing information                             : on
+ memory usage estimate                          : on
+ write extra output files                       : on
+ write final potential to formatted file        : off
+ write final density to formatted file          : off
+ write structure in CELL formatted file         : on
+ write BibTeX reference list                    : on
+ write OTFG pseudopotential files               : on
+ write electrostatic potential file             : on
+ write bands file                               : on
+ checkpoint writing                             : write castep_bin only
+  
+ output         length unit                     : A
+ output           mass unit                     : amu
+ output           time unit                     : ps
+ output         charge unit                     : e
+ output           spin unit                     : hbar/2
+ output         energy unit                     : eV
+ output          force unit                     : eV/A
+ output       velocity unit                     : A/ps
+ output       pressure unit                     : GPa
+ output     inv_length unit                     : 1/A
+ output      frequency unit                     : cm-1
+ output force constant unit                     : eV/A**2
+ output         volume unit                     : A**3
+ output   IR intensity unit                     : (D/A)**2/amu
+ output         dipole unit                     : D
+ output         efield unit                     : eV/A/e
+ output        entropy unit                     : J/mol/K
+  
+ wavefunctions paging                           : none
+ random number generator seed                   : randomised (110544666)
+ data distribution                              : optimal for this architecture
+ optimization strategy                          : maximize speed(+++)
+
+ *********************** Exchange-Correlation Parameters ***********************
+  
+ using functional                               : Perdew Burke Ernzerhof
+ relativistic treatment                         : Koelling-Harmon
+ DFT+D: Semi-empirical dispersion correction    : on
+ SEDC with                                      : TS correction scheme
+
+ ************************* Pseudopotential Parameters **************************
+  
+ pseudopotential representation                 : reciprocal space
+ <beta|phi> representation                      : reciprocal space
+ spin-orbit coupling                            : off
+
+ **************************** Basis Set Parameters *****************************
+  
+ plane wave basis set cut-off                   :   800.0000   eV
+ size of standard grid                          :     1.7500
+ size of   fine   gmax                          :    25.3584   1/A
+ finite basis set correction                    : none
+
+ **************************** Electronic Parameters ****************************
+  
+ number of  electrons                           :  32.00    
+ net charge of system                           :  0.000    
+ treating system as non-spin-polarized
+ number of bands                                :         20
+
+ ********************* Electronic Minimization Parameters **********************
+  
+ Method: Treating system as metallic with density mixing treatment of electrons,
+         and number of  SD  steps               :          1
+         and number of  CG  steps               :          4
+  
+ total energy / atom convergence tol.           : 0.1000E-07   eV
+ eigen-energy convergence tolerance             : 0.4000E-08   eV
+ max force / atom convergence tol.              : ignored
+ convergence tolerance window                   :          3   cycles
+ max. number of SCF cycles                      :        200
+ number of fixed-spin iterations                :         10
+ smearing scheme                                : Gaussian
+ smearing width                                 : 0.2000       eV
+ Fermi energy convergence tolerance             : 0.2721E-13   eV
+ periodic dipole correction                     : NONE
+
+ ************************** Density Mixing Parameters **************************
+  
+ density-mixing scheme                          : Broyden
+ max. length of mixing history                  :         20
+ charge density mixing amplitude                : 0.8000    
+ cut-off energy for mixing                      :  800.0       eV
+
+ *********************** Population Analysis Parameters ************************
+  
+ Population analysis with cutoff                :  3.000       A
+ Population analysis output                     : summary and pdos components
+
+ ****************************** Phonon Parameters ******************************
+  
+ phonon calculation method                      : finite displacement
+ finite displacement amplitude                  : 0.5292E-02   A
+ fine phonon calculation method                 : none
+ LO/TO splitting term                           : not included
+ acoustic phonon sum rule                       : correct D(q) in recip-space
+ Born effective charges                         : not calculated
+ Raman intensities                              : not calculated
+ phonon k-points                                : use reduced set
+ phonon DOS                                     : not calculated
+ backups results every                          :       3600   seconds
+ band convergence tolerance                     : 0.1000E-08   eV
+
+ *******************************************************************************
+  
+ 
+                           -------------------------------
+                                      Unit Cell
+                           -------------------------------
+        Real Lattice(A)                      Reciprocal Lattice(1/A)
+     5.4754511     0.0000000     0.0000000        1.147519202  -0.000000000  -0.000000000
+     0.0000000     5.4754511    -0.0000000       -0.000000000   1.147519202   0.000000000
+     0.0000000    -0.0000000     5.4754511       -0.000000000   0.000000000   1.147519202
+ 
+                       Lattice parameters(A)       Cell Angles
+                    a =      5.475451          alpha =   90.000000
+                    b =      5.475451          beta  =   90.000000
+                    c =      5.475451          gamma =   90.000000
+ 
+                       Current cell volume =           164.157119       A**3
+                                   density =             1.368713   AMU/A**3
+                                           =             2.272802     g/cm^3
+ 
+                           -------------------------------
+                                     Cell Contents
+                           -------------------------------
+                         Total number of ions in cell =    8
+                      Total number of species in cell =    1
+                        Max number of any one species =    8
+ 
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            x  Element    Atom        Fractional coordinates of atoms  x
+            x            Number           u          v          w      x
+            x----------------------------------------------------------x
+            x  Si           1         0.000000   0.000000   0.000000   x 
+            x  Si           2         0.750000   0.750000   0.250000   x 
+            x  Si           3         0.500000   0.000000   0.500000   x 
+            x  Si           4         0.750000   0.250000   0.750000   x 
+            x  Si           5         0.000000   0.500000   0.500000   x 
+            x  Si           6         0.250000   0.250000   0.250000   x 
+            x  Si           7         0.250000   0.750000   0.750000   x 
+            x  Si           8         0.500000   0.500000   0.000000   x 
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ 
+ 
+                         No user defined ionic velocities
+ 
+                           -------------------------------
+                                   Details of Species
+                           -------------------------------
+ 
+                               Mass of species in AMU
+                                    Si   28.0855000
+ 
+                          Electric Quadrupole Moment (Barn)
+                                    Si    1.0000000 No Isotope Defined
+ 
+                          Files used for pseudopotentials:
+                                    Si 3|1.8|5|6|7|30:31:32
+ 
+                           -------------------------------
+                              k-Points For BZ Sampling
+                           -------------------------------
+                       MP grid size for SCF calculation is  2  2  2
+                            with an offset of   0.000  0.000  0.000
+                       Number of kpoints used =             1
+ 
+                           -------------------------------
+                               Symmetry and Constraints
+                           -------------------------------
+ 
+                      Cell is a supercell containing 4 primitive cells
+                      Maximum deviation from symmetry = 0.993638E-35     ANG
+ 
+                      Number of symmetry operations   =         192
+                      Number of ionic constraints     =          24
+                      Point group of crystal =    32: Oh, m-3m, 4/m -3 2/m
+                      Space group of crystal =   227: Fd-3m, F 4d 2 3 -1d
+ 
+             Set iprint > 1 for details on symmetry rotations/translations
+ 
+                         Centre of mass is NOT constrained
+             Set iprint > 1 for details of linear ionic constraints
+ 
+                         Number of cell constraints= 5
+                         Cell constraints are:  1 1 1 0 0 0
+ 
+                         External pressure/stress (GPa)
+                          0.00000   0.00000   0.00000
+                                    0.00000   0.00000
+                                              0.00000
+ 
+                                --------------------
+                                  DFT-D parameters
+                                --------------------
+ 
+                          Dispersion-correction scheme : TS        
+                        Parameter sR :   0.940000 (default)
+                        Parameter d  :  20.000000 (default)
+ 
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        x              Atomic DFT-D parameters                             x
+        x  Species      C6            alpha        R0                      x
+        x               eV A^6        A^3          A                       x
+        x------------------------------------------------------------------x
+        x  Si          182.2457       5.4828       2.2225   (default)      x
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ 
+  
++---------------- MEMORY AND SCRATCH DISK ESTIMATES PER PROCESS --------------+
+|                                                     Memory          Disk    |
+| Baseline code, static data and system overhead      511.0 MB         0.0 MB |
+| BLAS internal memory storage                          0.0 MB         0.0 MB |
+| Model and support data                               35.5 MB         0.0 MB |
+| Electronic energy minimisation requirements           5.7 MB         0.0 MB |
+| Force calculation requirements                        2.3 MB         0.0 MB |
+|                                               ----------------------------- |
+| Approx. total storage required per process          552.2 MB         0.0 MB |
+|                                                                             |
+| Requirements will fluctuate during execution and may exceed these estimates |
++-----------------------------------------------------------------------------+
+Calculating total energy with cut-off of  800.000 eV.
+------------------------------------------------------------------------ <-- SCF
+SCF loop      Energy           Fermi           Energy gain       Timer   <-- SCF
+                               energy          per atom          (sec)   <-- SCF
+------------------------------------------------------------------------ <-- SCF
+Initial  -7.09593602E+001  0.00000000E+000                         6.01  <-- SCF
+      1  -1.24858468E+003  7.83639565E+000   1.47203165E+002       6.22  <-- SCF
+      2  -1.35797879E+003  4.11673970E+000   1.36742633E+001       6.38  <-- SCF
+      3  -1.36375984E+003  4.36603999E+000   7.22630914E-001       6.51  <-- SCF
+      4  -1.36326766E+003  4.51593335E+000  -6.15215719E-002       6.74  <-- SCF
+      5  -1.36323812E+003  4.61406156E+000  -3.69314988E-003       6.97  <-- SCF
+      6  -1.36324494E+003  4.63030923E+000   8.52285266E-004       7.20  <-- SCF
+      7  -1.36324642E+003  4.64211529E+000   1.85949274E-004       7.40  <-- SCF
+      8  -1.36324644E+003  4.64267854E+000   1.87089627E-006       7.65  <-- SCF
+      9  -1.36324644E+003  4.64283116E+000   1.16744203E-007       7.83  <-- SCF
+     10  -1.36324644E+003  4.64284504E+000   2.21857767E-009       7.99  <-- SCF
+     11  -1.36324644E+003  4.64284138E+000   2.94228120E-010       8.15  <-- SCF
+------------------------------------------------------------------------ <-- SCF
+ 
+Final energy, E             =  -1363.246440454     eV
+Final free energy (E-TS)    =  -1363.246440454     eV
+(energies not corrected for finite basis set)
+ 
+NB est. 0K energy (E-0.5TS)      =  -1363.246440454     eV
+ 
+ WARNING: Your unit cell might be too small to get accurate results for van der 
+ Waals
+(SEDC) Total Energy Correction : -0.224134E+01 eV
+
+Dispersion corrected final energy*, Ecor          =  -1365.487776523     eV
+Dispersion corrected final free energy* (Ecor-TS) =  -1365.487776523     eV
+NB dispersion corrected est. 0K energy* (Ecor-0.5TS) =  -1365.487776523     eV
+
+ * not corrected for finite basis set
+
+
+Writing analysis data to Si.castep_bin
+ ??????????????????????????????????????????????????????????????????????????????? 
+     WARNING: Direct Finite Displacement phonon calculation in primitive cell    
+              (with PHONON_FINE_METHOD = "NONE") at q/=0 is not supported        
+              Calculation       A B O R T E D                                    
+ ??????????????????????????????????????????????????????????????????????????????? 
+ +-------------------------------------------------+
+ |                                                 |
+ |      CCC   AA    SSS  TTTTT  EEEEE  PPPP        |
+ |     C     A  A  S       T    E      P   P       |
+ |     C     AAAA   SS     T    EEE    PPPP        |
+ |     C     A  A     S    T    E      P           |
+ |      CCC  A  A  SSS     T    EEEEE  P           |
+ |                                                 |
+ +-------------------------------------------------+
+ |                                                 |
+ | Welcome to Academic Release CASTEP version 19.11|          
+ | Ab Initio Total Energy Program                  |
+ |                                                 |
+ | Authors:                                        |
+ | M. Segall, M. Probert, C. Pickard, P. Hasnip,   |
+ | S. Clark, K. Refson, J. R. Yates, M. Payne      |
+ |                                                 |
+ | Contributors:                                   |
+ | P. Lindan, P. Haynes, J. White, V. Milman,      |
+ | N. Govind, M. Gibson, P. Tulip, V. Cocula,      |
+ | B. Montanari, D. Quigley, M. Glover,            |
+ | L. Bernasconi, A. Perlov, M. Plummer,           |
+ | E. McNellis, J. Meyer, J. Gale, D. Jochym       |
+ | J. Aarons, B. Walker, R. Gillen, D. Jones       |
+ | T. Green, I. J. Bush, C. J. Armstrong,          |
+ | E. J. Higgins, E. L. Brown, M. S. McFly,        |
+ | J. Wilkins, B-C. Shih, P. J. P. Byrne           |
+ |                                                 |
+ | Copyright (c) 2000 - 2018                       |
+ |                                                 |
+ |     Distributed under the terms of an           |
+ |     Agreement between the United Kingdom        |
+ |     Car-Parrinello (UKCP) Consortium,           |
+ |     Daresbury Laboratory and Accelrys, Inc.     |
+ |                                                 |
+ | Please cite                                     |
+ |                                                 |
+ |     "First principles methods using CASTEP"     |
+ |                                                 |
+ |         Zeitschrift fuer Kristallographie       |
+ |           220(5-6) pp. 567-570 (2005)           |
+ |                                                 |
+ | S. J. Clark, M. D. Segall, C. J. Pickard,       |
+ | P. J. Hasnip, M. J. Probert, K. Refson,         |
+ | M. C. Payne                                     |
+ |                                                 |
+ |       in all publications arising from          |
+ |              your use of CASTEP                 |
+ |                                                 |
+ +-------------------------------------------------+
+ |                                                 |
+ |              http://www.castep.org              |
+ |                                                 |
+ +-------------------------------------------------+
+ 
+ 
+ 
+ Compiled for linux_x86_64_ifort18 on Wed, 23 Dec 2020 18:08:40 +0000
+ from code version 
+ e1fe0d666396+ Castep191_branch Thu, 24 Oct 2019 13:54:03 +0100
+ Compiler: Intel Fortran 18.0.3.222; Optimisation: fast
+ MATHLIBS: Intel MKL(2018.0.3) (LAPACK version 3.7.0)
+ FFT Lib : default
+ Fundamental constants values: CODATA 2014
+ 
+ Run started: Tue, 01 Nov 2022 17:23:53 +0000
+
+ Warning in parameters_validate: current value of 
+   ELEC_ENERGY_TOL = 0.100000E-07eV
+   is too large to achieve desired level of convergence of response properties.
+   This may cause convergence failures and/or inaccuracy of results
+   of PHONON calculations - recommend you use a smaller value, e.g. 
+   ELEC_ENERGY_TOL ~ 0.100000E-08eV
+
+ Warning in parameters_validate: current value of 
+   ELEC_EIGENVALUE_TOL = 0.400000E-08eV
+   is too large to achieve desired level of convergence of response properties.
+   This may cause convergence failures and/or inaccuracy of results
+   of PHONON calculations - recommend you use a smaller value, e.g. 
+   ELEC_EIGENVALUE_TOL = 0.100000E-08eV
+ +-------------------------------------------------+
+ |                                                 |
+ |  D D D D    F F F F F  P P P P     T T T T T    |
+ |  D       D  F          P       P       T        |
+ |  D       D  F F F F    P P P P         T        |
+ |  D       D  F          P               T        |
+ |  D D D D    F          P               T        |
+ |                                                 |
+ +-------------------------------------------------+
+ |                                                 |
+ | Welcome to Castep Linear Response (DFPT)        |
+ |                                                 |
+ | Copyright (c) 2006 - 2018                       |
+ |                                                 |
+ | Please cite the following publications in all   |
+ | work arising from your use of CASTEP LR.        |
+ |                                                 |
+ | K. Refson, S. J. Clark and P. R. Tulip          |
+ | Variational density functional perturbation     |
+ | theory for dielectrics and lattice dynamics     |
+ | Phys. Rev. B 73(15), 155114 (2006)              |
+ +-------------------------------------------------+
+ 
+Reading continuation data from model file Si.castep_bin
+ 
+ Atomic calculation performed for Si: 1s2 2s2 2p6 3s2 3p2
+ 
+ Converged in 54 iterations to an ae energy of -7886.857 eV
+ 
+   ============================================================                
+   | Pseudopotential Report - Date of generation  1-11-2022   |                
+   ------------------------------------------------------------                
+   | Element: Si Ionic charge:  4.00 Level of theory: PBE     |                
+   | Atomic Solver: Koelling-Harmon                           |                
+   |                                                          |                
+   |               Reference Electronic Structure             |                
+   |         Orbital         Occupation         Energy        |                
+   |            3s              2.000           -0.397        |                
+   |            3p              2.000           -0.150        |                
+   |                                                          |                
+   |                 Pseudopotential Definition               |                
+   |        Beta     l      e      Rc     scheme   norm       |                
+   |          1      0   -0.397   1.797     qc      0         |                
+   |          2      0    0.250   1.797     qc      0         |                
+   |          3      1   -0.150   1.797     qc      0         |                
+   |          4      1    0.250   1.797     qc      0         |                
+   |          5      2    0.000   1.797     qc      0         |                
+   |          6      2    0.250   1.797     qc      0         |                
+   |         loc     3    0.000   1.797     pn      0         |                
+   |                                                          |                
+   | Augmentation charge Rinner = 1.255                       |                
+   | Partial core correction Rc = 1.255                       |                
+   ------------------------------------------------------------                
+   | "3|1.8|5|6|7|30:31:32"                                   |                
+   ------------------------------------------------------------                
+   |      Author: Chris J. Pickard, Cambridge University      |                
+   ============================================================                
+ 
+ Pseudo atomic calculation performed for Si 3s2 3p2
+ 
+ Converged in 20 iterations to a total energy of -165.0690 eV
+Initialising basis set for model.
+Reinitialising basis set for current geometry.
+Continuing from previous run without ground state wavefunction.
+Continuing from previous run with ground state density.
+ Calculation parallelised over 8 processes.
+ Data is distributed by G-vector(8-way)
+
+ ************************************ Title ************************************
+ 
+
+ ***************************** General Parameters ******************************
+  
+ output verbosity                               : normal  (1)
+ continuing from                                : Si.castep_bin
+ write checkpoint data to                       : Si.check
+ type of calculation                            : phonon calculation
+ stress calculation                             : off
+ density difference calculation                 : off
+ electron localisation func (ELF) calculation   : off
+ Hirshfeld analysis                             : off
+ unlimited duration calculation
+ timing information                             : on
+ memory usage estimate                          : on
+ write extra output files                       : on
+ write final potential to formatted file        : off
+ write final density to formatted file          : off
+ write structure in CELL formatted file         : on
+ write BibTeX reference list                    : on
+ write OTFG pseudopotential files               : on
+ write electrostatic potential file             : on
+ write bands file                               : on
+ checkpoint writing                             : write castep_bin only
+  
+ output         length unit                     : A
+ output           mass unit                     : amu
+ output           time unit                     : ps
+ output         charge unit                     : e
+ output           spin unit                     : hbar/2
+ output         energy unit                     : eV
+ output          force unit                     : eV/A
+ output       velocity unit                     : A/ps
+ output       pressure unit                     : GPa
+ output     inv_length unit                     : 1/A
+ output      frequency unit                     : cm-1
+ output force constant unit                     : eV/A**2
+ output         volume unit                     : A**3
+ output   IR intensity unit                     : (D/A)**2/amu
+ output         dipole unit                     : D
+ output         efield unit                     : eV/A/e
+ output        entropy unit                     : J/mol/K
+  
+ wavefunctions paging                           : none
+ random number generator seed                   :  110544666
+ data distribution                              : optimal for this architecture
+ optimization strategy                          : maximize speed(+++)
+
+ *********************** Exchange-Correlation Parameters ***********************
+  
+ using functional                               : Perdew Burke Ernzerhof
+ relativistic treatment                         : Koelling-Harmon
+ DFT+D: Semi-empirical dispersion correction    : on
+ SEDC with                                      : TS correction scheme
+
+ ************************* Pseudopotential Parameters **************************
+  
+ pseudopotential representation                 : reciprocal space
+ <beta|phi> representation                      : reciprocal space
+ spin-orbit coupling                            : off
+
+ **************************** Basis Set Parameters *****************************
+  
+ plane wave basis set cut-off                   :   800.0000   eV
+ size of standard grid                          :     1.7500
+ size of   fine   gmax                          :    25.3584   1/A
+ finite basis set correction                    : none
+
+ **************************** Electronic Parameters ****************************
+  
+ number of  electrons                           :  32.00    
+ net charge of system                           :  0.000    
+ treating system as non-spin-polarized
+ number of bands                                :         20
+
+ ********************* Electronic Minimization Parameters **********************
+  
+ Method: Treating system as metallic with density mixing treatment of electrons,
+         and number of  SD  steps               :          1
+         and number of  CG  steps               :          4
+  
+ total energy / atom convergence tol.           : 0.1000E-07   eV
+ eigen-energy convergence tolerance             : 0.4000E-08   eV
+ max force / atom convergence tol.              : ignored
+ convergence tolerance window                   :          3   cycles
+ max. number of SCF cycles                      :        200
+ number of fixed-spin iterations                :         10
+ smearing scheme                                : Gaussian
+ smearing width                                 : 0.2000       eV
+ Fermi energy convergence tolerance             : 0.2721E-13   eV
+ periodic dipole correction                     : NONE
+
+ ************************** Density Mixing Parameters **************************
+  
+ density-mixing scheme                          : Broyden
+ max. length of mixing history                  :         20
+ charge density mixing amplitude                : 0.8000    
+ cut-off energy for mixing                      :  800.0       eV
+
+ *********************** Population Analysis Parameters ************************
+  
+ Population analysis with cutoff                :  3.000       A
+ Population analysis output                     : summary and pdos components
+
+ ****************************** Phonon Parameters ******************************
+  
+ phonon calculation method                      : finite displacement
+ finite displacement amplitude                  : 0.5292E-02   A
+ fine phonon calculation method                 : none
+ LO/TO splitting term                           : not included
+ acoustic phonon sum rule                       : correct D(q) in recip-space
+ Born effective charges                         : not calculated
+ Raman intensities                              : not calculated
+ phonon k-points                                : use reduced set
+ phonon DOS                                     : not calculated
+ backups results every                          :       3600   seconds
+ band convergence tolerance                     : 0.1000E-08   eV
+
+ *******************************************************************************
+  
+ 
+                           -------------------------------
+                                      Unit Cell
+                           -------------------------------
+        Real Lattice(A)                      Reciprocal Lattice(1/A)
+     5.4754511     0.0000000     0.0000000        1.147519202  -0.000000000  -0.000000000
+     0.0000000     5.4754511    -0.0000000       -0.000000000   1.147519202   0.000000000
+     0.0000000    -0.0000000     5.4754511       -0.000000000   0.000000000   1.147519202
+ 
+                       Lattice parameters(A)       Cell Angles
+                    a =      5.475451          alpha =   90.000000
+                    b =      5.475451          beta  =   90.000000
+                    c =      5.475451          gamma =   90.000000
+ 
+                       Current cell volume =           164.157119       A**3
+                                   density =             1.368713   AMU/A**3
+                                           =             2.272802     g/cm^3
+ 
+                           -------------------------------
+                                     Cell Contents
+                           -------------------------------
+                         Total number of ions in cell =    8
+                      Total number of species in cell =    1
+                        Max number of any one species =    8
+ 
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            x  Element    Atom        Fractional coordinates of atoms  x
+            x            Number           u          v          w      x
+            x----------------------------------------------------------x
+            x  Si           1         0.000000   0.000000   0.000000   x 
+            x  Si           2         0.750000   0.750000   0.250000   x 
+            x  Si           3         0.500000   0.000000   0.500000   x 
+            x  Si           4         0.750000   0.250000   0.750000   x 
+            x  Si           5         0.000000   0.500000   0.500000   x 
+            x  Si           6         0.250000   0.250000   0.250000   x 
+            x  Si           7         0.250000   0.750000   0.750000   x 
+            x  Si           8         0.500000   0.500000   0.000000   x 
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ 
+ 
+                         No user defined ionic velocities
+ 
+                           -------------------------------
+                                   Details of Species
+                           -------------------------------
+ 
+                               Mass of species in AMU
+                                    Si   28.0855000
+ 
+                          Electric Quadrupole Moment (Barn)
+                                    Si    1.0000000 No Isotope Defined
+ 
+                          Files used for pseudopotentials:
+                                    Si 3|1.8|5|6|7|30:31:32
+ 
+                           -------------------------------
+                              k-Points For BZ Sampling
+                           -------------------------------
+                       MP grid size for SCF calculation is  2  2  2
+                            with an offset of   0.000  0.000  0.000
+                       Number of kpoints used =             1
+ 
+                           -------------------------------
+                               Symmetry and Constraints
+                           -------------------------------
+ 
+                      Cell is a supercell containing 4 primitive cells
+                      Maximum deviation from symmetry = 0.993638E-35     ANG
+ 
+                      Number of symmetry operations   =         192
+                      Number of ionic constraints     =          24
+                      Point group of crystal =    32: Oh, m-3m, 4/m -3 2/m
+                      Space group of crystal =   227: Fd-3m, F 4d 2 3 -1d
+ 
+             Set iprint > 1 for details on symmetry rotations/translations
+ 
+                         Centre of mass is NOT constrained
+             Set iprint > 1 for details of linear ionic constraints
+ 
+                         Number of cell constraints= 5
+                         Cell constraints are:  1 1 1 0 0 0
+ 
+                         External pressure/stress (GPa)
+                          0.00000   0.00000   0.00000
+                                    0.00000   0.00000
+                                              0.00000
+ 
+                                --------------------
+                                  DFT-D parameters
+                                --------------------
+ 
+                          Dispersion-correction scheme : TS        
+                        Parameter sR :   0.940000 (default)
+                        Parameter d  :  20.000000 (default)
+ 
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        x              Atomic DFT-D parameters                             x
+        x  Species      C6            alpha        R0                      x
+        x               eV A^6        A^3          A                       x
+        x------------------------------------------------------------------x
+        x  Si          182.2457       5.4828       2.2225   (default)      x
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ 
+  
++---------------- MEMORY AND SCRATCH DISK ESTIMATES PER PROCESS --------------+
+|                                                     Memory          Disk    |
+| Baseline code, static data and system overhead      519.0 MB         0.0 MB |
+| BLAS internal memory storage                          0.0 MB         0.0 MB |
+| Model and support data                               35.5 MB         0.0 MB |
+| Band structure calculation requirements               1.4 MB         0.0 MB |
+| Force calculation requirements                        2.3 MB         0.0 MB |
+|                                               ----------------------------- |
+| Approx. total storage required per process          556.8 MB         0.0 MB |
+|                                                                             |
+| Requirements will fluctuate during execution and may exceed these estimates |
++-----------------------------------------------------------------------------+
+  Using band-structure calculation to reconstruct wavefunctions from groundstate
+  density.
+  =====================================================================
+  +                                                                   +
+  +       B A N D   S T R U C T U R E   C A L C U L A T I O N         +
+  +                                                                   +
+  + Calculation re-parallelised over 8 processes.                     +
+  + Data distributed by G-vector(8-way)                               +
+  +                                                                   +
+  + ================================================================= +
+  +                                                                   +
+  +     Band Structure Calculation: Progress report on root process   +
+  +                                                                   +
+  +   There are    1 BS k-points. Root process contains    1 of them. +
+  +                                                                   +
+  +         BS Iteration:   1 of (up to)   60, Time:     0.32s.       +
+  +         BS Iteration:   2 of (up to)   60, Time:     0.24s.       +
+  +         BS Iteration:   3 of (up to)   60, Time:     0.24s.       +
+  +         BS Iteration:   4 of (up to)   60, Time:     0.24s.       +
+  +         BS Iteration:   5 of (up to)   60, Time:     0.22s.       +
+  +   Spin= 1 of  1, K-point=   1 of    1 completed, Time:     1.39s. +
+  +   Finished BS calculation on root process (waiting for others).   +
+  +                                                                   +
+  + ================================================================= +
+  +                       Electronic energies                         +
+  +                       -------------------                         +
+  +                                                                   +
+  +   Band number   Energy in eV                                      +
+  + ================================================================= +
+  +                                                                   +
+  + ----------------------------------------------------------------- +
+  +  Spin=1 kpt=    1 ( -0.250000 -0.250000 -0.250000) kpt-group=  1  +
+  + ----------------------------------------------------------------- +
+  +                                                                   +
+  +           1       -6.795561                                       +
+  +           2       -4.922562                                       +
+  +           3       -4.922562                                       +
+  +           4       -4.922457                                       +
+  +           5       -2.101159                                       +
+  +           6       -2.101159                                       +
+  +           7       -2.101003                                       +
+  +           8        0.332914                                       +
+  +           9        0.759541                                       +
+  +          10        0.759541                                       +
+  +          11        0.759594                                       +
+  +          12        2.058762                                       +
+  +          13        2.058899                                       +
+  +          14        2.058899                                       +
+  +          15        3.472965                                       +
+  +          16        3.472965                                       +
+  +          17        5.755527                                       +
+  +          18        5.755527                                       +
+  +          19        5.755551                                       +
+  +          20        6.157048                                       +
+  =====================================================================
+ WARNING: Your unit cell might be too small to get accurate results for van der 
+ Waals
+ Perturbation    1 (of    1): Si    1 X at q=( 0.000, 0.000, 0.000):      6.09s
+  Parallel strategy changed for perturbation using 2 k-points
+  Data is distributed by G-vector(4-way) and k-point(2-way) and band(1-way)
+  +---------------- MEMORY AND SCRATCH DISK ESTIMATES PER PROCESS --------------+
+  |                                                     Memory          Disk    |
+  | Baseline code, static data and system overhead      519.0 MB         0.0 MB |
+  | BLAS internal memory storage                          0.0 MB         0.0 MB |
+  | Model and support data                               35.5 MB         0.0 MB |
+  | Baseline code, static data and system overhead      519.0 MB         0.0 MB |
+  | BLAS internal memory storage                          0.0 MB         0.0 MB |
+  | Model and support data                               35.5 MB         0.0 MB |
+  | Finite displacement phonon requirements              12.5 MB         0.0 MB |
+  |                                               ----------------------------- |
+  | Approx. total storage required per process         1121.5 MB         0.0 MB |
+  |                                                                             |
+  | Requirements will fluctuate during execution and may exceed these estimates |
+  +-----------------------------------------------------------------------------+
+
+ Phonon calculation: q-point   1 (of    1) ( 0.000, 0.000, 0.000):        9.71s
+ -------------------------------------------------------------------------------
+ 
+ ==============================================================================
+ +                           Vibrational Frequencies                          +
+ +                           -----------------------                          +
+ +                                                                            +
+ + Performing frequency calculation at  1 wavevector  (q-pt )                 +
+ + ========================================================================== +
+ +                                                                            +
+ + -------------------------------------------------------------------------- +
+ +  q-pt=    1 (  0.000000  0.000000  0.000000)     1.0000000000              +
+ + -------------------------------------------------------------------------- +
+ +  Acoustic sum rule correction <   2.516692 cm-1 applied                    +
+ +     N      Frequency irrep.              ir active            raman active + 
+ +                (cm-1)                                                      + 
+ +                                                                            +
+ +     1      -0.026685   a                     N                       N     + 
+ +     2      -0.026685   a                     N                       N     + 
+ +     3      -0.026685   a                     N                       N     + 
+ +     4     157.622629   b                     N                       N     + 
+ +     5     157.622629   b                     N                       N     + 
+ +     6     157.622629   b                     N                       N     + 
+ +     7     157.622629   b                     N                       N     + 
+ +     8     157.622629   b                     N                       N     + 
+ +     9     157.622629   b                     N                       N     + 
+ +    10     401.566554   c                     N                       N     + 
+ +    11     401.566554   c                     N                       N     + 
+ +    12     401.566554   c                     N                       N     + 
+ +    13     401.566554   c                     N                       N     + 
+ +    14     401.566554   c                     N                       N     + 
+ +    15     401.566554   c                     N                       N     + 
+ +    16     439.034474   d                     N                       N     + 
+ +    17     439.034474   d                     N                       N     + 
+ +    18     439.034474   d                     N                       N     + 
+ +    19     439.034474   d                     N                       N     + 
+ +    20     439.034474   d                     N                       N     + 
+ +    21     439.034474   d                     N                       N     + 
+ +    22     506.129854   e                     N                       Y     + 
+ +    23     506.129854   e                     N                       Y     + 
+ +    24     506.129854   e                     N                       Y     + 
+ + .......................................................................... +
+ +        Character table from group theory analysis of eigenvectors          +
+ +                           Point Group =  32, Oh                            +
+ + .......................................................................... +
+ +  Rep  Mul |    E  2'  -4   3 m_v m_v   I  2"   4  -3                       +
+ +           | ----------------------------------------                       +
+ + a T1u   1 |    3  -1  -1   0   1   1  -3  -1   1   0                       +
+ + b ?     1 |    6  -2   0   0   0   0   0  -2   0   0                       +
+ + c ?     1 |    6   2   0   0   2   0   0   0   0   0                       +
+ + d ?     1 |    6  -2   0   0   0   0   0   2   0   0                       +
+ + e T2g   1 |    3  -1  -1   0   1  -1   3   1  -1   0                       +
+ ==============================================================================
+ 
+ ************** Constrained Symmetrised Forces **************
+ *                                                          *
+ *               Cartesian components (eV/A)                *
+ * -------------------------------------------------------- *
+ *                         x            y            z      *
+ *                                                          *
+ * Si              1     -0.00000      0.00000      0.00000 *
+ * Si              2      0.00000      0.00000      0.00000 *
+ * Si              3      0.00000      0.00000     -0.00000 *
+ * Si              4      0.00000     -0.00000      0.00000 *
+ * Si              5     -0.00000     -0.00000     -0.00000 *
+ * Si              6      0.00000     -0.00000     -0.00000 *
+ * Si              7     -0.00000      0.00000      0.00000 *
+ * Si              8      0.00000      0.00000      0.00000 *
+ *                                                          *
+ ************************************************************
+ 
+ Pseudo atomic calculation performed for Si 3s2 3p2
+ 
+ Converged in 20 iterations to a total energy of -165.0690 eV
+Charge spilling parameter for spin component 1 = 0.85%
+ 
+            Orbital Populations       
+     Ion    Atom   Orbital             Charge
+  -------------------------------------------
+     Si     1      S                    1.363
+     Si     1      Px                   0.879
+     Si     1      Py                   0.879
+     Si     1      Pz                   0.879
+     Si     2      S                    1.363
+     Si     2      Px                   0.879
+     Si     2      Py                   0.879
+     Si     2      Pz                   0.879
+     Si     3      S                    1.363
+     Si     3      Px                   0.879
+     Si     3      Py                   0.879
+     Si     3      Pz                   0.879
+     Si     4      S                    1.363
+     Si     4      Px                   0.879
+     Si     4      Py                   0.879
+     Si     4      Pz                   0.879
+     Si     5      S                    1.363
+     Si     5      Px                   0.879
+     Si     5      Py                   0.879
+     Si     5      Pz                   0.879
+     Si     6      S                    1.362
+     Si     6      Px                   0.879
+     Si     6      Py                   0.879
+     Si     6      Pz                   0.879
+     Si     7      S                    1.363
+     Si     7      Px                   0.879
+     Si     7      Py                   0.879
+     Si     7      Pz                   0.879
+     Si     8      S                    1.363
+     Si     8      Px                   0.879
+     Si     8      Py                   0.879
+     Si     8      Pz                   0.879
+  -------------------------------------------
+                           Total:      32.000
+  -------------------------------------------
+ 
+     Atomic Populations (Mulliken)
+     -----------------------------
+Species          Ion     s      p      d      f     Total  Charge (e)
+=====================================================================
+  Si              1     1.36   2.64   0.00   0.00   4.00     0.00
+  Si              2     1.36   2.64   0.00   0.00   4.00     0.00
+  Si              3     1.36   2.64   0.00   0.00   4.00     0.00
+  Si              4     1.36   2.64   0.00   0.00   4.00     0.00
+  Si              5     1.36   2.64   0.00   0.00   4.00     0.00
+  Si              6     1.36   2.64   0.00   0.00   4.00     0.00
+  Si              7     1.36   2.64   0.00   0.00   4.00     0.00
+  Si              8     1.36   2.64   0.00   0.00   4.00     0.00
+=====================================================================
+ 
+                 Bond                   Population      Length (A)
+======================================================================
+              Si 7 -- Si 8                   0.74        2.37094
+              Si 6 -- Si 8                   0.74        2.37094
+              Si 5 -- Si 7                   0.74        2.37094
+              Si 5 -- Si 6                   0.74        2.37094
+              Si 4 -- Si 8                   0.74        2.37094
+              Si 4 -- Si 5                   0.74        2.37094
+              Si 3 -- Si 7                   0.74        2.37094
+              Si 3 -- Si 6                   0.74        2.37094
+              Si 3 -- Si 4                   0.74        2.37094
+              Si 2 -- Si 8                   0.74        2.37094
+              Si 2 -- Si 5                   0.74        2.37094
+              Si 2 -- Si 3                   0.74        2.37094
+              Si 1 -- Si 7                   0.74        2.37094
+              Si 1 -- Si 6                   0.74        2.37094
+              Si 1 -- Si 4                   0.74        2.37094
+              Si 1 -- Si 2                   0.74        2.37094
+======================================================================
+ 
+
+Writing analysis data to Si.castep_bin
+ 
+ A BibTeX formatted list of references used in this run has been written to 
+ Si.bib
+ 
+Initialisation time =      3.86 s
+Calculation time    =      6.10 s
+Finalisation time   =      0.26 s
+Total time          =     10.21 s
+Peak Memory Use     = 744044 kB
+  
+Overall parallel efficiency rating: Poor (46%)                                  
+  
+Data was distributed by:-
+G-vector (8-way); efficiency rating: Poor (47%)                                 
+  
+Parallel notes:
+1) Calculation only took 10.0 s, so efficiency estimates may be inaccurate.     

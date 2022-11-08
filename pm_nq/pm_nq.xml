@@ -1,0 +1,193 @@
+<tool id="pm_nq" name="PyMuonSuite Quantum Averaging Generate" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05">
+    <description>generate displaced structures</description>
+    <macros>
+        <!-- version of underlying tool (PEP 440) -->
+        <token name="@TOOL_VERSION@">0.2.1</token>
+        <!-- version of this tool wrapper (integer) -->
+        <token name="@WRAPPER_VERSION@">0</token>
+        <!-- citation should be updated with every underlying tool version -->
+        <!-- typical fields to update are version, month, year, and doi -->
+        <token name="@TOOL_CITATION@">
+            @software{pymuon-suite,
+                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and {Muon Spectroscopy Computational Project}},
+                license = {GPL-3.0},
+                title = {{pymuon-suite}},
+                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
+                version = {v0.2.1},
+                month = {2},
+                year = {2022},
+                doi = {}
+            }
+        </token>
+        <import>muon_macros.xml</import>
+    </macros>
+    <creator>
+        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin"/>
+        <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
+    </creator>
+    <requirements>
+        <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
+        <requirement type="package" version="1.0.0">euphonic</requirement>
+        <requirement type="package" version="3.0">zip</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        structure_name=\$(sed 's/ //g' <<< '$structure.name') &&
+        out_folder=\$(sed 's/.$structure.extension/_displaced/g' <<< '$structure.name') &&
+        ln -s '$structure' \$structure_name &&
+        #if $phonon.phonon_source_type == "castep":
+            phonon_source_file_name=\$(sed 's/ //g' <<< '$phonon.phonon_source_castep.name') &&
+            ln -s '$phonon.phonon_source_castep' \$phonon_source_file_name &&
+            castep_file_name=\$(sed 's/ //g' <<< '$phonon.castep_file.name') &&
+            ln -s '$phonon.castep_file' \$castep_file_name &&
+        #else if $phonon.phonon_source_type == "dftb+":
+            phonon_source_file_name=\$(sed 's/ //g' <<< '$phonon.phonon_source_dftb.name') &&
+            ln -s '$phonon.phonon_source_dftb' \$phonon_source_file_name &&
+            gen_file_name=\$(sed 's/ //g' <<< '$phonon.gen_file.name') &&
+            ln -s '$phonon.gen_file' \$gen_file_name &&
+        #end if
+        touch params.yaml &&
+        printf "phonon_source_file: \$phonon_source_file_name\n">>params.yaml &&
+        printf 'phonon_source_type: $phonon.phonon_source_type\n'>>params.yaml &&
+        #if $script_file:
+            script_file_name=\$(sed 's/ //g' <<< '$script_file.name') &&
+            ln -s '$script_file' \$script_file_name &&
+            printf "script_file: \$script_file_name\n">>params.yaml &&
+        #end if
+        printf 'method: $method\n'>>params.yaml &&
+        printf 'mu_symbol: $mu_symbol\n'>>params.yaml &&
+        printf 'mu_index: $mu_index\n'>>params.yaml &&
+        printf 'grid_n: $grid_n\n'>>params.yaml &&
+        printf 'sigma_n: $sigma_n\n'>>params.yaml &&
+        (printf 'k_points_grid: $k_points_grid\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g") >>params.yaml &&
+        printf 'avgprop: $avgprop\n'>>params.yaml &&
+        printf 'calculator: $calculator.calculator\n'>>params.yaml &&
+        #if $calculator.calculator == 'dftb+':
+            printf 'dftb_set: $calculator.dftb_set\n'>>params.yaml &&
+            printf 'dftb_pbc: $calculator.dftb_pbc\n'>>params.yaml &&
+        #else if $calculator.calculator == 'castep' and $calculator.castep_param:
+            castep_param_name=\$(sed 's/ //g' <<< '$calculator.castep_param.name') &&
+            ln -s '$calculator.castep_param' \$castep_param_name &&
+            printf "castep_param: \$castep_param_name\n">>params.yaml &&
+        #end if
+        printf 'write_allconf: $write_allconf\n'>>params.yaml &&
+        printf 'displace_T: $displace_T\n'>>params.yaml &&
+        ([[ ! -z '$average_T' ]] && printf 'average_T: $average_T\n'>>params.yaml || ( echo "average_T empty")) &&
+        ([[ ! -z '$random_seed' ]] && printf 'random_seed: $random_seed\n'>>params.yaml || ( echo "random_seed empty")) &&
+        pm-nq -t w \$structure_name params.yaml &&
+        zip -r out_zip.zip \$out_folder params.yaml \$structure_name &&
+        #if $script_file:
+            zip out_zip.zip \$script_file_name &&
+        #end if
+        #if $calculator.calculator == 'castep' and $calculator.castep_param:
+            zip out_zip.zip \$castep_param_name &&
+        #end if
+        find \$out_folder > tree.txt
+    ]]></command>
+    <inputs>
+        <param argument="structure" type="data" format="cell, cif, xyz, extxyz" label="Structure File" help="The structure to make displacements to. The original file will be preserved. Accepted file types: CELL, CIF, XYZ (standard or extended)."/>
+        <conditional name="phonon">
+            <param argument="phonon_source_type" type="select" display="radio" value="castep" label="Phonon Type" help="The format of the phonon file.">
+                <option value="castep">CASTEP</option>
+                <option value="dftb+">DFTB+</option>
+            </param>
+            <when value="castep">
+                <param name="phonon_source_castep" type="data" format="txt" label="Phonon File" help="Source file for phonon modes."/>
+                <param name="castep_file" type="data" format="castep" label="CASTEP Log (.castep)" help="The CASTEP log produced when generating the Phonon File."/>
+            </when>
+            <when value="dftb+">
+                <param name="phonon_source_dftb" type="data" format="binary" label="Phonon File" help="Source file for phonon modes."/>
+                <param name="gen_file" type="data" format="txt" label="Gen File" help="GEN formatted geometry file for DFTB+."/>
+            </when>
+        </conditional>
+        <param argument="script_file" type="data" format="txt" optional="true" label="Script File" help="For convenience, this script file is copied to all output directories (optional)."/>
+        <param argument="method" type="select" display="radio" value="independent" label="Method" help="Method used to calculate thermal average">
+            <option value="independent">Independent</option>
+            <option value="montecarlo">Monte Carlo</option>
+        </param>
+        <param argument="mu_symbol" type="text" value="H:mu" label="Muon Symbol" help="Custom CASTEP species that identifies the muon."/>
+        <param argument="mu_index" type="integer" value="-1" label="Muon Index" help="If the Muon Symbol is not present in the cell, then the atom in the cell with this index will be treated as the muon instead. Not used if the Muon Symbol is present. Defaults to the last atom in the structure."/>
+        <param argument="grid_n" type="integer" value="20" label="Grid Points" help="Number of points to sample along each phonon mode or thermal line."/>
+        <param argument="sigma_n" type="float" value="3" label="Sigma Number" help="Number of sigmas to sample in the harmonic approximation."/>
+        <expand macro="k_points_grid"/>
+        <param argument="avgprop" type="select" display="radio" value="hyperfine" label="Averaged Property" help="Property to be calculated.">
+            <option value="hyperfine">Hyperfine</option>
+            <option value="charge">Charge</option>
+        </param>
+        <conditional name="calculator">
+            <param argument="calculator" type="select" display="radio" value="castep" label="Calculator" help="Used to calculate the property.">
+                <option value="castep">CASTEP</option>
+                <option value="dftb+">DFTB+</option>
+            </param>
+            <when value="castep">
+                <param argument="castep_param" type="data" format="txt" optional="true" label="Castep Parameters File" help="For convenience, this file is copied to all output directories (optional)."/>
+            </when>
+            <when value="dftb+">
+                <expand macro="dftb+"/>
+            </when>
+        </conditional>
+        <param argument="write_allconf" type="boolean" label="Write All Configurations" help="Whether to write a 'collective' file containing all the displaced positions."/>
+        <param argument="displace_T" type="float" value="0" label="Displacement Temperature" help="Temperature used to generate displacements."/>
+        <param argument="average_T" type="float" optional="true" label="Averaging Temperature" help="Temperature used when averaging property (optional). If unset, will use the same value as Averaging Temperature."/>
+        <param argument="random_seed" type="integer" optional="true" label="Random Seed" help="Seed to use for random generation."/>
+        <param type="hidden" name="testing" label="Test mode" value="false"/>
+    </inputs>
+    <outputs>
+        <data label="Displaced Structures" name="displaced_structures" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="File tree (testing only)" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true">
+            <filter>(testing == "true")</filter>
+        </data>
+    </outputs>
+    <tests>
+        <!-- Test CASTEP without default values -->
+        <test expect_num_outputs="2">
+            <param name="testing" value="true"/>
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <conditional name="phonon">
+                <param name="phonon_source_castep" value="Si.phonon" ftype="txt"/>
+                <param name="castep_file" value="Si.castep"/>
+            </conditional>
+            <output name="file_tree" file="tree.txt" ftype="txt" sort="true"/>
+        </test>
+        <!-- Test CASTEP with optional extra files -->
+        <test expect_num_outputs="2">
+            <param name="testing" value="true"/>
+            <param name="structure" value="Si.cell" ftype="cell"/>
+            <param name="script_file" value="submit.sh" ftype="txt"/>
+            <conditional name="phonon">
+                <param name="phonon_source_castep" value="Si.phonon" ftype="txt"/>
+                <param name="castep_file" value="Si.castep"/>
+            </conditional>
+            <conditional name="calculator">
+                <param name="castep_param" value="Si.param"/>
+            </conditional>
+            <output name="file_tree" file="tree_extra_files.txt" ftype="txt" sort="true"/>
+        </test>
+        <!-- Test DFTB+ -->
+        <test expect_num_outputs="2">
+            <param name="testing" value="true"/>
+            <param name="structure" value="ethyleneMu_opt.xyz" ftype="xyz"/>
+            <param name="method" value="montecarlo"/>
+            <conditional name="phonon">
+                <param name="phonon_source_type" value="dftb+"/>
+                <param name="phonon_source_dftb" value="ethyleneMu_opt.phonons.pkl" ftype="auto"/>
+                <param name="gen_file" value="geo_end.gen" ftype="txt"/>
+            </conditional>
+            <conditional name="calculator">
+                <param name="calculator" value="dftb+"/>
+            </conditional>
+            <output name="file_tree" file="tree_dftb.txt" ftype="txt" sort="true"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        Given an input muonated structure (containing a muon), displaces the muon along its normal modes to allow vibrational averaging.
+
+        Command-line usage: pm-nq [-h] [-t w] structure parameter_file
+
+        .. _Generate muonated structures: /tool_runner?tool_id=pm_muairss_write
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+            @TOOL_CITATION@
+        </citation>
+    </citations>
+</tool>
