@@ -1,3 +1,7 @@
+geo_end.gen
+params.yaml
+ethyleneMu_opt.phonons.pkl
+ethyleneMu_opt.xyz
 ethyleneMu_opt_displaced
 ethyleneMu_opt_displaced/.collection
 ethyleneMu_opt_displaced/ethyleneMu_opt_displaced_0

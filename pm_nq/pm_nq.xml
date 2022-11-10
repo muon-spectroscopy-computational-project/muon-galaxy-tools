@@ -46,43 +46,53 @@
                 gen_file_name=\$(sed 's/ //g' <<< '$task.phonon.gen_file.name') &&
                 ln -s '$task.phonon.gen_file' \$gen_file_name &&
             #end if
-            touch params.yaml &&
-            printf "phonon_source_file: \$phonon_source_file_name\n">>params.yaml &&
-            printf 'phonon_source_type: $task.phonon.phonon_source_type\n'>>params.yaml &&
+            printf "phonon_source_file: \$phonon_source_file_name\n">>'$params_yaml' &&
             #if $task.script_file:
                 script_file_name=\$(sed 's/ //g' <<< '$task.script_file.name') &&
                 ln -s '$task.script_file' \$script_file_name &&
-                printf "script_file: \$script_file_name\n">>params.yaml &&
+                printf "script_file: \$script_file_name\n">>'$params_yaml' &&
             #end if
-            printf 'method: $task.method\n'>>params.yaml &&
-            printf 'mu_symbol: $task.mu_symbol\n'>>params.yaml &&
-            printf 'mu_index: $task.mu_index\n'>>params.yaml &&
-            printf 'grid_n: $task.grid_n\n'>>params.yaml &&
-            printf 'sigma_n: $task.sigma_n\n'>>params.yaml &&
-            (printf 'k_points_grid: $task.k_points_grid\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g") >>params.yaml &&
-            printf 'avgprop: $task.avgprop\n'>>params.yaml &&
-            printf 'calculator: $task.calculator.calculator\n'>>params.yaml &&
-            #if $task.calculator.calculator == 'dftb+':
-                printf 'dftb_set: $task.calculator.dftb_set\n'>>params.yaml &&
-                printf 'dftb_pbc: $task.calculator.dftb_pbc\n'>>params.yaml &&
-            #else if $task.calculator.calculator == 'castep' and $task.calculator.castep_param:
+            #if $task.calculator.calculator == 'castep' and $task.calculator.castep_param:
                 castep_param_name=\$(sed 's/ //g' <<< '$task.calculator.castep_param.name') &&
                 ln -s '$task.calculator.castep_param' \$castep_param_name &&
-                printf "castep_param: \$castep_param_name\n">>params.yaml &&
+                printf "castep_param: \$castep_param_name\n">>'$params_yaml' &&
             #end if
-            printf 'write_allconf: $task.write_allconf\n'>>params.yaml &&
-            printf 'displace_T: $task.displace_T\n'>>params.yaml &&
-            ([[ ! -z '$task.average_T' ]] && printf 'average_T: $task.average_T\n'>>params.yaml || ( echo "average_T empty")) &&
-            ([[ ! -z '$task.random_seed' ]] && printf 'random_seed: $task.random_seed\n'>>params.yaml || ( echo "random_seed empty")) &&
+            ln -s '$params_yaml' params.yaml &&
             pm-nq -t w \$structure_name params.yaml &&
-            zip -r out_zip.zip * &&
-            find \$out_folder > tree.txt
+            find * > tree.txt &&
+            zip -r out_zip.zip *
         #else if $task.task == 'r':
             unzip '$task.zipped_input' &&
             pm-nq -t r \$structure_name params.yaml &&
             cat averages.dat
         #end if
     ]]></command>
+    <configfiles>
+        <configfile name="params_yaml">#if $task.task == 'w':
+method: $task.method
+mu_symbol: $task.mu_symbol
+mu_index: $task.mu_index
+grid_n: $task.grid_n
+sigma_n: $task.sigma_n
+#set $k_points_grid_formatted = $task.k_points_grid.replace('__ob__', '[').replace('__cb__', ']')
+k_points_grid: $k_points_grid_formatted
+avgprop: $task.avgprop
+calculator: $task.calculator.calculator
+write_allconf: $task.write_allconf
+displace_T: $task.displace_T
+#if $task.average_T:
+average_T: $task.average_T
+#end if
+#if $task.random_seed:
+random_seed: $task.random_seed
+#end if
+#if $task.calculator.calculator == 'dftb+':
+dftb_set: $task.calculator.dftb_set
+dftb_pbc: $task.calculator.dftb_pbc
+#end if
+phonon_source_type: $task.phonon.phonon_source_type
+#end if</configfile>
+    </configfiles>
     <inputs>
         <param argument="structure" type="data" format="cell, cif, xyz, extxyz" label="Structure File" help="The structure to make displacements to. The original file will be preserved. Accepted file types: CELL, CIF, XYZ (standard or extended)."/>
         <conditional name="task">

@@ -1,3 +1,7 @@
+params.yaml
+Si.castep
+Si.cell
+Si.phonon
 Si_displaced
 Si_displaced/.collection
 Si_displaced/Si_displaced_0
