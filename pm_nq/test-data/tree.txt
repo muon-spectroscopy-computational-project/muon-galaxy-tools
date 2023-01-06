@@ -1,3 +1,4 @@
+conda_activate.log
 params.yaml
 Si.castep
 Si.cell

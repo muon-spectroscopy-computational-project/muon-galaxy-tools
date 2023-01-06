@@ -46,16 +46,13 @@
                 gen_file_name=\$(sed 's/ //g' <<< '$task.phonon.gen_file.name') &&
                 ln -s '$task.phonon.gen_file' \$gen_file_name &&
             #end if
-            printf "phonon_source_file: \$phonon_source_file_name\n">>'$params_yaml' &&
             #if $task.script_file:
                 script_file_name=\$(sed 's/ //g' <<< '$task.script_file.name') &&
                 ln -s '$task.script_file' \$script_file_name &&
-                printf "script_file: \$script_file_name\n">>'$params_yaml' &&
             #end if
             #if $task.calculator.calculator == 'castep' and $task.calculator.castep_param:
                 castep_param_name=\$(sed 's/ //g' <<< '$task.calculator.castep_param.name') &&
                 ln -s '$task.calculator.castep_param' \$castep_param_name &&
-                printf "castep_param: \$castep_param_name\n">>'$params_yaml' &&
             #end if
             ln -s '$params_yaml' params.yaml &&
             pm-nq -t w \$structure_name params.yaml &&
@@ -91,6 +88,20 @@ dftb_set: $task.calculator.dftb_set
 dftb_pbc: $task.calculator.dftb_pbc
 #end if
 phonon_source_type: $task.phonon.phonon_source_type
+#if $task.phonon.phonon_source_type == "castep":
+#set $phonon_source_file_name = $task.phonon.phonon_source_castep.name.replace(' ', '')
+#else if $task.phonon.phonon_source_type == "dftb+":
+#set $phonon_source_file_name = $task.phonon.phonon_source_dftb.name.replace(' ', '')
+#end if
+phonon_source_file: $phonon_source_file_name
+#if $task.script_file:
+#set $script_file_name = $task.script_file.name.replace(' ', '')
+script_file: $script_file_name
+#end if
+#if $task.calculator.calculator == 'castep' and $task.calculator.castep_param:
+#set $castep_param_name = $task.calculator.castep_param.name.replace(' ', '')
+castep_param: $castep_param_name
+#end if
 #end if</configfile>
     </configfiles>
     <inputs>
