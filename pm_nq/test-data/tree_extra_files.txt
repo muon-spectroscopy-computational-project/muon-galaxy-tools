@@ -1,4 +1,3 @@
-conda_activate.log
 params.yaml
 submit.sh
 Si.castep

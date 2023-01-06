@@ -1,4 +1,3 @@
-conda_activate.log
 geo_end.gen
 params.yaml
 ethyleneMu_opt.phonons.pkl
