@@ -1,0 +1,11 @@
+categories:
+- Materials science
+- Muon spectroscopy
+description: Generate structures with displaced muons
+homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
+long_description: |
+  Given an input structure containing muons, generates a set of structures with the muon displaced along its normal modes. This can then be used for vibrational averaging.
+  Uses the pm-nq tool from pymuon-suite.
+name: pm_nq
+owner: muon-spectroscopy-computational-project
+remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/pm_nq
