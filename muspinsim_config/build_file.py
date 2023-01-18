@@ -64,9 +64,7 @@ def format_entry(entry):
     if len(stck) != 0:
         raise ValueError(
             "Could not parse entry {0}"
-            "brackets mismatch - unclosed '(' found on char(s): {1}".format(
-                entry, stck
-            )
+            "brackets mismatch - unclosed '(' found on char(s): {1}".format(entry, stck)
         )
     return new_str
 
@@ -111,10 +109,7 @@ def parse_matrix(entry_string, size):
     containing x elements (space separated)
     """
     content = split_into_args(entry_string, nargs=size[0] * size[1])
-    return [
-        " ".join(content[x: x + size[0]])
-        for x in range(0, len(content), size[0])
-    ]
+    return [" ".join(content[x : x + size[0]]) for x in range(0, len(content), size[0])]
 
 
 def parse_interactions(interaction):
@@ -138,16 +133,12 @@ def parse_interactions(interaction):
             "hyperfine": lambda options: build_block(
                 "hyperfine {0} {1}".format(
                     options["hfine_index"],
-                    options["hfine_e_index"]
-                    if options["hfine_e_index"]
-                    else "",
+                    options["hfine_e_index"] if options["hfine_e_index"] else "",
                 ).strip(),
                 parse_matrix(options["hfine_matrix"], (3, 3)),
             ),
             "dipolar": lambda options: build_block(
-                "dipolar {0} {1}".format(
-                    options["di_index"], options["di_index_2"]
-                ),
+                "dipolar {0} {1}".format(options["di_index"], options["di_index_2"]),
                 parse_matrix(options["di_vector"], (3, 1)),
             ),
             "quadrupolar": lambda options: build_block(
@@ -255,25 +246,17 @@ def parse_spin(spin):
         return spin["spin_preset"]
     else:
         elem_name = spin["spin"].strip()
-        if elem_name not in ['e', 'mu']:
+        if elem_name not in ["e", "mu"]:
             elem_name = elem_name.capitalize()
         return "{0}{1}".format(
-            int(spin["atomic_mass"]) if spin["atomic_mass"] else "",
-            elem_name
+            int(spin["atomic_mass"]) if spin["atomic_mass"] else "", elem_name
         ).strip()
 
 
 parse_func_dict = {
     "spins": lambda values: build_block(
         "spins",
-        [
-            " ".join(
-                [
-                    parse_spin(entry["spin_options"])
-                    for entry in values
-                ]
-            )
-        ],
+        [" ".join([parse_spin(entry["spin_options"]) for entry in values])],
     ),
     # either 1x3 vector or scalar or function
     "fields": lambda values: build_block(
@@ -282,27 +265,17 @@ parse_func_dict = {
     # either scalar or single function
     "times": lambda values: build_block(
         "time",
-        [
-            " ".join(split_into_args(entry["time"], 1))
-            for entry in values
-        ],
+        [" ".join(split_into_args(entry["time"], 1)) for entry in values],
     ),
     # either scalar or single function
     "temperatures": lambda values: build_block(
         "temperature",
-        [
-            " ".join(split_into_args(entry["temperature"], 1))
-            for entry in values
-        ],
+        [" ".join(split_into_args(entry["temperature"], 1)) for entry in values],
     ),
     "x_axis": lambda value: build_block("x_axis", [value]),
     "y_axis": lambda value: build_block("y_axis", [value]),
-    "average_axes": lambda values: build_block(
-        "average_axes", values
-    ),
-    "experiment_preset": lambda value: build_block(
-        "experiment", [value]
-    ),
+    "average_axes": lambda values: build_block("average_axes", values),
+    "experiment_preset": lambda value: build_block("experiment", [value]),
     "orientations": lambda values: build_block(
         "orientation {0}".format(euler_convention),
         [parse_orientation(entry) for entry in values],
@@ -314,12 +287,8 @@ parse_func_dict = {
         "polarization",
         [parse_polarization(entry) for entry in values],
     ),
-    "fitting": lambda value: build_block(
-        "fitting_data", ['load("fitting_data.dat")']
-    ),
-    "fitting_method": lambda value: build_block(
-        "fitting_method", [value]
-    ),
+    "fitting": lambda value: build_block("fitting_data", ['load("fitting_data.dat")']),
+    "fitting_method": lambda value: build_block("fitting_method", [value]),
     "fitting_variables": lambda values: build_block(
         "fitting_variables",
         [parse_fitting_variables(entry) for entry in values],
@@ -329,7 +298,7 @@ parse_func_dict = {
         [str(value)],
     ),
 }
-euler_convention = 'ZYZ'
+euler_convention = "ZYZ"
 
 
 def main():
@@ -358,9 +327,7 @@ def main():
     euler_convention = mu_params["euler_convention"]
 
     err_found = False
-    file_contents = [
-        build_block("name", [out_file_name.strip().replace(" ", "_")])
-    ]
+    file_contents = [build_block("name", [out_file_name.strip().replace(" ", "_")])]
     for keyword, val in mu_params.items():
         if val and val not in ["None"]:
             try:
@@ -370,9 +337,7 @@ def main():
 
             except ValueError as e:
                 sys.stderr.write(
-                    "Error occurred when parsing {0}\n{1}".format(
-                        keyword, str(e)
-                    )
+                    "Error occurred when parsing {0}\n{1}".format(keyword, str(e))
                 )
                 err_found = True
 
@@ -386,9 +351,7 @@ def main():
     except Exception as e:
         sys.stdout.write(
             "Warning, This created file may not work properly. "
-            "Error(s) encountered when trying to parse the file : {0}".format(
-                str(e)
-            )
+            "Error(s) encountered when trying to parse the file : {0}".format(str(e))
         )
         sys.exit(1)
 
