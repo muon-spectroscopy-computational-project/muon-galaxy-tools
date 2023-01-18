@@ -10,8 +10,6 @@ spins
     mu
 dissipation 1
     g
-average_axes
-    orientation
 fitting_method
     nelder-mead
 fitting_variables
@@ -26,3 +24,7 @@ y_axis
     asymmetry
 field
     1.0/muon_gyr
+intrinsic_field
+    2.0/muon_gyr
+average_axes
+    orientation

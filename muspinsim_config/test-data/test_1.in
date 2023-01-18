@@ -12,9 +12,9 @@ zeeman 2
     2 0 0
 zeeman 1
     1 0 0
-average_axes
-    orientation
 x_axis
     time
 y_axis
     asymmetry
+average_axes
+    orientation

@@ -297,6 +297,8 @@
             <param name="experiment_preset" value="custom"/>
             <param name="field" value="1.5e-2 1.0e-2 1.0e-2"/>
             <param name="field" value="0.01"/>
+            <param name="intrinsic_field" value="1.6e-2 1.1e-2 1.1e-2"/>
+            <param name="intrinsic_field" value="0.02"/>
             <param name="polarization_preset" value="custom"/>
             <param name="polarization" value="1 0 0"/>
             <param name="time" value="range(0,8.0,1000)"/>
@@ -313,6 +315,7 @@
             <param name="dis_val" value="g"/>
             <param name="experiment_preset" value="custom"/>
             <param name="field" value="1.0/muon_gyr"/>
+            <param name="intrinsic_field" value="2.0/muon_gyr"/>
             <param name="fitting" value="true"/>
             <param name="var_name" value="g"/>
             <param name="min_bound" value="0.0"/>

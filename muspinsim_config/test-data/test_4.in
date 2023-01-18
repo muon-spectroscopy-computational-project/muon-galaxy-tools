@@ -26,5 +26,8 @@ y_axis
 field
     0.01
     1.5e-2 1.0e-2 1.0e-2
+intrinsic_field
+    0.02
+    1.6e-2 1.1e-2 1.1e-2
 polarization
     1 0 0

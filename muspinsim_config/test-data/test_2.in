@@ -12,8 +12,6 @@ hyperfine 1
     1 0 0
     sin(10) (5*2) 0
     10*pi 5 cos(20)
-average_axes
-    orientation
 time
     range(0,0.1)
 temperature
@@ -24,3 +22,5 @@ y_axis
     asymmetry
 field
     1.0
+average_axes
+    orientation
