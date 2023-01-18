@@ -208,16 +208,17 @@ def parse_polarization(polarization):
             return " ".join(split_into_args(options["polarization"], 3))
 
 
-def parse_field(field):
+def parse_field(field, type):
     """
     Helper function to parse field keyword arguments
     :param field: a dictionary containing one set of field arguments
+    :param type: a string giving the type of field, either field or intrinsic_field
     :return: a formatted string
     """
     try:
-        return " ".join(split_into_args(field["field"], 1))
+        return " ".join(split_into_args(field[type], 1))
     except ValueError:
-        return " ".join(split_into_args(field["field"], 3))
+        return " ".join(split_into_args(field[type], 3))
 
 
 def parse_fitting_variables(fitting_variables):
@@ -260,7 +261,10 @@ parse_func_dict = {
     ),
     # either 1x3 vector or scalar or function
     "fields": lambda values: build_block(
-        "field", [parse_field(entry) for entry in values]
+        "field", [parse_field(entry, "field") for entry in values]
+    ),
+    "intrinsic_fields": lambda values: build_block(
+        "intrinsic_field", [parse_field(entry, "intrinsic_field") for entry in values]
     ),
     # either scalar or single function
     "times": lambda values: build_block(

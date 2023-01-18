@@ -19,10 +19,12 @@
                 doi = {10.5281/zenodo.6563074}
             }
         </token>
+        <import>config_macros.xml</import>
     </macros>
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <person givenName="Joel" familyName="Davies" url="https://github.com/joelvdavies" identifier="https://orcid.org/0000-0002-4153-6819"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
@@ -114,6 +116,7 @@
                     <repeat name="fields" title="Fields" help="Magnetic fields">
                         <param name="field" type="text" value="0" label="Field" optional="true" help="Optional, (default is 0). Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis. Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
                     </repeat>
+                    <expand macro="average_axes_options_alc"/>
                 </when>
                 <when value="zero_field">
                     <param name="x_axis" type="select" value="time" display="radio" label="X axis" help="Range to use as X axis for output file(s)">
@@ -124,6 +127,7 @@
                         <option value="integral">integral</option>
                         <option selected="true" value="asymmetry">asymmetry</option>
                     </param>
+                    <expand macro="average_axes_options"/>
                 </when>
                 <when value="custom">
                     <param name="x_axis" type="select" value="time" display="radio" label="X axis" help="Range to use as X axis for output file(s)">
@@ -134,8 +138,11 @@
                         <option value="integral">integral</option>
                         <option selected="true" value="asymmetry">asymmetry</option>
                     </param>
-                    <repeat name="fields" title="Fields" help="Magnetic fields">
+                    <repeat name="fields" title="Fields" help="Extrernal magnetic fields (i.e. they are subject to any rotations applied via the orientations parameter).">
                         <param name="field" type="text" value="0" label="Field (T)" optional="true" help="Optional, (default is 0). Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis. Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
+                    </repeat>
+                    <repeat name="intrinsic_fields" title="Intrinsic Fields" help="Intrinsic magnetic fields (these are unaffected by rotations when using angular averaging via the orientations parameter).">
+                        <param name="intrinsic_field" type="text" value="0" label="Intrinsic Field (T)" optional="true" help="Optional, (default is 0). Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis. Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
                     </repeat>
                     <repeat name="polarizations" title="Polarizations" help="The direction along which the muon should be polarized when starting, as well as the one in which it will be measured. Each entry will generate a separate calculation when muspinsim is run">
                         <conditional name="polarization_options">
@@ -151,15 +158,9 @@
                             <when value="transverse"/>
                         </conditional>
                     </repeat>
+                    <expand macro="average_axes_options"/>
                 </when>
             </conditional>
-            <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes" help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified. Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when muspinsim is run.">
-                <option selected="true" value="orientation">orientation</option>
-                <option value="polarization">polarization</option>
-                <option value="field">field</option>
-                <option value="time">time</option>
-                <option value="temperature">temperature</option>
-            </param>
             <repeat name="orientations" title="Orientations" help="Orientations to use for crystallites - (define powder averages)">
                 <conditional name="orientation_options">
                     <param name="orientation_preset" type="select" display="radio" label="Orientation" optional="false" help="Polar angles: Define two polar angles θ and ϕ, defining only the direction of the z-axis (recommended for powder averages). Euler angles: Define 3 Euler angles defining a new frame, convention used is ZYZ by default. Euler angles with weight: define 3 Euler angles and a weight (will be normalized automatically). Euler angles helper function: eulrange(n). Zaremba-Conroy-Wolfsberg helper function: zcw(n)">
