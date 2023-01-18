@@ -10,12 +10,27 @@
         </param>
     </xml>
     <xml name="average_axes_options_alc">
-        <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes" help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified. Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when muspinsim is run.">
+        <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes" help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified. Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when MuSpinSim is run.">
             <option selected="true" value="orientation">orientation</option>
             <option value="polarization">polarization</option>
             <option value="field">field</option>
             <option value="time">time</option>
             <option value="temperature">temperature</option>
         </param>
+    </xml>
+    <xml name="celio_options">
+        <section name="celio_params" expanded="true" title="Celio's Method" help="Celio's method is an approximate method for computing asymmetry values over a range of times. It is particularly useful for larger systems of higher spins.">
+            <conditional name="celio_options">
+                <param name="celio_enabled" type="select" label="Use Celio's method?" display="radio">
+                    <option value="true">Yes</option>
+                    <option selected="true" value="">No</option>
+                </param>
+                <when value="true">
+                    <param name="celio_k" type="integer" value="10" label="Trotter number, k" help="Value used in the Trotter expansion."/>
+                    <param name="celio_averages" type="integer" optional="true" label="Number of averages" help="When given a value MuSpinSim will randomise initial polarisation states and perform an average. This method is more approximate but much faster and reduces memory usage. It will also assume T-&gt;inf and zero magnetic fields. See the MuSpinSim docs for more info."/>
+                </when>
+                <when value=""/>
+            </conditional>
+        </section>
     </xml>
 </macros>

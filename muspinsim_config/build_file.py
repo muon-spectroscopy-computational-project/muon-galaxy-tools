@@ -264,6 +264,27 @@ def parse_spin(spin):
         ).strip()
 
 
+def parse_celio(celio_params):
+    """
+    Helper function for parsing Celio's method parameters
+    :param celio_params: a dictionary containing the parameters for Celio's
+                         method
+    """
+    options = celio_params["celio_options"]
+    if not options["celio_enabled"]:
+        return ""
+    else:
+        # Now have celio_k and potentially celio_averages
+        celio_k = options["celio_k"]
+        celio_averages = options["celio_averages"]
+
+        # As celio_averages is optional so may be None
+        if celio_averages is None:
+            celio_averages = ""
+
+        return build_block("celio", [f"{celio_k} {celio_averages}".strip()])
+
+
 parse_func_dict = {
     "spins": lambda values: build_block(
         "spins",
@@ -305,6 +326,7 @@ parse_func_dict = {
         "polarization",
         [parse_polarization(entry) for entry in values],
     ),
+    "celio_params": parse_celio,
     "fitting": lambda value: build_block(
         "fitting_data", ['load("fitting_data.dat")']
     ),
