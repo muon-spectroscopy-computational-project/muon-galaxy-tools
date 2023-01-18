@@ -307,6 +307,8 @@
             <param name="time" value="range(0,1.0)"/>
             <param name="orientation_preset" value="eulrange"/>
             <param name="eul_n" value="10"/>
+            <param name="celio_enabled" value="true"/>
+            <param name="celio_k" value="10"/>
             <output name="out_file" file="test_4.in" ftype="txt" compare="diff"/>
         </test>
         <test expect_num_outputs="1">
@@ -322,6 +324,9 @@
             <param name="var_name" value="g"/>
             <param name="min_bound" value="0.0"/>
             <param name="fitting_tolerance" value="1.0"/>
+            <param name="celio_enabled" value="true"/>
+            <param name="celio_k" value="10"/>
+            <param name="celio_averages" value="4"/>
             <output name="out_file" file="test_5.in" ftype="txt" compare="diff"/>
         </test>
     </tests>
