@@ -15,8 +15,8 @@ def write_file(file_name, content):
         file.write(
             """
 #######################################################
-#Muspinsim Input File
-#Generated using Muon Galaxy Tool Muspinsim_Input
+# Muspinsim Input File
+# Generated using Muon Galaxy Tool Muspinsim_Input
 #######################################################\n\n"""
         )
         file.write("".join(content))

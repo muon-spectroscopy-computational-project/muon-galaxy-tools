@@ -2,7 +2,7 @@
     <description>define simulation parameters</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">1.1.0</token>
+        <token name="@TOOL_VERSION@">1.2.0</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
@@ -13,7 +13,7 @@
                 license = {MIT},
                 title = {{muspinsim}},
                 url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
-                version = {v1.1.0},
+                version = {v1.2.0},
                 month = {5},
                 year = {2022},
                 doi = {10.5281/zenodo.6563074}
@@ -61,7 +61,7 @@
             </repeat>
         </section>
         <section name="interaction_params" expanded="true" title="Spin Interactions" help="">
-            <repeat name="interactions" title="Interactions to simulate" help="Add couplings between spins, and/or dissipation terms. Interaction terms available: Zeeman, hyperfine, dipolar, quadrupolar or dissipation. See muspinsim docs for more info">
+            <repeat name="interactions" title="Interactions to simulate" help="Add couplings between spins, and/or dissipation terms. Interaction terms available: Zeeman, hyperfine, dipolar, quadrupolar or dissipation. See MuSpinSim docs for more info">
                 <conditional name="interaction_options">
                     <param name="interaction" type="select" label="Choose interaction type">
                         <option value="zeeman">Zeeman</option>
@@ -145,7 +145,7 @@
                     <repeat name="intrinsic_fields" title="Intrinsic Fields" help="Intrinsic magnetic fields (these are unaffected by rotations when using angular averaging via the orientations parameter).">
                         <param name="intrinsic_field" type="text" value="0" label="Intrinsic Field (T)" optional="true" help="Optional, (default is 0). Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis. Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
                     </repeat>
-                    <repeat name="polarizations" title="Polarizations" help="The direction along which the muon should be polarized when starting, as well as the one in which it will be measured. Each entry will generate a separate calculation when muspinsim is run">
+                    <repeat name="polarizations" title="Polarizations" help="The direction along which the muon should be polarized when starting, as well as the one in which it will be measured. Each entry will generate a separate calculation when MuSpinSim is run">
                         <conditional name="polarization_options">
                             <param name="polarization_preset" value="custom" type="select" display="radio" label="Polarization" help="transverse: along x-axis, longitudinal: along z-axis, custom: define vector">
                                 <option value="longitudinal">longditudinal</option>
@@ -203,12 +203,12 @@
                 <param name="time" type="text" label="Time" help="Either a single time value or `range` function - allows default expressions, default constants, and special 'range()' function (see help section)" optional="true" value="range(0, 10, 101)"/>
             </repeat>
             <repeat name="temperatures" title="Temperature" help="Temperature or range of temperatures (K)">
-                <param name="temperature" type="text" help="Either single value or 'range()' function - allows default expressions, default constants, and special 'range()' function (see help section). Warning: both density matrices and dissipative couplings for finite temperatures are only calculated approximatively, see muspinsim docs." optional="true" value="inf"/>
+                <param name="temperature" type="text" help="Either single value or 'range()' function - allows default expressions, default constants, and special 'range()' function (see help section). Warning: both density matrices and dissipative couplings for finite temperatures are only calculated approximatively, see MuSpinSim docs." optional="true" value="inf"/>
             </repeat>
         </section>
         <section name="fitting_params" expanded="true" title="Fitting Parameters">
             <conditional name="fitting_options">
-                <param name="fitting" type="select" display="radio" optional="false" value="" label="Fit experimental data with simulations" help="Fitting requires a file with data to fit. File must be given in muspinsim tool, or by manually setting filepath for keyword 'fitting_data' if running muspinsim externally">
+                <param name="fitting" type="select" display="radio" optional="false" value="" label="Fit experimental data with simulations" help="Fitting requires a file with data to fit. File must be given in MuSpinSim tool, or by manually setting filepath for keyword 'fitting_data' if running MuSpinSim externally">
                     <option value="true">Yes</option>
                     <option selected="true" value="">No</option>
                 </param>
@@ -331,14 +331,14 @@
         </test>
     </tests>
     <help><![CDATA[
-    Tool to create input parameter file for Muspinsim.
+    Tool to create input parameter file for MuSpinSim.
 
 
-    This tool creates a structured text file with keywords and values which describe the system to model for Muspinsim.
-    See muspinsim docs for more information https://muon-spectroscopy-computational-project.github.io/muspinsim/input/.
+    This tool creates a structured text file with keywords and values which describe the system to model for MuSpinSim.
+    See MuSpinSim docs for more information https://muon-spectroscopy-computational-project.github.io/muspinsim/input/.
 
 
-    Muspinsim allows expressions and special functions to be used when defining certain keywords. This tool also allows this.
+    MuSpinSim allows expressions and special functions to be used when defining certain keywords. This tool also allows this.
     Check the hint at the bottom of each input to see what, if any, special function or expressions can be used.
 
 
@@ -407,6 +407,7 @@
                 year={2006}
             }
         </citation>
+        <citation type="doi">10.1103/PhysRevLett.56.2720</citation>
         <citation type="bibtex">
             @TOOL_CITATION@
         </citation>
