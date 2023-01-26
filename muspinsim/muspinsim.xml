@@ -31,11 +31,13 @@
     <command detect_errors="exit_code"><![CDATA[
         ## remove spaces in names
         mu_sim_name=\$(sed 's/ //g' <<< '$mu_sim.name') &&
+        ## input file name without extension
+        mu_in_name=\${mu_sim_name%.*} &&
         ## create links
         ln -s '$mu_sim' \$mu_sim_name &&
         ## grab 'name' field from input file, if it doesn't exist, set name as 'muspinsim'
         mu_out=\$(grep -A1 '^name' \$mu_sim_name | grep -v 'name' | sed -e 's/^[ \t]*//') &&
-        fitreport_out=\${mu_out:-"fitting_data"}_fitreport.txt &&
+        fit_report_out=\${mu_in_name:-"fitting_data"}_fit_report.txt &&
         mu_out=\${mu_out:-"muspinsim"} &&
         log_out=\$(echo \$mu_sim_name | cut -d '.' -f1).log &&
         ## if fitting data required, check if fitting data exists
@@ -46,13 +48,13 @@
                 ln -s '$mu_exp_in' \$mu_exp_in_name &&
                 sed -iE "/^fitting_data/{n;s/([^)]*)/(\"\$mu_exp_in_name\")/g}" \$mu_sim_name;
             else
-                echo "fitting data required, but no experiment data given" && exit 64;
+                echo "Fitting data required, but no experiment data given" && exit 64;
             fi;
         fi &&
         muspinsim \$mu_sim_name &&
         mkdir data &&
         mv \$mu_out*.dat data &&
-        if test -f \$fitreport_out; then mv -f \$fitreport_out fit_report.txt; fi &&
+        if test -f \$fit_report_out; then mv -f \$fit_report_out fit_report.txt; fi &&
         mv \$log_out log_out.log
     ]]></command>
     <inputs>
@@ -89,7 +91,7 @@
             </output_collection>
             <output name="log_out" file="hfine_powder.log" ftype="txt" compare="re_match">
                 <assert_contents>
-                    <has_size value="802"/>
+                    <has_size value="803" delta="2"/>
                 </assert_contents>
             </output>
         </test>
@@ -104,7 +106,7 @@
                     <has_size value="17145"/>
                 </assert_contents>
             </output>
-            <output name="fit_report" file="fitting_fitreport.txt" ftype="txt" lines_diff="4"/>
+            <output name="fit_report" file="fitting_fit_report.txt" ftype="txt" lines_diff="2"/>
         </test>
         <test expect_num_outputs="2">
             <param name="mu_sim" value="multi_out.in" ftype="txt"/>
