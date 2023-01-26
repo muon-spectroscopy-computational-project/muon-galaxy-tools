@@ -2,21 +2,21 @@
     <description>perform spin dynamics calculations for muon science experiments</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">1.2.0</token>
+        <token name="@TOOL_VERSION@">2.0.2</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
             @software{muspinsim,
-                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
+                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and Mudaraddi, Anish and Davies, Joel and Wilkinson, John and {Muon Spectroscopy Computational Project}},
                 license = {MIT},
                 title = {{muspinsim}},
                 url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
-                version = {v1.2.0},
-                month = {5},
-                year = {2022},
-                doi = {10.5281/zenodo.6563074}
+                version = {v2.0.2},
+                month = {1},
+                year = {2023}
+                doi = {10.5281/zenodo.7568830}
             }
         </token>
     </macros>

@@ -2,7 +2,7 @@ import json
 import re
 import sys
 
-# from muspinsim import MuSpinInput
+from muspinsim import MuSpinInput
 
 
 def write_file(file_name, content):
@@ -393,15 +393,14 @@ def main():
 
     write_file("outfile.in", file_contents)
 
-    # TODO: Uncomment once muspinsim version updated
-    # try:
-    #     MuSpinInput(open("outfile.in", encoding="utf-8"))
-    # except Exception as exc:  # pylint: disable=broad-except
-    #     sys.stdout.write(
-    #         "Warning, This created file may not work properly. Error(s) "
-    #         f"encountered when trying to parse the file : {str(exc)}"
-    #     )
-    #     sys.exit(1)
+    try:
+        MuSpinInput(open("outfile.in", encoding="utf-8"))
+    except Exception as exc:  # pylint: disable=broad-except
+        sys.stdout.write(
+            "Warning, This created file may not work properly. Error(s) "
+            f"encountered when trying to parse the file : {str(exc)}"
+        )
+        sys.exit(1)
 
 
 if __name__ == "__main__":
