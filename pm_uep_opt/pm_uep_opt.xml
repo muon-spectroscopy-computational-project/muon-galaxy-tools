@@ -37,14 +37,18 @@
         unzip '$muonated_structures' &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi &&
         if ( test -f input_structure.* ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi &&
+        ## PyMuonSuite requires will attempt to load '<chden_seed>.den_fmt' and
+        ## '<chden_seed>.castep', but $charge_density.name may or may not end
+        ## with '.den_fmt' so strip any extension and manually include 'den_fmt'
+        ## and '.castep' in the linked file names
         charge_density_name=\$(sed 's/ //g' <<< '$charge_density.name') &&
-        ln -s '$charge_density' \$charge_density_name &&
-        x=\$charge_density_name &&
-        echo "calculated seed name \$x" &&
-        ln -s '$castep_log' "\${x%%.*}.castep" &&
+        charge_density_seed=\${charge_density_name%%.*} &&
+        echo "Calculated seed name \$charge_density_seed" &&
+        ln -s '$charge_density' \$charge_density_seed.den_fmt && 
+        ln -s '$castep_log' \$charge_density_seed.castep &&
         out_folder="`python '${__tool_directory__}/get_out_folder.py'`" &&
         find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_path: .*#chden_path: .\/#g" &&
-        find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_seed: .*#chden_seed: \${x%%.*}#g" &&
+        find \$out_folder -type f -name "*.yaml" | xargs sed -i "s#^chden_seed: .*#chden_seed: \$charge_density_seed#g" &&
         bash '${__tool_directory__}/run.sh' \$out_folder &&
         zip -r out_zip.zip \$out_folder params.yaml input_structure.* &&
         find \$out_folder > tree.txt
@@ -95,6 +99,18 @@
             <param name="muonated_structures" value="muonated.zip" ftype="zip"/>
             <param name="charge_density" value="Si.den_fmt" ftype="den_fmt"/>
             <param name="castep_log" value="Si.castep" ftype="castep"/>
+        </test>
+        <!-- Check that the chden parameters are set correctly when $charge_density.name does not have the .den_fmt extension -->
+        <test expect_num_outputs="2">
+            <param name="testing" value="true"/>
+            <param name="muonated_structures" value="muonated.zip" ftype="zip"/>
+            <param name="charge_density" value="Si_den_fmt" ftype="den_fmt"/>
+            <param name="castep_log" value="Si.castep" ftype="castep"/>
+            <output name="file_tree" file="tree.txt" ftype="txt" sort="true">
+                <assert_contents>
+                    <has_size value="1780"/>
+                </assert_contents>
+            </output>
         </test>
     </tests>
     <help><![CDATA[
