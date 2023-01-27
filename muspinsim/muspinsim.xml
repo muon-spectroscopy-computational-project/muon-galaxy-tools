@@ -76,7 +76,7 @@
         <test expect_num_outputs="2">
             <param name="mu_sim" value="hfine.in" ftype="txt"/>
             <output_collection name="muspinsim_results" type="list">
-                <element name="hfine.dat" file="hfine.dat" ftype="txt" lines_diff="4"/>
+                <element name="hfine.dat" file="hfine.dat" ftype="txt" compare="re_match"/>
             </output_collection>
             <output name="log_out" file="hfine.log" ftype="txt" compare="re_match"/>
         </test>
