@@ -23,6 +23,7 @@
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <person givenName="Joel" familyName="Davies" url="https://github.com/joelvdavies" identifier="https://orcid.org/0000-0002-4153-6819"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
@@ -94,6 +95,13 @@
                     <has_size value="803" delta="2"/>
                 </assert_contents>
             </output>
+        </test>
+        <test expect_num_outputs="2">
+            <param name="mu_sim" value="celio.in" ftype="txt"/>
+            <output_collection name="muspinsim_results" type="list">
+                <element name="celio.dat" file="generic_out.dat" ftype="txt" compare="re_match_multiline"/>
+            </output_collection>
+            <output name="log_out" file="celio.log" ftype="txt" compare="re_match"/>
         </test>
         <test expect_num_outputs="3">
             <param name="mu_sim" value="fitting.in" ftype="txt"/>

@@ -1,0 +1,12 @@
+name
+   celio
+spins
+   mu F F
+dipolar 1 2
+   0 0 1
+dipolar 1 3
+   0 0 -1
+celio
+   8 4
+time
+   range(0, 10, 100)
