@@ -37,7 +37,7 @@
         unzip '$muonated_structures' &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi &&
         if ( test -f input_structure.* ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi &&
-        ## PyMuonSuite requires will attempt to load '<chden_seed>.den_fmt' and
+        ## PyMuonSuite will attempt to load '<chden_seed>.den_fmt' and
         ## '<chden_seed>.castep', but $charge_density.name may or may not end
         ## with '.den_fmt' so strip any extension and manually include 'den_fmt'
         ## and '.castep' in the linked file names
