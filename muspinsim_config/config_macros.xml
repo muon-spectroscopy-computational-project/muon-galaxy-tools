@@ -1,19 +1,23 @@
 <macros>
+    <xml name="average_axes_options_alc">
+        <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes" help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified. Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when MuSpinSim is run.">
+            <option selected="true" value="orientation">orientation</option>
+            <option value="temperature">temperature</option>
+        </param>
+    </xml>
+    <xml name="average_axes_options_zero_field">
+        <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes" help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified. Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when muspinsim is run.">
+            <option selected="true" value="orientation">orientation</option>
+            <option value="time">time</option>
+            <option value="temperature">temperature</option>
+        </param>
+    </xml>
     <xml name="average_axes_options">
         <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes" help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified. Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when muspinsim is run.">
             <option selected="true" value="orientation">orientation</option>
             <option value="polarization">polarization</option>
             <option value="field">field</option>
             <option value="intrinsic_field">intrinsic_field</option>
-            <option value="time">time</option>
-            <option value="temperature">temperature</option>
-        </param>
-    </xml>
-    <xml name="average_axes_options_alc">
-        <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes" help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified. Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when MuSpinSim is run.">
-            <option selected="true" value="orientation">orientation</option>
-            <option value="polarization">polarization</option>
-            <option value="field">field</option>
             <option value="time">time</option>
             <option value="temperature">temperature</option>
         </param>
@@ -32,5 +36,10 @@
                 <when value=""/>
             </conditional>
         </section>
+    </xml>
+    <xml name="times">
+        <repeat name="times" title="Time" help="A time or range of times (μs)">
+            <param name="time" type="text" label="Time" help="Either a single time value or `range` function - allows default expressions, default constants, and special 'range()' function (see help section)" optional="true" value="range(0, 10, 101)"/>
+        </repeat>
     </xml>
 </macros>

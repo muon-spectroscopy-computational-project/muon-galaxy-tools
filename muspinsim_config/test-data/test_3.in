@@ -21,7 +21,7 @@ orientation zyz
 field
     range(1.8,2.6,100)
 average_axes
-    polarization
+    orientation
     temperature
 experiment
     alc

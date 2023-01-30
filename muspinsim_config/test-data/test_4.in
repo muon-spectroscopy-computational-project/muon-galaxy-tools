@@ -16,9 +16,6 @@ dipolar 1 2
     0.9 0.9 0
 orientation zyz
     eulrange(10)
-time
-    range(0,1.0)
-    range(0,8.0,1000)
 x_axis
     time
 y_axis
@@ -33,3 +30,6 @@ polarization
     1 0 0
 celio
     10
+time
+    range(0,1.0)
+    range(0,8.0,1000)
