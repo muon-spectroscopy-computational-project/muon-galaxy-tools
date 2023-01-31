@@ -15,7 +15,5 @@ zeeman 1
 average_axes
     orientation
     temperature
-x_axis
-    time
-y_axis
-    asymmetry
+experiment
+    zero_field

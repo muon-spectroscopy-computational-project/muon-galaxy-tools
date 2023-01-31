@@ -318,6 +318,9 @@ parse_func_dict = {
         },
         "y_axis": lambda value: build_block("y_axis", [value])
     },
+    "average_axes_restricted": lambda values: build_block(
+        "average_axes", values
+    ),
     "experiment_preset": lambda value: build_block("experiment", [value]),
     "orientations": lambda values: build_block(
         f"orientation {EULER_CONVENTION}",
@@ -350,7 +353,8 @@ EULER_CONVENTION = "ZYZ"
 parse_none_dict = {
     # Allow average_axis to be None as by default is orientation in
     # muspinsim but letting the UI present this here instead
-    "average_axes": ["none"]
+    "average_axes": ["none"],
+    "average_axes_restricted": ["none"]
 }
 
 
