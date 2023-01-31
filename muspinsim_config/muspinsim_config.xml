@@ -107,7 +107,7 @@
         </section>
         <section name="experiment_params" expanded="true" title="Experiment Parameters">
             <conditional name="experiment">
-                <param name="experiment_preset" type="select" value="custom" display="radio" label="Experiment type" help="Experiment preset to use. Avoided Level Crossing (ALC): sets polarization to longitudinal, x-axis to field and y-axis to integral. Zero field: sets polarization to transverse and field to 0. Choose custom for no preset">
+                <param name="experiment_preset" type="select" value="custom" display="radio" label="Experiment type" help="Experiment preset to use. Avoided Level Crossing (ALC): sets polarization to longitudinal, x-axis to field and y-axis to integral. Zero field: sets polarization to transverse, field to 0, x-axis to time and y-axis to asymmetry. Choose custom for no preset">
                     <option value="alc">Avoided Level Crossing (ALC)</option>
                     <option value="zero_field">Zero Field</option>
                     <option selected="true" value="custom">Custom</option>
@@ -119,11 +119,9 @@
                     <expand macro="average_axes_options_alc"/>
                 </when>
                 <when value="zero_field">
-                    <param name="x_axis" type="select" value="time" display="radio" label="X axis" help="Range to use as X axis for output file(s)">
                         <option selected="true" value="time">time</option>
                         <option value="field">field</option>
                     </param>
-                    <param name="y_axis" type="select" value="asymmetry" display="radio" label="Y axis" help="Range to use as y axis for output file(s). Asymmetry: use muon's polarization. Integral: use muon's polarization integral over time. WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter.">
                         <option value="integral">integral</option>
                         <option selected="true" value="asymmetry">asymmetry</option>
                     </param>
