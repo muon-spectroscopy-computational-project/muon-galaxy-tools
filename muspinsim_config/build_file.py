@@ -342,6 +342,13 @@ parse_func_dict = {
 }
 EULER_CONVENTION = "ZYZ"
 
+# Gives replacement values in the case a parameter is unassigned
+parse_none_dict = {
+    # Allow average_axis to be None as by default is orientation in
+    # muspinsim but letting the UI present this here instead
+    "average_axes": ["none"]
+}
+
 
 def main():
     """
@@ -376,7 +383,15 @@ def main():
         build_block("name", [out_file_name.strip().replace(" ", "_")])
     ]
     for keyword, val in mu_params.items():
-        if val and val not in ["None"]:
+
+        # Either don't allow the value to be None or replace
+        # with value in the parse_none_dict above
+        should_assign = val and val not in ["None"]
+        if not should_assign and keyword in parse_none_dict:
+            should_assign = keyword in parse_none_dict
+            val = parse_none_dict[keyword]
+
+        if should_assign:
             try:
                 keyword_func = parse_func_dict.get(keyword)
                 if keyword_func:

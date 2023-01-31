@@ -28,6 +28,8 @@ intrinsic_field
     1.6e-2 1.1e-2 1.1e-2
 polarization
     1 0 0
+average_axes
+    none
 celio
     10
 time

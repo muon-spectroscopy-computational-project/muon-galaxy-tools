@@ -119,12 +119,6 @@
                     <expand macro="average_axes_options_alc"/>
                 </when>
                 <when value="zero_field">
-                        <option selected="true" value="time">time</option>
-                        <option value="field">field</option>
-                    </param>
-                        <option value="integral">integral</option>
-                        <option selected="true" value="asymmetry">asymmetry</option>
-                    </param>
                     <expand macro="average_axes_options_zero_field"/>
                     <expand macro="celio_options"/>
                     <expand macro="times"/>
