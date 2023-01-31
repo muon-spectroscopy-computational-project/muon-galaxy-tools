@@ -18,6 +18,8 @@ fitting_tolerance
     1.0
 fitting_data
     load("fitting_data.dat")
+average_axes
+    orientation
 x_axis
     time
 y_axis
@@ -26,7 +28,5 @@ field
     1.0/muon_gyr
 intrinsic_field
     2.0/muon_gyr
-average_axes
-    orientation
 celio
     10 4

@@ -98,7 +98,7 @@ def split_into_args(entry, nargs=1):
 def parse_matrix(entry_string, size):
     """
     Helper function to parse and format matrix/vector
-    to be readable by Muspinsim
+    to be readable by MuSpinSim
     :param entry_string: a user input string for a matrix/vector
     :param size: (x, y) integer tuple: dimensions of matrix
     :return: a list of strings of length y, each string
@@ -311,9 +311,13 @@ parse_func_dict = {
             for entry in values
         ],
     ),
-    "x_axis": lambda value: build_block("x_axis", [value]),
-    "y_axis": lambda value: build_block("y_axis", [value]),
-    "average_axes": lambda values: build_block("average_axes", values),
+    "axes_options": {
+        "x_axis_options": {
+            "x_axis": lambda value: build_block("x_axis", [value]),
+            "average_axes": lambda values: build_block("average_axes", values),
+        },
+        "y_axis": lambda value: build_block("y_axis", [value])
+    },
     "experiment_preset": lambda value: build_block("experiment", [value]),
     "orientations": lambda values: build_block(
         f"orientation {EULER_CONVENTION}",
@@ -350,6 +354,42 @@ parse_none_dict = {
 }
 
 
+def parse_dict(dictionary, params, file_contents) -> bool:
+    """
+    Helper function for parsing nested dictionaries defined above
+    containing parse functions
+    :returns: Whether an error occurred
+    """
+
+    err_found = False
+    for keyword, val in params.items():
+
+        # Either don't allow the value to be None or replace
+        # with value in the parse_none_dict above
+        should_assign = val and val not in ["None"]
+        if not should_assign and keyword in parse_none_dict:
+            should_assign = keyword in parse_none_dict
+            val = parse_none_dict[keyword]
+
+        if should_assign:
+            try:
+                keyword_func = dictionary.get(keyword)
+                # Check for nested dict, and add that contents as well if found
+                if isinstance(keyword_func, dict):
+                    err_found = err_found or parse_dict(
+                        keyword_func, val, file_contents)
+                else:
+                    if keyword_func:
+                        file_contents.append(keyword_func(val))
+
+            except ValueError as exc:
+                sys.stderr.write(
+                    f"Error occurred when parsing {keyword}\n{str(exc)}"
+                )
+                err_found = True
+    return err_found
+
+
 def main():
     """
     Entry point
@@ -378,32 +418,11 @@ def main():
     global EULER_CONVENTION
     EULER_CONVENTION = mu_params["euler_convention"]
 
-    err_found = False
     file_contents = [
         build_block("name", [out_file_name.strip().replace(" ", "_")])
     ]
-    for keyword, val in mu_params.items():
 
-        # Either don't allow the value to be None or replace
-        # with value in the parse_none_dict above
-        should_assign = val and val not in ["None"]
-        if not should_assign and keyword in parse_none_dict:
-            should_assign = keyword in parse_none_dict
-            val = parse_none_dict[keyword]
-
-        if should_assign:
-            try:
-                keyword_func = parse_func_dict.get(keyword)
-                if keyword_func:
-                    file_contents.append(keyword_func(val))
-
-            except ValueError as exc:
-                sys.stderr.write(
-                    f"Error occurred when parsing {keyword}\n{str(exc)}"
-                )
-                err_found = True
-
-    if err_found:
+    if parse_dict(parse_func_dict, mu_params, file_contents):
         sys.exit(1)
 
     write_file("outfile.in", file_contents)

@@ -16,12 +16,9 @@ hyperfine 2
     580 5 10
     5 580 9
     10 9 580
-orientation zyz
-    zcw(20)
 field
     range(1.8,2.6,100)
-average_axes
-    orientation
-    temperature
+orientation zyz
+    zcw(20)
 experiment
     alc

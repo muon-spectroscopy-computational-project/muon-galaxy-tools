@@ -169,7 +169,6 @@
     <tests>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_1"/>
-            <param name="experiment_preset" value="custom"/>
             <param name="spin_preset" value="custom"/>
             <param name="spin" value="H"/>
             <param name="spin_preset" value="mu"/>
@@ -268,6 +267,22 @@
             <param name="celio_k" value="10"/>
             <param name="celio_averages" value="4"/>
             <output name="out_file" file="test_5.in" ftype="txt" compare="diff"/>
+        </test>
+        <test expect_num_outputs="1">
+            <param name="out_file_prefix" value="test_6"/>
+            <param name="experiment_preset" value="custom"/>
+            <param name="spin_preset" value="custom"/>
+            <param name="spin" value="H"/>
+            <param name="spin_preset" value="mu"/>
+            <param name="interaction" value="zeeman"/>
+            <param name="zeeman_index" value="1"/>
+            <param name="zeeman_vector" value="1 0 0"/>
+            <param name="zeeman_index" value="2"/>
+            <param name="zeeman_vector" value="2 0 0"/>
+            <param name="y_axis" value="asymmetry"/>
+            <param name="x_axis" value="time"/>
+            <param name="average_axes" value="orientation,temperature"/>
+            <output name="out_file" file="test_6.in" ftype="txt" compare="diff"/>
         </test>
     </tests>
     <help><![CDATA[
