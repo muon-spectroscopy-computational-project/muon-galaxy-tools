@@ -209,7 +209,7 @@
             <param name="interaction" value="hyperfine"/>
             <param name="hfine_index" value="3"/>
             <param name="hfine_matrix" value="[(300/2)  3   4*10 ], [3  15*10 6-3+2]  ,[4  5   15 ]"/>
-            <param name="average_axes_restricted" value="orientation,temperature"/>
+            <param name="average_axes" value="orientation,temperature"/>
             <param name="experiment_preset" value="alc"/>
             <param name="field" value="range(1.8, 2.6, 100)"/>
             <param name="orientation_preset" value="zcw"/>
@@ -279,8 +279,24 @@
             <param name="zeeman_vector" value="1 0 0"/>
             <param name="zeeman_index" value="2"/>
             <param name="zeeman_vector" value="2 0 0"/>
-            <param name="average_axes_restricted" value="orientation,temperature"/>
+            <param name="average_axes" value="orientation,temperature"/>
             <output name="out_file" file="test_6.in" ftype="txt" compare="diff"/>
+        </test>
+        <test expect_num_outputs="1">
+            <param name="out_file_prefix" value="test_6"/>
+            <param name="experiment_preset" value="zero_field"/>
+            <param name="spin_preset" value="custom"/>
+            <param name="spin" value="H"/>
+            <param name="spin_preset" value="mu"/>
+            <param name="interaction" value="zeeman"/>
+            <param name="zeeman_index" value="1"/>
+            <param name="zeeman_vector" value="1 0 0"/>
+            <param name="zeeman_index" value="2"/>
+            <param name="zeeman_vector" value="2 0 0"/>
+            <param name="y_axis" value="integral"/>
+            <param name="x_axis" value="field"/>
+            <param name="average_axes" value="orientation,temperature"/>
+            <output name="out_file" file="test_7.in" ftype="txt" compare="diff"/>
         </test>
     </tests>
     <help><![CDATA[

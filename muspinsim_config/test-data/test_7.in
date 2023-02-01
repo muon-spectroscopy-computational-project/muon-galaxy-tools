@@ -1,0 +1,19 @@
+
+#######################################################
+# Muspinsim Input File
+# Generated using Muon Galaxy Tool Muspinsim_Input
+#######################################################
+
+name
+    test_6
+spins
+    mu H
+zeeman 2
+    2 0 0
+zeeman 1
+    1 0 0
+average_axes
+    orientation
+    temperature
+experiment
+    zero_field
