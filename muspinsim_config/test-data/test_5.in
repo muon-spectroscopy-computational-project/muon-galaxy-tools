@@ -1,7 +1,7 @@
 
 #######################################################
-#Muspinsim Input File
-#Generated using Muon Galaxy Tool Muspinsim_Input
+# Muspinsim Input File
+# Generated using Muon Galaxy Tool Muspinsim_Input
 #######################################################
 
 name
@@ -10,8 +10,6 @@ spins
     mu
 dissipation 1
     g
-average_axes
-    orientation
 fitting_method
     nelder-mead
 fitting_variables
@@ -20,9 +18,15 @@ fitting_tolerance
     1.0
 fitting_data
     load("fitting_data.dat")
+average_axes
+    orientation
 x_axis
     time
 y_axis
     asymmetry
 field
     1.0/muon_gyr
+intrinsic_field
+    2.0/muon_gyr
+celio
+    10 4

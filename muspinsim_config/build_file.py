@@ -11,15 +11,15 @@ def write_file(file_name, content):
     :param file_name: name of file
     :param content: list of strings containing blocks to write
     """
-    with open(file_name, "w") as f:
-        f.write(
+    with open(file_name, "w", encoding="utf-8") as file:
+        file.write(
             """
 #######################################################
-#Muspinsim Input File
-#Generated using Muon Galaxy Tool Muspinsim_Input
+# Muspinsim Input File
+# Generated using Muon Galaxy Tool Muspinsim_Input
 #######################################################\n\n"""
         )
-        f.write("".join(content))
+        file.write("".join(content))
 
 
 def build_block(title, vals):
@@ -47,9 +47,8 @@ def format_entry(entry):
         elif char == ")":
             if len(stck) == 0:
                 raise ValueError(
-                    "Could not parse entry {0}"
-                    "brackets mismatch - unexpected ')' "
-                    "found on char {1}".format(entry, i)
+                    f"Could not parse entry {entry} brackets mismatch - "
+                    f"unexpected ')' found on char {i}"
                 )
             stck.pop()
         elif char == " " and len(stck) > 0:
@@ -63,10 +62,8 @@ def format_entry(entry):
 
     if len(stck) != 0:
         raise ValueError(
-            "Could not parse entry {0}"
-            "brackets mismatch - unclosed '(' found on char(s): {1}".format(
-                entry, stck
-            )
+            f"Could not parse entry {entry} brackets mismatch - unclosed '(' "
+            f"found on char(s): {stck}"
         )
     return new_str
 
@@ -92,11 +89,8 @@ def split_into_args(entry, nargs=1):
     chars = [elem.strip() for elem in content if elem != ""]
     if len(chars) != nargs:
         raise ValueError(
-            "Could not parse entry {0}"
-            " incorrect number of args"
-            " found {1}:\n({2})\nBut expected {3}".format(
-                entry, len(chars), chars, nargs
-            )
+            f"Could not parse entry {entry} incorrect number of args found "
+            f"{len(chars)}:\n({chars})\nBut expected {nargs}"
         )
     return chars
 
@@ -104,7 +98,7 @@ def split_into_args(entry, nargs=1):
 def parse_matrix(entry_string, size):
     """
     Helper function to parse and format matrix/vector
-    to be readable by Muspinsim
+    to be readable by MuSpinSim
     :param entry_string: a user input string for a matrix/vector
     :param size: (x, y) integer tuple: dimensions of matrix
     :return: a list of strings of length y, each string
@@ -136,31 +130,30 @@ def parse_interactions(interaction):
                 parse_matrix(options["zeeman_vector"], (3, 1)),
             ),
             "hyperfine": lambda options: build_block(
-                "hyperfine {0} {1}".format(
-                    options["hfine_index"],
-                    options["hfine_e_index"]
-                    if options["hfine_e_index"]
-                    else "",
+                (
+                    f"hyperfine {options['hfine_index']} "
+                    f"""{
+                        options['hfine_e_index']
+                        if options['hfine_e_index'] else ''
+                    }"""
                 ).strip(),
                 parse_matrix(options["hfine_matrix"], (3, 3)),
             ),
             "dipolar": lambda options: build_block(
-                "dipolar {0} {1}".format(
-                    options["di_index"], options["di_index_2"]
-                ),
+                f"dipolar {options['di_index']} {options['di_index_2']}",
                 parse_matrix(options["di_vector"], (3, 1)),
             ),
             "quadrupolar": lambda options: build_block(
-                "quadrupolar {0}".format(options["quad_index"]),
+                f"quadrupolar {options['quad_index']}",
                 parse_matrix(options["quad_matrix"], (3, 3)),
             ),
             "dissipation": lambda options: build_block(
-                "dissipation {0}".format(options["dis_index"]),
+                f"dissipation {options['dis_index']}",
                 [options["dis_val"]],
             ),
         }.get(interaction_type)(options)
-    except ValueError as e:
-        raise ValueError("Error occurred when parsing {0}".format(e))
+    except ValueError as exc:
+        raise ValueError(f"Error occurred when parsing {exc}") from exc
 
 
 def parse_orientation(orientation):
@@ -217,16 +210,18 @@ def parse_polarization(polarization):
             return " ".join(split_into_args(options["polarization"], 3))
 
 
-def parse_field(field):
+def parse_field(field, field_type):
     """
     Helper function to parse field keyword arguments
     :param field: a dictionary containing one set of field arguments
+    :param field_type: a string giving the type of field, either field or
+                       intrinsic_field
     :return: a formatted string
     """
     try:
-        return " ".join(split_into_args(field["field"], 1))
+        return " ".join(split_into_args(field[field_type], 1))
     except ValueError:
-        return " ".join(split_into_args(field["field"], 3))
+        return " ".join(split_into_args(field[field_type], 3))
 
 
 def parse_fitting_variables(fitting_variables):
@@ -251,41 +246,62 @@ def parse_fitting_variables(fitting_variables):
 
 
 def parse_spin(spin):
+    """
+    Helper function for parsing a spin
+    :param spin: a dictionary containing a spin object from the config either
+                 just a spin_preset or a custom value with a name and
+                 atomic_mass
+    """
     if spin["spin_preset"] != "custom":
         return spin["spin_preset"]
     else:
         elem_name = spin["spin"].strip()
-        if elem_name not in ['e', 'mu']:
+        if elem_name not in ["e", "mu"]:
             elem_name = elem_name.capitalize()
-        return "{0}{1}".format(
-            int(spin["atomic_mass"]) if spin["atomic_mass"] else "",
-            elem_name
+        return (
+            f"{int(spin['atomic_mass']) if spin['atomic_mass'] else ''}"
+            f"{elem_name}"
         ).strip()
+
+
+def parse_celio(celio_params):
+    """
+    Helper function for parsing Celio's method parameters
+    :param celio_params: a dictionary containing the parameters for Celio's
+                         method
+    """
+    options = celio_params["celio_options"]
+    if not options["celio_enabled"]:
+        return ""
+    else:
+        # Now have celio_k and potentially celio_averages
+        celio_k = options["celio_k"]
+        celio_averages = options["celio_averages"]
+
+        # As celio_averages is optional so may be None
+        if celio_averages is None:
+            celio_averages = ""
+
+        return build_block("celio", [f"{celio_k} {celio_averages}".strip()])
 
 
 parse_func_dict = {
     "spins": lambda values: build_block(
         "spins",
-        [
-            " ".join(
-                [
-                    parse_spin(entry["spin_options"])
-                    for entry in values
-                ]
-            )
-        ],
+        [" ".join([parse_spin(entry["spin_options"]) for entry in values])],
     ),
     # either 1x3 vector or scalar or function
     "fields": lambda values: build_block(
-        "field", [parse_field(entry) for entry in values]
+        "field", [parse_field(entry, "field") for entry in values]
+    ),
+    "intrinsic_fields": lambda values: build_block(
+        "intrinsic_field",
+        [parse_field(entry, "intrinsic_field") for entry in values],
     ),
     # either scalar or single function
     "times": lambda values: build_block(
         "time",
-        [
-            " ".join(split_into_args(entry["time"], 1))
-            for entry in values
-        ],
+        [" ".join(split_into_args(entry["time"], 1)) for entry in values],
     ),
     # either scalar or single function
     "temperatures": lambda values: build_block(
@@ -295,16 +311,21 @@ parse_func_dict = {
             for entry in values
         ],
     ),
-    "x_axis": lambda value: build_block("x_axis", [value]),
-    "y_axis": lambda value: build_block("y_axis", [value]),
-    "average_axes": lambda values: build_block(
-        "average_axes", values
-    ),
-    "experiment_preset": lambda value: build_block(
-        "experiment", [value]
-    ),
+    "axes_options": {
+        "x_axis_options": {
+            "x_axis": lambda value: build_block("x_axis", [value]),
+            "average_axes": lambda values: build_block(
+                "average_axes", values),
+        },
+        "x_axis": lambda value: build_block("x_axis", [value]),
+        "y_axis": lambda value: build_block("y_axis", [value]),
+        "average_axes": lambda values: build_block(
+            "average_axes", values)
+    },
+    "average_axes": lambda values: build_block("average_axes", values),
+    "experiment_preset": lambda value: build_block("experiment", [value]),
     "orientations": lambda values: build_block(
-        "orientation {0}".format(euler_convention),
+        f"orientation {EULER_CONVENTION}",
         [parse_orientation(entry) for entry in values],
     ),
     "interactions": lambda values: "".join(
@@ -314,12 +335,11 @@ parse_func_dict = {
         "polarization",
         [parse_polarization(entry) for entry in values],
     ),
+    "celio_params": parse_celio,
     "fitting": lambda value: build_block(
         "fitting_data", ['load("fitting_data.dat")']
     ),
-    "fitting_method": lambda value: build_block(
-        "fitting_method", [value]
-    ),
+    "fitting_method": lambda value: build_block("fitting_method", [value]),
     "fitting_variables": lambda values: build_block(
         "fitting_variables",
         [parse_fitting_variables(entry) for entry in values],
@@ -329,12 +349,58 @@ parse_func_dict = {
         [str(value)],
     ),
 }
-euler_convention = 'ZYZ'
+EULER_CONVENTION = "ZYZ"
+
+# Gives replacement values in the case a parameter is unassigned
+parse_none_dict = {
+    # Allow average_axis to be None as by default is orientation in
+    # muspinsim but letting the UI present this here instead
+    "average_axes": ["none"],
+}
+
+
+def parse_dict(dictionary, params, file_contents) -> bool:
+    """
+    Helper function for parsing nested dictionaries defined above
+    containing parse functions
+    :returns: Whether an error occurred
+    """
+
+    err_found = False
+    for keyword, val in params.items():
+
+        # Either don't allow the value to be None or replace
+        # with value in the parse_none_dict above
+        should_assign = val and val not in ["None"]
+        if not should_assign and keyword in parse_none_dict:
+            should_assign = keyword in parse_none_dict
+            val = parse_none_dict[keyword]
+
+        if should_assign:
+            try:
+                keyword_func = dictionary.get(keyword)
+                # Check for nested dict, and add that contents as well if found
+                if isinstance(keyword_func, dict):
+                    err_found = err_found or parse_dict(
+                        keyword_func, val, file_contents)
+                else:
+                    if keyword_func:
+                        file_contents.append(keyword_func(val))
+
+            except ValueError as exc:
+                sys.stderr.write(
+                    f"Error occurred when parsing {keyword}\n{str(exc)}"
+                )
+                err_found = True
+    return err_found
 
 
 def main():
+    """
+    Entry point
+    """
     input_json_path = sys.argv[1]
-    mu_params = json.load(open(input_json_path, "r"))
+    mu_params = json.load(open(input_json_path, "r", encoding="utf-8"))
 
     out_file_name = mu_params["out_file_prefix"].strip().replace(" ", "_")
 
@@ -354,41 +420,24 @@ def main():
         del mu_params["experiment_preset"]
     del mu_params["experiment"]
 
-    global euler_convention
-    euler_convention = mu_params["euler_convention"]
+    global EULER_CONVENTION
+    EULER_CONVENTION = mu_params["euler_convention"]
 
-    err_found = False
     file_contents = [
         build_block("name", [out_file_name.strip().replace(" ", "_")])
     ]
-    for keyword, val in mu_params.items():
-        if val and val not in ["None"]:
-            try:
-                keyword_func = parse_func_dict.get(keyword)
-                if keyword_func:
-                    file_contents.append(keyword_func(val))
 
-            except ValueError as e:
-                sys.stderr.write(
-                    "Error occurred when parsing {0}\n{1}".format(
-                        keyword, str(e)
-                    )
-                )
-                err_found = True
-
-    if err_found:
+    if parse_dict(parse_func_dict, mu_params, file_contents):
         sys.exit(1)
 
     write_file("outfile.in", file_contents)
 
     try:
-        MuSpinInput(open("outfile.in"))
-    except Exception as e:
+        MuSpinInput(open("outfile.in", encoding="utf-8"))
+    except Exception as exc:  # pylint: disable=broad-except
         sys.stdout.write(
-            "Warning, This created file may not work properly. "
-            "Error(s) encountered when trying to parse the file : {0}".format(
-                str(e)
-            )
+            "Warning, This created file may not work properly. Error(s) "
+            f"encountered when trying to parse the file : {str(exc)}"
         )
         sys.exit(1)
 

@@ -1,7 +1,7 @@
 
 #######################################################
-#Muspinsim Input File
-#Generated using Muon Galaxy Tool Muspinsim_Input
+# Muspinsim Input File
+# Generated using Muon Galaxy Tool Muspinsim_Input
 #######################################################
 
 name
@@ -14,13 +14,13 @@ hyperfine 1
     10*pi 5 cos(20)
 average_axes
     orientation
-time
-    range(0,0.1)
-temperature
-    1.0
 x_axis
     time
 y_axis
     asymmetry
+time
+    range(0,0.1)
 field
+    1.0
+temperature
     1.0

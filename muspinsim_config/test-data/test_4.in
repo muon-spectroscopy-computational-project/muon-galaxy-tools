@@ -1,7 +1,7 @@
 
 #######################################################
-#Muspinsim Input File
-#Generated using Muon Galaxy Tool Muspinsim_Input
+# Muspinsim Input File
+# Generated using Muon Galaxy Tool Muspinsim_Input
 #######################################################
 
 name
@@ -14,17 +14,24 @@ dipolar 1 3
     -0.9 -0.9 0
 dipolar 1 2
     0.9 0.9 0
-orientation zyz
-    eulrange(10)
-time
-    range(0,1.0)
-    range(0,8.0,1000)
+average_axes
+    none
 x_axis
     time
 y_axis
     asymmetry
+time
+    range(0,1.0)
+    range(0,8.0,1000)
 field
     0.01
     1.5e-2 1.0e-2 1.0e-2
+intrinsic_field
+    0.02
+    1.6e-2 1.1e-2 1.1e-2
 polarization
     1 0 0
+orientation zyz
+    eulrange(10)
+celio
+    10

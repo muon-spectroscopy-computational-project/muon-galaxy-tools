@@ -1,0 +1,145 @@
+<macros>
+    <xml name="celio_options">
+        <section name="celio_params" expanded="true" title="Celio's Method" help="Celio's method is an approximate method for computing asymmetry values over a range of times. It is particularly useful for larger systems of higher spins.">
+            <conditional name="celio_options">
+                <param name="celio_enabled" type="select" label="Use Celio's method?" display="radio">
+                    <option value="true">Yes</option>
+                    <option selected="true" value="">No</option>
+                </param>
+                <when value="true">
+                    <param name="celio_k" type="integer" value="10" label="Trotter number, k" help="Value used in the Trotter expansion."/>
+                    <param name="celio_averages" type="integer" optional="true" label="Number of averages" help="When given a value MuSpinSim will randomise initial polarisation states and perform an average. This method is more approximate but much faster and reduces memory usage. It will also assume T-&gt;inf and zero magnetic fields. See the MuSpinSim docs for more info."/>
+                </when>
+                <when value=""/>
+            </conditional>
+        </section>
+    </xml>
+    <xml name="times">
+        <repeat name="times" title="Time" help="A time or range of times (μs)">
+            <param name="time" type="text" label="Time" help="Either a single time value or `range` function - allows default expressions, default constants, and special 'range()' function (see help section)" optional="true" value="range(0, 10, 101)"/>
+        </repeat>
+    </xml>
+    <xml name="fields">
+        <repeat name="fields" title="Fields" help="Magnetic fields">
+            <param name="field" type="text" value="0" label="Field" optional="true" help="Optional, (default is 0). Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis. Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
+        </repeat>
+    </xml>
+    <xml name="intrinsic_fields">
+        <repeat name="intrinsic_fields" title="Intrinsic Fields" help="Intrinsic magnetic fields (these are unaffected by rotations when using angular averaging via the orientations parameter).">
+            <param name="intrinsic_field" type="text" value="0" label="Intrinsic Field (T)" optional="true" help="Optional, (default is 0). Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis. Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
+        </repeat>
+    </xml>
+    <xml name="polarizations">
+        <repeat name="polarizations" title="Polarizations" help="The direction along which the muon should be polarized when starting, as well as the one in which it will be measured. Each entry will generate a separate calculation when MuSpinSim is run">
+            <conditional name="polarization_options">
+                <param name="polarization_preset" value="custom" type="select" display="radio" label="Polarization" help="transverse: along x-axis, longitudinal: along z-axis, custom: define vector">
+                    <option value="longitudinal">longitudinal</option>
+                    <option value="transverse">transverse</option>
+                    <option selected="true" value="custom">custom</option>
+                </param>
+                <when value="custom">
+                    <param name="polarization" type="text" value="" label="Enter custom vector for polarization" help="Accepts 1X3 vector. Allows default expressions, constants and functions (see help section)"/>
+                </when>
+                <when value="longitudinal"/>
+                <when value="transverse"/>
+            </conditional>
+        </repeat>
+    </xml>
+    <xml name="orientations">
+        <repeat name="orientations" title="Orientations" help="Orientations to use for crystallites - (define powder averages)">
+            <conditional name="orientation_options">
+                <param name="orientation_preset" type="select" display="radio" label="Orientation" optional="false" help="Polar angles: Define two polar angles θ and ϕ, defining only the direction of the z-axis (recommended for powder averages). Euler angles: Define 3 Euler angles defining a new frame, convention used is ZYZ by default. Euler angles with weight: define 3 Euler angles and a weight (will be normalized automatically). Euler angles helper function: eulrange(n). Zaremba-Conroy-Wolfsberg helper function: zcw(n)">
+                    <option value="2_polar">Polar angles</option>
+                    <option value="3_euler">Euler angles</option>
+                    <option value="4_euler">Euler angles with weight</option>
+                    <option value="eulrange">Euler angles helper function (eulrange(n))</option>
+                    <option selected="true" value="zcw">Zaremba-Conroy-Wolfsberg helper function (zcw(n))</option>
+                </param>
+                <when value="eulrange">
+                    <param name="eul_n" type="text" value="0" label="n" help="Value for n for eulrange(n) - allows default expressions, constants and functions. WARNING: large values are more computationally expensive."/>
+                </when>
+                <when value="zcw">
+                    <param name="zcw_n" type="text" value="0" label="n" help="Value for n for zcw(n) - Allows default expressions, constants and functions. WARNING: large values are more computationally expensive."/>
+                </when>
+                <when value="2_polar">
+                    <param name="theta" type="text" value="" label="θ (theta/inclination) angle" help="All polar angle entries allow default expressions, constants and functions"/>
+                    <param name="phi" type="text" value="" label="ϕ (phi/azimuth) angle" help="All polar angle entries allow default expressions, constants and functions"/>
+                </when>
+                <when value="3_euler">
+                    <param name="eul_1" type="text" value="" label="Euler angle 1" help="All Euler angle entries allow default expressions, constants and functions"/>
+                    <param name="eul_2" type="text" value="" label="Euler angle 2" help="All Euler angle entries allow default expressions, constants and functions"/>
+                    <param name="eul_3" type="text" value="" label="Euler angle 3" help="All Euler angle entries allow default expressions, constants and functions"/>
+                </when>
+                <when value="4_euler">
+                    <param name="eul_1" type="text" value="" label="Euler angle 1" help="All Euler angle entries allow default expressions and constants"/>
+                    <param name="eul_2" type="text" value="" label="Euler angle 2" help="All Euler angle entries allow default expressions and constants"/>
+                    <param name="eul_3" type="text" value="" label="Euler angle 3" help="All Euler angle entries allow default expressions and constants"/>
+                    <param name="weight" type="float" value="0" label="Weight" help="Allows only floating point value, weights will automatically be normalised"/>
+                </when>
+            </conditional>
+        </repeat>
+    </xml>
+    <xml name="euler_convention">
+        <param name="euler_convention" type="select" display="radio" label="Euler Convention" help="Euler angle convention to use for orientation definitions (ignored if Euler angles not defined)">
+            <option selected="true" value="zyz">ZYZ</option>
+            <option value="zxz">ZXZ</option>
+        </param>
+    </xml>
+    <xml name="temperatures">
+        <repeat name="temperatures" title="Temperature" help="Temperature or range of temperatures (K)">
+            <param name="temperature" type="text" help="Either single value or 'range()' function - allows default expressions, default constants, and special 'range()' function (see help section). Warning: both density matrices and dissipative couplings for finite temperatures are only calculated approximatively, see MuSpinSim docs." optional="true" value="inf"/>
+        </repeat>
+    </xml>
+    <xml name="average_axis_options_no_time">
+        <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes" help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified. Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when muspinsim is run.">
+            <option value="field">field</option>
+            <option value="intrinsic_field">intrinsic_field</option>
+            <option value="temperature">temperature</option>
+            <option value="polarization">polarization</option>
+            <option selected="true" value="orientation">orientation</option>
+        </param>
+    </xml>
+    <xml name="average_axis_options_no_field">
+        <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes" help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified. Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when muspinsim is run.">
+            <option value="time">time</option>
+            <option value="intrinsic_field">intrinsic_field</option>
+            <option value="temperature">temperature</option>
+            <option value="polarization">polarization</option>
+            <option selected="true" value="orientation">orientation</option>
+        </param>
+    </xml>
+    <xml name="restricted_axes_options">
+        <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes" help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified. Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when MuSpinSim is run.">
+            <option selected="true" value="orientation">orientation</option>
+            <option value="temperature">temperature</option>
+        </param>
+    </xml>
+    <xml name="axes_options">
+        <conditional name="axes_options">
+            <param name="y_axis" type="select" value="asymmetry" display="radio" label="Y axis" help="Range to use as y axis for output file(s). Asymmetry: use muon's polarization. Integral: use muon's polarization integral over time.">
+                <option selected="true" value="asymmetry">asymmetry</option>
+                <option value="integral">integral</option>
+            </param>
+            <when value="asymmetry">
+                <conditional name="x_axis_options">
+                    <param name="x_axis" type="select" value="time" display="radio" label="X axis" help="Range to use as X axis for output file(s)">
+                        <option selected="true" value="time">time</option>
+                        <option value="field">field</option>
+                    </param>
+                    <when value="time">
+                        <expand macro="average_axis_options_no_time"/>
+                    </when>
+                    <when value="field">
+                        <expand macro="average_axis_options_no_field"/>
+                    </when>
+                </conditional>
+            </when>
+            <when value="integral">
+                <param name="x_axis" type="select" value="time" display="radio" label="X axis" help="Range to use as X axis for output file(s)">
+                    <option selected="true" value="field">field</option>
+                </param>
+                <expand macro="average_axis_options_no_field"/>
+            </when>
+        </conditional>
+    </xml>
+</macros>
