@@ -30,16 +30,9 @@
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        structure_name_internal='input_structure.$structure.ext' &&
-        touch pho_params.yaml &&
-        ([[ ! -z '$name' ]] && printf 'name: $name \n'>>pho_params.yaml || ( >&2 echo "name empty" && exit 2)) &&
-        ([[ ! -z '$phonon_kpoint_grid' ]] && ( printf 'phonon_kpoint_grid: $phonon_kpoint_grid \n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "phonon_kpoint_grid empty" && exit 2)) &&
-        ([[ ! -z '$kpoint_grid' ]] && ( printf 'kpoint_grid: $kpoint_grid \n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>pho_params.yaml || ( >&2 echo "kpoint_grid empty" && exit 2)) &&
-        ([[ ! -z '$force_tol' ]] && printf 'force_tol: $force_tol \n'>>pho_params.yaml || ( >&2 echo "force_tol empty" && exit 2)) &&
-        ([[ ! -z '$dftb_set' ]] && printf 'dftb_set: $dftb_set \n'>>pho_params.yaml || ( >&2 echo "dftb_set empty" && exit 2)) &&
-        ([[ ! -z '$dftb_pbc' ]] && printf 'pbc: $dftb_pbc \n'>>pho_params.yaml || ( >&2 echo "pbc empty" && exit 2)) &&
-        printf "force_clean: false \n">>pho_params.yaml &&
-        ln -s '$structure' \$structure_name_internal &&
+        structure_name_internal='input_structure.$pbc.structure.ext' &&
+        ln -s '$pho_params' pho_params.yaml &&
+        ln -s '$pbc.structure' \$structure_name_internal &&
         cat pho_params.yaml &&
         pm-asephonons \$structure_name_internal pho_params.yaml ; err=\$? &&
         echo "Asephonons output:" &&
@@ -48,23 +41,49 @@
         ln -s '${name}_phonons.txt' phonon_report.txt &&
         zip -r out_zip.zip '$name' '${name}_phonons.txt' asephonons.out band.out pho_params.yaml
     ]]></command>
+    <configfiles>
+        <configfile name="pho_params">name: $name
+phonon_kpoint_grid: $phonon_kpoint_grid.replace('__ob__', '[').replace('__cb__', ']')
+kpoint_grid: $kpoint_grid.replace('__ob__', '[').replace('__cb__', ']')
+force_tol: $force_tol
+dftb_set: $dftb_set
+pbc: $pbc.pbc
+force_clean: false</configfile>
+    </configfiles>
     <inputs>
-        <param type="data" name="structure" label="Structure file" format="cell" help="The structure to generate the phonon report from. Accepted file types: cell."/>
-        <param type="text" name="name" label="Structure name" help="Name of the structure." value="struct"/>
-        <param type="text" name="phonon_kpoint_grid" label="Phonon k-points" value="[1, 1, 1]"/>
-        <param type="text" name="kpoint_grid" label="K-points used for DFTB+ calculation" value="[1, 1, 1]"/>
-        <param type="float" name="force_tol" label="Force tolerance for optimisation" value="0.01"/>
-        <expand macro="dftb+"/>
+        <param argument="name" type="text" value="struct" label="Structure name" help="Name of the structure."/>
+        <param argument="phonon_kpoint_grid" type="text" value="[1, 1, 1]" label="Phonon k-points">
+            <validator type="regex" message="Input should only contain whitespace, '[', ']', ',' and digits.">^[\s\d,\[\]]+$</validator>
+        </param>
+        <param argument="kpoint_grid" type="text" value="[1, 1, 1]" label="K-points used for DFTB+ calculation">
+            <validator type="regex" message="Input should only contain whitespace, '[', ']', ',' and digits.">^[\s\d,\[\]]+$</validator>
+        </param>
+        <param argument="force_tol" type="float" min="0.0" value="0.01" label="Force tolerance for optimisation"/>
+        <expand macro="dftb_set"/>
+        <conditional name="pbc">
+            <param argument="pbc" type="select" display="radio" multiple="false" label="Use periodic boundary conditions (PBC)" help="Whether to turn on PBC conditions in DFTB+. Note that XYZ files cannot be used with PBC.">
+                <option selected="true" value="true">Yes</option>
+                <option value="false">No</option>
+            </param>
+            <when value="true">
+                <param name="structure" type="data" format="cell, cif, extxyz" label="Structure file" help="The structure to generate the phonon report from. Accepted file types: CELL, CIF, XYZ (extended ONLY)."/>
+            </when>
+            <when value="false">
+                <param name="structure" type="data" format="cell, cif, extxyz, xyz" label="Structure file" help="The structure to generate the phonon report from. Accepted file types: CELL, CIF, XYZ (standard or extended)."/>
+            </when>
+        </conditional>
     </inputs>
     <outputs>
-        <data label="phonons outputs of $structure.name" name="phonon_outputs" format="zip" from_work_dir="out_zip.zip"/>
-        <data label="phonon report for $structure.name" name="phonon_report" format="txt" from_work_dir="phonon_report.txt"/>
+        <data label="phonons outputs of $pbc.structure.name" name="phonon_outputs" format="zip" from_work_dir="out_zip.zip"/>
+        <data label="phonon report for $pbc.structure.name" name="phonon_report" format="txt" from_work_dir="phonon_report.txt"/>
     </outputs>
     <tests>
         <test expect_num_outputs="2">
-            <param name="structure" value="Si.cell" ftype="cell"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
+            <conditional name="pbc">
+                <param name="structure" value="Si.cell" ftype="cell"/>
+            </conditional>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="8255" delta="20"/>
@@ -72,9 +91,11 @@
             </output>
         </test>
         <test expect_num_outputs="2">
-            <param name="structure" value="Si.cif" ftype="cif"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
+            <conditional name="pbc">
+                <param name="structure" value="Si.cif" ftype="cif"/>
+            </conditional>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="8255" delta="20"/>
@@ -82,10 +103,12 @@
             </output>
         </test>
         <test expect_num_outputs="2">
-            <param name="structure" value="Si.xyz" ftype="xyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
-            <param name="dftb_pbc" value="false"/>
+            <conditional name="pbc">
+                <param name="pbc" value="false"/>
+                <param name="structure" value="Si.xyz" ftype="xyz"/>
+            </conditional>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="8155" delta="20"/>
@@ -93,9 +116,11 @@
             </output>
         </test>
         <test expect_num_outputs="2">
-            <param name="structure" value="Si.extxyz" ftype="extxyz"/>
             <param name="name" value="Si"/>
             <param name="dftb_set" value="pbc-0-3"/>
+            <conditional name="pbc">
+                <param name="structure" value="Si.extxyz" ftype="extxyz"/>
+            </conditional>
             <output name="phonon_report" file="test_out.txt" ftype="txt" compare="re_match">
                 <assert_contents>
                     <has_size value="8255" delta="20"/>

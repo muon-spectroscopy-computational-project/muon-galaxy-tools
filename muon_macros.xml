@@ -1,9 +1,12 @@
 <macros>
-    <xml name="dftb+">
+    <xml name="dftb_set">
         <param type="select" name="dftb_set" value="3ob-3-1" display="radio" label="DFTB parameter set" help="The parameter set to use for DFTB+. Currently supported are: 3ob-3-1 and pbc-0-3. See help section at the bottom of the page for details.">
             <option value="3ob-3-1">3ob-3-1</option>
             <option value="pbc-0-3">pbc-0-3</option>
         </param>
+    </xml>
+    <xml name="dftb+">
+        <expand macro="dftb_set"/>
         <param type="boolean" name="dftb_pbc" label="Use periodic boundary conditions" help="Whether to turn on periodic boundary conditions in DFTB+." checked="true"/>
     </xml>
     <xml name="dftb_optionals">
