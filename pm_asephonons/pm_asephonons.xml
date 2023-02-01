@@ -15,6 +15,7 @@
                 title = {{pymuon-suite}},
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
                 version = {v0.2.3},
+                doi = {10.5281/zenodo.7025644},
                 year = {2022}
             }
         </token>
