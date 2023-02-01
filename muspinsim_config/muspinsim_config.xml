@@ -283,8 +283,8 @@
             <output name="out_file" file="test_6.in" ftype="txt" compare="diff"/>
         </test>
         <test expect_num_outputs="1">
-            <param name="out_file_prefix" value="test_6"/>
-            <param name="experiment_preset" value="zero_field"/>
+            <param name="out_file_prefix" value="test_7"/>
+            <param name="experiment_preset" value="custom"/>
             <param name="spin_preset" value="custom"/>
             <param name="spin" value="H"/>
             <param name="spin_preset" value="mu"/>

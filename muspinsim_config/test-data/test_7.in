@@ -5,15 +5,17 @@
 #######################################################
 
 name
-    test_6
+    test_7
 spins
     mu H
 zeeman 2
     2 0 0
 zeeman 1
     1 0 0
+x_axis
+    field
 average_axes
     orientation
     temperature
-experiment
-    zero_field
+y_axis
+    integral
