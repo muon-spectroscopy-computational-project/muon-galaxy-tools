@@ -34,7 +34,8 @@
         ln -s '$pho_params' pho_params.yaml &&
         ln -s '$pbc.structure' \$structure_name_internal &&
         cat pho_params.yaml &&
-        pm-asephonons \$structure_name_internal pho_params.yaml ; err=\$? &&
+        err=0 &&
+        pm-asephonons \$structure_name_internal pho_params.yaml || err=\$? &&
         echo "Asephonons output:" &&
         cat asephonons.out &&
         if [ \$err != 0 ] ; then echo "errored" && exit 24 ; fi &&
