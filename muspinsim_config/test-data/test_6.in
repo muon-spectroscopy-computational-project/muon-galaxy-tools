@@ -5,7 +5,7 @@
 #######################################################
 
 name
-    test_1
+    test_6
 spins
     mu H
 zeeman 2
@@ -14,7 +14,6 @@ zeeman 1
     1 0 0
 average_axes
     orientation
-x_axis
-    time
-y_axis
-    asymmetry
+    temperature
+experiment
+    zero_field

@@ -1,9 +1,10 @@
-<tool id="muspinsim_plot" name="MuSpinSim Plot" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="muspinsim_plot" name="MuSpinSim Plot" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
+    <description>plot values generated from MuSpinSim</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">3.5.1</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">0</token>
+        <token name="@WRAPPER_VERSION@">1</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
@@ -35,7 +36,7 @@
         <include type="literal" path="generate_plot.py"/>
     </required_files>
     <command detect_errors="exit_code"><![CDATA[
-       python ${__tool_directory__}/generate_plot.py inputs.json
+       python '${__tool_directory__}/generate_plot.py' inputs.json
     ]]></command>
     <configfiles>
         <inputs name="inputs" data_style="paths" filename="inputs.json"/>
@@ -44,7 +45,7 @@
         <param type="text" name="title" label="Plot Title" value=""/>
         <param type="text" name="xlab" label="Label for x axis" value=""/>
         <param type="text" name="ylab" label="Label for y axis" value=""/>
-        <param name="out_file_type" type="select" label="Output File Type">
+        <param name="out_file_type" type="select" label="Output File Type" display="radio">
             <option value="pdf">PDF</option>
             <option value="png">PNG</option>
         </param>

@@ -1,28 +1,30 @@
-<tool id="muspinsim_config" name="MuSpinSim Configure" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.01">
+<tool id="muspinsim_config" name="MuSpinSim Configure" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
     <description>define simulation parameters</description>
-       <macros>
+    <macros>
         <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">1.1.0</token>
+        <token name="@TOOL_VERSION@">2.0.2</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
             @software{muspinsim,
-                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
+                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and Mudaraddi, Anish and Davies, Joel and Wilkinson, John and {Muon Spectroscopy Computational Project}},
                 license = {MIT},
                 title = {{muspinsim}},
                 url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
-                version = {v1.1.0},
-                month = {5},
-                year = {2022},
-                doi = {10.5281/zenodo.6563074}
+                version = {v2.0.2},
+                month = {1},
+                year = {2023}
+                doi = {10.5281/zenodo.7568830}
             }
         </token>
+        <import>config_macros.xml</import>
     </macros>
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <person givenName="Joel" familyName="Davies" url="https://github.com/joelvdavies" identifier="https://orcid.org/0000-0002-4153-6819"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
@@ -33,14 +35,14 @@
         <include type="literal" path="build_file.py"/>
     </required_files>
     <command detect_errors="exit_code"><![CDATA[
-        cp ${__tool_directory__}/sample_fitting_data.dat ./fitting_data.dat &&
-        python ${__tool_directory__}/build_file.py inputs.json
+        cp '${__tool_directory__}/sample_fitting_data.dat' ./fitting_data.dat &&
+        python '${__tool_directory__}/build_file.py' inputs.json
     ]]></command>
     <configfiles>
-        <inputs name="inputs" filename="inputs.json" />
+        <inputs name="inputs" filename="inputs.json"/>
     </configfiles>
     <inputs>
-        <param type="text" name="out_file_prefix" label="Name" help="A name with which to label this configuration" optional="true" value="muspinsim" />
+        <param type="text" name="out_file_prefix" label="Name" help="A name with which to label this configuration" optional="true" value="muspinsim"/>
         <section name="spins" expanded="true" title="Spins">
             <repeat name="spins" title="Spins to simulate" min="1" help="Specify the spins to be used in the system. This should include a muon (mu) and one or more electrons (e)">
                 <conditional name="spin_options">
@@ -59,7 +61,7 @@
             </repeat>
         </section>
         <section name="interaction_params" expanded="true" title="Spin Interactions" help="">
-            <repeat name="interactions" title="Interactions to simulate" help="Add couplings between spins, and/or dissipation terms. Interaction terms available: Zeeman, hyperfine, dipolar, quadrupolar or dissipation. See muspinsim docs for more info">
+            <repeat name="interactions" title="Interactions to simulate" help="Add couplings between spins, and/or dissipation terms. Interaction terms available: Zeeman, hyperfine, dipolar, quadrupolar or dissipation. See MuSpinSim docs for more info">
                 <conditional name="interaction_options">
                     <param name="interaction" type="select" label="Choose interaction type">
                         <option value="zeeman">Zeeman</option>
@@ -69,21 +71,13 @@
                         <option value="dissipation">dissipation</option>
                     </param>
                     <when value="zeeman">
-                        <param name="zeeman_index" type="integer" value="" label="Index of coupled spin" min="1"
-                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="zeeman_vector" type="text" value="" label="Zeeman coupling vector"
-                            help="Define 1X3 vector for local magnetic field coupling (T).
-                            Allows default expressions, constants and functions (see help)"/>
+                        <param name="zeeman_index" type="integer" value="" label="Index of coupled spin" min="1" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                        <param name="zeeman_vector" type="text" value="" label="Zeeman coupling vector" help="Define 1X3 vector for local magnetic field coupling (T). Allows default expressions, constants and functions (see help)"/>
                     </when>
                     <when value="hyperfine">
-                        <param name="hfine_index" type="integer" value="" label="Index of nuclear coupled spin" min="1"
-                               help="Non-electronic spin - muon or otherwise.
-                               Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="hfine_e_index" type="integer" value="" optional="true" min="1" label="Index of electronic coupled spin"
-                               help="Optional, will use first defined electronic spin if unspecified"/>
-                        <param name="hfine_matrix" area="true" type="text" value="" label="Hyperfine coupling tensor"
-                               help="Define 3X3 tensor for coupling between electron and non-electron spins (in MHz).
-                               Allows default expressions, constants and functions (see help)">
+                        <param name="hfine_index" type="integer" value="" label="Index of nuclear coupled spin" min="1" help="Non-electronic spin - muon or otherwise. Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                        <param name="hfine_e_index" type="integer" value="" optional="true" min="1" label="Index of electronic coupled spin" help="Optional, will use first defined electronic spin if unspecified"/>
+                        <param name="hfine_matrix" area="true" type="text" value="" label="Hyperfine coupling tensor" help="Define 3X3 tensor for coupling between electron and non-electron spins (in MHz). Allows default expressions, constants and functions (see help)">
                             <sanitizer>
                                 <valid initial="string.printable">
                                 </valid>
@@ -91,21 +85,13 @@
                         </param>
                     </when>
                     <when value="dipolar">
-                        <param name="di_index" type="integer" value="" min="1" label="Index of 1st coupled spin"
-                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="di_index_2" type="integer" value="" label="Index of 2nd coupled spin"
-                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="di_vector" type="text" value="" label="Dipole coupling vector"
-                               help="Define 1X3 vector for coupling between two spins (Angstrom).
-                               Allows default expressions, constants and functions (see help)"/>
+                        <param name="di_index" type="integer" value="" min="1" label="Index of 1st coupled spin" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                        <param name="di_index_2" type="integer" value="" label="Index of 2nd coupled spin" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                        <param name="di_vector" type="text" value="" label="Dipole coupling vector" help="Define 1X3 vector for coupling between two spins (Angstrom). Allows default expressions, constants and functions (see help)"/>
                     </when>
                     <when value="quadrupolar">
-                        <param name="quad_index" type="integer" value="" label="Index of coupled spin"
-                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="quad_matrix" area="true" type="text" value="" label="Electric Field Gradient tensor"
-                               help="Define 3X3 tensor (in atomic units) for quadrupolar coupling.
-                               Allows default expressions, constants and functions (see help).
-                               Warning: spins with zero quadrupole moment will have zero coupling regardless of the input">
+                        <param name="quad_index" type="integer" value="" label="Index of coupled spin" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                        <param name="quad_matrix" area="true" type="text" value="" label="Electric Field Gradient tensor" help="Define 3X3 tensor (in atomic units) for quadrupolar coupling. Allows default expressions, constants and functions (see help). Warning: spins with zero quadrupole moment will have zero coupling regardless of the input">
                             <sanitizer>
                                 <valid initial="string.printable">
                                 </valid>
@@ -113,204 +99,72 @@
                         </param>
                     </when>
                     <when value="dissipation">
-                        <param name="dis_index" type="integer" value="" label="Index of spin with dissipation"
-                               help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="dis_val" type="text" value="" label="Dissipation"
-                               help="Define dissipation term (MHz).
-                               Allows default expressions, constants and functions (see help)"/>
+                        <param name="dis_index" type="integer" value="" label="Index of spin with dissipation" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                        <param name="dis_val" type="text" value="" label="Dissipation" help="Define dissipation term (MHz). Allows default expressions, constants and functions (see help)"/>
                     </when>
                 </conditional>
             </repeat>
         </section>
         <section name="experiment_params" expanded="true" title="Experiment Parameters">
             <conditional name="experiment">
-                <param name="experiment_preset" type="select" value='custom' display="radio" label="Experiment type"
-                       help="Experiment preset to use. Avoided Level Crossing (ALC): sets polarization to longitudinal, x-axis to field and y-axis to integral.
-                             Zero field: sets polarization to transverse and field to 0. Choose custom for no preset">
+                <param name="experiment_preset" type="select" value="custom" display="radio" label="Experiment type" help="Experiment preset to use. Avoided Level Crossing (ALC): sets polarization to longitudinal, x-axis to field and y-axis to integral. Zero field: sets polarization to transverse, field to 0, x-axis to time and y-axis to asymmetry. Choose custom for no preset">
                     <option value="alc">Avoided Level Crossing (ALC)</option>
                     <option value="zero_field">Zero Field</option>
                     <option selected="true" value="custom">Custom</option>
                 </param>
                 <when value="alc">
-                    <repeat name="fields" title="Fields" help="Magnetic fields">
-                        <param name="field" type="text" value="0" label="Field"
-                            optional="true" help="Optional, (default is 0).
-                            Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis.
-                            Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
-                    </repeat>
+                    <expand macro="restricted_axes_options"/>
+                    <expand macro="fields"/>
+                    <expand macro="temperatures"/>
+                    <expand macro="orientations"/>
+                    <expand macro="euler_convention"/>
                 </when>
                 <when value="zero_field">
-                    <param name="x_axis" type="select" value="time" display="radio" label="X axis"
-                           help="Range to use as X axis for output file(s)">
-                        <option selected="true" value="time">time</option>
-                        <option value="field">field</option>
-                    </param>
-                    <param name="y_axis" type="select" value="asymmetry" display="radio" label="Y axis"
-                           help="Range to use as y axis for output file(s)
-                                Asymmetry: use muon's polarization.
-                                Integral: use muon's polarization integral over time.
-                                WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter ">
-                        <option value="integral">integral</option>
-                        <option selected="true" value="asymmetry">asymmetry</option>
-                    </param>
+                    <expand macro="restricted_axes_options"/>
+                    <expand macro="times"/>
+                    <expand macro="temperatures"/>
+                    <expand macro="orientations"/>
+                    <expand macro="euler_convention"/>
+                    <expand macro="celio_options"/>
                 </when>
                 <when value="custom">
-                    <param name="x_axis" type="select" value="time" display="radio" label="X axis"
-                           help="Range to use as X axis for output file(s)">
-                        <option selected="true" value="time">time</option>
-                        <option value="field">field</option>
-                    </param>
-                    <param name="y_axis" type="select" value="asymmetry" display="radio" label="Y axis"
-                           help="Range to use as y axis for output file(s)
-                                Asymmetry: use muon's polarization.
-                                Integral: use muon's polarization integral over time.
-                                WARNING: if integral chosen, 'time' parameter is ignored, and cannot be used as x-axis parameter ">
-                        <option value="integral">integral</option>
-                        <option selected="true" value="asymmetry">asymmetry</option>
-                    </param>
-                    <repeat name="fields" title="Fields" help="Magnetic fields">
-                         <param name="field" type="text" value="0" label="Field (T)"
-                            optional="true" help="Optional, (default is 0).
-                            Accepts 1X3 vector, or scalar value. Scalar value means field is assumed to be aligned with z axis.
-                            Allows default expressions, constants and functions, plus MHz, muon_gyr constants and special 'range()' function (see help section)"/>
-                    </repeat>
-                    <repeat name="polarizations" title="Polarizations" help="The direction along which the muon
-                    should be polarized when starting, as well as the one in which it will be measured.
-                    Each entry will generate a separate calculation when muspinsim is run">
-                        <conditional name="polarization_options">
-                            <param name="polarization_preset" value="custom" type="select" display="radio" label="Polarization"
-                                   help="transverse: along x-axis, longitudinal: along z-axis, custom: define vector">
-                                <option value="longitudinal">longditudinal</option>
-                                <option value="transverse">transverse</option>
-                                <option selected="true" value="custom">custom</option>
-                            </param>
-                            <when value="custom">
-                                <param name="polarization" type="text" value="" label="Enter custom vector for polarization"
-                                       help="Accepts 1X3 vector.
-                                       Allows default expressions, constants and functions (see help section)"/>
-                            </when>
-                            <when value="longitudinal" />
-                            <when value="transverse" />
-                        </conditional>
-                    </repeat>
+                    <expand macro="axes_options"/>
+                    <expand macro="times"/>
+                    <expand macro="fields"/>
+                    <expand macro="intrinsic_fields"/>
+                    <expand macro="temperatures"/>
+                    <expand macro="polarizations"/>
+                    <expand macro="orientations"/>
+                    <expand macro="euler_convention"/>
+                    <expand macro="celio_options"/>
                 </when>
             </conditional>
-            <param name="average_axes" type="select" display="checkboxes" multiple="true" optional="true" value="orientation" label="Average axes"
-                   help="Keywords that should have an average carried out over them. Each keyword ticked should have a range specified.
-                   Keywords not ticked or set as X axis, but which have a range set, will generate separate calculations for each value in the range when muspinsim is run.">
-                <option selected="true" value="orientation">orientation</option>
-                <option value="polarization">polarization</option>
-                <option value="field">field</option>
-                <option value="time">time</option>
-                <option value="temperature">temperature</option>
-            </param>
-            <repeat name="orientations" title="Orientations" help="Orientations to use for crystallites - (define powder averages)">
-                <conditional name="orientation_options">
-                    <param name="orientation_preset" type="select" display="radio" label="Orientation" optional="false"
-                           help="Polar angles: Define two polar angles θ and ϕ, defining only the direction of the z-axis (recommended for powder averages).
-                                Euler angles: Define 3 Euler angles defining a new frame, convention used is ZYZ by default.
-                                Euler angles with weight: define 3 Euler angles and a weight (will be normalized automatically).
-                                Euler angles helper function: eulrange(n).
-                                Zaremba-Conroy-Wolfsberg helper function: zcw(n)">
-                        <option value="2_polar">Polar angles</option>
-                        <option value="3_euler">Euler angles</option>
-                        <option value="4_euler">Euler angles with weight</option>
-                        <option value="eulrange">Euler angles helper function (eulrange(n))</option>
-                        <option selected="true" value="zcw">Zaremba-Conroy-Wolfsberg helper function (zcw(n))</option>
-                    </param>
-                    <when value="eulrange">
-                        <param name="eul_n" type="text" value="0" label="n"
-                               help="value for n for eulrange(n),
-                               Allows default expressions, constants and functions.
-                               WARNING: large values are more computationally expensive."
-                        />
-                    </when>
-                    <when value="zcw">
-                        <param name="zcw_n" type="text" value="0" label="n"
-                               help="value for n for zcw(n)
-                               Allows default expressions, constants and functions.
-                               WARNING: large values are more computationally expensive."
-                        />
-                    </when>
-                    <when value="2_polar">
-                        <param name="theta" type="text" value="" label="θ (theta/inclination) angle"
-                               help="All polar angle entries allow default expressions, constants and functions"/>
-                        <param name="phi" type="text" value="" label="ϕ (phi/azimuth) angle"
-                               help="All polar angle entries allow default expressions, constants and functions"/>
-                    </when>
-                    <when value="3_euler">
-                        <param name="eul_1" type="text" value="" label="Euler angle 1"
-                               help="All Euler angle entries allow default expressions, constants and functions"/>
-                        <param name="eul_2" type="text" value="" label="Euler angle 2"
-                               help="All Euler angle entries allow default expressions, constants and functions"/>
-                        <param name="eul_3" type="text" value="" label="Euler angle 3"
-                               help="All Euler angle entries allow default expressions, constants and functions"/>
-
-                    </when>
-                    <when value="4_euler">
-                        <param name="eul_1" type="text" value="" label="Euler angle 1"
-                               help="All Euler angle entries allow default expressions and constants"/>
-                        <param name="eul_2" type="text" value="" label="Euler angle 2"
-                               help="All Euler angle entries allow default expressions and constants"/>
-                        <param name="eul_3" type="text" value="" label="Euler angle 3"
-                               help="All Euler angle entries allow default expressions and constants"/>
-                        <param name="weight" type="float" value="0" label="Weight"
-                               help="Allows only floating point value, weights will automatically be normalised"/>
-                    </when>
-                </conditional>
-            </repeat>
-            <param name="euler_convention" type="select" display="radio" label="Euler Convention"
-                   help="Euler angle convention to use for orientation definitions (ignored if Euler angles not defined)">
-                <option selected="true" value="zyz">ZYZ</option>
-                <option value="zxz">ZXZ</option>
-            </param>
-            <repeat name="times" title="Time" help="A time or range of times (μs)">
-                <param name="time" type="text" label="Time"
-                       help="Either a single time value or `range` function
-                       Allows default expressions, default constants, and special 'range()' function (see help section)"
-                       optional="true" value="range(0, 10, 101)"/>
-            </repeat>
-            <repeat name="temperatures" title="Temperature" help="Temperature or range of temperatures (K)">
-                <param name="temperature" type="text"
-                       help="Either single value or 'range()' function
-                       Allows default expressions, default constants, and special 'range()' function (see help section).
-                       Warning: both density matrices and dissipative couplings for finite temperatures are only calculated approximatively, see muspinsim docs."
-                       optional="true" value="inf"/>
-            </repeat>
         </section>
         <section name="fitting_params" expanded="true" title="Fitting Parameters">
             <conditional name="fitting_options">
-                <param name="fitting" type="select" display="radio" optional="false" value="" label="Fit experimental data with simulations"
-                       help="Fitting requires a file with data to fit. File must be given in muspinsim tool, or by manually setting filepath for keyword 'fitting_data' if running muspinsim externally">
+                <param name="fitting" type="select" display="radio" optional="false" value="" label="Fit experimental data with simulations" help="Fitting requires a file with data to fit. File must be given in MuSpinSim tool, or by manually setting filepath for keyword 'fitting_data' if running MuSpinSim externally">
                     <option value="true">Yes</option>
                     <option selected="true" value="">No</option>
                 </param>
                 <when value="true">
-                    <param name="fitting_method" type="select" display="radio" optional="false" value="nelder-mead" label="Method to use to fit the data"
-                           help="See the help section for a description of each method">
+                    <param name="fitting_method" type="select" display="radio" optional="false" value="nelder-mead" label="Method to use to fit the data" help="See the help section for a description of each method">
                         <option selected="true" value="nelder-mead">Nelder-Mead</option>
                         <option value="lbfgs">L-BFGS</option>
                     </param>
                     <repeat name="fitting_variables" title="Variable to fit to the experimental data">
                         <param name="var_name" type="text" optional="false" label="Name of the variable"/>
-                        <param name="start_val" type="text" value="0" label="Starting value"
-                               help="Allows default expressions, constants and functions, plus MHz, muon_gyr constants. Cannot contain names of other variables"/>
-                        <param name="min_bound" type="text" value="-inf" label="minimum bound"
-                               help="Allows default expressions, constants and functions, plus MHz, muon_gyr constants"/>
-                        <param name="max_bound" type="text" value="inf" label="maximum bound"
-                               help="Allows default expressions, constants and functions, plus MHz, muon_gyr constants"/>
+                        <param name="start_val" type="text" value="0" label="Starting value" help="Allows default expressions, constants and functions, plus MHz, muon_gyr constants. Cannot contain names of other variables"/>
+                        <param name="min_bound" type="text" value="-inf" label="minimum bound" help="Allows default expressions, constants and functions, plus MHz, muon_gyr constants"/>
+                        <param name="max_bound" type="text" value="inf" label="maximum bound" help="Allows default expressions, constants and functions, plus MHz, muon_gyr constants"/>
                     </repeat>
-                    <param name="fitting_tolerance" type="float" optional='true' value="" label="Fitting Tolerance"
-                           help="Used as the tol parameter in Scipy's scipy.optimize.minimize method. Will use scipy defaults if left blank.
-                           Does not accept expressions/functions/constants"
-                    />
+                    <param name="fitting_tolerance" type="float" optional="true" value="" label="Fitting Tolerance" help="Used as the tol parameter in Scipy's scipy.optimize.minimize method. Will use scipy defaults if left blank. Does not accept expressions/functions/constants"/>
                 </when>
                 <when value=""/>
             </conditional>
         </section>
     </inputs>
     <outputs>
-        <data format="txt" label="muspinsim input file $out_file_prefix" name="out_file" from_work_dir="outfile.in" />
+        <data format="txt" label="muspinsim input file $out_file_prefix" name="out_file" from_work_dir="outfile.in"/>
     </outputs>
     <tests>
         <test expect_num_outputs="1">
@@ -319,24 +173,29 @@
             <param name="spin" value="H"/>
             <param name="spin_preset" value="mu"/>
             <param name="interaction" value="zeeman"/>
-            <param name="zeeman_index" value="1" />
-            <param name="zeeman_vector" value="1 0 0" />
-            <param name="zeeman_index" value="2" />
-            <param name="zeeman_vector" value="2 0 0" />
-            <output name="out_file" file="test_1.in" ftype="txt" compare="diff" />
+            <param name="zeeman_index" value="1"/>
+            <param name="zeeman_vector" value="1 0 0"/>
+            <param name="zeeman_index" value="2"/>
+            <param name="zeeman_vector" value="2 0 0"/>
+            <param name="y_axis" value="asymmetry"/>
+            <param name="x_axis" value="time"/>
+            <param name="average_axes" value="orientation"/>
+            <output name="out_file" file="test_1.in" ftype="txt" compare="diff"/>
         </test>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_2"/>
+            <param name="experiment_preset" value="custom"/>
             <param name="spin_preset" value="e"/>
             <param name="spin_preset" value="mu"/>
             <param name="interaction" value="hyperfine"/>
-            <param name="hfine_index" value="1" />
+            <param name="hfine_index" value="1"/>
             <param name="hfine_matrix" value="[1 0 0 sin(10) (5*2) 0 10*pi 5 cos(20)]"/>
-            <param name="time" value="range(0, 0.1)" />
-            <param name="y_axis" value="asymmetry" />
-            <param name="field" value="1.0" />
-            <param name="temperature" value="1.0" />
-            <output name="out_file" file="test_2.in" ftype="txt" compare="diff" />
+            <param name="time" value="range(0, 0.1)"/>
+            <param name="y_axis" value="asymmetry"/>
+            <param name="x_axis" value="time"/>
+            <param name="field" value="1.0"/>
+            <param name="temperature" value="1.0"/>
+            <output name="out_file" file="test_2.in" ftype="txt" compare="diff"/>
         </test>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_3"/>
@@ -345,17 +204,17 @@
             <param name="spin_preset" value="mu"/>
             <param name="spin_preset" value="e"/>
             <param name="interaction" value="hyperfine"/>
-            <param name="hfine_index" value="2" />
+            <param name="hfine_index" value="2"/>
             <param name="hfine_matrix" value="[580 5  10 5   580 9 10  9   580]"/>
             <param name="interaction" value="hyperfine"/>
-            <param name="hfine_index" value="3" />
+            <param name="hfine_index" value="3"/>
             <param name="hfine_matrix" value="[(300/2)  3   4*10 ], [3  15*10 6-3+2]  ,[4  5   15 ]"/>
-            <param name="average_axes" value="polarization,temperature" />
-            <param name="experiment_preset" value="alc" />
-            <param name="field" value="range(1.8, 2.6, 100)" />
-            <param name="orientation_preset" value="zcw" />
-            <param name="zcw_n" value="20" />
-            <output name="out_file" file="test_3.in" ftype="txt" compare="diff" />
+            <param name="average_axes" value="orientation,temperature"/>
+            <param name="experiment_preset" value="alc"/>
+            <param name="field" value="range(1.8, 2.6, 100)"/>
+            <param name="orientation_preset" value="zcw"/>
+            <param name="zcw_n" value="20"/>
+            <output name="out_file" file="test_3.in" ftype="txt" compare="diff"/>
         </test>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_4"/>
@@ -375,17 +234,21 @@
             <param name="interaction" value="dissipation"/>
             <param name="dis_index" value="1"/>
             <param name="dis_val" value="0.5"/>
-            <param name="average_axes" value="" />
-            <param name="experiment_preset" value="custom" />
+            <param name="average_axes" value=""/>
+            <param name="experiment_preset" value="custom"/>
             <param name="field" value="1.5e-2 1.0e-2 1.0e-2"/>
             <param name="field" value="0.01"/>
+            <param name="intrinsic_field" value="1.6e-2 1.1e-2 1.1e-2"/>
+            <param name="intrinsic_field" value="0.02"/>
             <param name="polarization_preset" value="custom"/>
             <param name="polarization" value="1 0 0"/>
             <param name="time" value="range(0,8.0,1000)"/>
             <param name="time" value="range(0,1.0)"/>
             <param name="orientation_preset" value="eulrange"/>
             <param name="eul_n" value="10"/>
-            <output name="out_file" file="test_4.in" ftype="txt" compare="diff" />
+            <param name="celio_enabled" value="true"/>
+            <param name="celio_k" value="10"/>
+            <output name="out_file" file="test_4.in" ftype="txt" compare="diff"/>
         </test>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_5"/>
@@ -393,24 +256,58 @@
             <param name="interaction" value="dissipation"/>
             <param name="dis_index" value="1"/>
             <param name="dis_val" value="g"/>
-            <param name="experiment_preset" value="custom" />
-            <param name="field" value="1.0/muon_gyr" />
+            <param name="experiment_preset" value="custom"/>
+            <param name="field" value="1.0/muon_gyr"/>
+            <param name="intrinsic_field" value="2.0/muon_gyr"/>
             <param name="fitting" value="true"/>
-            <param name="var_name" value="g" />
-            <param name="min_bound" value="0.0" />
-            <param name="fitting_tolerance" value="1.0" />
-            <output name="out_file" file="test_5.in" ftype="txt" compare="diff" />
+            <param name="var_name" value="g"/>
+            <param name="min_bound" value="0.0"/>
+            <param name="fitting_tolerance" value="1.0"/>
+            <param name="celio_enabled" value="true"/>
+            <param name="celio_k" value="10"/>
+            <param name="celio_averages" value="4"/>
+            <output name="out_file" file="test_5.in" ftype="txt" compare="diff"/>
+        </test>
+        <test expect_num_outputs="1">
+            <param name="out_file_prefix" value="test_6"/>
+            <param name="experiment_preset" value="zero_field"/>
+            <param name="spin_preset" value="custom"/>
+            <param name="spin" value="H"/>
+            <param name="spin_preset" value="mu"/>
+            <param name="interaction" value="zeeman"/>
+            <param name="zeeman_index" value="1"/>
+            <param name="zeeman_vector" value="1 0 0"/>
+            <param name="zeeman_index" value="2"/>
+            <param name="zeeman_vector" value="2 0 0"/>
+            <param name="average_axes" value="orientation,temperature"/>
+            <output name="out_file" file="test_6.in" ftype="txt" compare="diff"/>
+        </test>
+        <test expect_num_outputs="1">
+            <param name="out_file_prefix" value="test_7"/>
+            <param name="experiment_preset" value="custom"/>
+            <param name="spin_preset" value="custom"/>
+            <param name="spin" value="H"/>
+            <param name="spin_preset" value="mu"/>
+            <param name="interaction" value="zeeman"/>
+            <param name="zeeman_index" value="1"/>
+            <param name="zeeman_vector" value="1 0 0"/>
+            <param name="zeeman_index" value="2"/>
+            <param name="zeeman_vector" value="2 0 0"/>
+            <param name="y_axis" value="integral"/>
+            <param name="x_axis" value="field"/>
+            <param name="average_axes" value="orientation,temperature"/>
+            <output name="out_file" file="test_7.in" ftype="txt" compare="diff"/>
         </test>
     </tests>
     <help><![CDATA[
-    Tool to create input parameter file for Muspinsim.
+    Tool to create input parameter file for MuSpinSim.
 
 
-    This tool creates a structured text file with keywords and values which describe the system to model for Muspinsim.
-    See muspinsim docs for more information https://muon-spectroscopy-computational-project.github.io/muspinsim/input/.
+    This tool creates a structured text file with keywords and values which describe the system to model for MuSpinSim.
+    See MuSpinSim docs for more information https://muon-spectroscopy-computational-project.github.io/muspinsim/input/.
 
 
-    Muspinsim allows expressions and special functions to be used when defining certain keywords. This tool also allows this.
+    MuSpinSim allows expressions and special functions to be used when defining certain keywords. This tool also allows this.
     Check the hint at the bottom of each input to see what, if any, special function or expressions can be used.
 
 
@@ -469,18 +366,7 @@
         - Scipy default tolerance is :code:`1e-5`
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @article{nelder_mead_1965,
-                title={A Simplex Method for Function Minimization},
-                volume={7},
-                doi={10.1093/comjnl/7.4.308},
-                number={4},
-                journal={The Computer Journal},
-                author={Nelder, J. A. and Mead, R.},
-                year={1965},
-                pages={308-313}
-            }
-        </citation>
+        <citation type="doi">10.1093/comjnl/7.4.308</citation>
         <citation type="bibtex">
             @book{nocedal_wright_2006,
                 place={New York (NY)},
@@ -490,6 +376,7 @@
                 year={2006}
             }
         </citation>
+        <citation type="doi">10.1103/PhysRevLett.56.2720</citation>
         <citation type="bibtex">
             @TOOL_CITATION@
         </citation>
