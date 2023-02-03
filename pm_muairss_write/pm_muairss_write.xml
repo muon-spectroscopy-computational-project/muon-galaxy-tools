@@ -2,21 +2,21 @@
     <description>generate muonated structures</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">0.2.1</token>
+        <token name="@TOOL_VERSION@">0.2.3</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">2</token>
+        <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
-            @software{pymuon-suite,
-                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and {Muon Spectroscopy Computational Project}},
-                license = {GPL-3.0-only},
+            @software{Sturniolo_pymuon-suite_2022,
+                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
+                license = {GPL-3.0},
+                month = {8},
                 title = {{pymuon-suite}},
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
-                version = {v0.2.1},
-                month = {2},
-                year = {2022},
-                doi = {}
+                version = {v0.2.3},
+                doi = {10.5281/zenodo.7025644},
+                year = {2022}
             }
         </token>
     </macros>
