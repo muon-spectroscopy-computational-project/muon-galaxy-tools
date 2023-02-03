@@ -2,6 +2,7 @@ import json
 import sys
 
 import numpy as np
+
 import scipy.stats as stats
 
 
@@ -40,10 +41,7 @@ def main():
     x_flat = np.concatenate(x_values)
     y_flat = np.concatenate(y_values)
     print(f"Averaging {len(x_flat)} data points into {bins} bins")
-    try:
-        means, edges, _ = stats.binned_statistic(x_flat, y_flat, bins=bins)
-    except TypeError as error:
-        raise TypeError(f"Failure with x: {x_flat}, y: {y_flat}") from error
+    means, edges, _ = stats.binned_statistic(x_flat, y_flat, bins=bins)
     data_out = np.column_stack(((edges[1:] + edges[:-1]) / 2, means))
     np.savetxt("data_out.dat", data_out)
 
