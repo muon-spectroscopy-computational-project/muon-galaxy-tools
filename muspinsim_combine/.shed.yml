@@ -1,0 +1,10 @@
+categories:
+- Materials science
+- Muon spectroscopy
+description: Combine Muon Spin Datafiles
+homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
+long_description: |
+  Combine multiple outputs of muon experiments into one file.
+name: muspinsim_combine
+owner: muon-spectroscopy-computational-project
+remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/main/muspinsim_combine
