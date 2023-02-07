@@ -28,6 +28,7 @@
     </creator>
     <requirements>
         <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
+        <requirement type="package" version="3.0">zip</requirement>
     </requirements>
     <required_files>
         <include type="literal" path="get_out_folder.py"/>
