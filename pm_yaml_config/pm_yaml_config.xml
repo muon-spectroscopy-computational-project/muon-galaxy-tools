@@ -32,48 +32,87 @@
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        touch outputx.yaml &&
-        ([[ ! -z '$general_params.poisson_r' ]] && printf 'poisson_r: $general_params.poisson_r\n'>>outputx.yaml || ( >&2 echo "poisson_r empty" && exit 2)) &&
-        ([[ ! -z '$general_params.name' ]] && printf 'name: $general_params.name\n'>>outputx.yaml || ( >&2 echo "structure name is empty" && exit 2)) &&
-        ([[ ! -z '$general_params.charged' ]] && printf 'charged: $general_params.charged\n'>>outputx.yaml || ( >&2 echo "charged muon empty" && exit 2)) &&
-        ([[ ! -z '$general_params.geom_steps' ]] && printf 'geom_steps: $general_params.geom_steps\n'>>outputx.yaml || ( >&2 echo "geom_steps empty" && exit 2)) &&
-        ([[ ! -z '$general_params.vdw_scale' ]] && printf 'vdw_scale: $general_params.vdw_scale\n'>>outputx.yaml || ( >&2 echo "vdw_scale empty" && exit 2)) &&
-        ([[ ! -z '$calculator_params.calculator_cond.calculator' ]] && printf 'calculator: $calculator_params.calculator_cond.calculator\n'>>outputx.yaml || ( >&2 echo "calculator unselected" && exit 2)) &&
-        ([[ ! -z '$general_params.geom_force_tol' ]] && printf 'geom_force_tol: $general_params.geom_force_tol\n'>>outputx.yaml || ( >&2 echo "geom_force_tol empty" && exit 2)) &&
-        ([[ ! -z '$general_params.out_folder' ]] && printf 'out_folder: $general_params.out_folder\n'>>outputx.yaml || printf "out_folder: muon-airss-out\n">>outputx.yaml) &&
-        ([[ ! -z '$general_params.random_seed' ]] && printf 'random_seed: $general_params.random_seed\n'>>outputx.yaml || ( echo "random_seed empty")) &&
-        ([[ ! -z '$clustering_params.supercell' ]] && (printf 'supercell: $clustering_params.supercell\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" )>>outputx.yaml || ( >&2 echo "supercell empty" && exit 2)) &&
-        ([[ ! -z '$clustering_params.k_points_grid' ]] && (printf 'k_points_grid: $clustering_params.k_points_grid\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || ( >&2 echo "k_points_grid empty" && exit 2)) &&
-        ([[ ! -z '$clustering_params.max_scc_steps' ]] && printf 'max_scc_steps: $clustering_params.max_scc_steps\n'>>outputx.yaml || ( >&2 echo "max_scc_steps empty")) &&
-        #if str($calculator_params.calculator_cond.calculator)=="uep":
-            ([[ ! -z '$calculator_params.calculator_cond.uep_gw_factor' ]] && printf 'uep_gw_factor: $calculator_params.calculator_cond.uep_gw_factor\n'>>outputx.yaml || ( >&2 echo "uep gaussian width unset" && exit 2)) &&
-            ([[ ! -z '$calculator_params.calculator_cond.uep_chden' ]] && printf 'uep_chden: $calculator_params.calculator_cond.uep_chden.value\n'>>outputx.yaml || echo "den_fmt path unset") &&
-        #else if str($calculator_params.calculator_cond.calculator)=="CASTEP":
-            ([[ ! -z '$calculator_params.calculator_cond.castep_command' ]] && printf 'castep_command: $calculator_params.calculator_cond.castep_command\n'>>outputx.yaml || echo "CASTEP command unset") &&
-            ([[ ! -z '$calculator_params.calculator_cond.castep_param' ]] && printf 'castep_param: $calculator_params.calculator_cond.castep_param\n'>>outputx.yaml || echo "CASTEP param unset") &&
-            ([[ ! -z '$calculator_params.calculator_cond.mu_symbol' ]] && printf 'mu_symbol: $calculator_params.calculator_cond.mu_symbol\n'>>outputx.yaml || echo "mu symbol unset") &&
-        #else if str($calculator_params.calculator_cond.calculator)=="dftb+":
-            ([[ ! -z '$calculator_params.calculator_cond.dftb_set' ]] && printf 'dftb_set: $calculator_params.calculator_cond.dftb_set\n'>>outputx.yaml || ( >&2 echo "dftb parameter set unselected" && exit 2)) &&
-            ([[ ! -z '$calculator_params.calculator_cond.dftb_optionals' ]] && (printf 'dftb_optionals: $calculator_params.calculator_cond.dftb_optionals\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || echo "dftb optional json files unset") &&
-            ([[ ! -z '$calculator_params.calculator_cond.dftb_pbc' ]] && printf 'dftb_pbc: $calculator_params.calculator_cond.dftb_pbc\n'>>outputx.yaml || echo "dftb periodic boundary condition unselected") &&
-        #else if str($calculator_params.calculator_cond.calculator)=="all":
-            ([[ ! -z '$calculator_params.calculator_cond.uep_gw_factor' ]] && printf 'uep_gw_factor: $calculator_params.calculator_cond.uep_gw_factor\n'>>outputx.yaml || echo "uep gaussian width unset") &&
-            ([[ ! -z '$calculator_params.calculator_cond.uep_chden' ]] && printf 'uep_chden: $calculator_params.calculator_cond.uep_chden\n'>>outputx.yaml || echo "den_fmt path unset") &&
-            ([[ ! -z '$calculator_params.calculator_cond.castep_command' ]] && printf 'castep_command: $calculator_params.calculator_cond.castep_command\n'>>outputx.yaml || echo "CASTEP command unset") &&
-            ([[ ! -z '$calculator_params.calculator_cond.castep_param' ]] && printf 'castep_param: $calculator_params.calculator_cond.castep_param\n'>>outputx.yaml || echo "CASTEP param unset") &&
-            ([[ ! -z '$calculator_params.calculator_cond.mu_symbol' ]] && printf 'mu_symbol: $calculator_params.calculator_cond.mu_symbol\n'>>outputx.yaml || echo "mu symbol unset") &&
-            ([[ ! -z '$calculator_params.calculator_cond.dftb_set' ]] && printf 'dftb_set: $calculator_params.calculator_cond.dftb_set\n'>>outputx.yaml || echo "dftb parameter set unselected") &&
-            ([[ ! -z '$calculator_params.calculator_cond.dftb_optionals' ]] && (printf 'dftb_optionals: $calculator_params.calculator_cond.dftb_optionals\n' | sed "s/__ob__/[/g" | sed "s/__cb__/]/g" ) >>outputx.yaml || echo "dftb optional json files unset") &&
-            ([[ ! -z '$calculator_params.calculator_cond.dftb_pbc' ]] && printf 'dftb_pbc: $calculator_params.calculator_cond.dftb_pbc\n'>>outputx.yaml || echo "dftb periodic boundary condition unselected") &&
-        #end if
-        ([[ ! -z '$clustering_params.clustering.clustering_method' ]] && printf 'clustering_method: $clustering_params.clustering.clustering_method\n'>>outputx.yaml || ( echo "clustering method unselected" && exit 2)) &&
-        #if str($clustering_params.clustering.clustering_method)=="hier":
-            ([[ ! -z '$clustering_params.clustering.clustering_hier_t' ]] && printf 'clustering_hier_t: $clustering_params.clustering.clustering_hier_t\n'>>outputx.yaml || echo "clustering_hier_t unset") &&
-        #else if str($clustering_params.clustering.clustering_method)=="kmeans":
-            ([[ ! -z '$clustering_params.clustering.clustering_kmeans_k' ]] && printf 'clustering_kmeans_k: $clustering_params.clustering.clustering_kmeans_k\n'>>outputx.yaml || echo "clustering_kmeans_k unset") &&
-        #end if
-        ln -s outputx.yaml output.yaml
+        cat $params_yaml > $out_yaml
     ]]></command>
+    <configfiles>
+        <configfile name="params_yaml">poisson_r: $general_params.poisson_r
+name: $general_params.name
+charged: $general_params.charged
+geom_steps: $general_params.geom_steps
+vdw_scale: $general_params.vdw_scale
+calculator: $calculator_params.calculator_cond.calculator
+geom_force_tol: $general_params.geom_force_tol
+#if $general_params.out_folder:
+out_folder: $general_params.out_folder
+#else
+out_folder: muon-airss-out
+#end if
+#if $general_params.random_seed:
+random_seed: $general_params.random_seed
+#end if
+supercell: $clustering_params.supercell.replace('__ob__', '[').replace('__cb__', ']')
+k_points_grid: $clustering_params.k_points_grid.replace('__ob__', '[').replace('__cb__', ']')
+#if $clustering_params.max_scc_steps:
+max_scc_steps: $clustering_params.max_scc_steps
+#end if
+#if str($calculator_params.calculator_cond.calculator)=="uep":
+uep_gw_factor: $calculator_params.calculator_cond.uep_gw_factor
+#if $calculator_params.calculator_cond.uep_chden.value:
+uep_chden: $calculator_params.calculator_cond.uep_chden.value
+#end if
+#else if str($calculator_params.calculator_cond.calculator)=="CASTEP":
+#if $calculator_params.calculator_cond.castep_command:
+castep_command: $calculator_params.calculator_cond.castep_command
+#end if
+#if $calculator_params.calculator_cond.castep_param:
+castep_param: $calculator_params.calculator_cond.castep_param
+#end if
+#if $calculator_params.calculator_cond.mu_symbol:
+mu_symbol: $calculator_params.calculator_cond.mu_symbol
+#end if
+#else if str($calculator_params.calculator_cond.calculator)=="dftb+":
+#if $calculator_params.calculator_cond.dftb_set:
+dftb_set: $calculator_params.calculator_cond.dftb_set
+#end if
+#if $calculator_params.calculator_cond.dftb_optionals:
+dftb_optionals: $calculator_params.calculator_cond.dftb_optionals.replace('__ob__', '[').replace('__cb__', ']')
+#end if
+#if $calculator_params.calculator_cond.dftb_pbc:
+dftb_pbc: $calculator_params.calculator_cond.dftb_pbc
+#end if
+#else if str($calculator_params.calculator_cond.calculator)=="all":
+#if $calculator_params.calculator_cond.uep_gw_factor:
+uep_gw_factor: $calculator_params.calculator_cond.uep_gw_factor
+#end if
+#if $calculator_params.calculator_cond.uep_chden:
+uep_chden: $calculator_params.calculator_cond.uep_chden
+#end if
+#if $calculator_params.calculator_cond.castep_command:
+castep_command: $calculator_params.calculator_cond.castep_command
+#end if
+#if $calculator_params.calculator_cond.castep_param:
+castep_param: $calculator_params.calculator_cond.castep_param
+#end if
+#if $calculator_params.calculator_cond.mu_symbol:
+mu_symbol: $calculator_params.calculator_cond.mu_symbol
+#end if
+#if $calculator_params.calculator_cond.dftb_set:
+dftb_set: $calculator_params.calculator_cond.dftb_set
+#end if
+#if $calculator_params.calculator_cond.dftb_optionals:
+dftb_optionals: $calculator_params.calculator_cond.dftb_optionals.replace('__ob__', '[').replace('__cb__', ']')
+#end if
+#if $calculator_params.calculator_cond.dftb_pbc:
+dftb_pbc: $calculator_params.calculator_cond.dftb_pbc
+#end if
+#end if
+clustering_method: $clustering_params.clustering.clustering_method
+#if str($clustering_params.clustering.clustering_method)=="hier":
+clustering_hier_t: $clustering_params.clustering.clustering_hier_t
+#else if str($clustering_params.clustering.clustering_method)=="kmeans":
+clustering_kmeans_k: $clustering_params.clustering.clustering_kmeans_k
+#end if</configfile>
+    </configfiles>
     <inputs>
         <section name="general_params" expanded="true" title="General Parameters">
             <param type="float" argument="poisson_r" value="0.8" min="0.0" label="Poisson radius" help=" Poisson sphere radius to use for random generation. No two starting muon positions will be closer than this distance. Smaller values make for bigger structure sets."/>
@@ -138,7 +177,7 @@
         </section>
     </inputs>
     <outputs>
-        <data label="Configuration for $general_params.name" name="out_yaml" format="yaml" from_work_dir="output.yaml"/>
+        <data label="Configuration for $general_params.name" name="out_yaml" format="yaml"/>
     </outputs>
     <tests>
         <test expect_num_outputs="1">
