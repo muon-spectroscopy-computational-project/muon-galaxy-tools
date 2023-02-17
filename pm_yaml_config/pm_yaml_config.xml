@@ -6,7 +6,7 @@
              to the pymuonsuite interface, so follow the same versioning pattern -->
         <token name="@TOOL_VERSION@">0.2.3</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">0</token>
+        <token name="@WRAPPER_VERSION@">1</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
@@ -82,7 +82,7 @@
             <param type="float" argument="vdw_scale" value="0.5" min="0.0" label="Van der Waals scale" help="Van der Waals scaling factor to use when generating muon sites to avoid existing atoms. Smaller values will allow muons to get closer to the other ions."/>
             <param type="text" argument="out_folder" optional="true" value="muon-airss-out" label="Output folder name" help="Name to call the output folder used to store the files that the script generates."/>
             <param type="float" argument="geom_force_tol" value="0.05" min="0.0" label="Geometry optimization tolerance" help="Tolerance on geometry optimisation in units of eV/Å."/>
-            <param type="integer" argument="random_seed" label="Random Seed" optional="true" help="Random seed for pymuonsuite."/>
+            <param type="integer" argument="random_seed" label="Random Seed" optional="true" help="Seed used to randomise the positions of the muons in the generated structures."/>
         </section>
         <section name="calculator_params" expanded="true" title="Calculator parameters">
             <conditional name="calculator_cond">

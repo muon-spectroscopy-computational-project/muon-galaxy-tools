@@ -4,7 +4,7 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">2.0.0a3</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">1</token>
+        <token name="@WRAPPER_VERSION@">2</token>
     </macros>
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
@@ -38,8 +38,8 @@
     <help><![CDATA[
         usage: cif2cell -f file.cif -p castep -o file.cell
 
-        Given an input .cif structure file, convert to equivalent .cell structure file.
-        Uses electronic structure program 'castep'
+        Given an input .cif structure file, convert to an equivalent .cell
+        structure file for use with electronic structure program CASTEP.
 
         cif2cell is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
     ]]></help>
