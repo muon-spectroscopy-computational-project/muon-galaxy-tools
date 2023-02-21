@@ -4,7 +4,7 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">3.5.1</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">1</token>
+        <token name="@WRAPPER_VERSION@">2</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
@@ -27,6 +27,7 @@
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
@@ -82,10 +83,10 @@
         </repeat>
     </inputs>
     <outputs>
-        <data format="pdf" name="out_file_pdf" from_work_dir="outfile.pdf">
+        <data format="pdf" name="out_file_pdf" from_work_dir="outfile.pdf" label="PDF plot on ${on_string}">
             <filter>(out_file_type == 'pdf')</filter>
         </data>
-        <data format="png" name="out_file_png" from_work_dir="outfile.png">
+        <data format="png" name="out_file_png" from_work_dir="outfile.png" label="PNG plot on ${on_string}">
             <filter>(out_file_type == 'png')</filter>
         </data>
     </outputs>
