@@ -4,7 +4,7 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">0.2.3</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">0</token>
+        <token name="@WRAPPER_VERSION@">1</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
@@ -322,6 +322,7 @@ castep_param: $castep_param_name
         +----------+------------------------------------------------------------+
 
         |
+
         .. _Generate muonated structures: /tool_runner?tool_id=pm_muairss_write
     ]]></help>
     <citations>
