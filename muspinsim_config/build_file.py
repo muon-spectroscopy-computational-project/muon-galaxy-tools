@@ -400,17 +400,25 @@ def main():
     Entry point
     """
     input_json_path = sys.argv[1]
-    mu_params = json.load(open(input_json_path, "r", encoding="utf-8"))
+    mu_input_params = json.load(open(input_json_path, "r", encoding="utf-8"))
 
-    out_file_name = mu_params["out_file_prefix"].strip().replace(" ", "_")
+    out_file_name = mu_input_params["out_file_prefix"].strip().replace(
+        " ", "_")
+
+    # Check if using a template
+    template_path = None
+    if mu_input_params["use_template_conditional"]["use_template"]:
+        template_path = mu_input_params["use_template_conditional"]["template_file"]
 
     # combine all sections
     mu_params = {
-        **mu_params["spins"],
-        **mu_params["interaction_params"],
-        **mu_params["experiment_params"],
-        **mu_params["fitting_params"]["fitting_options"],
+        **mu_input_params["interaction_params"],
+        **mu_input_params["experiment_params"],
+        **mu_input_params["fitting_params"]["fitting_options"],
     }
+    if template_path is None:
+        mu_params.update(
+            **mu_input_params["use_template_conditional"]["spins"])
 
     # get experiment parameters
     experiment = mu_params["experiment"]
@@ -429,6 +437,12 @@ def main():
 
     if parse_dict(parse_func_dict, mu_params, file_contents):
         sys.exit(1)
+
+    # Load and append the template if specified
+    if template_path is not None:
+        # Read the file
+        with open(template_path, encoding="utf-8") as template_file:
+            file_contents += template_file.readlines()
 
     write_file("outfile.in", file_contents)
 
