@@ -1,0 +1,82 @@
+<tool id="muspinsim_gen" name="MuSpinSim Generator" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
+    <description>Generate MuSpinSim config from a structure file</description>
+    <macros>
+        <!-- version of underlying tool (PEP 440) -->
+        <token name="@TOOL_VERSION@">2.1.0</token>
+        <!-- version of this tool wrapper (integer) -->
+        <token name="@WRAPPER_VERSION@">0</token>
+        <!-- citation should be updated with every underlying tool version -->
+        <!-- typical fields to update are version, month, year, and doi -->
+        <token name="@TOOL_CITATION@">
+            @software{muspinsim,
+                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and Mudaraddi, Anish and Davies, Joel and Wilkinson, John and {Muon Spectroscopy Computational Project}},
+                license = {MIT},
+                title = {{muspinsim}},
+                url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
+                version = {v2.1.0},
+                month = {2},
+                year = {2023}
+                doi = {10.5281/zenodo.7657461}
+            }
+        </token>
+    </macros>
+    <creator>
+        <person givenName="Joel" familyName="Davies" url="https://github.com/joelvdavies" identifier="https://orcid.org/0000-0002-4153-6819"/>
+        <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
+    </creator>
+    <requirements>
+        <requirement type="package" version="@TOOL_VERSION@">muspinsim</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        structure_name_internal=\$(sed 's/ /\_/g' <<< '$structure_file.name') &&
+        ln -s '$structure_file' \$structure_name_internal &&
+        muspinsim-gen \$structure_name_internal $number_closest --out muspinsim_gen_out.in
+        #if $dipolar:
+            --dipolar
+        #end if
+        #if $quadrupolar_conditional.quadrupolar:
+            --quadrupolar
+            #if $quadrupolar_conditional.gipaw_out_file:
+                $quadrupolar_conditional.gipaw_out_file
+            #end if
+        #end if
+        #if $include_interatomic:
+            --include_interatomic
+        #end if
+        --muon_symbol $muon_symbol
+        #for $ignored_symbol in $ignored_symbols:
+        --ignore_symbol $ignored_symbol.ignored_symbol
+        #end for
+        --max_layer $max_layer
+    ]]></command>
+    <inputs>
+        <param type="data" name="structure_file" format="cif,cell,magres" label="Structure file (.cif, .cell or .magres)" />
+        <param type="integer" name="number_closest" value="8" label="Number of closest nuclei" help="Number of closest nuclei to the muon which should included in the generated file" />
+        <param type="boolean" name="dipolar" checked="true" label="Include dipole interactions?"/>
+        <conditional name="quadrupolar_conditional">
+            <param type="boolean" name="quadrupolar" checked="false" label="Include quadrupole interactions?" help="Either requires a magres input file with EFG tensors calculated via CASTEP, or the output from Quantum ESPRESSO's GIPAW program which can be specified once selected."/>
+            <when value="true">
+                <param type="data" name="gipaw_out_file" optional="true" label="GIPAW Output File (Optional)" help="File containing the output of Quantum ESPRESSO's GIPAW program. Only required if the structure file is not a magres file containing EFG tensors."/>
+            </when>
+        </conditional>
+        <param type="boolean" name="include_interatomic" checked="false" label="Include interatomic interactions?" help="Whether to include interactions between selected nuclei which don't involve the muon."/>
+        <repeat name="ignored_symbols" title="Ignored symbols" min="0" help="Specify symbols that should be ignored e.g. if they have zero spin">
+            <param type="text" name="ignored_symbol" label="Ignored symbol">
+                <validator type="regex" message="Input should only contain letters">^[a-zA-Z]+$</validator>
+            </param>
+        </repeat>
+        <param type="text" name="muon_symbol" value="H" label="Muon Symbol" help="Symbol representing the muon in the given structure file."/>
+        <param type="integer" name="max_layer" value="6" label="Maximum Layer" help="Maximum number of layers the structure can be expanded to before raising an error. Larger values may be needed when searching for many atoms." />
+    </inputs>
+    <outputs>
+        <data format="txt" label="muspinsim generated input file" name="out_file" from_work_dir="muspinsim_gen_out.in"/>
+    </outputs>
+    <help><![CDATA[
+    Takes a structure file and expands it outwards iteratively until finding a given number of closest neighbours to the muon. Then generates MuSpinSim config using these closest neighbours. The resulting config will not be complete and can be appended in the configure tool.
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+            @TOOL_CITATION@
+        </citation>
+    </citations>
+</tool>
