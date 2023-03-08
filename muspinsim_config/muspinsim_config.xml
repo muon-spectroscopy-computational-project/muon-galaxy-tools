@@ -46,7 +46,7 @@
         <conditional name="use_template_conditional">
             <param type="boolean" name="use_template" checked="false" label="Use a template file from MuSpinSim Generator?"/>
             <when value="true">
-                <param type="data" name="template_file" format="txt" required="true" label="Template file" help="File containing the definitions of the spins in the system and potentially some interactions. Can be generated with the MuSpinSim Generate tool."/>
+                <param type="data" name="template_file" format="txt" label="Template file" help="File containing the definitions of the spins in the system and potentially some interactions. Can be generated with the MuSpinSim Generate tool."/>
             </when>
             <when value="false">
                 <section name="spins" expanded="true" title="Spins">
@@ -177,6 +177,7 @@
     <tests>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_1"/>
+            <param name="use_template" value="false"/>
             <param name="spin_preset" value="custom"/>
             <param name="spin" value="H"/>
             <param name="spin_preset" value="mu"/>
@@ -192,6 +193,7 @@
         </test>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_2"/>
+            <param name="use_template" value="false"/>
             <param name="experiment_preset" value="custom"/>
             <param name="spin_preset" value="e"/>
             <param name="spin_preset" value="mu"/>
@@ -207,6 +209,7 @@
         </test>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_3"/>
+            <param name="use_template" value="false"/>
             <param name="spin_preset" value="custom"/>
             <param name="spin" value="H"/>
             <param name="spin_preset" value="mu"/>
@@ -226,6 +229,7 @@
         </test>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_4"/>
+            <param name="use_template" value="false"/>
             <param name="spin_preset" value="custom"/>
             <param name="spin" value="F"/>
             <param name="spin_preset" value="custom"/>
@@ -260,6 +264,7 @@
         </test>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_5"/>
+            <param name="use_template" value="false"/>
             <param name="spin_preset" value="mu"/>
             <param name="interaction" value="dissipation"/>
             <param name="dis_index" value="1"/>
@@ -278,6 +283,7 @@
         </test>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_6"/>
+            <param name="use_template" value="false"/>
             <param name="experiment_preset" value="zero_field"/>
             <param name="spin_preset" value="custom"/>
             <param name="spin" value="H"/>
@@ -292,6 +298,7 @@
         </test>
         <test expect_num_outputs="1">
             <param name="out_file_prefix" value="test_7"/>
+            <param name="use_template" value="false"/>
             <param name="experiment_preset" value="custom"/>
             <param name="spin_preset" value="custom"/>
             <param name="spin" value="H"/>

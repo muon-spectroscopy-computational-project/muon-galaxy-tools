@@ -6,12 +6,12 @@
 
 name
     test_2
-spins
-    mu e
 hyperfine 1
     1 0 0
     sin(10) (5*2) 0
     10*pi 5 cos(20)
+spins
+    mu e
 average_axes
     orientation
 x_axis

@@ -6,14 +6,14 @@
 
 name
     test_4
-spins
-    mu F F
 dissipation 1
     0.5
 dipolar 1 3
     -0.9 -0.9 0
 dipolar 1 2
     0.9 0.9 0
+spins
+    mu F F
 average_axes
     none
 x_axis

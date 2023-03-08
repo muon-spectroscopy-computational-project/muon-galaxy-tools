@@ -6,8 +6,6 @@
 
 name
     test_5
-spins
-    mu
 dissipation 1
     g
 fitting_method
@@ -18,6 +16,8 @@ fitting_tolerance
     1.0
 fitting_data
     load("fitting_data.dat")
+spins
+    mu
 average_axes
     orientation
 x_axis
