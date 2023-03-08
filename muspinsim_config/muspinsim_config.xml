@@ -2,7 +2,7 @@
     <description>define simulation parameters</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">2.1.0</token>
+        <token name="@TOOL_VERSION@">2.2.0</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
@@ -13,10 +13,10 @@
                 license = {MIT},
                 title = {{muspinsim}},
                 url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
-                version = {v2.1.0},
-                month = {2},
+                version = {v2.2.0},
+                month = {3},
                 year = {2023}
-                doi = {10.5281/zenodo.7657461}
+                doi = {10.5281/zenodo.7704635}
             }
         </token>
         <import>config_macros.xml</import>
