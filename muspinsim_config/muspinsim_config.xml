@@ -313,6 +313,27 @@
             <param name="average_axes" value="orientation,temperature"/>
             <output name="out_file" file="test_7.in" ftype="txt" compare="diff"/>
         </test>
+        <!-- Using a template file from muspinsim-gen -->
+        <test expect_num_outputs="1">
+            <param name="out_file_prefix" value="test_8"/>
+            <param name="use_template" value="true"/>
+            <param name="template_file" value="muspinsim_gen_template.in" ftype="txt"/>
+            <param name="interaction" value="hyperfine"/>
+            <param name="hfine_index" value="2"/>
+            <param name="hfine_matrix" value="[580 5  10 5   580 9 10  9   580]"/>
+            <param name="interaction" value="hyperfine"/>
+            <param name="hfine_index" value="3"/>
+            <param name="hfine_matrix" value="[(300/2)  3   4*10 ], [3  15*10 6-3+2]  ,[4  5   15 ]"/>
+            <param name="average_axes" value="orientation,temperature"/>
+            <param name="experiment_preset" value="custom"/>
+            <param name="field" value="range(1.8, 2.6, 100)"/>
+            <param name="orientation_preset" value="zcw"/>
+            <param name="zcw_n" value="20"/>
+            <param name="celio_enabled" value="true"/>
+            <param name="celio_k" value="1"/>
+            <param name="celio_averages" value="1"/>
+            <output name="out_file" file="test_8.in" ftype="txt" compare="diff"/>
+        </test>
     </tests>
     <help><![CDATA[
     Tool to create input parameter file for MuSpinSim.
