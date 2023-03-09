@@ -42,11 +42,14 @@
         <inputs name="inputs" data_style="paths" filename="inputs.json"/>
     </configfiles>
     <inputs>
-        <param type="text" name="out_file_prefix" label="Name" help="A name with which to label this configuration" optional="true" value="muspinsim"/>
+        <param name="out_file_prefix" type="text" label="Name" help="A name with which to label this configuration" optional="true" value="muspinsim"/>
         <conditional name="use_template_conditional">
-            <param type="boolean" name="use_template" checked="false" label="Use a template file from MuSpinSim Generator?"/>
+            <param name="use_template" type="select" display="radio" value="false" label="Use a template file from MuSpinSim Generator?">
+                <option value="true">Yes</option>
+                <option value="false" selected="true">No</option>
+            </param>
             <when value="true">
-                <param type="data" name="template_file" format="txt" label="Template file" help="File containing the definitions of the spins in the system and potentially some interactions. Can be generated with the MuSpinSim Generate tool."/>
+                <param name="template_file" type="data" format="txt" label="Template file" help="File containing the definitions of the spins in the system and potentially some interactions. Can be generated with the MuSpinSim Generate tool."/>
             </when>
             <when value="false">
                 <section name="spins" expanded="true" title="Spins">

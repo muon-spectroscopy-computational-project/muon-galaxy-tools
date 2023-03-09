@@ -407,7 +407,7 @@ def main():
 
     # Check if using a template
     template_path = None
-    if mu_input_params["use_template_conditional"]["use_template"]:
+    if mu_input_params["use_template_conditional"]["use_template"] == "true":
         template_path = (mu_input_params["use_template_conditional"]
                                         ["template_file"])
 

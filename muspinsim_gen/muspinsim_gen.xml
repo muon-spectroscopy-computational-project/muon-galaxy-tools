@@ -31,18 +31,14 @@
         structure_name_internal=\$(sed 's/ /\_/g' <<< '$structure_file.name') &&
         ln -s '$structure_file' \$structure_name_internal &&
         muspinsim-gen \$structure_name_internal $number_closest --out muspinsim_gen_out.in
-        #if $dipolar:
-            --dipolar
-        #end if
-        #if $quadrupolar_conditional.quadrupolar:
+        $dipolar
+        #if $quadrupolar_conditional.quadrupolar == "true":
             --quadrupolar
-            #if $quadrupolar_conditional.gipaw_out_file:
-                $quadrupolar_conditional.gipaw_out_file
-            #end if
         #end if
-        #if $include_interatomic:
-            --include_interatomic
+        #if $quadrupolar_conditional.quadrupolar == "true_gipaw":
+            --quadrupolar $quadrupolar_conditional.gipaw_out_file
         #end if
+        $include_interatomic
         --muon_symbol $muon_symbol
         #for $ignored_symbol in $ignored_symbols:
         --ignore_symbol $ignored_symbol.ignored_symbol
@@ -50,25 +46,31 @@
         --max_layer $max_layer
     ]]></command>
     <inputs>
-        <param type="data" name="structure_file" format="cif,cell,magres" label="Structure file (.cif, .cell or .magres)"/>
-        <param type="integer" name="number_closest" value="8" label="Number of closest nuclei" help="Number of closest nuclei to the muon which should included in the generated file"/>
-        <param type="boolean" name="dipolar" checked="true" label="Include dipole interactions?"/>
+        <param name="structure_file" type="data" format="cif,cell,magres,extxyz" label="Structure file (.cif, .cell, .magres or .extxyz)"/>
+        <param name="number_closest" type="integer" value="8" label="Number of closest nuclei" help="Number of closest nuclei to the muon which should included in the generated file"/>
+        <param name="dipolar" type="boolean" checked="true" truevalue="--dipolar" falsevalue="" label="Include dipole interactions?"/>
         <conditional name="quadrupolar_conditional">
-            <param type="boolean" name="quadrupolar" checked="false" label="Include quadrupole interactions?" help="Either requires a magres input file with EFG tensors calculated via CASTEP, or the output from Quantum ESPRESSO's GIPAW program which can be specified once selected."/>
+            <param name="quadrupolar" type="select" display="radio" value="false" label="Include quadrupole interactions?" help="Either requires a magres input file with EFG tensors calculated via CASTEP, or the output from Quantum ESPRESSO's GIPAW program which can be specified once selected.">
+                <option value="true">Yes using a magres file</option>
+                <option value="true_gipaw">Yes using a GIPAW output file</option>
+                <option value="false" selected="true">No</option>
+            </param>
             <when value="true">
-                <param type="data" name="gipaw_out_file" format="data" optional="true" label="GIPAW Output File (Optional)" help="File containing the output of Quantum ESPRESSO's GIPAW program. Only required if the structure file is not a magres file containing EFG tensors."/>
+            </when>
+            <when value="true_gipaw">
+                <param type="data" name="gipaw_out_file" format="txt" optional="true" label="GIPAW Output File" help="File containing the output of Quantum ESPRESSO's GIPAW program. In the case this is supplied with a magres file, it will override any EFG tensors from the magres file."/>
             </when>
             <when value="false">
             </when>
         </conditional>
-        <param type="boolean" name="include_interatomic" checked="false" label="Include interatomic interactions?" help="Whether to include interactions between selected nuclei which don't involve the muon."/>
+        <param name="include_interatomic" type="boolean" checked="false" truevalue="--include_interatomic" falsevalue="" label="Include interatomic interactions?" help="Whether to include interactions between selected nuclei which don't involve the muon."/>
         <repeat name="ignored_symbols" title="Ignored symbols" min="0" help="Specify symbols that should be ignored e.g. if they have zero spin">
             <param type="text" name="ignored_symbol" label="Ignored symbol">
                 <validator type="regex" message="Input should only contain letters">^[a-zA-Z]+$</validator>
             </param>
         </repeat>
-        <param type="text" name="muon_symbol" value="H" label="Muon Symbol" help="Symbol representing the muon in the given structure file."/>
-        <param type="integer" name="max_layer" value="6" label="Maximum Layer" help="Maximum number of layers the structure can be expanded to before raising an error. Larger values may be needed when searching for many atoms."/>
+        <param name="muon_symbol" type="text" value="H" label="Muon Symbol" help="Symbol representing the muon in the given structure file."/>
+        <param name="max_layer" type="integer" value="6" label="Maximum Layer" help="Maximum number of layers the structure can be expanded to before raising an error. Larger values may be needed when searching for many atoms."/>
     </inputs>
     <outputs>
         <data format="txt" label="muspinsim generated input file" name="out_file" from_work_dir="muspinsim_gen_out.in"/>
@@ -82,7 +84,7 @@
         <test expect_num_outputs="1">
             <!-- Quadrupole interactions -->
             <param name="structure_file" value="Basic.cell" ftype="cell"/>
-            <param name="quadrupolar" value="true"/>
+            <param name="quadrupolar" value="true_gipaw"/>
             <param name="gipaw_out_file" value="Basic_GIPAW.out"/>
             <param name="ignored_symbol" value="Si"/>
             <param name="include_interatomic" value="true"/>
