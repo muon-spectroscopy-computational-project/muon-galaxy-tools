@@ -35,6 +35,22 @@
         <include type="literal" path="build_file.py"/>
     </required_files>
     <command detect_errors="exit_code"><![CDATA[
+        #if $use_structure_file_conditional.use_structure_file:
+            #set generator_params = $use_structure_file_conditional.generator
+            structure_name_internal=\$(sed 's/ /\_/g' <<< '$generator_params.structure_file.name') &&
+            echo \$structure_name_internal &&
+            ln -s '$generator_params.structure_file' \$structure_name_internal &&
+            muspinsim-gen \$structure_name_internal $generator_params.number_closest --out muspinsim_gen_out.in
+            $generator_params.dipolar
+            $generator_params.quadrupolar
+            $generator_params.include_interatomic
+            --muon_symbol $generator_params.muon_symbol
+            #for $ignored_symbol in $generator_params.ignored_symbols:
+            --ignore_symbol $ignored_symbol.ignored_symbol
+            #end for
+            --max_layer $generator_params.max_layer
+            &&
+        #end if
         cp '${__tool_directory__}/sample_fitting_data.dat' ./fitting_data.dat &&
         python '${__tool_directory__}/build_file.py' inputs.json
     ]]></command>
@@ -43,79 +59,28 @@
     </configfiles>
     <inputs>
         <param name="out_file_prefix" type="text" label="Name" help="A name with which to label this configuration" optional="true" value="muspinsim"/>
-        <conditional name="use_template_conditional">
-            <param name="use_template" type="select" display="radio" value="false" label="Use a template file from MuSpinSim Generator?">
+        <conditional name="use_structure_file_conditional">
+            <param name="use_structure_file" type="select" display="radio" value="false" label="Use a structure file?" help="Use a structure file to obtain the spins to include and generate interactions?">
                 <option value="true">Yes</option>
                 <option value="false" selected="true">No</option>
             </param>
             <when value="true">
-                <param name="template_file" type="data" format="txt" label="Template file" help="File containing the definitions of the spins in the system and potentially some interactions. Can be generated with the MuSpinSim Generate tool."/>
+                <section name="generator" expanded="true" title="Generator">
+                    <expand macro="generator_options"/>
+                </section>
+                <section name="interaction_params" expanded="true" title="Additional Spin Interactions" help="Use this section to include any interactions that are not automatically generated from the structure file.">
+                    <expand macro="interaction_options"/>
+                </section>
             </when>
             <when value="false">
                 <section name="spins" expanded="true" title="Spins">
-                    <repeat name="spins" title="Spins to simulate" min="1" help="Specify the spins to be used in the system. This should include a muon (mu) and one or more electrons (e)">
-                        <conditional name="spin_options">
-                            <param name="spin_preset" type="select" value="mu" label="Species" help="Select 'custom' to define own">
-                                <option selected="true" value="mu">mu</option>
-                                <option value="e">e</option>
-                                <option value="custom">custom</option>
-                            </param>
-                            <when value="custom">
-                                <param name="spin" optional="false" type="text" label="Species name"/>
-                                <param name="atomic_mass" optional="true" type="integer" min="0" value="" label="Atomic mass" help="Leave blank to use default mass - whole numbers only"/>
-                            </when>
-                            <when value="mu"/>
-                            <when value="e"/>
-                        </conditional>
-                    </repeat>
+                    <expand macro="spin_options"/>
+                </section>
+                <section name="interaction_params" expanded="true" title="Spin Interactions" help="">
+                    <expand macro="interaction_options"/>
                 </section>
             </when>
         </conditional>
-        <section name="interaction_params" expanded="true" title="Spin Interactions" help="">
-            <repeat name="interactions" title="Interactions to simulate" help="Add couplings between spins, and/or dissipation terms. Interaction terms available: Zeeman, hyperfine, dipolar, quadrupolar or dissipation. See MuSpinSim docs for more info">
-                <conditional name="interaction_options">
-                    <param name="interaction" type="select" label="Choose interaction type">
-                        <option value="zeeman">Zeeman</option>
-                        <option value="hyperfine">hyperfine</option>
-                        <option value="dipolar">dipolar</option>
-                        <option value="quadrupolar">quadrupolar</option>
-                        <option value="dissipation">dissipation</option>
-                    </param>
-                    <when value="zeeman">
-                        <param name="zeeman_index" type="integer" value="" label="Index of coupled spin" min="1" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="zeeman_vector" type="text" value="" label="Zeeman coupling vector" help="Define 1X3 vector for local magnetic field coupling (T). Allows default expressions, constants and functions (see help)"/>
-                    </when>
-                    <when value="hyperfine">
-                        <param name="hfine_index" type="integer" value="" label="Index of nuclear coupled spin" min="1" help="Non-electronic spin - muon or otherwise. Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="hfine_e_index" type="integer" value="" optional="true" min="1" label="Index of electronic coupled spin" help="Optional, will use first defined electronic spin if unspecified"/>
-                        <param name="hfine_matrix" area="true" type="text" value="" label="Hyperfine coupling tensor" help="Define 3X3 tensor for coupling between electron and non-electron spins (in MHz). Allows default expressions, constants and functions (see help)">
-                            <sanitizer>
-                                <valid initial="string.printable">
-                                </valid>
-                            </sanitizer>
-                        </param>
-                    </when>
-                    <when value="dipolar">
-                        <param name="di_index" type="integer" value="" min="1" label="Index of 1st coupled spin" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="di_index_2" type="integer" value="" label="Index of 2nd coupled spin" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="di_vector" type="text" value="" label="Dipole coupling vector" help="Define 1X3 vector for coupling between two spins (Angstrom). Allows default expressions, constants and functions (see help)"/>
-                    </when>
-                    <when value="quadrupolar">
-                        <param name="quad_index" type="integer" value="" label="Index of coupled spin" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="quad_matrix" area="true" type="text" value="" label="Electric Field Gradient tensor" help="Define 3X3 tensor (in atomic units) for quadrupolar coupling. Allows default expressions, constants and functions (see help). Warning: spins with zero quadrupole moment will have zero coupling regardless of the input">
-                            <sanitizer>
-                                <valid initial="string.printable">
-                                </valid>
-                            </sanitizer>
-                        </param>
-                    </when>
-                    <when value="dissipation">
-                        <param name="dis_index" type="integer" value="" label="Index of spin with dissipation" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
-                        <param name="dis_val" type="text" value="" label="Dissipation" help="Define dissipation term (MHz). Allows default expressions, constants and functions (see help)"/>
-                    </when>
-                </conditional>
-            </repeat>
-        </section>
         <section name="experiment_params" expanded="true" title="Experiment Parameters">
             <conditional name="experiment">
                 <param name="experiment_preset" type="select" value="custom" display="radio" label="Experiment type" help="Experiment preset to use. Avoided Level Crossing (ALC): sets polarization to longitudinal, x-axis to field and y-axis to integral. Zero field: sets polarization to transverse, field to 0, x-axis to time and y-axis to asymmetry. Choose custom for no preset">

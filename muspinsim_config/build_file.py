@@ -407,19 +407,18 @@ def main():
 
     # Check if using a template
     template_path = None
-    if mu_input_params["use_template_conditional"]["use_template"] == "true":
-        template_path = (mu_input_params["use_template_conditional"]
-                                        ["template_file"])
+    if mu_input_params["use_structure_file_conditional"]["use_structure_file"] == "true":
+        template_path = "muspinsim_gen_out.in"
 
     # combine all sections
     mu_params = {
-        **mu_input_params["interaction_params"],
+        **mu_input_params["use_structure_file_conditional"]["interaction_params"],
         **mu_input_params["experiment_params"],
         **mu_input_params["fitting_params"]["fitting_options"],
     }
     if template_path is None:
         mu_params.update(
-            **mu_input_params["use_template_conditional"]["spins"])
+            **mu_input_params["use_structure_file_conditional"]["spins"])
 
     # get experiment parameters
     experiment = mu_params["experiment"]
