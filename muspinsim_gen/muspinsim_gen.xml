@@ -2,7 +2,7 @@
     <description>Generate MuSpinSim config from a structure file</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">2.2.0</token>
+        <token name="@TOOL_VERSION@">2.2.1</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
@@ -13,10 +13,10 @@
                 license = {MIT},
                 title = {{muspinsim}},
                 url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
-                version = {v2.2.0},
+                version = {v2.2.1},
                 month = {3},
                 year = {2023}
-                doi = {10.5281/zenodo.7704635}
+                doi = {10.5281/zenodo.7733979}
             }
         </token>
     </macros>
