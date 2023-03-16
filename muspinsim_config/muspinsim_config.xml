@@ -38,7 +38,6 @@
         #if $use_structure_file_conditional.use_structure_file == "true":
             #set generator_params = $use_structure_file_conditional.generator
             structure_name_internal=\$(sed 's/ /\_/g' <<< '$generator_params.structure_file.name') &&
-            echo \$structure_name_internal &&
             ln -s '$generator_params.structure_file' \$structure_name_internal &&
             muspinsim-gen \$structure_name_internal $generator_params.number_closest --out muspinsim_gen_out.in
             $generator_params.dipolar

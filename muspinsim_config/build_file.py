@@ -1,6 +1,7 @@
 import json
 import re
 import sys
+from typing import List
 
 from muspinsim import MuSpinInput
 
@@ -395,6 +396,40 @@ def parse_dict(dictionary, params, file_contents) -> bool:
     return err_found
 
 
+def append_template_file(
+    template_path: str,
+    mu_params: dict,
+    file_contents: List[str]
+):
+    """
+    Loads an input file generated using muspinsim-gen and appends its contents
+    to what has already been created from config. Also ensures that the spins
+    are appended correctly.
+    """
+    # Check if we have already defined spins in the file
+    spins_line = None
+    spins_line_index = None
+    if ("spins" in mu_params):
+        # Find the current line definition in the file
+        # In the format 'spins\n e\n'
+        for i, line in enumerate(file_contents):
+            if line.startswith("spins"):
+                spins_line = line.split("\n")[1].strip()
+                spins_line_index = i
+        if spins_line_index is not None:
+            del file_contents[spins_line_index]
+
+    # Append the template file's contents
+    with open(template_path, encoding="utf-8") as template_file:
+        for line in template_file:
+            # Append the spins if needed
+            if line.startswith("spins") and spins_line is not None:
+                next_line = template_file.readline().strip()
+                file_contents += f"spins\n    {next_line} {spins_line}\n"
+            else:
+                file_contents += line
+
+
 def main():
     """
     Entry point
@@ -413,14 +448,12 @@ def main():
 
     # combine all sections
     mu_params = {
-        **(mu_input_params["use_structure_file_conditional"]
-           ["interaction_params"]),
+        **mu_input_params["use_structure_file_conditional"]["spins"],
+        ** (mu_input_params["use_structure_file_conditional"]
+            ["interaction_params"]),
         **mu_input_params["experiment_params"],
         **mu_input_params["fitting_params"]["fitting_options"],
     }
-    mu_params.update(
-        **mu_input_params["use_structure_file_conditional"]["spins"]
-    )
 
     # get experiment parameters
     experiment = mu_params["experiment"]
@@ -442,29 +475,7 @@ def main():
 
     # Load and append the template if specified
     if template_path is not None:
-        # Check if we have already defined spins above
-        spins_line = None
-        spins_line_index = None
-        if ("spins" in mu_params):
-            # Find the current line definition in the file
-            # In the format 'spins\n e\n'
-            for i, line in enumerate(file_contents):
-                if line.startswith("spins"):
-                    spins_line = line.split("\n")[1].strip()
-                    spins_line_index = i
-            if spins_line_index is not None:
-                del file_contents[spins_line_index]
-
-        # Append the template file's contents
-        with open(template_path, encoding="utf-8") as template_file:
-
-            while line := template_file.readline():
-                # Append the spins if needed
-                if line.startswith("spins") and spins_line is not None:
-                    next_line = template_file.readline().strip()
-                    file_contents += f"spins\n    {next_line} {spins_line}\n"
-                else:
-                    file_contents += line
+        append_template_file(template_path, mu_params, file_contents)
 
     write_file("outfile.in", file_contents)
 
