@@ -68,6 +68,9 @@
                 <section name="generator" expanded="true" title="Generator">
                     <expand macro="generator_options"/>
                 </section>
+                <section name="spins" expanded="true" title="Additional Spins">
+                    <expand macro="additional_spin_options"/>
+                </section>
                 <section name="interaction_params" expanded="true" title="Additional Spin Interactions" help="Use this section to include any interactions that are not automatically generated from the structure file.">
                     <expand macro="interaction_options"/>
                 </section>
@@ -337,6 +340,29 @@
             <param name="experiment_preset" value="custom"/>
             <param name="time" value="range(0,8.0,1000)"/>
             <output name="out_file" file="test_11.in" ftype="txt" compare="diff"/>
+        </test>
+        <!-- Test adding extra spins -->
+        <test expect_num_outputs="1">
+            <param name="out_file_prefix" value="test_12"/>
+            <param name="use_structure_file" value="true"/>
+            <param name="structure_file" value="Basic.magres" ftype="cell"/>
+            <param name="dipolar" value="true"/>
+            <param name="quadrupolar" value="true"/>
+            <param name="ignored_symbol" value="Si"/>
+            <param name="include_interatomic" value="false"/>
+            <param name="spin_preset" value="e"/>
+            <param name="spin_preset" value="custom"/>
+            <param name="spin" value="F"/>
+            <param name="atomic_mass" value="19"/>
+            <param name="interaction" value="hyperfine"/>
+            <param name="hfine_index" value="2"/>
+            <param name="hfine_matrix" value="[580 5  10 5   580 9 10  9   580]"/>
+            <param name="interaction" value="hyperfine"/>
+            <param name="hfine_index" value="3"/>
+            <param name="hfine_matrix" value="[(300/2)  3   4*10 ], [3  15*10 6-3+2]  ,[4  5   15 ]"/>
+            <param name="experiment_preset" value="custom"/>
+            <param name="time" value="range(0,8.0,1000)"/>
+            <output name="out_file" file="test_12.in" ftype="txt" compare="diff"/>
         </test>
     </tests>
     <help><![CDATA[
