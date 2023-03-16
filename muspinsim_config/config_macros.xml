@@ -220,10 +220,10 @@
         </repeat>
     </xml>
     <xml name="generator_options">
-        <param name="structure_file" type="data" format="cif,cell,magres,extxyz" label="Structure file (.cif, .cell, .magres or .extxyz)"/>
+        <param name="structure_file" type="data" format="cif,cell,magres,extxyz" label="File containing the structure (.cif, .cell, .magres or .extxyz)"/>
         <param name="number_closest" type="integer" value="4" label="Number of closest nuclei" help="Number of closest nuclei to the muon which should included in the generated file"/>
         <param name="dipolar" type="boolean" checked="true" truevalue="--dipolar" falsevalue="" label="Include dipole interactions?"/>
-        <param name="quadrupolar" type="boolean" checked="false" truevalue="--quadrupolar" falsevalue="" label="Include quadrupole interactions?" help="Either requires a magres input file with EFG tensors calculated via CASTEP."/>
+        <param name="quadrupolar" type="boolean" checked="false" truevalue="--quadrupolar" falsevalue="" label="Include quadrupole interactions?" help="Requires a Magres input file with EFG tensors calculated via CASTEP."/>
         <param name="include_interatomic" type="boolean" checked="false" truevalue="--include_interatomic" falsevalue="" label="Include interatomic interactions?" help="Whether to include interactions between selected nuclei which don't involve the muon."/>
         <repeat name="ignored_symbols" title="Ignored symbols" min="0" help="Specify symbols that should be ignored e.g. if they have zero spin">
             <param type="text" name="ignored_symbol" label="Ignored symbol">

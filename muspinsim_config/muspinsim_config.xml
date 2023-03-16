@@ -59,7 +59,7 @@
     <inputs>
         <param name="out_file_prefix" type="text" label="Name" help="A name with which to label this configuration" optional="true" value="muspinsim"/>
         <conditional name="use_structure_file_conditional">
-            <param name="use_structure_file" type="select" display="radio" value="false" label="Use a structure file?" help="Use a structure file to obtain the spins to include and generate interactions?">
+            <param name="use_structure_file" type="select" display="radio" value="false" label="Generate interactions from a file?" help="Use a file containing a structure to obtain the spins and generate interactions.">
                 <option value="true">Yes</option>
                 <option value="false" selected="true">No</option>
             </param>
