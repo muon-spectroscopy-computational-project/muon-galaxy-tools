@@ -288,7 +288,6 @@
             <param name="out_file_prefix" value="test_8"/>
             <param name="use_structure_file" value="true"/>
             <param name="structure_file" value="Basic.cell" ftype="cell"/>
-            <output name="out_file" file="test_1.in" ftype="txt" compare="diff"/>
             <param name="experiment_preset" value="custom"/>
             <param name="time" value="range(0,8.0,1000)"/>
             <output name="out_file" file="test_8.in" ftype="txt" compare="diff"/>
@@ -322,7 +321,7 @@
         </test>
         <!-- Magres file with quadrupolar, and extra interactions as well -->
         <test expect_num_outputs="1">
-            <param name="out_file_prefix" value="test_10"/>
+            <param name="out_file_prefix" value="test_11"/>
             <param name="use_structure_file" value="true"/>
             <param name="structure_file" value="Basic.magres" ftype="cell"/>
             <param name="dipolar" value="true"/>
@@ -337,7 +336,7 @@
             <param name="hfine_matrix" value="[(300/2)  3   4*10 ], [3  15*10 6-3+2]  ,[4  5   15 ]"/>
             <param name="experiment_preset" value="custom"/>
             <param name="time" value="range(0,8.0,1000)"/>
-            <output name="out_file" file="test_10.in" ftype="txt" compare="diff"/>
+            <output name="out_file" file="test_11.in" ftype="txt" compare="diff"/>
         </test>
     </tests>
     <help><![CDATA[
