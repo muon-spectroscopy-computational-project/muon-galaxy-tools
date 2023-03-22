@@ -70,7 +70,7 @@
                 <section name="spins" expanded="true" title="Additional Spins">
                     <expand macro="additional_spin_options"/>
                 </section>
-                <section name="interaction_params" expanded="true" title="Additional Spin Interactions" help="Use this section to include any interactions that are not automatically generated from the structure file.">
+                <section name="interaction_params" expanded="true" title="Additional Spin Interactions" help="Use this section to include any interactions that are not automatically generated from the structure file. The muon index will always be 1, then the rest of the requested number of spins, N, will be in order of distance to the muon (excluding any ignored symbols). So any spins added above will have indices starting at N + 2.">
                     <expand macro="interaction_options"/>
                 </section>
             </when>

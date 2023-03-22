@@ -162,7 +162,7 @@
     <xml name="additional_spin_options">
         <repeat name="spins" title="Additional spins to simulate" min="0" help="Specify any additional spins to be used in the system other than those generated from the structure file.">
             <conditional name="spin_options">
-                <param name="spin_preset" type="select" value="mu" label="Species" help="Select 'custom' to define own">
+                <param name="spin_preset" type="select" value="e" label="Species" help="Select 'custom' to define own">
                     <option value="e">e</option>
                     <option value="custom">custom</option>
                 </param>
