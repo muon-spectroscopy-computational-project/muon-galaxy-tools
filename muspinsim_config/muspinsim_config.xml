@@ -47,7 +47,6 @@
             #for $ignored_symbol in $generator_params.ignored_symbols:
             --ignore_symbol $ignored_symbol.ignored_symbol
             #end for
-            --max_layer $generator_params.max_layer
             &&
         #end if
         cp '${__tool_directory__}/sample_fitting_data.dat' ./fitting_data.dat &&

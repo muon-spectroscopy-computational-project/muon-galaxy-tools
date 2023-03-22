@@ -231,6 +231,5 @@
             </param>
         </repeat>
         <param name="muon_symbol" type="text" value="H" label="Muon Symbol" help="Symbol representing the muon in the given structure file."/>
-        <param name="max_layer" type="integer" value="6" label="Maximum Layer" help="Maximum number of layers the structure can be expanded to before raising an error. Larger values may be needed when searching for many atoms."/>
     </xml>
 </macros>
