@@ -19,6 +19,11 @@
                 year = {2022}
             }
         </token>
+        <xml name="supercell">
+            <param type="text" argument="supercell" value="1" label="Supercell" help="Supercell size and shape to use when saving cluster structures. This can either be a single int, a list of three integers or a 3x3 matrix of integers. For a single number a diagonal matrix will be generated with the integer repeated on the diagonals. For a list of three numbers a diagonal matrix will be generated where the diagonal elements are set to the list. A matrix will be used directly as is. Default is a 3x3 identity matrix.">
+                <validator type="regex" message="Input should only contain whitespace, '[', ']', ',' and digits.">^[\s\d,\[\]]+$</validator>
+            </param>
+        </xml>
     </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
@@ -39,16 +44,27 @@
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi
         && if ( test -f input_structure.* ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi
         && out_folder="`python '${__tool_directory__}/get_out_folder.py'`"
-        && python '${__tool_directory__}/config.py'
+        && python '${__tool_directory__}/config.py' 
         && pm-muairss -t r input_structure.* params.yaml
-        #if $clustering_save.clustering_save_type == "structures":
+        #if $clustering_save.clustering_save_format != "none":
             && ln -s *_clusters/* minimal_clusters
-        #else if $clustering_save.clustering_save_type == "input":
-            && zip -r saved_inputs.zip *_clusters
         #end if
     ]]></command>
     <configfiles>
-        <inputs name="inputs" filename="inputs.json"/>
+        <configfile filename="incoming_params">clustering_method: $clustering.clustering_method
+#if $clustering.clustering_method == "hier":
+clustering_hier_t: $clustering.clustering_hier_t
+#else if $clustering.clustering_method == "kmeans":
+clustering_kmeans_k: $clustering.clustering_kmeans_k
+#end if
+#if $clustering_save.clustering_save_format != "none":
+clustering_save_type: structures
+clustering_save_format: $clustering_save.clustering_save_format
+supercell: $clustering_save.supercell.replace('__ob__', '[').replace('__cb__', ']')
+#if $clustering_save.clustering_save_format == "cell":
+mu_symbol: $clustering_save.mu_symbol
+#end if
+#end if</configfile>
     </configfiles>
     <inputs>
         <param type="data" name="optimisation_results" label="optimised muonated structures (.zip)" format="zip" help="A zip folder containing a set of optimised muonated structures, the original structure, and a YAML parameter file. See below for the expected folder structure."/>
@@ -65,24 +81,22 @@
             </when>
         </conditional>
         <conditional name="clustering_save">
-            <param argument="clustering_save_type" type="select" value="none" label="Clustering Save Type" help="If set, for each cluster either a structural file or a set of files for subsequent calculation will be generated, corresponding to the structure in the cluster with minimal energy.">
-                <option value="none">Do not generate</option>
-                <option value="structures">Structures</option>
-                <option value="input">Input</option>
+            <param argument="clustering_save_format" type="select" label="Clustering Save Format" help="If set, for each cluster a structural file with the specified format will be generated, corresponding to the structure in the cluster with minimal energy.">
+                <option value="none" selected="true">Do not generate</option>
+                <option value="cell">CELL</option>
+                <option value="cif">CIF</option>
+                <option value="xyz">XYZ</option>
             </param>
             <when value="none"/>
-            <when value="structures">
-                <param argument="clustering_save_format" type="select" display="radio" value="cell" label="Clustering Save Format" help="The format to save each cluster's minimum energy structure as.">
-                    <option value="cell">CELL</option>
-                    <option value="cif">CIF</option>
-                    <option value="xyz">XYZ</option>
-                </param>
+            <when value="cell">
+                <expand macro="supercell"/>
+                <param argument="mu_symbol" type="text" value="H:mu" optional="true" label="Muon symbol" help="The symbol to use for the muon when writing out the CASTEP custom species."/>
             </when>
-            <when value="input">
-                <param argument="clustering_save_format" type="select" display="radio" value="castep" label="Clustering Save Format" help="The format to save each cluster's input files as.">
-                    <option value="castep">CASTEP</option>
-                    <option value="dftb+">DFTB+</option>
-                </param>
+            <when value="cif">
+                <expand macro="supercell"/>
+            </when>
+            <when value="xyz">
+                <expand macro="supercell"/>
             </when>
         </conditional>
     </inputs>
@@ -90,12 +104,9 @@
         <data label="Cluster report for $optimisation_results.name" name="cluster_report" format="txt" from_work_dir="${out_folder}/*clusters.txt"/>
         <data label="Cluster data for $optimisation_results.name" name="cluster_data" format="txt" from_work_dir="${out_folder}/*clusters.dat"/>
         <collection name="saved_structures" type="list" label="Minimal energy structures" format="txt">
-            <filter>clustering_save["clustering_save_type"] == "structures"</filter>
+            <filter>clustering_save["clustering_save_format"] != "none"</filter>
             <discover_datasets pattern="__name_and_ext__" directory="minimal_clusters"/>
         </collection>
-        <data name="saved_inputs" label="Minimal energy inputs" format="zip" from_work_dir="saved_inputs.zip">
-            <filter>clustering_save["clustering_save_type"] == "input"</filter>
-        </data>
     </outputs>
     <tests>
         <test expect_num_outputs="2">
@@ -112,12 +123,29 @@
                 <param name="clustering_hier_t" value="0.2"/>
             </conditional>
             <conditional name="clustering_save">
-                <param name="clustering_save_type" value="structures"/>
                 <param name="clustering_save_format" value="cell"/>
             </conditional>
             <output name="cluster_report" file="clustout-uep.txt" ftype="txt" lines_diff="2"/>
             <output name="cluster_data" file="clustout-uep.dat" ftype="txt"/>
             <output_collection name="saved_structures" type="list" count="2"/>
+        </test>
+        <!-- Test optional save params -->
+        <test expect_num_outputs="3">
+            <param name="optimisation_results" value="uep-out.zip" ftype="zip"/>
+            <conditional name="clustering">
+                <param name="clustering_hier_t" value="0.2"/>
+            </conditional>
+            <conditional name="clustering_save">
+                <param name="clustering_save_format" value="cell"/>
+                <param name="supercell" value="2"/>
+                <param name="mu_symbol" value="muon"/>
+            </conditional>
+            <output name="cluster_report" file="clustout-uep.txt" ftype="txt" lines_diff="2"/>
+            <output name="cluster_data" file="clustout-uep.dat" ftype="txt"/>
+            <output_collection name="saved_structures" type="list" count="2">
+                <element name="Si_uep_min_cluster_1" file="Si_uep_min_cluster_1.cell"/>
+                <element name="Si_uep_min_cluster_2" file="Si_uep_min_cluster_2.cell"/>
+            </output_collection>
         </test>
         <test expect_num_outputs="2">
             <param name="optimisation_results" value="dftb-out.zip" ftype="zip"/>
@@ -126,26 +154,6 @@
             </conditional>
             <output name="cluster_report" file="clustout-dftb.txt" ftype="txt" lines_diff="2"/>
             <output name="cluster_data" file="clustout-dftb.dat" ftype="txt"/>
-        </test>
-        <test expect_num_outputs="3">
-            <param name="optimisation_results" value="dftb-out.zip" ftype="zip"/>
-            <conditional name="clustering">
-                <param name="clustering_hier_t" value="0.2"/>
-            </conditional>
-            <conditional name="clustering_save">
-                <param name="clustering_save_type" value="input"/>
-                <param name="clustering_save_format" value="dftb+"/>
-            </conditional>
-            <output name="cluster_report" file="clustout-dftb.txt" ftype="txt" lines_diff="2"/>
-            <output name="cluster_data" file="clustout-dftb.dat" ftype="txt"/>
-            <output name="saved_inputs" ftype="zip">
-                <assert_contents>
-                    <has_archive_member path="Si_clusters\/dftb\.LICENSE"/>
-                    <has_archive_member path="Si_clusters\/dftb\+\/\.collection"/>
-                    <has_archive_member path="Si_clusters\/dftb\+\/Si_min_cluster_\d\/dftb_in\.hsd" n="3"/>
-                    <has_archive_member path="Si_clusters\/dftb\+\/Si_min_cluster_\d\/geo_end\.gen" n="3"/>
-                </assert_contents>
-            </output>
         </test>
         <!-- Test overwrite of values in the existing params.yaml -->
         <test expect_num_outputs="2">

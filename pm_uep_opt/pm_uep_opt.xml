@@ -61,7 +61,6 @@
     <configfiles>
         <configfile name="params_yaml">poisson_r: $generation_params.poisson_r
 vdw_scale: $generation_params.vdw_scale
-supercell: $generation_params.supercell.replace('__ob__', '[').replace('__cb__', ']')
 #if $generation_params.random_seed:
 random_seed: $generation_params.random_seed
 #end if
@@ -81,9 +80,6 @@ uep_gw_factor: $optimisation_params.uep_gw_factor</configfile>
         <section name="generation_params" expanded="true" title="Generation Parameters">
             <param type="float" argument="poisson_r" value="0.8" min="0.0" label="Poisson radius" help=" Poisson sphere radius to use for random generation. No two starting muon positions will be closer than this distance. Smaller values make for bigger structure sets."/>
             <param type="float" argument="vdw_scale" value="0.5" min="0.0" label="Van der Waals scale" help="Van der Waals scaling factor to use when generating muon sites to avoid existing atoms. Smaller values will allow muons to get closer to the other ions."/>
-            <param type="text" argument="supercell" value="1" label="Supercell" help="Supercell size and shape to use. This can either be a single int, a list of three integers or a 3x3 matrix of integers. For a single number a diagonal matrix will be generated with the integer repeated on the diagonals. For a list of three numbers a diagonal matrix will be generated where the diagonal elements are set to the list. A matrix will be used directly as is. Default is a 3x3 identity matrix.">
-                <validator type="regex" message="Input should only contain whitespace, '[', ']', ',' and digits.">^[\s\d,\[\]]+$</validator>
-            </param>
             <param type="integer" argument="random_seed" label="Random Seed" optional="true" help="Seed used to randomise the positions of the muons in the generated structures."/>
             <param type="select" name="allpos_ext" value="none" label="Format for file containing all muon positions (optional)" help="If set, generates an extra output file containing all the muon positions using the specified file type.">
                 <option value="none">Do not generate</option>
