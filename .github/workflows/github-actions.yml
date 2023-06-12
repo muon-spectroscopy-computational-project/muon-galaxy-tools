@@ -210,6 +210,12 @@ jobs:
       with:
         name: 'Tool test output ${{ matrix.chunk }}'
         path: upload
+    - name: Upload logs on failure
+      uses: actions/upload-artifact@v3
+      if: failure()
+      with:
+        name: 'Tool test logs ${{ matrix.chunk }}'
+        path: gravity/log
 
   # - combine the results of the test chunks (which will never fail due
   #   to `|| true`) and create a global test report as json and html which
