@@ -2,28 +2,28 @@
     <description>run UEP optimisation</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">0.2.3</token>
+        <token name="@TOOL_VERSION@">0.3.0</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
-            @software{Sturniolo_pymuon-suite_2022,
-                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
+            @software{Sturniolo_pymuon-suite_2023,
+                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and Mudaraddi, Anish and Austin, Patrick and Davies, Joel and {Muon Spectroscopy Computational Project}},
+                doi = {10.5281/zenodo.8026711},
                 license = {GPL-3.0},
-                month = {8},
+                month = {6},
                 title = {{pymuon-suite}},
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
-                version = {v0.2.3},
-                doi = {10.5281/zenodo.7025644},
-                year = {2022}
+                version = {v0.3.0},
+                year = {2023}
             }
         </token>
     </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
-        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin"/>
+        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin" identifier="https://orcid.org/0000-0002-6279-7823"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
@@ -186,7 +186,7 @@ uep_gw_factor: $optimisation_params.uep_gw_factor</configfile>
                 </assert_contents>
             </output>
         </test>
-        <!-- Expect failure for badly formatted den_fmt -->
+        <!-- Expect total failure for badly formatted den_fmt -->
         <test expect_failure="true">
             <param name="testing" value="true"/>
             <param name="structure" value="Si.cell" ftype="cell"/>
@@ -194,6 +194,7 @@ uep_gw_factor: $optimisation_params.uep_gw_factor</configfile>
             <param name="charge_density" value="Sifail.den_fmt" ftype="den_fmt"/>
             <assert_stderr>
                 <has_text text="Error:  FMT file has no header"/>
+                <has_text text="ERROR: All optimisations failed"/>
             </assert_stderr>
         </test>
         <!-- check that file_tree filter works -->

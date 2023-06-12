@@ -2,21 +2,21 @@
     <description>run clustering for optimised structures</description>
     <macros>
         <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">0.2.3</token>
+        <token name="@TOOL_VERSION@">0.3.0</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">
-            @software{Sturniolo_pymuon-suite_2022,
-                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
+            @software{Sturniolo_pymuon-suite_2023,
+                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and Mudaraddi, Anish and Austin, Patrick and Davies, Joel and {Muon Spectroscopy Computational Project}},
+                doi = {10.5281/zenodo.8026711},
                 license = {GPL-3.0},
-                month = {8},
+                month = {6},
                 title = {{pymuon-suite}},
                 url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
-                version = {v0.2.3},
-                doi = {10.5281/zenodo.7025644},
-                year = {2022}
+                version = {v0.3.0},
+                year = {2023}
             }
         </token>
         <xml name="supercell">
@@ -28,7 +28,7 @@
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
-        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin"/>
+        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin" identifier="https://orcid.org/0000-0002-6279-7823"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
@@ -90,7 +90,7 @@ mu_symbol: $clustering_save.mu_symbol
             <when value="none"/>
             <when value="cell">
                 <expand macro="supercell"/>
-                <param argument="mu_symbol" type="text" value="H:mu" optional="true" label="Muon symbol" help="The symbol to use for the muon when writing out the CASTEP custom species."/>
+                <param argument="mu_symbol" type="text" value="H:mu" optional="true" label="Muon symbol" help="The symbol to use for the muon when writing out the CASTEP custom species. Should be a valid chemical symbol followed by `:`, then custom text."/>
             </when>
             <when value="cif">
                 <expand macro="supercell"/>
@@ -138,7 +138,7 @@ mu_symbol: $clustering_save.mu_symbol
             <conditional name="clustering_save">
                 <param name="clustering_save_format" value="cell"/>
                 <param name="supercell" value="2"/>
-                <param name="mu_symbol" value="muon"/>
+                <param name="mu_symbol" value="H:nu"/>
             </conditional>
             <output name="cluster_report" file="clustout-uep.txt" ftype="txt" lines_diff="2"/>
             <output name="cluster_data" file="clustout-uep.dat" ftype="txt"/>
