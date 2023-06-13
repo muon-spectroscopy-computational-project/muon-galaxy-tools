@@ -6,19 +6,7 @@
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
-        <!-- typical fields to update are version, month, year, and doi -->
-        <token name="@PYMUONSUITE_CITATION@">
-            @software{Sturniolo_pymuon-suite_2023,
-                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and Mudaraddi, Anish and Austin, Patrick and Davies, Joel and {Muon Spectroscopy Computational Project}},
-                doi = {10.5281/zenodo.8026711},
-                license = {GPL-3.0},
-                month = {6},
-                title = {{pymuon-suite}},
-                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
-                version = {v0.3.0},
-                year = {2023}
-            }
-        </token>
+        <token name="@TOOL_CITATION@">10.5281/zenodo.8026711</token>
         <import>muon_macros.xml</import>
     </macros>
     <creator>
@@ -188,9 +176,7 @@ force_clean: false</configfile>
         |
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @PYMUONSUITE_CITATION@
-        </citation>
+        <citation type="doi">@TOOL_CITATION@</citation>
         <citation type="doi">10.1063/1.5085197</citation>
         <citation type="bibtex">
             @article{larsen2017atomic,

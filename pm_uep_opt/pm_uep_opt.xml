@@ -6,19 +6,7 @@
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
-        <!-- typical fields to update are version, month, year, and doi -->
-        <token name="@TOOL_CITATION@">
-            @software{Sturniolo_pymuon-suite_2023,
-                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and Mudaraddi, Anish and Austin, Patrick and Davies, Joel and {Muon Spectroscopy Computational Project}},
-                doi = {10.5281/zenodo.8026711},
-                license = {GPL-3.0},
-                month = {6},
-                title = {{pymuon-suite}},
-                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
-                version = {v0.3.0},
-                year = {2023}
-            }
-        </token>
+        <token name="@TOOL_CITATION@">10.5281/zenodo.8026711</token>
     </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
@@ -114,7 +102,7 @@ uep_gw_factor: $optimisation_params.uep_gw_factor</configfile>
                 <param name="geom_steps" value="300"/>
                 <param name="uep_gw_factor" value="4.0"/>
             </section>
-            <output name="allpos_file" file="allpos.cell" />
+            <output name="allpos_file" file="allpos.cell"/>
             <output name="file_tree" file="tree.txt" ftype="txt" sort="true">
                 <assert_contents>
                     <has_size value="3280"/>
@@ -156,7 +144,7 @@ uep_gw_factor: $optimisation_params.uep_gw_factor</configfile>
                 <param name="geom_steps" value="300"/>
                 <param name="uep_gw_factor" value="4.0"/>
             </section>
-            <output name="allpos_file" file="allpos.xyz" />
+            <output name="allpos_file" file="allpos.xyz"/>
             <output name="file_tree" file="tree.txt" ftype="txt" sort="true">
                 <assert_contents>
                     <has_size value="3280"/>
@@ -179,7 +167,7 @@ uep_gw_factor: $optimisation_params.uep_gw_factor</configfile>
                 <param name="geom_steps" value="300"/>
                 <param name="uep_gw_factor" value="4.0"/>
             </section>
-            <output name="allpos_file" file="allpos.cif" />
+            <output name="allpos_file" file="allpos.cif"/>
             <output name="file_tree" file="tree.txt" ftype="txt" sort="true">
                 <assert_contents>
                     <has_size value="3280"/>
@@ -258,9 +246,7 @@ uep_gw_factor: $optimisation_params.uep_gw_factor</configfile>
         This tool wrapper is distributed under the MIT license.
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @TOOL_CITATION@
-        </citation>
+        <citation type="doi">@TOOL_CITATION@</citation>
         <citation type="doi">10.1063/1.5024450</citation>
         <citation type="doi">10.1063/1.5085197</citation>
         <citation type="doi">10.1063/5.0012381</citation>
