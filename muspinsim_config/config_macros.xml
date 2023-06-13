@@ -142,4 +142,94 @@
             </when>
         </conditional>
     </xml>
+    <xml name="spin_options">
+        <repeat name="spins" title="Spins to simulate" min="1" help="Specify the spins to be used in the system. This should include a muon (mu) and one or more electrons (e)">
+            <conditional name="spin_options">
+                <param name="spin_preset" type="select" value="mu" label="Species" help="Select 'custom' to define own">
+                    <option selected="true" value="mu">mu</option>
+                    <option value="e">e</option>
+                    <option value="custom">custom</option>
+                </param>
+                <when value="custom">
+                    <param name="spin" optional="false" type="text" label="Species name"/>
+                    <param name="atomic_mass" optional="true" type="integer" min="0" value="" label="Atomic mass" help="Leave blank to use default mass - whole numbers only"/>
+                </when>
+                <when value="mu"/>
+                <when value="e"/>
+            </conditional>
+        </repeat>
+    </xml>
+    <xml name="additional_spin_options">
+        <repeat name="spins" title="Additional spins to simulate" min="0" help="Specify any additional spins to be used in the system other than those generated from the structure file.">
+            <conditional name="spin_options">
+                <param name="spin_preset" type="select" value="e" label="Species" help="Select 'custom' to define own">
+                    <option value="e">e</option>
+                    <option value="custom">custom</option>
+                </param>
+                <when value="custom">
+                    <param name="spin" optional="false" type="text" label="Species name"/>
+                    <param name="atomic_mass" optional="true" type="integer" min="0" value="" label="Atomic mass" help="Leave blank to use default mass - whole numbers only"/>
+                </when>
+                <when value="e"/>
+            </conditional>
+        </repeat>
+    </xml>
+    <xml name="interaction_options">
+        <repeat name="interactions" title="Interactions to simulate" help="Add couplings between spins, and/or dissipation terms. Interaction terms available: Zeeman, hyperfine, dipolar, quadrupolar or dissipation. See MuSpinSim docs for more info">
+            <conditional name="interaction_options">
+                <param name="interaction" type="select" label="Choose interaction type">
+                    <option value="zeeman">Zeeman</option>
+                    <option value="hyperfine">hyperfine</option>
+                    <option value="dipolar">dipolar</option>
+                    <option value="quadrupolar">quadrupolar</option>
+                    <option value="dissipation">dissipation</option>
+                </param>
+                <when value="zeeman">
+                    <param name="zeeman_index" type="integer" value="" label="Index of coupled spin" min="1" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                    <param name="zeeman_vector" type="text" value="" label="Zeeman coupling vector" help="Define 1X3 vector for local magnetic field coupling (T). Allows default expressions, constants and functions (see help)"/>
+                </when>
+                <when value="hyperfine">
+                    <param name="hfine_index" type="integer" value="" label="Index of nuclear coupled spin" min="1" help="Non-electronic spin - muon or otherwise. Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                    <param name="hfine_e_index" type="integer" value="" optional="true" min="1" label="Index of electronic coupled spin" help="Optional, will use first defined electronic spin if unspecified"/>
+                    <param name="hfine_matrix" area="true" type="text" value="" label="Hyperfine coupling tensor" help="Define 3X3 tensor for coupling between electron and non-electron spins (in MHz). Allows default expressions, constants and functions (see help)">
+                        <sanitizer>
+                            <valid initial="string.printable">
+                            </valid>
+                        </sanitizer>
+                    </param>
+                </when>
+                <when value="dipolar">
+                    <param name="di_index" type="integer" value="" min="1" label="Index of 1st coupled spin" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                    <param name="di_index_2" type="integer" value="" label="Index of 2nd coupled spin" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                    <param name="di_vector" type="text" value="" label="Dipole coupling vector" help="Define 1X3 vector for coupling between two spins (Angstrom). Allows default expressions, constants and functions (see help)"/>
+                </when>
+                <when value="quadrupolar">
+                    <param name="quad_index" type="integer" value="" label="Index of coupled spin" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                    <param name="quad_matrix" area="true" type="text" value="" label="Electric Field Gradient tensor" help="Define 3X3 tensor (in atomic units) for quadrupolar coupling. Allows default expressions, constants and functions (see help). Warning: spins with zero quadrupole moment will have zero coupling regardless of the input">
+                        <sanitizer>
+                            <valid initial="string.printable">
+                            </valid>
+                        </sanitizer>
+                    </param>
+                </when>
+                <when value="dissipation">
+                    <param name="dis_index" type="integer" value="" label="Index of spin with dissipation" help="Index refers to the order of the spins listed in 'spins' section.  The first spin in the list has index 1, the second has index 2, and so on."/>
+                    <param name="dis_val" type="text" value="" label="Dissipation" help="Define dissipation term (MHz). Allows default expressions, constants and functions (see help)"/>
+                </when>
+            </conditional>
+        </repeat>
+    </xml>
+    <xml name="generator_options">
+        <param name="structure_file" type="data" format="cif,cell,magres,extxyz" label="File containing the structure (.cif, .cell, .magres or .extxyz)"/>
+        <param name="number_closest" type="integer" value="4" label="Number of closest nuclei" help="Number of closest nuclei to the muon which should included in the generated file"/>
+        <param name="dipolar" type="boolean" checked="true" truevalue="--dipolar" falsevalue="" label="Include dipole interactions?"/>
+        <param name="quadrupolar" type="boolean" checked="false" truevalue="--quadrupolar" falsevalue="" label="Include quadrupole interactions?" help="Requires a Magres input file with EFG tensors calculated via CASTEP."/>
+        <param name="include_interatomic" type="boolean" checked="false" truevalue="--include_interatomic" falsevalue="" label="Include interatomic interactions?" help="Whether to include interactions between selected nuclei which don't involve the muon."/>
+        <repeat name="ignored_symbols" title="Ignored symbols" min="0" help="Specify symbols that should be ignored e.g. if they have zero spin">
+            <param type="text" name="ignored_symbol" label="Ignored symbol">
+                <validator type="regex" message="Input should only contain letters">^[a-zA-Z]+$</validator>
+            </param>
+        </repeat>
+        <param name="muon_symbol" type="text" value="H" label="Muon Symbol" help="Symbol representing the muon in the given structure file."/>
+    </xml>
 </macros>
