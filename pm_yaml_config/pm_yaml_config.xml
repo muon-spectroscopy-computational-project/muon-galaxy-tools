@@ -4,29 +4,17 @@
         <!-- version of underlying tool (PEP 440) -->
         <!-- this wrapper doesn't have pymuonsuite as a dependency, but it will change according
              to the pymuonsuite interface, so follow the same versioning pattern -->
-        <token name="@TOOL_VERSION@">0.2.3</token>
+        <token name="@TOOL_VERSION@">0.3.0</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">1</token>
+        <token name="@WRAPPER_VERSION@">0</token>
         <!-- citation should be updated with every underlying tool version -->
-        <!-- typical fields to update are version, month, year, and doi -->
-        <token name="@TOOL_CITATION@">
-            @software{Sturniolo_pymuon-suite_2022,
-                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
-                license = {GPL-3.0},
-                month = {8},
-                title = {{pymuon-suite}},
-                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
-                version = {v0.2.3},
-                doi = {10.5281/zenodo.7025644},
-                year = {2022}
-            }
-        </token>
+        <token name="@TOOL_CITATION@">10.5281/zenodo.8026711</token>
         <import>muon_macros.xml</import>
     </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
-        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin"/>
+        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin" identifier="https://orcid.org/0000-0002-6279-7823"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
@@ -206,7 +194,7 @@ clustering_kmeans_k: $clustering_params.clustering.clustering_kmeans_k
                 <param name="k_points_grid" value="[1,1,1]"/>
                 <param name="max_scc_steps" value="200"/>
             </section>
-            <output name="out_yaml" file="config.yaml" ftype="yaml" delta="100"/>
+            <output name="out_yaml" file="config.yaml" ftype="yaml"/>
         </test>
         <test expect_num_outputs="1">
             <section name="general_params">
@@ -215,7 +203,7 @@ clustering_kmeans_k: $clustering_params.clustering.clustering_kmeans_k
             </section>
             <section name="clustering_params">
             </section>
-            <output name="out_yaml" file="config-default.yaml" ftype="yaml" delta="100"/>
+            <output name="out_yaml" file="config-default.yaml" ftype="yaml"/>
         </test>
         <test expect_num_outputs="1">
             <section name="general_params">
@@ -227,7 +215,7 @@ clustering_kmeans_k: $clustering_params.clustering.clustering_kmeans_k
             </section>
             <section name="clustering_params">
             </section>
-            <output name="out_yaml" file="config-dftb.yaml" ftype="yaml" delta="100"/>
+            <output name="out_yaml" file="config-dftb.yaml" ftype="yaml"/>
         </test>
         <test expect_num_outputs="1">
             <section name="general_params">
@@ -239,7 +227,7 @@ clustering_kmeans_k: $clustering_params.clustering.clustering_kmeans_k
             </section>
             <section name="clustering_params">
             </section>
-            <output name="out_yaml" file="config-all.yaml" ftype="yaml" delta="100"/>
+            <output name="out_yaml" file="config-all.yaml" ftype="yaml"/>
         </test>
         <test expect_failure="true">
             <section name="general_params">
@@ -277,8 +265,6 @@ clustering_kmeans_k: $clustering_params.clustering.clustering_kmeans_k
     +------------+-------------------------------------+-----------------------------------+
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @TOOL_CITATION@
-        </citation>
+        <citation type="doi">@TOOL_CITATION@</citation>
     </citations>
 </tool>
