@@ -7,22 +7,7 @@
         <token name="@WRAPPER_VERSION@">2</token>
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
-        <token name="@TOOL_CITATION@">
-            @article{Hunter:2007,
-                author = {Hunter, J. D.},
-                title = {Matplotlib: A 2D graphics environment},
-                journal = {Computing in Science &amp; Engineering},
-                volume = {9},
-                number = {3},
-                pages = {90--95},
-                abstract = {Matplotlib is a 2D graphics package used for Python for
-                      application development, interactive scripting, and publication-quality
-                      image generation across user interfaces and operating systems.},
-                      publisher = {IEEE COMPUTER SOC},
-                doi = {10.1109/MCSE.2007.55},
-                year = {2007}
-            }
-        </token>
+        <token name="@TOOL_CITATION@">10.1109/MCSE.2007.55</token>
     </macros>
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
