@@ -1,12 +1,9 @@
-<tool id="pm_muairss_read" name="PyMuonSuite AIRSS Cluster" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
+<tool id="pm_muairss_read" name="PyMuonSuite AIRSS Cluster" version="@PYMUONSUITE_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
     <description>run clustering for optimised structures</description>
     <macros>
-        <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">0.3.0</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
-        <!-- citation should be updated with every underlying tool version -->
-        <token name="@TOOL_CITATION@">10.5281/zenodo.8026711</token>
+        <import>muon_macros.xml</import>
         <xml name="supercell">
             <param type="text" argument="supercell" value="1" label="Supercell" help="Supercell size and shape to use when saving cluster structures. This can either be a single int, a list of three integers or a 3x3 matrix of integers. For a single number a diagonal matrix will be generated with the integer repeated on the diagonals. For a list of three numbers a diagonal matrix will be generated where the diagonal elements are set to the list. A matrix will be used directly as is. Default is a 3x3 identity matrix.">
                 <validator type="regex" message="Input should only contain whitespace, '[', ']', ',' and digits.">^[\s\d,\[\]]+$</validator>
@@ -20,7 +17,7 @@
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
-        <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
+        <requirement type="package" version="@PYMUONSUITE_VERSION@">pymuonsuite</requirement>
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
     <required_files>
@@ -194,7 +191,7 @@ mu_symbol: $clustering_save.mu_symbol
         PyMuonSuite is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
     ]]></help>
     <citations>
-        <citation type="doi">@TOOL_CITATION@</citation>
+        <citation type="doi">@PYMUONSUITE_CITATION@</citation>
         <citation type="doi">10.1063/1.5024450</citation>
         <citation type="doi">10.1063/1.5085197</citation>
         <citation type="doi">10.1063/5.0012381</citation>
