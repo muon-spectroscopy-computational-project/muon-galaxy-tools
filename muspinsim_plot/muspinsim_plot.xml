@@ -8,6 +8,7 @@
         <!-- citation should be updated with every underlying tool version -->
         <!-- typical fields to update are version, month, year, and doi -->
         <token name="@TOOL_CITATION@">10.1109/MCSE.2007.55</token>
+        <import>muon_macros.xml</import>
     </macros>
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
@@ -133,20 +134,7 @@
         You can overlay multiple plots on top of each other by providing more than one data file.
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @TOOL_CITATION@
-        </citation>
-        <citation type="bibtex">
-            @software{muspinsim,
-                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
-                license = {MIT},
-                title = {{muspinsim}},
-                url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
-                version = {v1.1.0},
-                month = {5},
-                year = {2022},
-                doi = {10.5281/zenodo.6563074}
-            }
-        </citation>
+        <citation type="doi">@TOOL_CITATION@</citation>
+        <citation type="doi">@MUSPINSIM_CONCEPT@</citation>
     </citations>
 </tool>

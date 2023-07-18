@@ -1,12 +1,9 @@
-<tool id="pm_symmetry" name="PyMuonSuite Symmetry" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
+<tool id="pm_symmetry" name="PyMuonSuite Symmetry" version="@PYMUONSUITE_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
     <description>generate Wyckoff points symmetry report</description>
     <macros>
-        <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">0.3.0</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
-        <!-- citation should be updated with every underlying tool version -->
-        <token name="@TOOL_CITATION@">10.5281/zenodo.8026711</token>
+        <import>muon_macros.xml</import>
     </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
@@ -14,7 +11,7 @@
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
-        <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
+        <requirement type="package" version="@PYMUONSUITE_VERSION@">pymuonsuite</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         structure_name_internal=\$(sed 's/ /\_/g' <<< '$structure.name') &&
@@ -55,7 +52,7 @@
         PyMuonSuite is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
     ]]></help>
     <citations>
-        <citation type="doi">@TOOL_CITATION@</citation>
+        <citation type="doi">@PYMUONSUITE_CITATION@</citation>
         <citation type="doi">10.1063/5.0012381</citation>
     </citations>
 </tool>

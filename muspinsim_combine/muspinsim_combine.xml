@@ -1,22 +1,18 @@
-<tool id="muspinsim_combine" name="MuSpinSim Combine" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
+<tool id="muspinsim_combine" name="MuSpinSim Combine" version="@MUSPINSIM_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
     <description>combine datafiles generated from MuSpinSim</description>
     <macros>
         <!-- Don't have MuSpinSim as dependency, but use that to version as need
-             to maintain compatability with its output files -->
-        <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">2.2.1</token>
+             to maintain compatibility with its output files -->
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
-        <!-- citation should be updated with every underlying tool version -->
-        <!-- typical fields to update are version, month, year, and doi -->
-        <token name="@TOOL_CITATION@">10.5281/zenodo.7733979</token>
+        <import>muon_macros.xml</import>
     </macros>
     <creator>
         <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin" identifier="https://orcid.org/0000-0002-6279-7823"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
-        <!-- Use the same depencency versions as the current MuSpinSim has -->
+        <!-- Use the same dependency versions as the current MuSpinSim has -->
         <requirement type="package" version="1.22.0">numpy</requirement>
         <requirement type="package" version="1.8.1">scipy</requirement>
     </requirements>
@@ -74,8 +70,6 @@
         by two files do not overlap), the output will be be `nan`.
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @TOOL_CITATION@
-        </citation>
+        <citation type="doi">@MUSPINSIM_CITATION@</citation>
     </citations>
 </tool>
