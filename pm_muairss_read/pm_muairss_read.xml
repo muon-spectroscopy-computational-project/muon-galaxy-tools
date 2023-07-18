@@ -1,67 +1,165 @@
-<tool id="pm_muairss_read" name="PyMuonSuite AIRSS Cluster" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
+<tool id="pm_muairss_read" name="PyMuonSuite AIRSS Cluster" version="@PYMUONSUITE_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
     <description>run clustering for optimised structures</description>
     <macros>
-        <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">0.2.3</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
-        <!-- citation should be updated with every underlying tool version -->
-        <!-- typical fields to update are version, month, year, and doi -->
-        <token name="@TOOL_CITATION@">
-            @software{Sturniolo_pymuon-suite_2022,
-                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
-                license = {GPL-3.0},
-                month = {8},
-                title = {{pymuon-suite}},
-                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
-                version = {v0.2.3},
-                doi = {10.5281/zenodo.7025644},
-                year = {2022}
-            }
-        </token>
+        <import>muon_macros.xml</import>
+        <xml name="supercell">
+            <param type="text" argument="supercell" value="1" label="Supercell" help="Supercell size and shape to use when saving cluster structures. This can either be a single int, a list of three integers or a 3x3 matrix of integers. For a single number a diagonal matrix will be generated with the integer repeated on the diagonals. For a list of three numbers a diagonal matrix will be generated where the diagonal elements are set to the list. A matrix will be used directly as is. Default is a 3x3 identity matrix.">
+                <validator type="regex" message="Input should only contain whitespace, '[', ']', ',' and digits.">^[\s\d,\[\]]+$</validator>
+            </param>
+        </xml>
     </macros>
     <creator>
         <person givenName="Jyothish" familyName="Thomas" identifier="https://orcid.org/0000-0003-4724-6924"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin" identifier="https://orcid.org/0000-0002-6279-7823"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
-        <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
+        <requirement type="package" version="@PYMUONSUITE_VERSION@">pymuonsuite</requirement>
+        <requirement type="package" version="3.0">zip</requirement>
     </requirements>
     <required_files>
         <include type="literal" path="get_out_folder.py"/>
+        <include type="literal" path="config.py"/>
     </required_files>
     <command detect_errors="exit_code"><![CDATA[
         unzip '$optimisation_results' &&
         if test -f "params.yaml"; then echo "params.yaml present"; else echo "params.yaml missing" && exit 64; fi
         && if ( test -f input_structure.* ) ; then echo "input structure present"; else echo "input structure missing" && exit 64; fi
-        && out_folder="`python '${__tool_directory__}/get_out_folder.py'`" &&
-        pm-muairss -t r input_structure.* params.yaml
+        && out_folder="`python '${__tool_directory__}/get_out_folder.py'`"
+        && python '${__tool_directory__}/config.py' 
+        && pm-muairss -t r input_structure.* params.yaml
+        #if $clustering_save.clustering_save_format != "none":
+            && ln -s *_clusters/* minimal_clusters
+        #end if
     ]]></command>
+    <configfiles>
+        <configfile filename="incoming_params">clustering_method: $clustering.clustering_method
+#if $clustering.clustering_method == "hier":
+clustering_hier_t: $clustering.clustering_hier_t
+#else if $clustering.clustering_method == "kmeans":
+clustering_kmeans_k: $clustering.clustering_kmeans_k
+#end if
+#if $clustering_save.clustering_save_format != "none":
+clustering_save_type: structures
+clustering_save_format: $clustering_save.clustering_save_format
+supercell: $clustering_save.supercell.replace('__ob__', '[').replace('__cb__', ']')
+#if $clustering_save.clustering_save_format == "cell":
+mu_symbol: $clustering_save.mu_symbol
+#end if
+#end if</configfile>
+    </configfiles>
     <inputs>
         <param type="data" name="optimisation_results" label="optimised muonated structures (.zip)" format="zip" help="A zip folder containing a set of optimised muonated structures, the original structure, and a YAML parameter file. See below for the expected folder structure."/>
+        <conditional name="clustering">
+            <param type="select" argument="clustering_method" display="radio" label="Clustering method" value="hier">
+                <option value="hier">hierarchical</option>
+                <option value="kmeans">k-means</option>
+            </param>
+            <when value="hier">
+                <param type="float" argument="clustering_hier_t" value="0.3" min="0.0" optional="true" label="t parameter for hierarchical clustering"/>
+            </when>
+            <when value="kmeans">
+                <param type="integer" argument="clustering_kmeans_k" value="4" min="0" optional="true" label="Number of clusters for k-means clustering"/>
+            </when>
+        </conditional>
+        <conditional name="clustering_save">
+            <param argument="clustering_save_format" type="select" label="Clustering Save Format" help="If set, for each cluster a structural file with the specified format will be generated, corresponding to the structure in the cluster with minimal energy.">
+                <option value="none" selected="true">Do not generate</option>
+                <option value="cell">CELL</option>
+                <option value="cif">CIF</option>
+                <option value="xyz">XYZ</option>
+            </param>
+            <when value="none"/>
+            <when value="cell">
+                <expand macro="supercell"/>
+                <param argument="mu_symbol" type="text" value="H:mu" optional="true" label="Muon symbol" help="The symbol to use for the muon when writing out the CASTEP custom species. Should be a valid chemical symbol followed by `:`, then custom text."/>
+            </when>
+            <when value="cif">
+                <expand macro="supercell"/>
+            </when>
+            <when value="xyz">
+                <expand macro="supercell"/>
+            </when>
+        </conditional>
     </inputs>
     <outputs>
         <data label="Cluster report for $optimisation_results.name" name="cluster_report" format="txt" from_work_dir="${out_folder}/*clusters.txt"/>
         <data label="Cluster data for $optimisation_results.name" name="cluster_data" format="txt" from_work_dir="${out_folder}/*clusters.dat"/>
+        <collection name="saved_structures" type="list" label="Minimal energy structures" format="txt">
+            <filter>clustering_save["clustering_save_format"] != "none"</filter>
+            <discover_datasets pattern="__name_and_ext__" directory="minimal_clusters"/>
+        </collection>
     </outputs>
     <tests>
         <test expect_num_outputs="2">
             <param name="optimisation_results" value="uep-out.zip" ftype="zip"/>
+            <conditional name="clustering">
+                <param name="clustering_hier_t" value="0.2"/>
+            </conditional>
             <output name="cluster_report" file="clustout-uep.txt" ftype="txt" lines_diff="2"/>
             <output name="cluster_data" file="clustout-uep.dat" ftype="txt"/>
         </test>
+        <test expect_num_outputs="3">
+            <param name="optimisation_results" value="uep-out.zip" ftype="zip"/>
+            <conditional name="clustering">
+                <param name="clustering_hier_t" value="0.2"/>
+            </conditional>
+            <conditional name="clustering_save">
+                <param name="clustering_save_format" value="cell"/>
+            </conditional>
+            <output name="cluster_report" file="clustout-uep.txt" ftype="txt" lines_diff="2"/>
+            <output name="cluster_data" file="clustout-uep.dat" ftype="txt"/>
+            <output_collection name="saved_structures" type="list" count="2"/>
+        </test>
+        <!-- Test optional save params -->
+        <test expect_num_outputs="3">
+            <param name="optimisation_results" value="uep-out.zip" ftype="zip"/>
+            <conditional name="clustering">
+                <param name="clustering_hier_t" value="0.2"/>
+            </conditional>
+            <conditional name="clustering_save">
+                <param name="clustering_save_format" value="cell"/>
+                <param name="supercell" value="2"/>
+                <param name="mu_symbol" value="H:nu"/>
+            </conditional>
+            <output name="cluster_report" file="clustout-uep.txt" ftype="txt" lines_diff="2"/>
+            <output name="cluster_data" file="clustout-uep.dat" ftype="txt"/>
+            <output_collection name="saved_structures" type="list" count="2">
+                <element name="Si_uep_min_cluster_1" file="Si_uep_min_cluster_1.cell"/>
+                <element name="Si_uep_min_cluster_2" file="Si_uep_min_cluster_2.cell"/>
+            </output_collection>
+        </test>
         <test expect_num_outputs="2">
             <param name="optimisation_results" value="dftb-out.zip" ftype="zip"/>
+            <conditional name="clustering">
+                <param name="clustering_hier_t" value="0.2"/>
+            </conditional>
             <output name="cluster_report" file="clustout-dftb.txt" ftype="txt" lines_diff="2"/>
             <output name="cluster_data" file="clustout-dftb.dat" ftype="txt"/>
+        </test>
+        <!-- Test overwrite of values in the existing params.yaml -->
+        <test expect_num_outputs="2">
+            <param name="optimisation_results" value="uep-out.zip" ftype="zip"/>
+            <conditional name="clustering">
+                <param name="clustering_method" value="kmeans"/>
+                <param name="clustering_kmeans_k" value="2"/>
+            </conditional>
+            <!-- kmeans gives predictable clusters, but orders them randomly -->
+            <!-- To prevent this from affecting tests, sort the lines -->
+            <!-- in the report and use regex matching for the dat file -->
+            <output name="cluster_report" file="clustout-uep-kmeans.txt" ftype="txt" lines_diff="2" sort="true"/>
+            <output name="cluster_data" file="clustout-uep-kmeans.dat" ftype="txt" compare="re_match"/>
         </test>
     </tests>
     <help><![CDATA[
         Given a set of optimised muonated structures, clusters the structures based on similarity.
 
+        This is intended to be used with the output from '`PyMuonSuite AIRSS UEP Optimise`_'.
         If you used the 'Run UEP optimisation' tool for optimisation, the output from that tool can be used as the input to this one.
-        If you are bringing files from elsewhere, make sure they fit the expected zip folder structure:
+        If you are bringing files from elsewhere (such as running PyMuonSuite from the command line, or with a different optimisation calculator), make sure they fit the expected zip folder structure:
 
         .. code-block::
 
@@ -77,24 +175,23 @@
             ├─ input.cell
             ├─ params.yaml
 
-        This folder represents a run with the output folder name ``muon-airss-out``, the structure name ``struct``, and the UEP calculator.
-        If you use different parameters, these names should match your own settings. (``dftb+`` and ``castep`` are used as folder names for the respective calculators)
-
+        This folder represents a run with the output folder name ``muon-airss-out``, the structure name ``struct``, and the ``uep`` calculator.
+        If you use different parameters, these names should match your own settings (``dftb+`` and ``castep`` are used as folder names for the respective calculators).
         The zip folder itself has been named ``optimised-structures.zip`` in this example, but it doesn't matter what you call it.
 
         The files ``input.cell`` and ``params.yaml`` must have those exact names. ``input.cell`` should be your original structure file,
-        and ``params.yaml`` is the YAML parameter file used to configure the clustering (as well as any prior muonation and optimisation).
-        You should have created this YAML file using the 'Create YAML for pm-muairss' tool or written it yourself, then passed it into the
-        'Generate muon structures' tool or pm-muairss.
+        and ``params.yaml`` is the YAML parameter file used to configure the muonation and optimisation.
+        This file is created automatically when using '`PyMuonSuite AIRSS UEP Optimise`_'.
+        Any parameters relating to the clustering process present in the original file will be overwritten with the values selected here.
 
         Command-line usage: pm-muairss [-h] -t r structures parameter_file
+
+        .. _PyMuonSuite AIRSS UEP Optimise: /tool_runner?tool_id=pm_uep_opt
 
         PyMuonSuite is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @TOOL_CITATION@
-        </citation>
+        <citation type="doi">@PYMUONSUITE_CITATION@</citation>
         <citation type="doi">10.1063/1.5024450</citation>
         <citation type="doi">10.1063/1.5085197</citation>
         <citation type="doi">10.1063/5.0012381</citation>

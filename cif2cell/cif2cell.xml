@@ -4,11 +4,12 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">2.0.0a3</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">1</token>
+        <token name="@WRAPPER_VERSION@">2</token>
     </macros>
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
         <person givenName="Eli" familyName="Chadwick" url="https://github.com/elichad" identifier="https://orcid.org/0000-0002-0035-6475"/>
+        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin" identifier="https://orcid.org/0000-0002-6279-7823"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
@@ -38,8 +39,16 @@
     <help><![CDATA[
         usage: cif2cell -f file.cif -p castep -o file.cell
 
-        Given an input .cif structure file, convert to equivalent .cell structure file.
-        Uses electronic structure program 'castep'
+        Given an input ``.cif`` structure file, convert to an equivalent ``.cell``
+        structure file for use with electronic structure program CASTEP.
+
+        .. class:: warningmark
+            warning
+
+        **WARNING**: ``.cif`` files may contain errors that prevent cif2cell from running properly.
+        If you find that you run cif2cell and do not get a satisfactory ``.cell`` file,
+        please consider revising the corresponding ``.cif`` file and, if necessary,
+        obtaining an alternative ``.cif`` file from a suitable crystalline database.
 
         cif2cell is distributed under the GPLv3 license. This tool wrapper is distributed under the MIT license.
     ]]></help>

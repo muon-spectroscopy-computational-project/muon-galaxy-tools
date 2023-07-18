@@ -1,32 +1,16 @@
-<tool id="pm_nq" name="PyMuonSuite Quantum Averaging" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05">
+<tool id="pm_nq" name="PyMuonSuite Quantum Averaging" version="@PYMUONSUITE_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05">
     <description>generate and average displaced structures</description>
     <macros>
-        <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">0.2.3</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
-        <!-- citation should be updated with every underlying tool version -->
-        <!-- typical fields to update are version, month, year, and doi -->
-        <token name="@TOOL_CITATION@">
-            @software{Sturniolo_pymuon-suite_2022,
-                author = {Sturniolo, Simone and Liborio, Leandro and Chadwick, Eli and Murgatroyd, Laura and Laverack, Adam and Mudaraddi, Anish and {Muon Spectroscopy Computational Project}},
-                license = {GPL-3.0},
-                month = {8},
-                title = {{pymuon-suite}},
-                url = {https://github.com/muon-spectroscopy-computational-project/pymuon-suite},
-                version = {v0.2.3},
-                doi = {10.5281/zenodo.7025644},
-                year = {2022}
-            }
-        </token>
         <import>muon_macros.xml</import>
     </macros>
     <creator>
-        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin"/>
+        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin" identifier="https://orcid.org/0000-0002-6279-7823"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
-        <requirement type="package" version="@TOOL_VERSION@">pymuonsuite</requirement>
+        <requirement type="package" version="@PYMUONSUITE_VERSION@">pymuonsuite</requirement>
         <requirement type="package" version="1.0.0">euphonic</requirement>
         <requirement type="package" version="3.0">zip</requirement>
     </requirements>
@@ -322,11 +306,10 @@ castep_param: $castep_param_name
         +----------+------------------------------------------------------------+
 
         |
+
         .. _Generate muonated structures: /tool_runner?tool_id=pm_muairss_write
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @TOOL_CITATION@
-        </citation>
+        <citation type="doi">@PYMUONSUITE_CITATION@</citation>
     </citations>
 </tool>

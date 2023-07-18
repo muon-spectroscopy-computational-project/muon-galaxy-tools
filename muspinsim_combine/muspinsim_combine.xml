@@ -1,0 +1,75 @@
+<tool id="muspinsim_combine" name="MuSpinSim Combine" version="@MUSPINSIM_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
+    <description>combine datafiles generated from MuSpinSim</description>
+    <macros>
+        <!-- Don't have MuSpinSim as dependency, but use that to version as need
+             to maintain compatibility with its output files -->
+        <!-- version of this tool wrapper (integer) -->
+        <token name="@WRAPPER_VERSION@">0</token>
+        <import>muon_macros.xml</import>
+    </macros>
+    <creator>
+        <person givenName="Patrick" familyName="Austin" url="https://github.com/patrick-austin" identifier="https://orcid.org/0000-0002-6279-7823"/>
+        <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
+    </creator>
+    <requirements>
+        <!-- Use the same dependency versions as the current MuSpinSim has -->
+        <requirement type="package" version="1.22.0">numpy</requirement>
+        <requirement type="package" version="1.8.1">scipy</requirement>
+    </requirements>
+    <required_files>
+        <include type="literal" path="combine.py"/>
+    </required_files>
+    <command detect_errors="exit_code"><![CDATA[
+       python '${__tool_directory__}/combine.py' inputs.json
+    ]]></command>
+    <configfiles>
+        <inputs name="inputs" data_style="paths" filename="inputs.json"/>
+    </configfiles>
+    <inputs>
+        <param name="data_in" type="data" format="txt" multiple="true" label="Muspinsim Experiment Data (.dat)"/>
+        <param name="bins" type="integer" min="1" optional="true" label="Number of X Bins" help="Optional. If unset, then will use as many bins as there are x points in the smallest .dat file."/>
+    </inputs>
+    <outputs>
+        <data format="txt" name="data_out" from_work_dir="data_out.dat"/>
+    </outputs>
+    <tests>
+        <test expect_num_outputs="1">
+            <param name="data_in" value="low.dat"/>
+            <output name="data_out" ftype="txt" file="out_low.dat"/>
+        </test>
+        <test expect_num_outputs="1">
+            <param name="data_in" value="low.dat,low.dat"/>
+            <output name="data_out" ftype="txt" file="out_low.dat"/>
+        </test>
+        <test expect_num_outputs="1">
+            <param name="data_in" value="low.dat,high.dat"/>
+            <output name="data_out" ftype="txt" file="out_low_high.dat"/>
+        </test>
+        <test expect_num_outputs="1">
+            <param name="data_in" value="low.dat,mid.dat,high.dat"/>
+            <output name="data_out" ftype="txt" file="out_all.dat"/>
+        </test>
+        <test expect_num_outputs="1">
+            <param name="data_in" value="low.dat,mid.dat,high.dat"/>
+            <param name="bins" value="10"/>
+            <output name="data_out" ftype="txt" file="out_all_10.dat"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        Utility tool for combining multiple MuSpinSim `.dat` files.
+
+        In cases where all input files have the same x values, will simply
+        take the mean value at each point. In cases where this isn't the case,
+        the data is binned, and the y values in each bin averaged. The bins are
+        chosen to be equally spaced and cover the entire x range. Note that the
+        x points in the resultant `.dat` file will be taken as the centre of
+        each bin, and so generally will not align with any of the original
+        ranges.
+
+        In cases where there is an empty bin (for example when the range covered
+        by two files do not overlap), the output will be be `nan`.
+    ]]></help>
+    <citations>
+        <citation type="doi">@MUSPINSIM_CITATION@</citation>
+    </citations>
+</tool>

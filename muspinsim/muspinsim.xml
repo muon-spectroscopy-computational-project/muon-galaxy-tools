@@ -1,24 +1,9 @@
-<tool id="muspinsim" name="MuSpinSim Simulate" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
+<tool id="muspinsim" name="MuSpinSim Simulate" version="@MUSPINSIM_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="22.05" license="MIT">
     <description>perform spin dynamics calculations for muon science experiments</description>
     <macros>
-        <!-- version of underlying tool (PEP 440) -->
-        <token name="@TOOL_VERSION@">2.0.2</token>
         <!-- version of this tool wrapper (integer) -->
         <token name="@WRAPPER_VERSION@">0</token>
-        <!-- citation should be updated with every underlying tool version -->
-        <!-- typical fields to update are version, month, year, and doi -->
-        <token name="@TOOL_CITATION@">
-            @software{muspinsim,
-                author = {Sturniolo, Simone and Liborio, Leandro and Owen, Josh and Mudaraddi, Anish and Davies, Joel and Wilkinson, John and {Muon Spectroscopy Computational Project}},
-                license = {MIT},
-                title = {{muspinsim}},
-                url = {https://github.com/muon-spectroscopy-computational-project/muspinsim},
-                version = {v2.0.2},
-                month = {1},
-                year = {2023}
-                doi = {10.5281/zenodo.7568830}
-            }
-        </token>
+        <import>muon_macros.xml</import>
     </macros>
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
@@ -27,7 +12,7 @@
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
     <requirements>
-        <requirement type="package" version="@TOOL_VERSION@">muspinsim</requirement>
+        <requirement type="package" version="@MUSPINSIM_VERSION@">muspinsim</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         ## remove spaces in names
@@ -154,8 +139,6 @@
         Command-line usage: muspinsim muspinsim.in
     ]]></help>
     <citations>
-        <citation type="bibtex">
-            @TOOL_CITATION@
-        </citation>
+        <citation type="doi">@MUSPINSIM_CITATION@</citation>
     </citations>
 </tool>

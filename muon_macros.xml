@@ -17,4 +17,13 @@
             <validator type="regex" message="Input should only contain whitespace, '[', ']', ',' and digits.">^[\s\d,\[\]]+$</validator>
         </param>
     </xml>
+    <!-- version of underlying tool (PEP 440) -->
+    <!-- citation should be updated with every underlying tool version -->
+    <!-- concept is not updated, and should only be used for referencing the idea of the software -->
+    <token name="@MUSPINSIM_VERSION@">2.2.1</token>
+    <token name="@MUSPINSIM_CITATION@">10.5281/zenodo.7733979</token>
+    <token name="@MUSPINSIM_CONCEPT@">10.5281/zenodo.6517626</token>
+    <token name="@PYMUONSUITE_VERSION@">0.3.0</token>
+    <token name="@PYMUONSUITE_CITATION@">10.5281/zenodo.8026711</token>
+    <token name="@PYMUONSUITE_CONCEPT@">10.5281/zenodo.7025643</token>
 </macros>
