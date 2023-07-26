@@ -2,7 +2,7 @@
     <description>run UEP optimisation</description>
     <macros>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">0</token>
+        <token name="@WRAPPER_VERSION@">1</token>
         <import>muon_macros.xml</import>
     </macros>
     <creator>
@@ -171,7 +171,7 @@ uep_gw_factor: $optimisation_params.uep_gw_factor</configfile>
                 </assert_contents>
             </output>
         </test>
-        <!-- Expect total failure for badly formatted den_fmt -->
+        <!-- Expect failure for badly formatted den_fmt -->
         <test expect_failure="true">
             <param name="testing" value="true"/>
             <param name="structure" value="Si.cell" ftype="cell"/>
@@ -179,7 +179,6 @@ uep_gw_factor: $optimisation_params.uep_gw_factor</configfile>
             <param name="charge_density" value="Sifail.den_fmt" ftype="den_fmt"/>
             <assert_stderr>
                 <has_text text="Error:  FMT file has no header"/>
-                <has_text text="ERROR: All optimisations failed"/>
             </assert_stderr>
         </test>
         <!-- check that file_tree filter works -->
