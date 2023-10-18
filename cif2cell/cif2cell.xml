@@ -16,99 +16,24 @@
         <requirement type="package" version="2.0.0a3">cif2cell</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        #if $use_no_reduce_conditional.use_no_reduce == "true":
-            #if $vca_conditional.vca == "false":
-                #if $cartesian_conditional.cartesian == "false":
-                    file_name=\$(sed 's/ //g' <<< '$file.name') &&
-                    ln -s '$file' \$file_name &&
-                    cif2cell -f \$file_name -p castep -o out.cell --no-reduce
-                #end if
-            #end if
-        #end if
-        #if $use_no_reduce_conditional.use_no_reduce == "false":
-            #if $vca_conditional.vca == "false":
-                #if $cartesian_conditional.cartesian == "false":
-                    file_name=\$(sed 's/ //g' <<< '$file.name') &&
-                    ln -s '$file' \$file_name &&
-                    cif2cell -f \$file_name -p castep -o out.cell 
-                #end if
-            #end if
-        #end if
-        #if $use_no_reduce_conditional.use_no_reduce == "true":
-            #if $vca_conditional.vca == "true":
-                #if $cartesian_conditional.cartesian == "true":
-                    file_name=\$(sed 's/ //g' <<< '$file.name') &&
-                    ln -s '$file' \$file_name &&
-                    cif2cell -f \$file_name -p castep -o out.cell --no-reduce --vca --cartesian
-                #end if
-            #end if
-        #end if
-        #if $use_no_reduce_conditional.use_no_reduce == "true":
-            #if $vca_conditional.vca == "true":
-                #if $cartesian_conditional.cartesian == "false":
-                    file_name=\$(sed 's/ //g' <<< '$file.name') &&
-                    ln -s '$file' \$file_name &&
-                    cif2cell -f \$file_name -p castep -o out.cell --no-reduce --vca
-                #end if
-            #end if
-        #end if
-        #if $use_no_reduce_conditional.use_no_reduce == "true":
-            #if $vca_conditional.vca == "false":
-                #if $cartesian_conditional.cartesian == "true":
-                    file_name=\$(sed 's/ //g' <<< '$file.name') &&
-                    ln -s '$file' \$file_name &&
-                    cif2cell -f \$file_name -p castep -o out.cell --no-reduce --cartesian
-                #end if
-            #end if
-        #end if
-        #if $use_no_reduce_conditional.use_no_reduce == "false":
-            #if $vca_conditional.vca == "true":
-                #if $cartesian_conditional.cartesian == "true":
-                    file_name=\$(sed 's/ //g' <<< '$file.name') &&
-                    ln -s '$file' \$file_name &&
-                    cif2cell -f \$file_name -p castep -o out.cell --vca --cartesian
-                #end if
-            #end if
-        #end if
-        #if $use_no_reduce_conditional.use_no_reduce == "false":
-            #if $vca_conditional.vca == "false":
-                #if $cartesian_conditional.cartesian == "true":
-                    file_name=\$(sed 's/ //g' <<< '$file.name') &&
-                    ln -s '$file' \$file_name &&
-                    cif2cell -f \$file_name -p castep -o out.cell --cartesian
-                #end if
-            #end if
-        #end if
-        #if $use_no_reduce_conditional.use_no_reduce == "false":
-            #if $vca_conditional.vca == "true":
-                #if $cartesian_conditional.cartesian == "false":
-                    file_name=\$(sed 's/ //g' <<< '$file.name') &&
-                    ln -s '$file' \$file_name &&
-                    cif2cell -f \$file_name -p castep -o out.cell --vca
-                #end if
-            #end if
-        #end if
+       file_name=\$(sed 's/ //g' <<< '$file.name') &&
+       ln -s '$file' \$file_name &&
+       cif2cell -f \$file_name -p castep -o out.cell $no_reduce $vca $cartesian
     ]]></command>
     <inputs>
         <param type="data" argument="--file" format="cif" label="Structure file to Convert (.cif)" />
-        <conditional name="use_no_reduce_conditional">
-            <param name="use_no_reduce" type="select" display="radio" value="false" label="Do you want to construct a primitive cell using --no-reduce?" help="Use a cif file to convert into a structural (cell) file.">
-                <option value="true">Yes</option>
-                <option value="false" selected="true">No</option>
-            </param>
-        </conditional>
-        <conditional name="vca_conditional">
-            <param name="vca" type="select" display="radio" value="false" label="Do you want to set up an alloy using Virtual Crystal Approximation?" help="Use a cif file to convert into a structural (cell) file.">
-                <option value="true">Yes</option>
-                <option value="false" selected="true">No</option>
-            </param>
-        </conditional>
-        <conditional name="cartesian_conditional">
-            <param name="cartesian" type="select" display="radio" value="false" label="Do you want to generate any output in cartesian coordinates?" help="Use a cif file to convert into a structural (cell) file.">
-                <option value="true">Yes</option>
-                <option value="false" selected="true">No</option>
-            </param>
-        </conditional>
+        <param argument="--no-reduce" type="boolean" truevalue="--no-reduce" falsevalue="" display="radio" value="false" label="Do you want to construct a primitive cell using --no-reduce?" help="Use a cif file to convert into a structural (cell) file.">
+            <option value="true">Yes</option>
+            <option value="false" selected="true">No</option>
+        </param>  
+        <param argument="--vca" type="boolean" truevalue="--vca" falsevalue="" display="radio" value="false" label="Do you want to set up an alloy using Virtual Crystal Approximation?" help="Use a cif file to convert into a structural (cell) file.">
+            <option value="true">Yes</option>
+            <option value="false" selected="true">No</option>
+        </param>
+        <param argument="--cartesian" type="boolean" truevalue="--cartesian" falsevalue="" display="radio" value="false" label="Do you want to generate any output in cartesian coordinates?" help="Use a cif file to convert into a structural (cell) file.">
+            <option value="true">Yes</option>
+            <option value="false" selected="true">No</option>
+        </param>
     </inputs>
     <outputs>
         <data label="Conversion of $file.name to .cell" name="out_cell" format="cell" from_work_dir="out.cell" />
@@ -126,9 +51,12 @@
     <help><![CDATA[
         usage: cif2cell -f file.cif -p castep -o file.cell
         
-        
         Do not reduce to primitve cell: cif2cell -f file.cif -p castep -o file.cell --no-reduce
 
+        Set up an alloy using virtual crystal approximation: cif2cell -f file.cif -p castep -o file.cell --vca
+
+        Make the program generate any output in cartesian coordinates: cif2cell -f file.cif -p castep -o file.cell --cartesian
+        
         Given an input ``.cif`` structure file, convert to an equivalent ``.cell``
         structure file for use with electronic structure program CASTEP.
 
