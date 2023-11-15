@@ -4,7 +4,7 @@
         <!-- version of underlying tool (PEP 440) -->
         <token name="@TOOL_VERSION@">2.0.0a3</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">2</token>
+        <token name="@WRAPPER_VERSION@">3</token>
     </macros>
     <creator>
         <person givenName="Anish" familyName="Mudaraddi" identifier="https://orcid.org/0000-0002-2135-2705"/>
@@ -18,10 +18,13 @@
     <command detect_errors="exit_code"><![CDATA[
         file_name=\$(sed 's/ //g' <<< '$file.name') &&
         ln -s '$file' \$file_name &&
-        cif2cell -f \$file_name -p castep -o out.cell
+        cif2cell -f \$file_name -p castep -o out.cell $no_reduce $vca $cartesian
     ]]></command>
     <inputs>
         <param type="data" argument="--file" format="cif" label="Structure file to Convert (.cif)" />
+        <param argument="--no-reduce" type="boolean" truevalue="--no-reduce" falsevalue="" label="Do you want to construct a primitive cell using --no-reduce?" help="Use a cif file to convert into a structural (cell) file." />
+        <param argument="--vca" type="boolean" truevalue="--vca" falsevalue="" label="Do you want to set up an alloy using Virtual Crystal Approximation?" help="Use a cif file to convert into a structural (cell) file." />
+        <param argument="--cartesian" type="boolean" truevalue="--cartesian" falsevalue="" label="Do you want to generate any output in cartesian coordinates?" help="Use a cif file to convert into a structural (cell) file." />
     </inputs>
     <outputs>
         <data label="Conversion of $file.name to .cell" name="out_cell" format="cell" from_work_dir="out.cell" />
@@ -35,10 +38,31 @@
             <param name="file" value="diamond.cif" ftype="cif" />
             <output name="out_cell" file="diamond_out.cell" compare="diff" lines_diff="2" ftype="cell" />
         </test>
+        <test expect_num_outputs="1">
+            <param name="file" value="Si.cif" ftype="cif" />
+            <param name="no_reduce" value="--no-reduce" />
+            <output name="out_cell" file="Si_no_reduce_out.cell" compare="diff" lines_diff="2" ftype="cell" />
+        </test>
+        <test expect_num_outputs="1">
+            <param name="file" value="Si.cif" ftype="cif" />
+            <param name="vca" value="--vca" />
+            <output name="out_cell" file="Si_vca_out.cell" compare="diff" lines_diff="2" ftype="cell" />
+        </test>
+        <test expect_num_outputs="1">
+            <param name="file" value="Si.cif" ftype="cif" />
+            <param name="cartesian" value="--cartesian" />
+            <output name="out_cell" file="Si_cartesian_out.cell" compare="diff" lines_diff="2" ftype="cell" />
+        </test>
     </tests>
     <help><![CDATA[
         usage: cif2cell -f file.cif -p castep -o file.cell
+        
+        Do not reduce to primitve cell: cif2cell -f file.cif -p castep -o file.cell --no-reduce
 
+        Set up an alloy using virtual crystal approximation: cif2cell -f file.cif -p castep -o file.cell --vca
+
+        Make the program generate any output in cartesian coordinates: cif2cell -f file.cif -p castep -o file.cell --cartesian
+        
         Given an input ``.cif`` structure file, convert to an equivalent ``.cell``
         structure file for use with electronic structure program CASTEP.
 
