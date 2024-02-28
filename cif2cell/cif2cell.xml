@@ -28,7 +28,7 @@
         <param argument="--cartesian" type="boolean" truevalue="--cartesian" falsevalue="" label="Do you want to generate any output in cartesian coordinates?" help="Use a cif file to convert into a structural (cell) file." />
     </inputs>
     <outputs>
-        <data label="Conversion of $file.name to .cell" name="out_cell" format="cell" from_work_dir="out.cell" />
+        <data name="out_cell" format="cell" from_work_dir="out.cell" />
     </outputs>
     <tests>
         <test expect_num_outputs="1">
