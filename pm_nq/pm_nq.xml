@@ -161,13 +161,13 @@ castep_param: $castep_param_name
         <param type="hidden" name="testing" label="Test mode" value="false"/>
     </inputs>
     <outputs>
-        <data label="Displaced Structures" name="displaced_structures" format="zip" from_work_dir="out_zip.zip">
+        <data label="Displaced Structures on ${on_string}" name="displaced_structures" format="zip" from_work_dir="out_zip.zip">
             <filter>(task['task'] == 'write')</filter>
         </data>
         <data label="File tree (testing only)" name="file_tree" format="txt" from_work_dir="tree.txt" hidden="true">
             <filter>(task['task'] == 'write' and testing == 'true')</filter>
         </data>
-        <data label="Averaged Property" name="averaged_property" format="txt" from_work_dir="averages.dat">
+        <data label="Averaged Property on ${on_string}" name="averaged_property" format="txt" from_work_dir="averages.dat">
             <filter>(task['task'] == 'read')</filter>
         </data>
     </outputs>

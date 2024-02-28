@@ -165,7 +165,7 @@ clustering_kmeans_k: $clustering_params.clustering.clustering_kmeans_k
         </section>
     </inputs>
     <outputs>
-        <data label="Configuration for $general_params.name" name="out_yaml" format="yaml"/>
+        <data name="out_yaml" format="yaml"/>
     </outputs>
     <tests>
         <test expect_num_outputs="1">
