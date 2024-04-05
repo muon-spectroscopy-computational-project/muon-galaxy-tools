@@ -1,4 +1,4 @@
-<tool id="mudirac" name="mudirac" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="23.0" license="MIT">
+<tool id="mudirac" name="MuDirac" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" python_template_version="3.5" profile="23.0" license="MIT">
     <description> Muonic atom Dirac equation solver </description>
     <macros>
         <token name="@TOOL_VERSION@">1.0.1</token>
@@ -8,10 +8,9 @@
         <person givenName="Subindev" familyName="Devadasan" url="https://github.com/subindev-d" identifier="https://orcid.org/0009-0001-1723-4394"/>
         <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
     </creator>
-    <!-- ## Place holder for the conda package once it's published -->
-    <!-- <requirements>
+    <requirements>
         <requirement type="package" version="1.0.1">mudirac</requirement>
-    </requirements> -->
+    </requirements>
     <command detect_errors="exit_code"><![CDATA[
     cat $input_yaml > input.in &&
     mudirac input.in
