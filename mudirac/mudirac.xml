@@ -165,24 +165,35 @@ electronic_config: $electronic_config
         an element symbol to represent the default configuration of that atom when neutral (e.g. C) or a mix of the two (e.g. [He] 2s2 2p2)" optional="true"/>
     </inputs>
     <outputs>
-        <data name="output" format="txt" label="Output of ${tool.name}" from_work_dir="input.xr.out"/>
+        <data name="output" format="tabular" label="Output of ${tool.name}" from_work_dir="input.xr.out"/>
         <data name="log_out" label="log file of ${tool.name}" format="txt" from_work_dir="input.log"/>
+        <data name="error_log" label="Error log file of ${tool.name}" format="txt" from_work_dir="input.err"/>
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="3">
             <param name="element" value="Au"/>
             <param name="isotope" value="197"/>
             <param name="xr_lines" value="K1-L2,K1-L3"/>
-            <output name="output" file="Au_basic.xr.out" ftype="txt" compare="diff"/>
+            <output name="output" file="Au_basic.xr.out" ftype="tabular" compare="diff"/>
+            <output name="error_log">
+                <assert_contents>
+                    <has_size max="0"/>
+                </assert_contents>
+            </output>
         </test>
-        <test>
+        <test expect_num_outputs="3">
             <param name="element" value="Au"/>
             <param name="isotope" value="197"/>
             <param name="xr_lines" value="K1-L2,K1-L3"/>
             <param name="nuclear_model" value="FERMI2"/>
             <param name="uehling_correction" value="true"/>
             <param name="electronic_config" value="Au"/>
-            <output name="output" file="Au.xr.out" ftype="txt" compare="diff"/>
+            <output name="output" file="Au.xr.out" ftype="tabular" compare="diff"/>
+            <output name="error_log">
+                <assert_contents>
+                    <has_size max="0"/>
+                </assert_contents>
+            </output>
         </test>
     </tests>
     <help><![CDATA[
