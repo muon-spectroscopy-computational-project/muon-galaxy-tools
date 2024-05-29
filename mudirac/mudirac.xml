@@ -256,6 +256,20 @@ spec_expdec: $spec_expdec
                 </assert_contents>
             </output>
         </test>
+        <test expect_num_outputs="4">
+            <param name="element" value="Au"/>
+            <param name="isotope" value="197"/>
+            <param name="xr_lines" value="K1-L2,K1-L3"/>
+            <conditional name='generate_spectrum'>
+                <param name="generate_spectrum_selector" value="true"/>
+            </conditional>
+            <output name="output" file="Au_basic.xr.out" ftype="tabular" compare="diff"/>
+            <output name="error_log">
+                <assert_contents>
+                    <has_size max="0"/>
+                </assert_contents>
+            </output>
+        </test>
     </tests>
     <help><![CDATA[
     MuDirac is a simulation software that integrates the Dirac equation for muonic atoms to compute their X-Ray transition energies;
