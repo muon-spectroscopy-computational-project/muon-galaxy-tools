@@ -14,6 +14,9 @@
     <command detect_errors="exit_code"><![CDATA[
     cat '$input_yaml' > input.in &&
     mudirac input.in
+    #if $generate_spectrum.generate_spectrum_selector=='true':
+        && mkdir plots && python '${__tool_directory__}/spectrum_plot.py' 'input.spec.dat'
+    #end if
     ]]></command>
     <configfiles>
         <configfile name="input_yaml">element: $element
@@ -22,8 +25,20 @@ xr_lines: $xr_lines
 uehling_correction: $uehling_correction
 nuclear_model: $nuclear_model
 output: $output_level
+write_spec: $generate_spectrum.generate_spectrum_selector
 #if $electronic_config:
 electronic_config: $electronic_config
+#end if
+#if $generate_spectrum.generate_spectrum_selector=='true':
+#if $spec_step
+spec_step: $spec_step
+#end if
+#if $spec_linewidth
+spec_linewidth: $spec_linewidth
+#end if
+#if $spec_expdec
+spec_expdec: $spec_expdec
+#end if
 #end if</configfile>
     </configfiles>
     <inputs>
@@ -165,6 +180,18 @@ electronic_config: $electronic_config
         <param name="electronic_config" type="text" value="" label="electronic configuration to use in order to describe the negative charge background" help="Can be a full string describing the configuration (e.g. 1s2 2s2 2p2), 
         an element symbol to represent the default configuration of that atom when neutral (e.g. C) or a mix of the two (e.g. [He] 2s2 2p2)" optional="true"/>
         <param name='output_level' type="boolean" value="false" falsevalue="1" truevalue="2" label="Produce states and transition matrices" help="Also produce each of the states in a separate file as well as the transition matrices for each line"/>
+        <conditional name="generate_spectrum">
+            <param name="generate_spectrum_selector" type="select" display="radio" value="false" label="Generate spectrum" help="Generate spectrum using the transition lines found broadened with Gaussian functions">
+                <option value="false" selected="true">False</option>
+                <option value="true">True</option>
+            </param>
+            <when value="false"/>
+            <when value="true">
+                <param name="spec_step" type="float" label="Spectrum step" help="energy step for the simulated spectrum, in eV. Default is 1E2 eV." optional="true"/>
+                <param name="spec_linewidth" type="float" label="Spectrum line width" help="Gaussian broadening width for the simulated spectrum, in eV. Default is 1E-4." optional="true"/>
+                <param name="spec_expdec" type="float" label="Exponential decay parameter for a sensitivity function for the simulated spectrum, in eV. Multiplies the entire spectrum by a function. Default is -1 (no decay)." optional="true"/>
+            </when>
+        </conditional>
     </inputs>
     <outputs>
         <data name="output" format="tabular" label="Output of ${tool.name}" from_work_dir="input.xr.out"/>
@@ -178,6 +205,9 @@ electronic_config: $electronic_config
         </collection>
         <data name="log_out" label="log file of ${tool.name}" format="txt" from_work_dir="input.log"/>
         <data name="error_log" label="Error log file of ${tool.name}" format="txt" from_work_dir="input.err"/>
+        <data name="spectrum" label="Spectrum" format="png" from_work_dir="plots/input.spec.dat.png">
+            <filter>generate_spectrum['generate_spectrum_selector']=='true'</filter>
+        </data>
     </outputs>
     <tests>
         <test expect_num_outputs="3">
