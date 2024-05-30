@@ -10,7 +10,11 @@
     </creator>
     <requirements>
         <requirement type="package" version="@TOOL_VERSION@">mudirac</requirement>
+        <requirement type="package" version="3.5.1">matplotlib</requirement>
     </requirements>
+    <required_files>
+        <include type="literal" path="spectrum_plot.py"/>
+    </required_files>
     <command detect_errors="exit_code"><![CDATA[
     cat '$input_yaml' > input.in &&
     mudirac input.in
