@@ -191,9 +191,9 @@ spec_expdec: $spec_expdec
             </param>
             <when value="false"/>
             <when value="true">
-                <param name="spec_step" type="float" label="Spectrum step" help="energy step for the simulated spectrum, in eV. Default is 1E2 eV." optional="true"/>
-                <param name="spec_linewidth" type="float" label="Spectrum line width" help="Gaussian broadening width for the simulated spectrum, in eV. Default is 1E-4." optional="true"/>
-                <param name="spec_expdec" type="float" label="Exponential decay parameter for a sensitivity function for the simulated spectrum, in eV. Multiplies the entire spectrum by a function. Default is -1 (no decay)." optional="true"/>
+                <param name="spec_step" type="float" value="100" min="0" label="Spectrum step" help="energy step for the simulated spectrum, in eV. Default is 1E2 eV."/>
+                <param name="spec_linewidth" type="float" value="1000" min="0" label="Spectrum line width" help="Gaussian broadening width for the simulated spectrum, in eV. Default is 1E3."/>
+                <param name="spec_expdec" type="float" min="0" label="Exponential decay parameter" help="Defines the sensitivity factor E_dec, in eV. If set, multiplies the entire spectrum by exp(-E/E_dec) . If unset, no decay applied." optional="true"/>
             </when>
         </conditional>
     </inputs>
