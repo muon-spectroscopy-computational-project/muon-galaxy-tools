@@ -199,7 +199,7 @@ spec_expdec: $spec_expdec
     </inputs>
     <outputs>
         <data name="output" format="tabular" label="Output of ${tool.name} (${element})" from_work_dir="input.xr.out"/>
-        <collection name="states" format="tabular" label="States" type="list">
+        <collection name="states" format="tabular" label="States (${element})" type="list">
             <filter>output_level==True</filter>
             <discover_datasets pattern="(input)\.(?P&lt;designation&gt;[KLMNOPQ]\d).out" format="tabular" visible="true" />
         </collection>
