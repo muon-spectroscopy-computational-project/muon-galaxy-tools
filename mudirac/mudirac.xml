@@ -196,7 +196,7 @@ spec_expdec: $spec_expdec
             </param>
             <when value="false"/>
             <when value="true">
-                <param name="spectrum_raw_data" type="boolean" value="false" label="Generate raw spectrum file" help="Enabling this will produce raw data of the spectrum in csv format."/>
+                <param name="spectrum_raw_data" type="boolean" checked="false" truevalue="-f" falsevalue="" label="Generate raw spectrum file" help="Enabling this will produce raw data of the spectrum in csv format."/>
                 <param name="spec_step" type="float" value="100" min="0" label="Spectrum step" help="energy step for the simulated spectrum, in eV. Default is 1E2 eV."/>
                 <param name="spec_linewidth" type="float" value="1000" min="0" label="Spectrum line width" help="Gaussian broadening width for the simulated spectrum, in eV. Default is 1E3."/>
                 <param name="spec_expdec" type="float" min="0" label="Exponential decay parameter" help="Defines the sensitivity factor E_dec, in eV. If set, multiplies the entire spectrum by exp(-E/E_dec) . If unset, no decay applied." optional="true"/>
