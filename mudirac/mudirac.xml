@@ -196,7 +196,7 @@ spec_expdec: $spec_expdec
             </param>
             <when value="false"/>
             <when value="true">
-                <param name="spectrum_raw_data" type="boolean" checked="false" truevalue="-f" falsevalue="" label="Generate raw spectrum file" help="Enabling this will produce raw data of the spectrum in csv format."/>
+                <param name="spectrum_raw_data" type="boolean" checked="false" label="Generate raw spectrum file" help="Enabling this will produce raw data of the spectrum in csv format."/>
                 <param name="spec_step" type="float" value="100" min="0" label="Spectrum step" help="energy step for the simulated spectrum, in eV. Default is 1E2 eV."/>
                 <param name="spec_linewidth" type="float" value="1000" min="0" label="Spectrum line width" help="Gaussian broadening width for the simulated spectrum, in eV. Default is 1E3."/>
                 <param name="spec_expdec" type="float" min="0" label="Exponential decay parameter" help="Defines the sensitivity factor E_dec, in eV. If set, multiplies the entire spectrum by exp(-E/E_dec) . If unset, no decay applied." optional="true"/>
@@ -275,6 +275,21 @@ spec_expdec: $spec_expdec
             <param name="xr_lines" value="K1-L2,K1-L3"/>
             <conditional name='generate_spectrum'>
                 <param name="generate_spectrum_selector" value="true"/>
+            </conditional>
+            <output name="output" file="Au_basic.xr.out" ftype="tabular" compare="diff"/>
+            <output name="error_log">
+                <assert_contents>
+                    <has_size max="0"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test expect_num_outputs="5">
+            <param name="element" value="Au"/>
+            <param name="isotope" value="197"/>
+            <param name="xr_lines" value="K1-L2,K1-L3"/>
+            <conditional name='generate_spectrum'>
+                <param name="generate_spectrum_selector" value="true"/>
+                <param name="spectrum_raw_data" value="true"/>
             </conditional>
             <output name="output" file="Au_basic.xr.out" ftype="tabular" compare="diff"/>
             <output name="error_log">
