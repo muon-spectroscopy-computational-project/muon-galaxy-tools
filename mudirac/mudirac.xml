@@ -31,7 +31,18 @@
         <configfile name="input_yaml">element: $element
 isotope: $isotope
 xr_lines: $xr_lines
-uehling_correction: $uehling_correction
+uehling_correction: $uehling_correction.uehling_correction
+#if $uehling_correction.uehling_correction=='true':
+#if $uehling_correction.uehling_steps:
+uehling_steps: $uehling_correction.uehling_steps
+#end if
+#if $uehling_correction.uehling_lowcut
+uehling_lowcut: $uehling_correction.uehling_lowcut
+#end if
+#if $uehling_correction.uehling_highcut:
+uehling_highcut: $uehling_correction.uehling_highcut
+#end if
+#end if
 nuclear_model: $nuclear_model
 output: $output_level
 write_spec: $generate_spectrum.generate_spectrum_selector
@@ -194,7 +205,18 @@ spec_expdec: $spec_expdec
             <option value="SPHERE"> finite size, uniformly charged spherical nucleus </option>
             <option value="FERMI2"> Fermi 2-term charge distribution </option>
         </param>
-        <param name="uehling_correction" type="boolean" value="false" label="Uehling correction" help="whether to turn on the Uehling correction or not" optional="true"/>
+        <conditional name="uehling_correction">
+            <param name="uehling_correction" type="select" display="radio" value="false" label="Uehling correction" help="whether to turn on the Uehling correction or not">
+                <option value="false" selected="true">False</option>
+                <option value="true">True</option>
+            </param>
+            <when value="false"/>
+            <when value="true">
+                <param name="uehling_steps" type="integer" value="" label="integration steps for the Uehling potential." help=" Higher numbers will make the Uehling energy more precise but increase computation times. Default is 100." optional="true"/>
+                <param name="uehling_lowcut" type="float" value="" label="low cutoff for Uehling potential" help="under low cutoff, the radius will be considered 0. Default is 0." optional="true"/>
+                <param name="uehling_highcut" type="float" value="" label="high cutoff for Uehling potential" help="over high cutoff, the radius will be considered r > > c . Default is INFINITY." optional="true"/>
+            </when>
+        </conditional>
         <param name="electronic_config" type="text" value="" label="electronic configuration to use in order to describe the negative charge background" help="Can be a full string describing the configuration (e.g. 1s2 2s2 2p2), 
         an element symbol to represent the default configuration of that atom when neutral (e.g. C) or a mix of the two (e.g. [He] 2s2 2p2)" optional="true"/>
         <param name="max_E_iter" type="integer" value="" label="maximum number of iterations to perform when searching for the energy of a state." help="If exceeded, convergence will fail. Increase this value for slow convergences that are however progressing. Default is 100." optional="true"/>
@@ -266,7 +288,9 @@ spec_expdec: $spec_expdec
             <param name="isotope" value="197"/>
             <param name="xr_lines" value="K1-L2,K1-L3"/>
             <param name="nuclear_model" value="FERMI2"/>
-            <param name="uehling_correction" value="true"/>
+            <conditional name="uehling_correction">
+                <param name="uehling_correction" value="true"/>
+            </conditional>
             <param name="electronic_config" value="Au"/>
             <output name="output" file="Au.xr.out" ftype="tabular" compare="diff"/>
             <output name="error_log">
