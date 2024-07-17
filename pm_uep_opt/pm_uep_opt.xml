@@ -2,7 +2,7 @@
     <description>run UEP optimisation</description>
     <macros>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">1</token>
+        <token name="@WRAPPER_VERSION@">2</token>
         <import>muon_macros.xml</import>
     </macros>
     <creator>

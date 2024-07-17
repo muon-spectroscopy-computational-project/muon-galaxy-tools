@@ -6,7 +6,7 @@
              to the pymuonsuite interface, so follow the same versioning pattern -->
         <token name="@TOOL_VERSION@">0.3.0</token>
         <!-- version of this tool wrapper (integer) -->
-        <token name="@WRAPPER_VERSION@">0</token>
+        <token name="@WRAPPER_VERSION@">1</token>
         <!-- citation should be updated with every underlying tool version -->
         <token name="@TOOL_CITATION@">10.5281/zenodo.8026711</token>
         <import>muon_macros.xml</import>
