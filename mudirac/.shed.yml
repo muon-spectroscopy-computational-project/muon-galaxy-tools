@@ -1,0 +1,10 @@
+categories:
+- Materials science
+- Muon spectroscopy
+description: Muonic atom Dirac equation solver
+homepage_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools
+long_description: |
+  MuDirac is a simulation software that integrates the Dirac equation for muonic atoms to compute their X-Ray transition energies.
+name: mudirac
+owner: muon-spectroscopy-computational-project
+remote_repository_url: https://github.com/muon-spectroscopy-computational-project/muon-galaxy-tools/tree/main/mudirac

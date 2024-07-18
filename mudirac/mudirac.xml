@@ -1,0 +1,361 @@
+<tool id="mudirac" name="MuDirac" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" profile="23.0" license="MIT">
+    <description>Muonic atom Dirac equation solver</description>
+    <macros>
+        <token name="@TOOL_VERSION@">1.0.1</token>
+        <token name="@WRAPPER_VERSION@">0</token>
+    </macros>
+    <creator>
+        <person givenName="Subindev" familyName="Devadasan" url="https://github.com/subindev-d" identifier="https://orcid.org/0009-0001-1723-4394"/>
+        <organization url="https://muon-spectroscopy-computational-project.github.io/index.html" name="The Muon Spectroscopy Computational Project"/>
+    </creator>
+    <requirements>
+        <requirement type="package" version="@TOOL_VERSION@">mudirac</requirement>
+        <requirement type="package" version="3.5.1">matplotlib</requirement>
+    </requirements>
+    <required_files>
+        <include type="literal" path="spectrum_plot.py"/>
+    </required_files>
+    <command detect_errors="exit_code"><![CDATA[
+    cat '$input_yaml' > input.in &&
+    mudirac input.in
+    #if $generate_spectrum.generate_spectrum_selector=='true':
+        && mkdir plots && python '${__tool_directory__}/spectrum_plot.py' 'input.spec.dat'
+
+    #if $generate_spectrum.spectrum_raw_data=='true':
+        '-f'
+    #end if
+    
+    #end if
+    ]]></command>
+    <configfiles>
+        <configfile name="input_yaml">element: $element
+isotope: $isotope
+xr_lines: $xr_lines
+uehling_correction: $uehling_correction.uehling_correction
+#if $uehling_correction.uehling_correction=='true':
+#if $uehling_correction.uehling_steps:
+uehling_steps: $uehling_correction.uehling_steps
+#end if
+#if $uehling_correction.uehling_lowcut
+uehling_lowcut: $uehling_correction.uehling_lowcut
+#end if
+#if $uehling_correction.uehling_highcut:
+uehling_highcut: $uehling_correction.uehling_highcut
+#end if
+#end if
+nuclear_model: $nuclear_model
+output: $output_level
+write_spec: $generate_spectrum.generate_spectrum_selector
+#if $electronic_config:
+electronic_config: $electronic_config
+#end if
+#if $max_E_iter:
+max_E_iter: $max_E_iter
+#end if
+#if $max_nodes_iter:
+max_nodes_iter: $max_nodes_iter
+#end if
+#if $max_state_iter:
+max_state_iter: $max_state_iter
+#end if
+#if $generate_spectrum.generate_spectrum_selector=='true':
+#if $spec_step
+spec_step: $spec_step
+#end if
+#if $spec_linewidth
+spec_linewidth: $spec_linewidth
+#end if
+#if $spec_expdec
+spec_expdec: $spec_expdec
+#end if
+#end if</configfile>
+    </configfiles>
+    <inputs>
+        <param name="element" type="select" value="H" label="Element" help="Determines the nuclear charge. Can be any symbol in the periodic table up to Z=111, Roentgenium (Rg)" optional="false">
+            <!-- Period 1 -->
+            <option value="H">H</option>
+            <option value="He">He</option>
+            <!-- Period 2 -->
+            <option value="Li">Li</option>
+            <option value="Be">Be</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="N">N</option>
+            <option value="O">O</option>
+            <option value="F">F</option>
+            <option value="Ne">Ne</option>
+            <!-- Period 3 -->
+            <option value="Na">Na</option>
+            <option value="Mg">Mg</option>
+            <option value="Al">Al</option>
+            <option value="Si">Si</option>
+            <option value="P">P</option>
+            <option value="S">S</option>
+            <option value="Cl">Cl</option>
+            <option value="Ar">Ar</option>
+            <!-- Period 4 -->
+            <option value="K">K</option>
+            <option value="Ca">Ca</option>
+            <option value="Sc">Sc</option>
+            <option value="Ti">Ti</option>
+            <option value="V">V</option>
+            <option value="Cr">Cr</option>
+            <option value="Mn">Mn</option>
+            <option value="Fe">Fe</option>
+            <option value="Co">Co</option>
+            <option value="Ni">Ni</option>
+            <option value="Cu">Cu</option>
+            <option value="Zn">Zn</option>
+            <option value="Ga">Ga</option>
+            <option value="Ge">Ge</option>
+            <option value="As">As</option>
+            <option value="Se">Se</option>
+            <option value="Br">Br</option>
+            <option value="Kr">Kr</option>
+            <!-- Period 5 -->
+            <option value="Rb">Rb</option>
+            <option value="Sr">Sr</option>
+            <option value="Y">Y</option>
+            <option value="Zr">Zr</option>
+            <option value="Nb">Nb</option>
+            <option value="Mo">Mo</option>
+            <option value="Tc">Tc</option>
+            <option value="Ru">Ru</option>
+            <option value="Rh">Rh</option>
+            <option value="Pd">Pd</option>
+            <option value="Ag">Ag</option>
+            <option value="Cd">Cd</option>
+            <option value="In">In</option>
+            <option value="Sn">Sn</option>
+            <option value="Sb">Sb</option>
+            <option value="Te">Te</option>
+            <option value="I">I</option>
+            <option value="Xe">Xe</option>
+            <!-- Period 6 -->
+            <option value="Cs">Cs</option>
+            <option value="Ba">Ba</option>
+            <option value="La">La</option>
+            <option value="Ce">Ce</option>
+            <option value="Pr">Pr</option>
+            <option value="Nd">Nd</option>
+            <option value="Pm">Pm</option>
+            <option value="Sm">Sm</option>
+            <option value="Eu">Eu</option>
+            <option value="Gd">Gd</option>
+            <option value="Tb">Tb</option>
+            <option value="Dy">Dy</option>
+            <option value="Ho">Ho</option>
+            <option value="Er">Er</option>
+            <option value="Tm">Tm</option>
+            <option value="Yb">Yb</option>
+            <option value="Lu">Lu</option>
+            <option value="Hf">Hf</option>
+            <option value="Ta">Ta</option>
+            <option value="W">W</option>
+            <option value="Re">Re</option>
+            <option value="Os">Os</option>
+            <option value="Ir">Ir</option>
+            <option value="Pt">Pt</option>
+            <option value="Au">Au</option>
+            <option value="Hg">Hg</option>
+            <option value="Tl">Tl</option>
+            <option value="Pb">Pb</option>
+            <option value="Bi">Bi</option>
+            <option value="Po">Po</option>
+            <option value="At">At</option>
+            <option value="Rn">Rn</option>
+            <!-- Period 7 -->
+            <option value="Fr">Fr</option>
+            <option value="Ra">Ra</option>
+            <option value="Ac">Ac</option>
+            <option value="Th">Th</option>
+            <option value="Pa">Pa</option>
+            <option value="U">U</option>
+            <option value="Np">Np</option>
+            <option value="Pu">Pu</option>
+            <option value="Am">Am</option>
+            <option value="Cm">Cm</option>
+            <option value="Bk">Bk</option>
+            <option value="Cf">Cf</option>
+            <option value="Es">Es</option>
+            <option value="Fm">Fm</option>
+            <option value="Md">Md</option>
+            <option value="No">No</option>
+            <option value="Lr">Lr</option>
+            <option value="Rf">Rf</option>
+            <option value="Db">Db</option>
+            <option value="Sg">Sg</option>
+            <option value="Bh">Bh</option>
+            <option value="Hs">Hs</option>
+            <option value="Mt">Mt</option>
+            <option value="Ds">Ds</option>
+            <option value="Rg">Rg</option>
+        </param>
+        <param name="isotope" type="integer" value="-1" label="which isotope of the element to consider" help=" Important to determine the mass of the nucleus and its size. Default is -1, 
+        which means the most common isotope for the element will be used." optional="false">
+            <validator type="in_range" min="-1" max="283"/>
+        </param>
+        <param name="xr_lines" type="text" label="the transition or transitions for which energy and rates are desired" help=" Each line must be expressed using the conventional IUPAC notation [Jenkins et al., 1991]. 
+        Multiple lines can be separated by commas. For example: K1-L2,K1-L3 . In addition, colons can be used to indicate ranges of lines. The notation K1:L3-M1 would compute the lines K1-M1, L1-M1, L2-M1 and L3-M1. 
+        Note that if some of these lines are forbidden by selection rules, they will simply be skipped. A double colon, like K1:L3-K1:L3 would loop on both sides, and not count all repeated lines." optional="false">
+            <validator type="empty_field" message="This input shoule not be empty"/>
+        </param>
+        <param name="nuclear_model" type="select" label="Model used to describe the nucleus">
+            <option value="POINT"  selected="true"> point charge </option>
+            <option value="SPHERE"> finite size, uniformly charged spherical nucleus </option>
+            <option value="FERMI2"> Fermi 2-term charge distribution </option>
+        </param>
+        <conditional name="uehling_correction">
+            <param name="uehling_correction" type="select" display="radio" label="Uehling correction" help="whether to turn on the Uehling correction or not">
+                <option value="false" selected="true">False</option>
+                <option value="true">True</option>
+            </param>
+            <when value="false"/>
+            <when value="true">
+                <param name="uehling_steps" type="integer" value="100" min="0" label="integration steps for the Uehling potential." help=" Higher numbers will make the Uehling energy more precise but increase computation times. Default is 100."/>
+                <param name="uehling_lowcut" type="float" value="0" min="0" label="low cutoff for Uehling potential" help="under low cutoff, the radius will be considered 0. Default is 0."/>
+                <param name="uehling_highcut" type="float" value="" min="0" label="high cutoff for Uehling potential" help="over high cutoff, the radius will be considered r > > c . Default is INFINITY." optional="true"/>
+            </when>
+        </conditional>
+        <param name="electronic_config" type="text" value="" label="electronic configuration to use in order to describe the negative charge background" help="Can be a full string describing the configuration (e.g. 1s2 2s2 2p2), 
+        an element symbol to represent the default configuration of that atom when neutral (e.g. C) or a mix of the two (e.g. [He] 2s2 2p2)" optional="true"/>
+        <param name="max_E_iter" type="integer" value="100" min="0" label="maximum number of iterations to perform when searching for the energy of a state." help="If exceeded, convergence will fail. Increase this value for slow convergences that are however progressing. Default is 100."/>
+        <param name="max_nodes_iter" type="integer" value="100" min="0" label="maximum number of iterations to perform when searching for a starting energy value that gives a state the expected number of nodes." help="If exceeded, convergence will fail. Should generally not need to be adjusted. Default is 100."/>
+        <param name="max_state_iter" type="integer" value="100" min="0" label=" maximum number of iterations to perform when searching for a state." help=" This loop encloses both node-based and energy-based search. Once a state is converged, the program checks again that it has the correct number of nodes. 
+        If it does not, the state is stored for future use and to provide an upper or lower limit to the energy of the searches and then the process is repeated. This number represents how much can the process be repeated before failing. Should not generally need to be adjusted. Default is 100."/>
+        <param name='output_level' type="boolean" value="false" falsevalue="1" truevalue="2" label="Produce states and transition matrices" help="Also produce each of the states in a separate file as well as the transition matrices for each line"/>
+        <conditional name="generate_spectrum">
+            <param name="generate_spectrum_selector" type="select" display="radio" value="false" label="Generate spectrum" help="Generate spectrum using the transition lines found broadened with Gaussian functions">
+                <option value="false" selected="true">False</option>
+                <option value="true">True</option>
+            </param>
+            <when value="false"/>
+            <when value="true">
+                <param name="spectrum_raw_data" type="boolean" checked="false" label="Generate raw spectrum file" help="Enabling this will produce raw data of the spectrum in csv format."/>
+                <param name="spec_step" type="float" value="100" min="0" label="Spectrum step" help="energy step for the simulated spectrum, in eV. Default is 1E2 eV."/>
+                <param name="spec_linewidth" type="float" value="1000" min="0" label="Spectrum line width" help="Gaussian broadening width for the simulated spectrum, in eV. Default is 1E3."/>
+                <param name="spec_expdec" type="float" min="0" label="Exponential decay parameter" help="Defines the sensitivity factor E_dec, in eV. If set, multiplies the entire spectrum by exp(-E/E_dec) . If unset, no decay applied." optional="true"/>
+            </when>
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="output" format="tabular" label="Output of ${tool.name} (${element})" from_work_dir="input.xr.out"/>
+        <collection name="states" format="tabular" label="States (${element})" type="list">
+            <filter>output_level==True</filter>
+            <discover_datasets pattern="(input)\.(?P&lt;designation&gt;[KLMNOPQ]\d).out" format="tabular" visible="true" />
+        </collection>
+        <collection name="transition_matrices" format="tabular" label="Transition matrices (${element})" type="list">
+            <filter>output_level==True</filter>
+            <discover_datasets pattern="(input)\.(?P&lt;designation&gt;[KLM]\d-[KLM]\d).tmat.out" format="tabular" visible="true" />
+        </collection>
+        <data name="log_out" label="log file of ${tool.name} (${element})" format="txt" from_work_dir="input.log"/>
+        <data name="error_log" label="Error log file of ${tool.name} (${element})" format="txt" from_work_dir="input.err"/>
+        <data name="spectrum" label="Spectrum (${element})" format="png" from_work_dir="plots/input.spec.dat.png">
+            <filter>generate_spectrum['generate_spectrum_selector']=='true'</filter>
+        </data>
+        <data name="spectrum_raw_data" label="Raw data file of ${tool.name} (${element}) spectrum" format="tabular" from_work_dir="plots/spectrum.csv">
+            <filter>generate_spectrum['generate_spectrum_selector']=='true' and generate_spectrum['spectrum_raw_data']==True</filter>
+        </data>
+    </outputs>
+    <tests>
+        <test expect_num_outputs="3">
+            <param name="element" value="Au"/>
+            <param name="isotope" value="197"/>
+            <param name="xr_lines" value="K1-L2,K1-L3"/>
+            <output name="output" file="Au_basic.xr.out" ftype="tabular" compare="diff"/>
+            <output name="error_log">
+                <assert_contents>
+                    <has_size max="0"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test expect_num_outputs="3">
+            <param name="element" value="Au"/>
+            <param name="isotope" value="197"/>
+            <param name="xr_lines" value="K1-L2,K1-L3"/>
+            <param name="max_E_iter" value="100"/>
+            <param name="max_nodes_iter" value="100"/>
+            <param name="max_state_iter" value="100"/>
+            <output name="output" file="Au_basic.xr.out" ftype="tabular" compare="diff"/>
+            <output name="error_log">
+                <assert_contents>
+                    <has_size max="0"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test expect_num_outputs="3">
+            <param name="element" value="Au"/>
+            <param name="isotope" value="197"/>
+            <param name="xr_lines" value="K1-L2,K1-L3"/>
+            <param name="nuclear_model" value="FERMI2"/>
+            <conditional name="uehling_correction">
+                <param name="uehling_correction" value="true"/>
+            </conditional>
+            <param name="electronic_config" value="Au"/>
+            <output name="output" file="Au.xr.out" ftype="tabular" compare="diff"/>
+            <output name="error_log">
+                <assert_contents>
+                    <has_size max="0"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test expect_num_outputs="5">
+            <param name="element" value="Au"/>
+            <param name="isotope" value="197"/>
+            <param name="xr_lines" value="K1-L2,K1-L3"/>
+            <param name="output_level" value="true"/>
+            <output name="output" file="Au_basic.xr.out" ftype="tabular" compare="diff"/>
+            <output_collection name="states" count="3" type="list">
+                <element name="K1" file="Au.K1.out" ftype="tabular" compare="diff"/>
+                <element name="L2" file="Au.L2.out" ftype="tabular" compare="diff"/>
+                <element name="L3" file="Au.L3.out" ftype="tabular" compare="diff"/>
+            </output_collection>
+            <output_collection name="transition_matrices" count="2" type="list">
+                <element name="K1-L2" file="Au.K1-L2.tmat.out" ftype="tabular" compare="diff"/>
+                <element name="K1-L3" file="Au.K1-L3.tmat.out" ftype="tabular" compare="diff"/>
+            </output_collection>
+            <output name="error_log">
+                <assert_contents>
+                    <has_size max="0"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test expect_num_outputs="4">
+            <param name="element" value="Au"/>
+            <param name="isotope" value="197"/>
+            <param name="xr_lines" value="K1-L2,K1-L3"/>
+            <conditional name='generate_spectrum'>
+                <param name="generate_spectrum_selector" value="true"/>
+            </conditional>
+            <output name="output" file="Au_basic.xr.out" ftype="tabular" compare="diff"/>
+            <output name="error_log">
+                <assert_contents>
+                    <has_size max="0"/>
+                </assert_contents>
+            </output>
+        </test>
+        <test expect_num_outputs="5">
+            <param name="element" value="Au"/>
+            <param name="isotope" value="197"/>
+            <param name="xr_lines" value="K1-L2,K1-L3"/>
+            <conditional name='generate_spectrum'>
+                <param name="generate_spectrum_selector" value="true"/>
+                <param name="spectrum_raw_data" value="true"/>
+            </conditional>
+            <output name="output" file="Au_basic.xr.out" ftype="tabular" compare="diff"/>
+            <output name="error_log">
+                <assert_contents>
+                    <has_size max="0"/>
+                </assert_contents>
+            </output>
+        </test>
+    </tests>
+    <help><![CDATA[
+    MuDirac is a simulation software that integrates the Dirac equation for muonic atoms to compute their X-Ray transition energies;
+    Full documentation: https://muon-spectroscopy-computational-project.github.io/mudirac/
+    ]]></help>
+    <citations>
+        <citation type="doi">10.1002/xrs.3212</citation>
+        <citation type="doi">10.1002/xrs.1300200308</citation>
+    </citations>
+</tool>
