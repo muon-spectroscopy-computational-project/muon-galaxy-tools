@@ -1,7 +1,7 @@
 <tool id="mudirac" name="MuDirac" version="@TOOL_VERSION@+galaxy@WRAPPER_VERSION@" profile="23.0" license="MIT">
     <description>Muonic atom Dirac equation solver</description>
     <macros>
-        <token name="@TOOL_VERSION@">1.0.1</token>
+        <token name="@TOOL_VERSION@">1.2.1</token>
         <token name="@WRAPPER_VERSION@">0</token>
     </macros>
     <creator>
@@ -67,6 +67,18 @@ spec_linewidth: $spec_linewidth
 #end if
 #if $spec_expdec
 spec_expdec: $spec_expdec
+#end if
+#if radius:
+radius: $radius
+#end if
+#if reduced_mass:
+reduced_mass: $reduced_mass
+#end if
+#if fermi_t:
+fermi_t: $fermi_t
+#end if
+#if fermi_c:
+fermi_c: $fermi_c
 #end if
 #end if</configfile>
     </configfiles>
@@ -200,11 +212,19 @@ spec_expdec: $spec_expdec
         Note that if some of these lines are forbidden by selection rules, they will simply be skipped. A double colon, like K1:L3-K1:L3 would loop on both sides, and not count all repeated lines." optional="false">
             <validator type="empty_field" message="This input shoule not be empty"/>
         </param>
-        <param name="nuclear_model" type="select" label="Model used to describe the nucleus">
-            <option value="POINT"  selected="true"> point charge </option>
-            <option value="SPHERE"> finite size, uniformly charged spherical nucleus </option>
-            <option value="FERMI2"> Fermi 2-term charge distribution </option>
-        </param>
+        <conditional name="select_nuclear_model">
+            <param name="nuclear_model" type="select" label="Model used to describe the nucleus">
+                <option value="POINT"  selected="true"> Point charge </option>
+                <option value="SPHERE"> Finite size, uniformly charged spherical nucleus </option>
+                <option value="FERMI2"> Spherically symmetric 2 parameter fermi charge distribution </option>
+            </param>
+            <when value="POINT"/>
+            <when value="SPHERE"/>
+            <when value="FERMI2">
+                <param name="fermi_t" type="float" label="Fermi model skin thickness (fm)"/>
+                <param name="fermi_c" type="float" label="Fermi model half density radius (fm)"/>
+            </when>
+        </conditional>
         <conditional name="uehling_correction">
             <param name="uehling_correction" type="select" display="radio" label="Uehling correction" help="whether to turn on the Uehling correction or not">
                 <option value="false" selected="true">False</option>
@@ -237,6 +257,8 @@ spec_expdec: $spec_expdec
                 <param name="spec_expdec" type="float" min="0" label="Exponential decay parameter" help="Defines the sensitivity factor E_dec, in eV. If set, multiplies the entire spectrum by exp(-E/E_dec) . If unset, no decay applied." optional="true"/>
             </when>
         </conditional>
+        <param name="reduced_mass" type="boolean" checked="true" label="Reduced mass of the muonic atom" help="whether to turn on the non-relativistic recoil correction or not. If true, the reduced mass of the muon is calculated and applied using the nuclear mass and the muon mass (defined by the mass keyword if provided). Default is TRUE" optional="true"/>
+        <param name="radius" type="float" label="Solid sphere equivalent radius. (rms radius * sqrt(5/3))" help="By default it’s set to values from Angeli and Marinova (2013)." optional="true"/>
     </inputs>
     <outputs>
         <data name="output" format="tabular" label="Output of ${tool.name} (${element})" from_work_dir="input.xr.out"/>
@@ -276,6 +298,8 @@ spec_expdec: $spec_expdec
             <param name="max_E_iter" value="100"/>
             <param name="max_nodes_iter" value="100"/>
             <param name="max_state_iter" value="100"/>
+            <param name="radius" value="6.68"/>
+            <param name="reduced_mass" value="true"/>
             <output name="output" file="Au_basic.xr.out" ftype="tabular" compare="diff"/>
             <output name="error_log">
                 <assert_contents>
@@ -287,7 +311,11 @@ spec_expdec: $spec_expdec
             <param name="element" value="Au"/>
             <param name="isotope" value="197"/>
             <param name="xr_lines" value="K1-L2,K1-L3"/>
-            <param name="nuclear_model" value="FERMI2"/>
+            <conditional name="select_nuclear_model">
+                <param name="nuclear_model" value="FERMI2"/>
+                <param name="fermi_t" value="2.3"/>
+                <param name="fermi_c" value="6.6"/>
+            </conditional>
             <conditional name="uehling_correction">
                 <param name="uehling_correction" value="true"/>
             </conditional>
